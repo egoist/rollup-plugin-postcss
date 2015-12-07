@@ -1,0 +1,40 @@
+{
+  "name": "rollup-plugin-postcss",
+  "version": "0.0.1",
+  "description": "Seamless integration between Rollup and PostCSS",
+  "main": "index.js",
+  "jsnext:main": "./src/index.js",
+  "scripts": {
+    "test": "npm run build && mocha --compilers js:babel-core/register tests/test.js --recursive",
+    "build": "rollup -c -o index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egoist/rollup-plugin-postcss.git"
+  },
+  "keywords": [
+    "postcss",
+    "rollup"
+  ],
+  "author": "EGOIST <0x142857@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/egoist/rollup-plugin-postcss/issues"
+  },
+  "homepage": "https://github.com/egoist/rollup-plugin-postcss#readme",
+  "devDependencies": {
+    "ava": "^0.7.0",
+    "babel-core": "^5.8.32",
+    "chai": "^3.4.1",
+    "jsdom": "^7.2.0",
+    "mocha": "^2.3.4",
+    "mocha-jsdom": "^1.0.0",
+    "require-from-string": "^1.1.0",
+    "rollup": "^0.21.2",
+    "rollup-plugin-babel": "^1.0.0"
+  },
+  "dependencies": {
+    "postcss": "^5.0.12",
+    "style-inject": "0.0.11"
+  }
+}
