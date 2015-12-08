@@ -26,18 +26,15 @@ export default function (options = {}) {
           annotation: false
         }
       };
-      return new Promise((resolve, reject) => {
-        postcss(options.plugins || [])
+      return postcss(options.plugins || [])
           .process(code, opts)
           .then(result => {
             result.css = `export default ${injectFnName}(${JSON.stringify(result.css)});`
-            resolve({
+            return {
               code: result.css,
               map: result.map
-            });
-          })
-          .catch(err => reject(err));
-      });
+            };
+          });
     }
   };
 };
