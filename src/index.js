@@ -1,4 +1,4 @@
-import { createFilter, makeLegalIdentifier } from 'rollup-pluginutils';
+import { createFilter } from 'rollup-pluginutils';
 import postcss from 'postcss';
 import styleInject from 'style-inject';
 import path from 'path';
