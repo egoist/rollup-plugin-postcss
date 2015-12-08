@@ -4,7 +4,7 @@
      title="Philosopher’s stone, logo of PostCSS"
      src="http://postcss.github.io/postcss/logo.svg">
 
-Seamless integration between Rollup and PostCSS.
+Seamless integration between [Rollup](https://github.com/rollup/rollup) and [PostCSS](https://github.com/postcss/postcss).
 
 ## Installation
 
@@ -14,7 +14,7 @@ npm install rollup-plugin-postcss
 
 ## Example
 
-**rollup.config.js**
+**config**
 
 ```javascript
 import { rollup } from 'rollup';
