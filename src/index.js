@@ -9,9 +9,10 @@ function pathJoin (file) {
 
 export default function (options = {}) {
   const filter = createFilter( options.include, options.exclude );
+  const injectFnName = '__$styleInject'
   return {
     intro () {
-      return styleInject.toString();
+      return styleInject.toString().replace(/styleInject/, injectFnName);
     },
     transform (code, id) {
       if (!filter( id ) || id.slice( -4 ) !== '.css') {
@@ -26,7 +27,7 @@ export default function (options = {}) {
         }
       };
       code = postcss(options.plugins || []).process(code, opts).css;
-      code = `export default styleInject(${JSON.stringify(code)});`
+      code = `export default ${injectFnName}(${JSON.stringify(code)});`
       return {
         code,
         map: { mappings: '' }
