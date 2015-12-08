@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-postcss",
-  "version": "0.0.11",
+  "version": "0.0.2",
   "description": "Seamless integration between Rollup and PostCSS",
   "main": "index.js",
   "jsnext:main": "./src/index.js",
@@ -29,12 +29,14 @@
     "jsdom": "^7.2.0",
     "mocha": "^2.3.4",
     "mocha-jsdom": "^1.0.0",
+    "postcss-nested": "^1.0.0",
     "require-from-string": "^1.1.0",
     "rollup": "^0.21.2",
     "rollup-plugin-babel": "^1.0.0"
   },
   "dependencies": {
     "postcss": "^5.0.12",
+    "rollup-pluginutils": "^1.2.0",
     "style-inject": "0.0.11"
   }
 }

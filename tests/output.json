@@ -1,4 +1,0 @@
-{
-  "code": "(function (global, factory) {\n      typeof exports === 'object' && typeof module !== 'undefined' ? factory() :\n      typeof define === 'function' && define.amd ? define(factory) :\n      factory();\n}(this, function () { 'use strict';\n\n      function styleInject(css) {\r\n        css = css || '';\r\n        var head = document.head || document.getElementsByTagName('head')[0];\r\n        var style = document.createElement('style');\r\n        style.type = 'text/css';\r\n        if (style.styleSheet){\r\n          style.styleSheet.cssText = css;\r\n        } else {\r\n          style.appendChild(document.createTextNode(css));\r\n        }\r\n        head.appendChild(style);\r\n      }\n      styleInject(\"body {\\r\\n  margin: 0;\\r\\n}\\r\\n\");\n\n      styleInject(\"h1 {\\r\\n  margin: 0;\\r\\n}\\r\\n\");\n\n}));",
-  "map": null
-}

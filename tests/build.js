@@ -3,12 +3,15 @@ import babel from 'rollup-plugin-babel';
 import postcss from '../src/index';
 import fs from 'fs';
 
-export default function () {
+export default function (plugins = []) {
   return new Promise(async (resolve, reject) => {
     await rollup({
       plugins: [
         postcss({
-          include: '**/*.css'
+          include: '**/*.css',
+          plugins: [
+            require('postcss-nested')
+          ]
         }),
         babel({
           exclude: '**/*.css'
