@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-postcss",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Seamless integration between Rollup and PostCSS",
   "main": "index.js",
   "jsnext:main": "./src/index.js",
