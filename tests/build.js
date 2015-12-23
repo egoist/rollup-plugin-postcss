@@ -9,7 +9,7 @@ export default function (plugins = []) {
       plugins: [
         postcss({
           include: '**/*.css',
-          inline: true,
+          sourceMap: true,
           plugins: [
             require('postcss-nested')
           ]
@@ -19,11 +19,11 @@ export default function (plugins = []) {
           sourceMap: true
         }),
       ],
-      sourceMap: true,
       entry: __dirname +'/fixture.js'
     }).then(bundle => {
       const result = bundle.generate({
-        format: 'umd'
+        format: 'umd',
+        sourceMap: true,
       });
       bundle.write({
         dest: './tests/output.js',

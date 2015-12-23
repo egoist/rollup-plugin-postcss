@@ -22,17 +22,20 @@ export default function (options = {}) {
         from: options.from ? pathJoin(options.from) : id,
         to: options.to ? pathJoin(options.to) : id,
         map: {
-          inline:     options.inline === undefined ? false : options.inline,
+          inline: false,
           annotation: false
         }
       };
       return postcss(options.plugins || [])
           .process(code, opts)
           .then(result => {
-            result.css = `export default ${injectFnName}(${JSON.stringify(result.css)});`
+            const code = `export default ${injectFnName}(${JSON.stringify(result.css)});`;
+            const map = options.sourceMap && result.map
+              ? JSON.parse(result.map)
+              : { mappings: '' };
             return {
-              code: result.css,
-              map: { mappings: '' }
+              code,
+              map
             };
           });
     }
