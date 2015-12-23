@@ -14,13 +14,20 @@ export default function (plugins = []) {
           ]
         }),
         babel({
-          exclude: '**/*.css'
+          exclude: '**/*.css',
+          sourceMap: true
         }),
       ],
+      sourceMap: true,
       entry: __dirname +'/fixture.js'
     }).then(bundle => {
       const result = bundle.generate({
         format: 'umd'
+      });
+      bundle.write({
+        dest: './tests/output.js',
+        format: 'umd',
+        sourceMap: true
       });
       resolve(result.code);
     }).catch(err => reject(err));

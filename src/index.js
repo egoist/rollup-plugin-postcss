@@ -32,7 +32,7 @@ export default function (options = {}) {
             result.css = `export default ${injectFnName}(${JSON.stringify(result.css)});`
             return {
               code: result.css,
-              map: result.map
+              map: { mappings: '' }
             };
           });
     }
