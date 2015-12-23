@@ -22,7 +22,7 @@ export default function (options = {}) {
         from: options.from ? pathJoin(options.from) : id,
         to: options.to ? pathJoin(options.to) : id,
         map: {
-          inline:     false,
+          inline:     options.inline === undefined ? false : options.inline,
           annotation: false
         }
       };

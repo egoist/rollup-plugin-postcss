@@ -9,6 +9,7 @@ export default function (plugins = []) {
       plugins: [
         postcss({
           include: '**/*.css',
+          inline: true,
           plugins: [
             require('postcss-nested')
           ]
