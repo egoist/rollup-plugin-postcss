@@ -9,7 +9,7 @@
     "src"
   ],
   "scripts": {
-    "test": "ava test.js",
+    "test": "npm run build && ava test.js",
     "build": "rollup -c -o index.js"
   },
   "repository": {
