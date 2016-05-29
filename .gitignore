@@ -1,5 +1,5 @@
 /index.js
-/tests/output.js*
+/tests/output*.js*
 
 # Logs
 logs

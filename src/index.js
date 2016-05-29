@@ -3,28 +3,30 @@ import postcss from 'postcss';
 import styleInject from 'style-inject';
 import path from 'path';
 
-function pathJoin (file) {
+function cwd(file) {
   return path.join(process.cwd(), file);
 }
 
 export default function (options = {}) {
-  const filter = createFilter( options.include, options.exclude );
+  const filter = createFilter(options.include, options.exclude);
   const injectFnName = '__$styleInject'
+  const extensions = options.extensions || ['.css', '.sss']
+
   return {
-    intro () {
+    intro() {
       return styleInject.toString().replace(/styleInject/, injectFnName);
     },
-    transform (code, id) {
-      if (!filter( id ) || id.slice( -4 ) !== '.css') {
-        return null;
-      }
+    transform(code, id) {
+      if (!filter(id)) return null
+      if (extensions.indexOf(path.extname(id)) === -1) return null
       const opts = {
-        from: options.from ? pathJoin(options.from) : id,
-        to: options.to ? pathJoin(options.to) : id,
+        from: options.from ? cwd(options.from) : id,
+        to: options.to ? cwd(options.to) : id,
         map: {
           inline: false,
           annotation: false
-        }
+        },
+        parser: options.parser
       };
       return postcss(options.plugins || [])
           .process(code, opts)

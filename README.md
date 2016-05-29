@@ -27,7 +27,9 @@ rollup({
       plugins: [
         // cssnext(),
         // yourPostcssPlugin()
-      ]
+      ],
+      extensions: ['.css', '.sss']  // default value
+      // parser: sugarss
     })
   ]
 }).then(...)

@@ -6,7 +6,9 @@ export default {
 	entry: 'src/index.js',
 	plugins: [
     babel({
-      exclude: 'node_modules/**'
+      exclude: 'node_modules/**',
+      presets: ['es2015-rollup'],
+      babelrc: false
     })
   ],
 	external,
