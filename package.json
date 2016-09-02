@@ -32,6 +32,7 @@
     "babel-preset-stage-1": "^6.5.0",
     "babel-register": "^6.9.0",
     "jsdom": "^9.2.1",
+    "postcss-modules": "^0.5.2",
     "postcss-nested": "^1.0.0",
     "require-from-string": "^1.1.0",
     "rollup": "^0.26.3",
@@ -41,7 +42,7 @@
   "dependencies": {
     "postcss": "^5.0.12",
     "rollup-pluginutils": "^1.2.0",
-    "style-inject": "0.0.11"
+    "style-inject": "^0.1.0"
   },
   "ava": {
     "require": [

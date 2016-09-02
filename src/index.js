@@ -11,6 +11,7 @@ export default function (options = {}) {
   const filter = createFilter(options.include, options.exclude);
   const injectFnName = '__$styleInject'
   const extensions = options.extensions || ['.css', '.sss']
+  const getExport = options.getExport || function () {}
 
   return {
     intro() {
@@ -31,7 +32,7 @@ export default function (options = {}) {
       return postcss(options.plugins || [])
           .process(code, opts)
           .then(result => {
-            const code = `export default ${injectFnName}(${JSON.stringify(result.css)});`;
+            const code = `export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(getExport(result.opts.from))});`;
             const map = options.sourceMap && result.map
               ? JSON.parse(result.map)
               : { mappings: '' };
