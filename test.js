@@ -1,9 +1,11 @@
 import test from 'ava';
+import fs from 'fs';
 import requireFromString from 'require-from-string';
 import {
   buildDefault,
   buildWithParser,
-  buildWithCssModules
+  buildWithCssModules,
+  buildWithExtract
 } from './tests/build';
 
 test('test postcss', async t => {
@@ -24,4 +26,10 @@ test('use cssmodules', async t => {
   const data = await buildWithCssModules().catch(err => console.log(err.stack));
   const exported = requireFromString(data);
   t.regex(exported.trendy, /trendy_/);
+})
+
+test('use extract', async t => {
+  const data = await buildWithExtract().catch(err => console.log(err.stack));
+  const extractedStyles = fs.readFileSync('./tests/output.css');
+  t.regex(extractedStyles, /margin/);
 })
