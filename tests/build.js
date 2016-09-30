@@ -16,7 +16,7 @@ export function buildDefault() {
       }),
       babel({
         babelrc: false,
-        presets: ['es2015-rollup'],
+        presets: [['es2015', {modules: false}]],
         include: '**/*.js',
         sourceMap: true
       }),
@@ -49,7 +49,7 @@ export function buildWithParser() {
       }),
       babel({
         babelrc: false,
-        presets: ['es2015-rollup'],
+        presets: [['es2015', {modules: false}]],
         include: '**/*.js',
         sourceMap: true
       }),
@@ -89,7 +89,7 @@ export function buildWithCssModules() {
       }),
       babel({
         babelrc: false,
-        presets: ['es2015-rollup'],
+        presets: [['es2015', {modules: false}]],
         include: '**/*.js',
         sourceMap: true
       }),
