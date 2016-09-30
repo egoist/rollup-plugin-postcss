@@ -110,3 +110,25 @@ export function buildWithCssModules() {
     return result.code;
   })
 };
+
+export function buildWithExtract() {
+  return rollup({
+    plugins: [
+      postcss({
+        include: '**/*.css',
+        sourceMap: true,
+        extract: './tests/output.css',
+        plugins: [
+          require('postcss-nested')
+        ]
+      }),
+      babel({
+        babelrc: false,
+        presets: ['es2015-rollup'],
+        include: '**/*.js',
+        sourceMap: true
+      }),
+    ],
+    entry: __dirname +'/fixture.js'
+  })
+}
