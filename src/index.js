@@ -3,6 +3,8 @@ import postcss from 'postcss';
 import styleInject from 'style-inject';
 import path from 'path';
 
+import Concat from 'concat-with-sourcemaps';
+
 function cwd(file) {
   return path.join(process.cwd(), file);
 }
@@ -12,10 +14,19 @@ export default function (options = {}) {
   const injectFnName = '__$styleInject'
   const extensions = options.extensions || ['.css', '.sss']
   const getExport = options.getExport || function () {}
+  const combineStyleTags = !!options.combineStyleTags;
+
+  const concat = new Concat(true, 'styles.css', '\n');
+
+  const injectStyleFuncCode = styleInject.toString().replace(/styleInject/, injectFnName);
 
   return {
     intro() {
-      return styleInject.toString().replace(/styleInject/, injectFnName);
+      if(combineStyleTags) {
+        return `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(concat.content.toString('utf8'))})`;
+      } else {
+        return injectStyleFuncCode;
+      }
     },
     transform(code, id) {
       if (!filter(id)) return null
@@ -32,14 +43,19 @@ export default function (options = {}) {
       return postcss(options.plugins || [])
           .process(code, opts)
           .then(result => {
-            const code = `export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(getExport(result.opts.from))});`;
-            const map = options.sourceMap && result.map
-              ? JSON.parse(result.map)
-              : { mappings: '' };
-            return {
-              code,
-              map
-            };
+            let code, map;
+            if(combineStyleTags) {
+              concat.add(result.opts.from, result.css, result.map && result.map.toString());
+              code = `export default ${JSON.stringify(getExport(result.opts.from))};`;
+              map = { mappings: '' };
+            } else {
+              code = `export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(getExport(result.opts.from))});`;
+              map = options.sourceMap && result.map
+                ? JSON.parse(result.map)
+                : { mappings: '' };
+            }
+
+            return { code, map };
           });
     }
   };
