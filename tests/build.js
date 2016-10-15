@@ -110,3 +110,48 @@ export function buildWithCssModules() {
     return result.code;
   })
 };
+
+
+export function buildCombinedStyles() {
+  const exportMap = {}
+  return rollup({
+    plugins: [
+      postcss({
+        include: '**/*.css',
+        sourceMap: true,
+        plugins: [
+          require('postcss-nested'),
+          require('postcss-modules')({
+            getJSON (id, exportTokens) {
+              exportMap[id] = exportTokens;
+            }
+          })
+        ],
+        combineStyleTags: true,
+        getExport (id) {
+          return exportMap[id];
+        }
+      }),
+      babel({
+        babelrc: false,
+        presets: [['es2015', {modules: false}]],
+        include: '**/*.js',
+        sourceMap: true
+      }),
+    ],
+    entry: __dirname +'/fixture_combine_styles.js'
+  }).then(bundle => {
+    const result = bundle.generate({
+      format: 'iife',
+      sourceMap: true,
+      moduleName: 's',
+    });
+    bundle.write({
+      dest: './tests/output_combine_styles.js',
+      format: 'iife',
+      moduleName: 's',
+      sourceMap: true
+    });
+    return result.code;
+  })
+};
