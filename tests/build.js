@@ -27,6 +27,7 @@ export function buildDefault() {
       format: 'umd',
       sourceMap: true,
     });
+    console.log(result.code)
     bundle.write({
       dest: './tests/output.js',
       format: 'umd',
