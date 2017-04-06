@@ -26,7 +26,7 @@ export default function (options = {}) {
   const extensions = options.extensions || ['.css', '.sss']
   const getExport = options.getExport || function () {}
   const combineStyleTags = !!options.combineStyleTags;
-  const extract = options.extract || false;
+  const extract = typeof options.extract === 'string' ? options.extract : false;
 
   const concat = new Concat(true, 'styles.css', '\n');
 
