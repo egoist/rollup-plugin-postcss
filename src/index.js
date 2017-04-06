@@ -2,11 +2,22 @@ import { createFilter } from 'rollup-pluginutils';
 import postcss from 'postcss';
 import styleInject from 'style-inject';
 import path from 'path';
+import fs from 'fs';
 
 import Concat from 'concat-with-sourcemaps';
 
 function cwd(file) {
   return path.join(process.cwd(), file);
+}
+
+function processExtract(concat, destination, sourceMap){
+  let code = concat.content.toString("utf8");
+  if (sourceMap) {
+    const sourceMapDestination = `${destination}.map`;
+    code += `\n/*# sourceMappingURL=${sourceMapDestination} */`;
+    fs.writeFileSync(sourceMapDestination, concat.sourceMap);
+  }
+  fs.writeFileSync(destination, code);
 }
 
 export default function (options = {}) {
@@ -15,6 +26,7 @@ export default function (options = {}) {
   const extensions = options.extensions || ['.css', '.sss']
   const getExport = options.getExport || function () {}
   const combineStyleTags = !!options.combineStyleTags;
+  const extract = options.extract || false;
 
   const concat = new Concat(true, 'styles.css', '\n');
 
@@ -22,11 +34,9 @@ export default function (options = {}) {
 
   return {
     intro() {
-      if(combineStyleTags) {
-        return `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(concat.content.toString('utf8'))})`;
-      } else {
-        return injectStyleFuncCode;
-      }
+      if(extract) return processExtract(concat, extract, options.sourceMap);
+      if(combineStyleTags) return `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(concat.content.toString('utf8'))})`;
+      return injectStyleFuncCode;
     },
     transform(code, id) {
       if (!filter(id)) return null
@@ -44,7 +54,7 @@ export default function (options = {}) {
           .process(code, opts)
           .then(result => {
             let code, map;
-            if(combineStyleTags) {
+            if(combineStyleTags || extract) {
               concat.add(result.opts.from, result.css, result.map && result.map.toString());
               code = `export default ${JSON.stringify(getExport(result.opts.from))};`;
               map = { mappings: '' };
