@@ -11,13 +11,11 @@ function cwd(file) {
 }
 
 function processExtract(concat, destination, sourceMap){
-  let code = concat.content.toString("utf8");
+  let css = concat.content.toString("utf8");
   if (sourceMap) {
-    const sourceMapDestination = `${destination}.map`;
-    code += `\n/*# sourceMappingURL=${sourceMapDestination} */`;
-    fs.writeFileSync(sourceMapDestination, concat.sourceMap);
+    css += '\n/*# sourceMappingURL=data:application/json;base64,' + Buffer.from(concat.sourceMap, 'utf8').toString('base64') + ' */';
   }
-  fs.writeFileSync(destination, code);
+  fs.writeFileSync(destination, css);
 }
 
 export default function (options = {}) {
@@ -28,7 +26,7 @@ export default function (options = {}) {
   const combineStyleTags = !!options.combineStyleTags;
   const extract = typeof options.extract === 'string' ? options.extract : false;
 
-  const concat = new Concat(true, 'styles.css', '\n');
+  const concat = new Concat(true, path.basename(extract || 'styles.css'), '\n');
 
   const injectStyleFuncCode = styleInject.toString().replace(/styleInject/, injectFnName);
 
