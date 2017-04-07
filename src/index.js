@@ -20,6 +20,22 @@ function writeFilePromise(dest, content) {
    });
  }
 
+ function extractCssAndWriteToFile(source, manualDest, autoDest, sourceMap){
+    const fileName = path.basename(autoDest, path.extname(autoDest));
+    const cssOutputDest = manualDest?manualDest:path.join(path.dirname(autoDest), fileName + '.css');
+    let css = source.content.toString("utf8");
+    if (sourceMap) {
+      var map = source.sourceMap;
+      if(manualDest){
+        map = JSON.parse(map);
+        map.file = fileName + '.css';
+        map = JSON.stringify(map);
+      }
+      css += '\n/*# sourceMappingURL=data:application/json;base64,' + Buffer.from(map, 'utf8').toString('base64') + ' */';
+    }
+    return writeFilePromise(cssOutputDest, css);
+ }
+
 export default function (options = {}) {
   const filter = createFilter(options.include, options.exclude);
   const injectFnName = '__$styleInject'
@@ -27,8 +43,9 @@ export default function (options = {}) {
   const getExport = options.getExport || function () {}
   const combineStyleTags = !!options.combineStyleTags;
   const extract = options.extract || false;
+  const extractPath = (typeof extract == "string")?extract:false;
 
-  const concat = new Concat(true, path.basename(extract===true||!extract?'styles.css':extract), '\n');
+  const concat = new Concat(true, path.basename(extractPath||'styles.css'), '\n');
 
   const injectStyleFuncCode = styleInject.toString().replace(/styleInject/, injectFnName);
 
@@ -70,19 +87,7 @@ export default function (options = {}) {
     },
     onwrite(opts){
       if(extract){
-        const fileName = path.basename(opts.dest, path.extname(opts.dest));
-        const cssOutputDest = path.join(path.dirname(opts.dest), fileName + '.css');
-        let css = concat.content.toString("utf8");
-        if (options.sourceMap) {
-          var map = concat.sourceMap;
-          if(extract === true){
-            map = JSON.parse(concat.sourceMap);
-            map.file = fileName + '.css';
-            map = JSON.stringify(map);
-          }
-          css += '\n/*# sourceMappingURL=data:application/json;base64,' + Buffer.from(map, 'utf8').toString('base64') + ' */';
-        }
-        return writeFilePromise(cssOutputDest, css);
+        return extractCssAndWriteToFile(concat, extractPath, opts.dest, options.sourceMap);
       }
     }
   };
