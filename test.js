@@ -41,5 +41,5 @@ test('extract styles', async t => {
   const data = await buildWithExtract().catch(err => console.log(err.stack));
   requireFromString(data);
   const extractedStyles = fs.readFileSync('./tests/output_extract.css');
-  t.regex(extractedStyles, /margin/);
+  t.regex(extractedStyles, /color: hotpink;/);
 })

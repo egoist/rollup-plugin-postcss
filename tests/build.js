@@ -157,6 +157,7 @@ export function buildCombinedStyles() {
 };
 
 export function buildWithExtract() {
+  const exportMap = {}
   return rollup({
     plugins: [
       postcss({
@@ -164,8 +165,15 @@ export function buildWithExtract() {
         sourceMap: true,
         extract: './tests/output_extract.css',
         plugins: [
-          require('postcss-nested')
-        ]
+          require('postcss-modules')({
+            getJSON (id, exportTokens) {
+              exportMap[id] = exportTokens;
+            }
+          })
+        ],
+        getExport (id) {
+          return exportMap[id];
+        }
       }),
       babel({
         babelrc: false,
@@ -174,17 +182,20 @@ export function buildWithExtract() {
         sourceMap: true
       }),
     ],
-    entry: __dirname +'/fixture.js'
+    entry: __dirname +'/fixture_modules.js'
   }).then(bundle => {
     const result = bundle.generate({
       format: 'umd',
+      moduleName: 'default',
       sourceMap: true,
     });
     bundle.write({
       dest: './tests/output_extract.js',
+      moduleName: 'default',
       format: 'umd',
       sourceMap: true
     });
     return result.code;
   })
+  
 };
