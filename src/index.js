@@ -10,13 +10,15 @@ function cwd(file) {
   return path.join(process.cwd(), file);
 }
 
-function processExtract(concat, destination, sourceMap){
-  let css = concat.content.toString("utf8");
-  if (sourceMap) {
-    css += '\n/*# sourceMappingURL=data:application/json;base64,' + Buffer.from(concat.sourceMap, 'utf8').toString('base64') + ' */';
-  }
-  fs.writeFileSync(destination, css);
-}
+function writeFilePromise(dest, content) {
+   return new Promise((resolve, reject) => {
+     fs.writeFile(dest, content, (err) => {
+       if(err) return reject(err);
+ 
+       resolve();
+     })
+   });
+ }
 
 export default function (options = {}) {
   const filter = createFilter(options.include, options.exclude);
@@ -32,7 +34,7 @@ export default function (options = {}) {
 
   return {
     intro() {
-      if(extract) return processExtract(concat, extract, options.sourceMap);
+      if(extract) return;
       if(combineStyleTags) return `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(concat.content.toString('utf8'))})`;
       return injectStyleFuncCode;
     },
@@ -65,6 +67,15 @@ export default function (options = {}) {
 
             return { code, map };
           });
+    },
+    onwrite(opts){
+      if(extract){
+        let css = concat.content.toString("utf8");
+        if (options.sourceMap) {
+          css += '\n/*# sourceMappingURL=data:application/json;base64,' + Buffer.from(concat.sourceMap, 'utf8').toString('base64') + ' */';
+        }
+        return writeFilePromise(extract, css);
+      }
     }
   };
 };

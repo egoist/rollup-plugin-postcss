@@ -184,18 +184,22 @@ export function buildWithExtract() {
     ],
     entry: __dirname +'/fixture_modules.js'
   }).then(bundle => {
+    let promises = [];
+
     const result = bundle.generate({
       format: 'umd',
       moduleName: 'default',
       sourceMap: true,
     });
-    bundle.write({
+    const t = bundle.write({
       dest: './tests/output_extract.js',
       moduleName: 'default',
       format: 'umd',
       sourceMap: true
     });
-    return result.code;
+    promises.push(result);
+    promises.push(t);
+    return Promise.all(promises);
   })
   
 };
