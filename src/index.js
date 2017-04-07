@@ -3,6 +3,7 @@ import postcss from 'postcss';
 import styleInject from 'style-inject';
 import path from 'path';
 import fs from 'fs';
+import mkdirp from 'mkdirp';
 
 import Concat from 'concat-with-sourcemaps';
 
@@ -44,6 +45,10 @@ export default function (options = {}) {
   const combineStyleTags = !!options.combineStyleTags;
   const extract = options.extract || false;
   const extractPath = (typeof extract == "string")?extract:false;
+
+  if(extractPath) mkdirp(path.dirname(extractPath), err=>{
+      if (err) throw Error(err);
+  });
 
   const concat = new Concat(true, path.basename(extractPath||'styles.css'), '\n');
 

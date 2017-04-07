@@ -43,7 +43,8 @@
     "concat-with-sourcemaps": "^1.0.4",
     "postcss": "^5.0.12",
     "rollup-pluginutils": "^1.2.0",
-    "style-inject": "^0.1.0"
+    "style-inject": "^0.1.0",
+    "mkdirp": "^0.5.1"
   },
   "ava": {
     "require": [
