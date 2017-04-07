@@ -163,7 +163,7 @@ export function buildWithExtract() {
       postcss({
         include: '**/*.css',
         sourceMap: true,
-        extract: './tests/output_extract.css',
+        extract: true,
         plugins: [
           require('postcss-modules')({
             getJSON (id, exportTokens) {
@@ -184,22 +184,14 @@ export function buildWithExtract() {
     ],
     entry: __dirname +'/fixture_modules.js'
   }).then(bundle => {
-    let promises = [];
 
-    const result = bundle.generate({
-      format: 'umd',
-      moduleName: 'default',
-      sourceMap: true,
-    });
-    const t = bundle.write({
+    return bundle.write({
       dest: './tests/output_extract.js',
       moduleName: 'default',
       format: 'umd',
       sourceMap: true
     });
-    promises.push(result);
-    promises.push(t);
-    return Promise.all(promises);
+
   })
   
 };

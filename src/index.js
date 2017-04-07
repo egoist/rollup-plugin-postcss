@@ -26,9 +26,9 @@ export default function (options = {}) {
   const extensions = options.extensions || ['.css', '.sss']
   const getExport = options.getExport || function () {}
   const combineStyleTags = !!options.combineStyleTags;
-  const extract = typeof options.extract === 'string' ? options.extract : false;
+  const extract = options.extract || false;
 
-  const concat = new Concat(true, path.basename(extract || 'styles.css'), '\n');
+  const concat = new Concat(true, path.basename(extract===true||!extract?'styles.css':extract), '\n');
 
   const injectStyleFuncCode = styleInject.toString().replace(/styleInject/, injectFnName);
 
@@ -70,11 +70,19 @@ export default function (options = {}) {
     },
     onwrite(opts){
       if(extract){
+        const fileName = path.basename(opts.dest, path.extname(opts.dest));
+        const cssOutputDest = path.join(path.dirname(opts.dest), fileName + '.css');
         let css = concat.content.toString("utf8");
         if (options.sourceMap) {
-          css += '\n/*# sourceMappingURL=data:application/json;base64,' + Buffer.from(concat.sourceMap, 'utf8').toString('base64') + ' */';
+          var map = concat.sourceMap;
+          if(extract === true){
+            map = JSON.parse(concat.sourceMap);
+            map.file = fileName + '.css';
+            map = JSON.stringify(map);
+          }
+          css += '\n/*# sourceMappingURL=data:application/json;base64,' + Buffer.from(map, 'utf8').toString('base64') + ' */';
         }
-        return writeFilePromise(extract, css);
+        return writeFilePromise(cssOutputDest, css);
       }
     }
   };
