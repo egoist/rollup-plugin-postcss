@@ -28,7 +28,7 @@ rollup({
         // cssnext(),
         // yourPostcssPlugin()
       ],
-      //sourceMap: false, // defult value
+      //sourceMap: false, // default value
       //extract: false, // default value
       extensions: ['.css', '.sss']  // default value
       // parser: sugarss
