@@ -87,7 +87,7 @@ import postcss from 'rollup-plugin-postcss';
 rollup({
  plugins: [
     postcss({
-      sourceMap: true, //inline source map
+      sourceMap: true, //true, "inline" or false
       extract : '/path/to/style.css'
     })
  ]

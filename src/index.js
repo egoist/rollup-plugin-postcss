@@ -25,16 +25,24 @@ function writeFilePromise(dest, content) {
     const fileName = path.basename(autoDest, path.extname(autoDest));
     const cssOutputDest = manualDest?manualDest:path.join(path.dirname(autoDest), fileName + '.css');
     let css = source.content.toString("utf8");
+    let promises = [];
+    console.log(fileName);
     if (sourceMap) {
       var map = source.sourceMap;
-      if(manualDest){
+      if(!manualDest){
         map = JSON.parse(map);
         map.file = fileName + '.css';
         map = JSON.stringify(map);
       }
-      css += '\n/*# sourceMappingURL=data:application/json;base64,' + Buffer.from(map, 'utf8').toString('base64') + ' */';
+      if(sourceMap === "inline"){
+        css += '\n/*# sourceMappingURL=data:application/json;base64,' + Buffer.from(map, 'utf8').toString('base64') + ' */';
+      }else{
+        css += `\n//# sourceMappingURL=${fileName}.css.map`;
+        promises.push(writeFilePromise(`${cssOutputDest}.map`, map));
+      }
     }
-    return writeFilePromise(cssOutputDest, css);
+    promises.push(writeFilePromise(cssOutputDest, css));
+    return Promise.all(promises);
  }
 
 export default function (options = {}) {
