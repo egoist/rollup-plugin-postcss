@@ -22,6 +22,9 @@ function writeFilePromise(dest, content) {
  }
 
  function extractCssAndWriteToFile(source, manualDest, autoDest, sourceMap){
+    if(manualDest) mkdirp(path.dirname(manualDest), err=>{
+        if ( err ) return Promise.reject( err );
+    });
     const fileName = path.basename(autoDest, path.extname(autoDest));
     const cssOutputDest = manualDest?manualDest:path.join(path.dirname(autoDest), fileName + '.css');
     let css = source.content.toString("utf8");
@@ -53,10 +56,6 @@ export default function (options = {}) {
   const combineStyleTags = !!options.combineStyleTags;
   const extract = options.extract || false;
   const extractPath = (typeof extract == "string")?extract:false;
-
-  if(extractPath) mkdirp(path.dirname(extractPath), err=>{
-      if (err) throw Error(err);
-  });
 
   const concat = new Concat(true, path.basename(extractPath||'styles.css'), '\n');
 
