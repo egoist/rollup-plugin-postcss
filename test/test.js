@@ -1,13 +1,17 @@
+import fs from 'fs';
 import test from 'ava';
 import requireFromString from 'require-from-string';
-import fs from 'fs';
 import {
   buildDefault,
   buildWithParser,
   buildWithCssModules,
   buildCombinedStyles,
   buildWithExtract
-} from './tests/build';
+} from './build';
+
+test.before(() => {
+  process.chdir(__dirname);
+});
 
 test('test postcss', async t => {
   const data = await buildDefault().catch(err => console.log(err.stack));
@@ -35,10 +39,13 @@ test('combine styles', async t => {
   const styles = window.getComputedStyle(document.body);
   t.is(styles.margin, '0px');
   t.is(styles.fontSize, '20px');
-})
+});
 
 test('extract styles', async t => {
-  const data = await buildWithExtract().catch(err => console.log(err.stack));
-  const extractedStyles = fs.readFileSync('./tests/output_extract.css');
+  await buildWithExtract().catch(err => console.log(err.stack));
+  const extractedStyles = fs.readFileSync(
+    './output/output_extract.css',
+    'utf8'
+  );
   t.regex(extractedStyles, /color: hotpink;/);
-})
+});

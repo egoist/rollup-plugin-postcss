@@ -1,8 +1,8 @@
-import fs from 'fs';
-import { rollup } from 'rollup';
+import path from 'path';
+import {rollup} from 'rollup';
 import babel from 'rollup-plugin-babel';
-import postcss from '../src/index';
 import sugarss from 'sugarss';
+import postcss from '../src';
 
 export function buildDefault() {
   return rollup({
@@ -10,31 +10,29 @@ export function buildDefault() {
       postcss({
         include: '**/*.css',
         sourceMap: true,
-        plugins: [
-          require('postcss-nested')
-        ]
+        plugins: [require('postcss-nested')]
       }),
       babel({
         babelrc: false,
         presets: [['es2015', {modules: false}]],
         include: '**/*.js',
         sourceMap: true
-      }),
+      })
     ],
-    entry: __dirname +'/fixture.js'
+    entry: path.resolve('./fixtures/fixture.js')
   }).then(bundle => {
     const result = bundle.generate({
       format: 'umd',
-      sourceMap: true,
+      sourceMap: true
     });
     bundle.write({
-      dest: './tests/output.js',
+      dest: './output/output.js',
       format: 'umd',
       sourceMap: true
     });
     return result.code;
-  })
-};
+  });
+}
 
 export function buildWithParser() {
   return rollup({
@@ -43,34 +41,32 @@ export function buildWithParser() {
         include: '**/*.sss',
         sourceMap: true,
         parser: sugarss,
-        plugins: [
-          require('postcss-nested')
-        ]
+        plugins: [require('postcss-nested')]
       }),
       babel({
         babelrc: false,
         presets: [['es2015', {modules: false}]],
         include: '**/*.js',
         sourceMap: true
-      }),
+      })
     ],
-    entry: __dirname +'/fixture_parser.js'
+    entry: path.resolve('./fixtures/fixture_parser.js')
   }).then(bundle => {
     const result = bundle.generate({
       format: 'umd',
-      sourceMap: true,
+      sourceMap: true
     });
     bundle.write({
-      dest: './tests/output_parser.js',
+      dest: './output/output_parser.js',
       format: 'umd',
       sourceMap: true
     });
     return result.code;
-  })
-};
+  });
+}
 
 export function buildWithCssModules() {
-  const exportMap = {}
+  const exportMap = {};
   return rollup({
     plugins: [
       postcss({
@@ -78,12 +74,12 @@ export function buildWithCssModules() {
         sourceMap: true,
         plugins: [
           require('postcss-modules')({
-            getJSON (id, exportTokens) {
+            getJSON(id, exportTokens) {
               exportMap[id] = exportTokens;
             }
           })
         ],
-        getExport (id) {
+        getExport(id) {
           return exportMap[id];
         }
       }),
@@ -92,28 +88,27 @@ export function buildWithCssModules() {
         presets: [['es2015', {modules: false}]],
         include: '**/*.js',
         sourceMap: true
-      }),
+      })
     ],
-    entry: __dirname +'/fixture_modules.js'
+    entry: path.resolve('./fixtures/fixture_modules.js')
   }).then(bundle => {
     const result = bundle.generate({
       format: 'umd',
       moduleName: 'default',
-      sourceMap: true,
+      sourceMap: true
     });
     bundle.write({
-      dest: './tests/output_modules.js',
+      dest: './output/output_modules.js',
       moduleName: 'default',
       format: 'umd',
       sourceMap: true
     });
     return result.code;
-  })
-};
-
+  });
+}
 
 export function buildCombinedStyles() {
-  const exportMap = {}
+  const exportMap = {};
   return rollup({
     plugins: [
       postcss({
@@ -122,13 +117,13 @@ export function buildCombinedStyles() {
         plugins: [
           require('postcss-nested'),
           require('postcss-modules')({
-            getJSON (id, exportTokens) {
+            getJSON(id, exportTokens) {
               exportMap[id] = exportTokens;
             }
           })
         ],
         combineStyleTags: true,
-        getExport (id) {
+        getExport(id) {
           return exportMap[id];
         }
       }),
@@ -137,27 +132,27 @@ export function buildCombinedStyles() {
         presets: [['es2015', {modules: false}]],
         include: '**/*.js',
         sourceMap: true
-      }),
+      })
     ],
-    entry: __dirname +'/fixture_combine_styles.js'
+    entry: path.resolve('./fixtures/fixture_combine_styles.js')
   }).then(bundle => {
     const result = bundle.generate({
       format: 'iife',
       sourceMap: true,
-      moduleName: 's',
+      moduleName: 's'
     });
     bundle.write({
-      dest: './tests/output_combine_styles.js',
+      dest: './output/output_combine_styles.js',
       format: 'iife',
       moduleName: 's',
       sourceMap: true
     });
     return result.code;
-  })
-};
+  });
+}
 
 export function buildWithExtract() {
-  const exportMap = {}
+  const exportMap = {};
   return rollup({
     plugins: [
       postcss({
@@ -166,12 +161,12 @@ export function buildWithExtract() {
         extract: true,
         plugins: [
           require('postcss-modules')({
-            getJSON (id, exportTokens) {
+            getJSON(id, exportTokens) {
               exportMap[id] = exportTokens;
             }
           })
         ],
-        getExport (id) {
+        getExport(id) {
           return exportMap[id];
         }
       }),
@@ -180,18 +175,15 @@ export function buildWithExtract() {
         presets: [['es2015', {modules: false}]],
         include: '**/*.js',
         sourceMap: true
-      }),
+      })
     ],
-    entry: __dirname +'/fixture_modules.js'
+    entry: path.resolve('./fixtures/fixture_modules.js')
   }).then(bundle => {
-
     return bundle.write({
-      dest: './tests/output_extract.js',
+      dest: './output/output_extract.js',
       moduleName: 'default',
       format: 'umd',
       sourceMap: true
     });
-
-  })
-  
-};
+  });
+}

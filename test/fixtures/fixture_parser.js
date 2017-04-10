@@ -1,4 +1,3 @@
 import './sugarss.sss';
-const a = function () {
-};
+const a = function() {};
 a();

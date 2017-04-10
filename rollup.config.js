@@ -1,10 +1,10 @@
 import babel from 'rollup-plugin-babel';
 
-var external = Object.keys( require( './package.json' ).dependencies );
+const external = Object.keys(require('./package.json').dependencies);
 
 export default {
-	entry: 'src/index.js',
-	plugins: [
+  entry: 'src/index.js',
+  plugins: [
     babel({
       exclude: 'node_modules/**',
       presets: [
@@ -14,6 +14,6 @@ export default {
       babelrc: false
     })
   ],
-	external,
+  external,
   format: 'cjs'
 };
