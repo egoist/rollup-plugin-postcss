@@ -155,3 +155,43 @@ export function buildCombinedStyles() {
     return result.code;
   })
 };
+
+export function buildWithExtract() {
+  const exportMap = {}
+  return rollup({
+    plugins: [
+      postcss({
+        include: '**/*.css',
+        sourceMap: true,
+        extract: true,
+        plugins: [
+          require('postcss-modules')({
+            getJSON (id, exportTokens) {
+              exportMap[id] = exportTokens;
+            }
+          })
+        ],
+        getExport (id) {
+          return exportMap[id];
+        }
+      }),
+      babel({
+        babelrc: false,
+        presets: [['es2015', {modules: false}]],
+        include: '**/*.js',
+        sourceMap: true
+      }),
+    ],
+    entry: __dirname +'/fixture_modules.js'
+  }).then(bundle => {
+
+    return bundle.write({
+      dest: './tests/output_extract.js',
+      moduleName: 'default',
+      format: 'umd',
+      sourceMap: true
+    });
+
+  })
+  
+};
