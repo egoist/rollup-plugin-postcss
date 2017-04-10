@@ -9,7 +9,7 @@ Seamless integration between [Rollup](https://github.com/rollup/rollup) and [Pos
 ## Installation
 
 ```bash
-npm install rollup-plugin-postcss --dev
+yarn add rollup-plugin-postcss --dev
 ```
 
 ## Example
