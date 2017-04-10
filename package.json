@@ -4,8 +4,7 @@
   "description": "Seamless integration between Rollup and PostCSS",
   "main": "dist/index.common.js",
   "files": [
-    "index.js",
-    "src"
+    "dist"
   ],
   "scripts": {
     "test": "BABEL_ENV=test ava test/test.js && npm run lint && npm run build",
