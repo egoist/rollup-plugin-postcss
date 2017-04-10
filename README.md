@@ -9,7 +9,7 @@ Seamless integration between [Rollup](https://github.com/rollup/rollup) and [Pos
 ## Installation
 
 ```bash
-npm install rollup-plugin-postcss
+npm install rollup-plugin-postcss --dev
 ```
 
 ## Example
@@ -34,13 +34,13 @@ rollup({
       // parser: sugarss
     })
   ]
-}).then(...)
+}).then(() => {})
 ```
 
 **entry**
 
 ```javascript
-import '/path/to/some_random_file.css'
+import '/path/to/some_random_file.css';
 ```
 
 ## Use with CSS modules
@@ -68,7 +68,7 @@ rollup({
       }
     })
  ]
-})
+});
 ```
 
 That's it, you can now use CSS modules and import CSS like this:
@@ -79,7 +79,7 @@ import style from './style.css';
 console.log(style.className); // .className_echwj_1
 ```
 
-## Write combined css and source map into a file
+## Extract CSS
 
 ```js
 import postcss from 'rollup-plugin-postcss';
@@ -87,11 +87,11 @@ import postcss from 'rollup-plugin-postcss';
 rollup({
  plugins: [
     postcss({
-      sourceMap: true, //true, "inline" or false
+      sourceMap: true, // true, "inline" or false
       extract : '/path/to/style.css'
     })
  ]
-})
+});
 ```
 
 When `extract` is set to `true` the plugin will automatically generate a css file in the same place where the js is created by rollup. The css file will have the same name as the js file.
