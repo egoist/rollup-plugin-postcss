@@ -39,6 +39,7 @@
     "postcss-modules": "^0.6.4",
     "postcss-nested": "^1.0.0",
     "require-from-string": "^1.1.0",
+    "rimraf": "^2.6.1",
     "rollup": "^0.41.6",
     "rollup-plugin-babel": "^2.6.1",
     "sugarss": "^0.2.0",

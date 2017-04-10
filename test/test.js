@@ -1,6 +1,7 @@
 import fs from 'fs';
 import test from 'ava';
 import requireFromString from 'require-from-string';
+import rm from 'rimraf';
 import {
   buildDefault,
   buildWithParser,
@@ -11,6 +12,10 @@ import {
 
 test.before(() => {
   process.chdir(__dirname);
+});
+
+test.after(() => {
+  rm.sync('./output');
 });
 
 test('test postcss', async t => {
