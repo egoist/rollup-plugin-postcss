@@ -6,6 +6,12 @@
 
 Seamless integration between [Rollup](https://github.com/rollup/rollup) and [PostCSS](https://github.com/postcss/postcss).
 
+## Features
+
+- CSS modules support
+- Extract CSS file
+- Custom pre-processor support (like Stylus and Sass)
+
 ## Installation
 
 ```bash
