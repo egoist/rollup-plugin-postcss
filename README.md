@@ -145,7 +145,7 @@ export default {
 }
 ```
 
-Then you can `import './your-stylus.styl` files!
+Then you can `import './your-stylus.styl'`!
 
 ## License
 
