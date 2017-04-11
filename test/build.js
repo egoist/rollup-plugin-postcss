@@ -2,6 +2,7 @@ import path from 'path';
 import {rollup} from 'rollup';
 import babel from 'rollup-plugin-babel';
 import sugarss from 'sugarss';
+import stylus from 'stylus';
 import postcss from '../src';
 
 export function buildDefault() {
@@ -185,5 +186,35 @@ export function buildWithExtract() {
       format: 'umd',
       sourceMap: true
     });
+  });
+}
+
+export function buildWithStylus() {
+  const preprocessor = (content, id) => new Promise((resolve, reject) => {
+    const renderer = stylus(content, {
+      filename: id,
+      sourcemap: {inline: true}
+    });
+    renderer.render((err, code) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve({code, map: renderer.sourcemap});
+    });
+  });
+
+  return rollup({
+    entry: path.resolve('./fixtures/fixture_preprocessor.js'),
+    plugins: [
+      postcss({
+        extensions: ['.styl'],
+        preprocessor
+      })
+    ]
+  }).then(bundle => {
+    const result = bundle.generate({
+      format: 'cjs'
+    });
+    return result;
   });
 }

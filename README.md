@@ -114,6 +114,39 @@ export default {
 }
 ```
 
+### Custom pre-processor
+
+For example, you want to run `stylus` or `sass` before `postcss`:
+
+```js
+import postcss from 'rollup-plugin-postcss';
+import stylus from 'stylus';
+
+const preprocessor = (content, id) => new Promise((resolve, reject) => {
+  const renderer = stylus(content, {
+    filename: id,
+    sourcemap: {inline: true}
+  });
+  renderer.render((err, code) => {
+    if (err) {
+      return reject(err);
+    }
+    resolve({code, map: renderer.sourcemap});
+  });
+});
+
+export default {
+  plugins: [
+    postcss({
+      preprocessor,
+      extensions: ['.styl']
+    })
+  ]
+}
+```
+
+Then you can `import './your-stylus.styl` files!
+
 ## License
 
 MIT &copy; [EGOIST](https://github.com/egoist)

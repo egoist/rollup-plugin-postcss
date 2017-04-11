@@ -89,26 +89,41 @@ export default function (options = {}) {
         },
         parser: options.parser
       };
-      return postcss(options.plugins || []).process(code, opts).then(result => {
-        let code;
-        let map;
-        if (combineStyleTags || extract) {
-          concat.add(
-            result.opts.from,
-            result.css,
-            result.map && result.map.toString()
-          );
-          code = `export default ${JSON.stringify(getExport(result.opts.from))};`;
-          map = {mappings: ''};
-        } else {
-          code = `export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(getExport(result.opts.from))});`;
-          map = options.sourceMap && result.map ?
-            JSON.parse(result.map) :
-            {mappings: ''};
-        }
 
-        return {code, map};
-      });
+      return Promise.resolve()
+        .then(() => {
+          if (options.preprocessor) {
+            return options.preprocessor(code, id);
+          }
+          return {code};
+        })
+        .then(input => {
+          if (input.map && input.map.mappings) {
+            opts.map.prev = input.map;
+          }
+          return postcss(options.plugins || [])
+            .process(input.code.replace(/\/\*[@#][\s\t]+sourceMappingURL=.*?\*\/$/mg, ''), opts)
+            .then(result => {
+              let code;
+              let map;
+              if (combineStyleTags || extract) {
+                concat.add(
+              result.opts.from,
+              result.css,
+              result.map && result.map.toString()
+            );
+                code = `export default ${JSON.stringify(getExport(result.opts.from))};`;
+                map = {mappings: ''};
+              } else {
+                code = `export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(getExport(result.opts.from))});`;
+                map = options.sourceMap && result.map ?
+              JSON.parse(result.map) :
+              {mappings: ''};
+              }
+
+              return {code, map};
+            });
+        });
     },
     onwrite(opts) {
       if (extract) {
