@@ -51,7 +51,7 @@ export default function (options = {}) {
   const getExport = options.getExport || function () {};
   const combineStyleTags = Boolean(options.combineStyleTags);
   const extract = Boolean(options.extract);
-  const extractPath = typeof options.extract === 'string' ? extract : null;
+  const extractPath = typeof options.extract === 'string' ? options.extract : null;
 
   const concat = new Concat(
     true,
