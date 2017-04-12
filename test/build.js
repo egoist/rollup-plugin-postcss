@@ -153,23 +153,12 @@ export function buildCombinedStyles() {
 }
 
 export function buildWithExtract() {
-  const exportMap = {};
   return rollup({
     plugins: [
       postcss({
         include: '**/*.css',
         sourceMap: true,
-        extract: true,
-        plugins: [
-          require('postcss-modules')({
-            getJSON(id, exportTokens) {
-              exportMap[id] = exportTokens;
-            }
-          })
-        ],
-        getExport(id) {
-          return exportMap[id];
-        }
+        extract: true
       }),
       babel({
         babelrc: false,
@@ -178,7 +167,7 @@ export function buildWithExtract() {
         sourceMap: true
       })
     ],
-    entry: path.resolve('./fixtures/fixture_modules.js')
+    entry: path.resolve('./fixtures/fixture_extract.js')
   }).then(bundle => {
     return bundle.write({
       dest: './output/output_extract.js',

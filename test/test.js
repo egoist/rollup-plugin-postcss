@@ -53,7 +53,7 @@ test('extract styles', async t => {
     './output/output_extract.css',
     'utf8'
   );
-  t.regex(extractedStyles, /color: hotpink;/);
+  t.regex(extractedStyles, /color: red;/);
 });
 
 test('custom preprocessor', async t => {
