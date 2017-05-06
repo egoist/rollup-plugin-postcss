@@ -53,11 +53,8 @@ export default function (options = {}) {
   const extract = Boolean(options.extract);
   const extractPath = typeof options.extract === 'string' ? options.extract : null;
 
-  const concat = new Concat(
-    true,
-    path.basename(extractPath || 'styles.css'),
-    '\n'
-  );
+  let concat = null;
+  const transformedFiles = {};
 
   const injectStyleFuncCode = styleInject
     .toString()
@@ -65,6 +62,19 @@ export default function (options = {}) {
 
   return {
     intro() {
+      concat = new Concat(
+        true,
+        path.basename(extractPath || 'styles.css'),
+        '\n'
+      );
+      Object.keys(transformedFiles).forEach(file => {
+        concat.add(
+          file,
+          transformedFiles[file].css,
+          transformedFiles[file].map
+        );
+      });
+
       if (extract) {
         return;
       }
@@ -104,24 +114,23 @@ export default function (options = {}) {
           return postcss(options.plugins || [])
             .process(input.code.replace(/\/\*[@#][\s\t]+sourceMappingURL=.*?\*\/$/mg, ''), opts)
             .then(result => {
-              let code;
-              let map;
               if (combineStyleTags || extract) {
-                concat.add(
-              result.opts.from,
-              result.css,
-              result.map && result.map.toString()
-            );
-                code = `export default ${JSON.stringify(getExport(result.opts.from))};`;
-                map = {mappings: ''};
-              } else {
-                code = `export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(getExport(result.opts.from))});`;
-                map = options.sourceMap && result.map ?
-              JSON.parse(result.map) :
-              {mappings: ''};
+                transformedFiles[result.opts.from] = {
+                  css: result.css,
+                  map: result.map && result.map.toString()
+                };
+                return {
+                  code: `export default ${JSON.stringify(getExport(result.opts.from))};`,
+                  map: {mappings: ''}
+                };
               }
 
-              return {code, map};
+              return {
+                code: `export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(getExport(result.opts.from))});`,
+                map: options.sourceMap && result.map ?
+                  JSON.parse(result.map) :
+                  {mappings: ''}
+              };
             });
         });
     },
