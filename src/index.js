@@ -1,5 +1,5 @@
 import path from 'path';
-import fs from 'fs-promise';
+import fs from 'fs-extra';
 import {createFilter} from 'rollup-pluginutils';
 import postcss from 'postcss';
 import styleInject from 'style-inject';
