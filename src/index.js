@@ -62,26 +62,25 @@ export default function (options = {}) {
 
   return {
     intro() {
-      concat = new Concat(
-        true,
-        path.basename(extractPath || 'styles.css'),
-        '\n'
-      );
-      Object.keys(transformedFiles).forEach(file => {
-        concat.add(
-          file,
-          transformedFiles[file].css,
-          transformedFiles[file].map
+      if (extract || combineStyleTags) {
+        concat = new Concat(
+          true,
+          path.basename(extractPath || 'styles.css'),
+          '\n'
         );
-      });
-
-      if (extract) {
-        return;
+        Object.keys(transformedFiles).forEach(file => {
+          concat.add(
+            file,
+            transformedFiles[file].css,
+            transformedFiles[file].map
+          );
+        });
+        if (combineStyleTags) {
+          return `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(concat.content.toString('utf8'))})`;
+        }
+      } else {
+        return injectStyleFuncCode;
       }
-      if (combineStyleTags) {
-        return `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(concat.content.toString('utf8'))})`;
-      }
-      return injectStyleFuncCode;
     },
     transform(code, id) {
       if (!filter(id)) {
