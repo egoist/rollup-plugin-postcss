@@ -18,9 +18,7 @@ function extractCssAndWriteToFile(source, manualDest, autoDest, sourceMap) {
     })
     .then(() => {
       const fileName = path.basename(autoDest, path.extname(autoDest));
-      const cssOutputDest = manualDest ?
-        manualDest :
-        path.join(path.dirname(autoDest), fileName + '.css');
+      const cssOutputDest = manualDest ? manualDest : path.join(path.dirname(autoDest), fileName + '.css');
       let css = source.content.toString('utf8');
       const promises = [];
       if (sourceMap) {
@@ -31,9 +29,7 @@ function extractCssAndWriteToFile(source, manualDest, autoDest, sourceMap) {
           map = JSON.stringify(map);
         }
         if (sourceMap === 'inline') {
-          css += '\n/*# sourceMappingURL=data:application/json;base64,' +
-            Buffer.from(map, 'utf8').toString('base64') +
-            ' */';
+          css += `\n/*# sourceMappingURL=data:application/json;base64,${Buffer.from(map, 'utf8').toString('base64')}*/`;
         } else {
           css += `\n/*# sourceMappingURL=${fileName}.css.map */`;
           promises.push(fs.writeFile(`${cssOutputDest}.map`, map));
@@ -48,7 +44,7 @@ export default function (options = {}) {
   const filter = createFilter(options.include, options.exclude);
   const injectFnName = '__$styleInject';
   const extensions = options.extensions || ['.css', '.sss'];
-  const getExport = options.getExport || function () {};
+  const getExport = typeof options.getExport === 'function' ? options.getExport : false;
   const combineStyleTags = Boolean(options.combineStyleTags);
   const extract = Boolean(options.extract);
   const extractPath = typeof options.extract === 'string' ? options.extract : null;
@@ -113,22 +109,31 @@ export default function (options = {}) {
           return postcss(options.plugins || [])
             .process(input.code.replace(/\/\*[@#][\s\t]+sourceMappingURL=.*?\*\/$/mg, ''), opts)
             .then(result => {
+              let codeExportDefault;
+              let codeExportSparse = '';
+
+              if (getExport) {
+                codeExportDefault = getExport(result.opts.from);
+                Object.keys(codeExportDefault).forEach(k => {
+                  codeExportSparse += `export const ${k}=${JSON.stringify(codeExportDefault[k])};\n`;
+                });
+              }
+
               if (combineStyleTags || extract) {
                 transformedFiles[result.opts.from] = {
                   css: result.css,
                   map: result.map && result.map.toString()
                 };
+
                 return {
-                  code: `export default ${JSON.stringify(getExport(result.opts.from))};`,
+                  code: `${codeExportSparse}export default ${JSON.stringify(codeExportDefault)};`,
                   map: {mappings: ''}
                 };
               }
 
               return {
-                code: `export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(getExport(result.opts.from))});`,
-                map: options.sourceMap && result.map ?
-                  JSON.parse(result.map) :
-                  {mappings: ''}
+                code: `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(codeExportDefault)});`,
+                map: options.sourceMap && result.map ? JSON.parse(result.map) : {mappings: ''}
               };
             });
         });

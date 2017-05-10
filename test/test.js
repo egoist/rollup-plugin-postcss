@@ -36,7 +36,8 @@ test('use sugarss as parser', async t => {
 test('use cssmodules', async t => {
   const data = await buildWithCssModules().catch(err => console.log(err.stack));
   const exported = requireFromString(data);
-  t.regex(exported.trendy, /trendy_/);
+  t.regex(exported.style.trendy, /trendy_/);
+  t.regex(exported.bar, /bar_/);
 });
 
 test('combine styles', async t => {
