@@ -1,5 +1,5 @@
 import path from 'path';
-import fs from 'fs-promise';
+import fs from 'fs-extra';
 import {createFilter} from 'rollup-pluginutils';
 import postcss from 'postcss';
 import styleInject from 'style-inject';
@@ -51,13 +51,10 @@ export default function (options = {}) {
   const getExport = options.getExport || function () {};
   const combineStyleTags = Boolean(options.combineStyleTags);
   const extract = Boolean(options.extract);
-  const extractPath = typeof options.extract === 'string' ? extract : null;
+  const extractPath = typeof options.extract === 'string' ? options.extract : null;
 
-  const concat = new Concat(
-    true,
-    path.basename(extractPath || 'styles.css'),
-    '\n'
-  );
+  let concat = null;
+  const transformedFiles = {};
 
   const injectStyleFuncCode = styleInject
     .toString()
@@ -65,13 +62,25 @@ export default function (options = {}) {
 
   return {
     intro() {
-      if (extract) {
-        return;
+      if (extract || combineStyleTags) {
+        concat = new Concat(
+          true,
+          path.basename(extractPath || 'styles.css'),
+          '\n'
+        );
+        Object.keys(transformedFiles).forEach(file => {
+          concat.add(
+            file,
+            transformedFiles[file].css,
+            transformedFiles[file].map
+          );
+        });
+        if (combineStyleTags) {
+          return `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(concat.content.toString('utf8'))})`;
+        }
+      } else {
+        return injectStyleFuncCode;
       }
-      if (combineStyleTags) {
-        return `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(concat.content.toString('utf8'))})`;
-      }
-      return injectStyleFuncCode;
     },
     transform(code, id) {
       if (!filter(id)) {
@@ -89,26 +98,40 @@ export default function (options = {}) {
         },
         parser: options.parser
       };
-      return postcss(options.plugins || []).process(code, opts).then(result => {
-        let code;
-        let map;
-        if (combineStyleTags || extract) {
-          concat.add(
-            result.opts.from,
-            result.css,
-            result.map && result.map.toString()
-          );
-          code = `export default ${JSON.stringify(getExport(result.opts.from))};`;
-          map = {mappings: ''};
-        } else {
-          code = `export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(getExport(result.opts.from))});`;
-          map = options.sourceMap && result.map ?
-            JSON.parse(result.map) :
-            {mappings: ''};
-        }
 
-        return {code, map};
-      });
+      return Promise.resolve()
+        .then(() => {
+          if (options.preprocessor) {
+            return options.preprocessor(code, id);
+          }
+          return {code};
+        })
+        .then(input => {
+          if (input.map && input.map.mappings) {
+            opts.map.prev = input.map;
+          }
+          return postcss(options.plugins || [])
+            .process(input.code.replace(/\/\*[@#][\s\t]+sourceMappingURL=.*?\*\/$/mg, ''), opts)
+            .then(result => {
+              if (combineStyleTags || extract) {
+                transformedFiles[result.opts.from] = {
+                  css: result.css,
+                  map: result.map && result.map.toString()
+                };
+                return {
+                  code: `export default ${JSON.stringify(getExport(result.opts.from))};`,
+                  map: {mappings: ''}
+                };
+              }
+
+              return {
+                code: `export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(getExport(result.opts.from))});`,
+                map: options.sourceMap && result.map ?
+                  JSON.parse(result.map) :
+                  {mappings: ''}
+              };
+            });
+        });
     },
     onwrite(opts) {
       if (extract) {

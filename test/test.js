@@ -7,7 +7,8 @@ import {
   buildWithParser,
   buildWithCssModules,
   buildCombinedStyles,
-  buildWithExtract
+  buildWithExtract,
+  buildWithStylus
 } from './build';
 
 test.before(() => {
@@ -52,5 +53,10 @@ test('extract styles', async t => {
     './output/output_extract.css',
     'utf8'
   );
-  t.regex(extractedStyles, /color: hotpink;/);
+  t.regex(extractedStyles, /color: red;/);
+});
+
+test('custom preprocessor', async t => {
+  const {code} = await buildWithStylus();
+  t.true(code.indexOf('font-size: 14px;') > -1);
 });

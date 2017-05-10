@@ -2,6 +2,7 @@ import path from 'path';
 import {rollup} from 'rollup';
 import babel from 'rollup-plugin-babel';
 import sugarss from 'sugarss';
+import stylus from 'stylus';
 import postcss from '../src';
 
 export function buildDefault() {
@@ -152,23 +153,12 @@ export function buildCombinedStyles() {
 }
 
 export function buildWithExtract() {
-  const exportMap = {};
   return rollup({
     plugins: [
       postcss({
         include: '**/*.css',
         sourceMap: true,
-        extract: true,
-        plugins: [
-          require('postcss-modules')({
-            getJSON(id, exportTokens) {
-              exportMap[id] = exportTokens;
-            }
-          })
-        ],
-        getExport(id) {
-          return exportMap[id];
-        }
+        extract: true
       }),
       babel({
         babelrc: false,
@@ -177,7 +167,7 @@ export function buildWithExtract() {
         sourceMap: true
       })
     ],
-    entry: path.resolve('./fixtures/fixture_modules.js')
+    entry: path.resolve('./fixtures/fixture_extract.js')
   }).then(bundle => {
     return bundle.write({
       dest: './output/output_extract.js',
@@ -185,5 +175,35 @@ export function buildWithExtract() {
       format: 'umd',
       sourceMap: true
     });
+  });
+}
+
+export function buildWithStylus() {
+  const preprocessor = (content, id) => new Promise((resolve, reject) => {
+    const renderer = stylus(content, {
+      filename: id,
+      sourcemap: {inline: true}
+    });
+    renderer.render((err, code) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve({code, map: renderer.sourcemap});
+    });
+  });
+
+  return rollup({
+    entry: path.resolve('./fixtures/fixture_preprocessor.js'),
+    plugins: [
+      postcss({
+        extensions: ['.styl'],
+        preprocessor
+      })
+    ]
+  }).then(bundle => {
+    const result = bundle.generate({
+      format: 'cjs'
+    });
+    return result;
   });
 }

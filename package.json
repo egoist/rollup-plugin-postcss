@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-postcss",
-  "version": "0.3.1",
+  "version": "0.4.3",
   "description": "Seamless integration between Rollup and PostCSS",
   "main": "dist/index.common.js",
   "files": [
@@ -41,12 +41,13 @@
     "rimraf": "^2.6.1",
     "rollup": "^0.41.6",
     "rollup-plugin-babel": "^2.6.1",
+    "stylus": "^0.54.5",
     "sugarss": "^0.2.0",
     "xo": "^0.18.1"
   },
   "dependencies": {
     "concat-with-sourcemaps": "^1.0.4",
-    "fs-promise": "^2.0.2",
+    "fs-extra": "^3.0.1",
     "postcss": "^5.0.12",
     "rollup-pluginutils": "^2.0.1",
     "style-inject": "^0.1.0"
