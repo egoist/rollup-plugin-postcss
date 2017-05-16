@@ -3380,20 +3380,20 @@ postcss-modules-values@1.2.2:
     icss-replace-symbols "^1.0.2"
     postcss "^5.0.14"
 
-postcss-modules@^0.6.4:
-  version "0.6.4"
-  resolved "https://registry.npmjs.org/postcss-modules/-/postcss-modules-0.6.4.tgz#77a58bb77ba1b4392b270c0b59852fd75e89a8b4"
+postcss-modules@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.npmjs.org/postcss-modules/-/postcss-modules-0.7.0.tgz#2af119f5a39a887c8861107259546f20e5c04de6"
   dependencies:
     css-modules-loader-core "^1.0.1"
     generic-names "^1.0.2"
     postcss "^5.2.8"
     string-hash "^1.1.1"
 
-postcss-nested@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/postcss-nested/-/postcss-nested-1.0.0.tgz#d136bd4b576bd5632df142c12b2198a9ccf794df"
+postcss-nested@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/postcss-nested/-/postcss-nested-2.0.2.tgz#f38fad547f5c3747160aec3bb34745819252974a"
   dependencies:
-    postcss "^5.0.2"
+    postcss "^6.0.1"
 
 postcss@5.1.2:
   version "5.1.2"
@@ -3403,12 +3403,20 @@ postcss@5.1.2:
     source-map "^0.5.6"
     supports-color "^3.1.2"
 
-postcss@^5.0.12, postcss@^5.0.14, postcss@^5.0.2, postcss@^5.0.4, postcss@^5.2.4, postcss@^5.2.8:
+postcss@^5.0.14, postcss@^5.0.4, postcss@^5.2.8:
   version "5.2.16"
   resolved "https://registry.npmjs.org/postcss/-/postcss-5.2.16.tgz#732b3100000f9ff8379a48a53839ed097376ad57"
   dependencies:
     chalk "^1.1.3"
     js-base64 "^2.1.9"
+    source-map "^0.5.6"
+    supports-color "^3.2.3"
+
+postcss@^6.0.0, postcss@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.npmjs.org/postcss/-/postcss-6.0.1.tgz#000dbd1f8eef217aa368b9a212c5fc40b2a8f3f2"
+  dependencies:
+    chalk "^1.1.3"
     source-map "^0.5.6"
     supports-color "^3.2.3"
 
@@ -4075,11 +4083,11 @@ suffix@^0.1.0:
   version "0.1.0"
   resolved "https://registry.npmjs.org/suffix/-/suffix-0.1.0.tgz#3e46966de56af17600385e58db8ec659dd797907"
 
-sugarss@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.npmjs.org/sugarss/-/sugarss-0.2.0.tgz#ac34237563327c6ff897b64742bf6aec190ad39e"
+sugarss@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/sugarss/-/sugarss-1.0.0.tgz#65e51b3958432fb70d5451a68bb33e32d0cf1ef7"
   dependencies:
-    postcss "^5.2.4"
+    postcss "^6.0.0"
 
 supports-color@^2.0.0:
   version "2.0.0"
