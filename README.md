@@ -88,6 +88,13 @@ import style from './style.css';
 
 console.log(style.className); // .className_echwj_1
 ```
+You also can import only a specific CSS className like this:
+
+```js
+import {className} from './style.css';
+
+console.log(className); // .className_echwj_2
+```
 
 ### Extract CSS
 
