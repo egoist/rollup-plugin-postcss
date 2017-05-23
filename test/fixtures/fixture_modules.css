@@ -1,6 +1,9 @@
 .trendy {
   color: hotpink;
 }
-.bar{
+.foo_bar {
+  color: blue;
+}
+.foo-bar {
   color: cyan;
 }

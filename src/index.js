@@ -5,6 +5,12 @@ import postcss from 'postcss';
 import styleInject from 'style-inject';
 import Concat from 'concat-with-sourcemaps';
 
+function dashesCamelCase(str) {
+  return str.replace(/-(\w)/g, (match, firstLetter) => {
+    return firstLetter.toUpperCase();
+  });
+}
+
 function cwd(file) {
   return path.join(process.cwd(), file);
 }
@@ -115,7 +121,11 @@ export default function (options = {}) {
               if (getExport) {
                 codeExportDefault = getExport(result.opts.from);
                 Object.keys(codeExportDefault).forEach(k => {
-                  codeExportSparse += `export const ${k}=${JSON.stringify(codeExportDefault[k])};\n`;
+                  const camelCasedKey = dashesCamelCase(k);
+                  codeExportSparse += `export const ${camelCasedKey}=${JSON.stringify(codeExportDefault[k])};\n`;
+                  if (camelCasedKey !== k) {
+                    codeExportDefault[camelCasedKey] = codeExportDefault[k];
+                  }
                 });
               }
 
