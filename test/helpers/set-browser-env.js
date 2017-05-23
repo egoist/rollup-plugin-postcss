@@ -1,3 +1,3 @@
-global.document = require('jsdom').jsdom('<body></body>');
+import browserEnv from 'browser-env'
 
-global.window = document.defaultView;
+browserEnv(['window', 'document', 'navigator'])

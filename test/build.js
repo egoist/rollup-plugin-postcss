@@ -1,9 +1,9 @@
-import path from 'path';
-import {rollup} from 'rollup';
-import babel from 'rollup-plugin-babel';
-import sugarss from 'sugarss';
-import stylus from 'stylus';
-import postcss from '../src';
+import path from 'path'
+import { rollup } from 'rollup'
+import babel from 'rollup-plugin-babel'
+import sugarss from 'sugarss'
+import stylus from 'stylus'
+import postcss from '../src'
 
 export function buildDefault() {
   return rollup({
@@ -15,7 +15,7 @@ export function buildDefault() {
       }),
       babel({
         babelrc: false,
-        presets: [['es2015', {modules: false}]],
+        presets: [['es2015', { modules: false }]],
         include: '**/*.js',
         sourceMap: true
       })
@@ -25,14 +25,14 @@ export function buildDefault() {
     const result = bundle.generate({
       format: 'umd',
       sourceMap: true
-    });
+    })
     bundle.write({
       dest: './output/output.js',
       format: 'umd',
       sourceMap: true
-    });
-    return result.code;
-  });
+    })
+    return result.code
+  })
 }
 
 export function buildWithParser() {
@@ -46,7 +46,7 @@ export function buildWithParser() {
       }),
       babel({
         babelrc: false,
-        presets: [['es2015', {modules: false}]],
+        presets: [['es2015', { modules: false }]],
         include: '**/*.js',
         sourceMap: true
       })
@@ -56,18 +56,18 @@ export function buildWithParser() {
     const result = bundle.generate({
       format: 'umd',
       sourceMap: true
-    });
+    })
     bundle.write({
       dest: './output/output_parser.js',
       format: 'umd',
       sourceMap: true
-    });
-    return result.code;
-  });
+    })
+    return result.code
+  })
 }
 
 export function buildWithCssModules() {
-  const exportMap = {};
+  const exportMap = {}
   return rollup({
     plugins: [
       postcss({
@@ -76,17 +76,17 @@ export function buildWithCssModules() {
         plugins: [
           require('postcss-modules')({
             getJSON(id, exportTokens) {
-              exportMap[id] = exportTokens;
+              exportMap[id] = exportTokens
             }
           })
         ],
         getExport(id) {
-          return exportMap[id];
+          return exportMap[id]
         }
       }),
       babel({
         babelrc: false,
-        presets: [['es2015', {modules: false}]],
+        presets: [['es2015', { modules: false }]],
         include: '**/*.js',
         sourceMap: true
       })
@@ -97,19 +97,19 @@ export function buildWithCssModules() {
       format: 'umd',
       moduleName: 'default',
       sourceMap: true
-    });
+    })
     bundle.write({
       dest: './output/output_modules.js',
       moduleName: 'default',
       format: 'umd',
       sourceMap: true
-    });
-    return result.code;
-  });
+    })
+    return result.code
+  })
 }
 
 export function buildCombinedStyles() {
-  const exportMap = {};
+  const exportMap = {}
   return rollup({
     plugins: [
       postcss({
@@ -119,18 +119,18 @@ export function buildCombinedStyles() {
           require('postcss-nested'),
           require('postcss-modules')({
             getJSON(id, exportTokens) {
-              exportMap[id] = exportTokens;
+              exportMap[id] = exportTokens
             }
           })
         ],
         combineStyleTags: true,
         getExport(id) {
-          return exportMap[id];
+          return exportMap[id]
         }
       }),
       babel({
         babelrc: false,
-        presets: [['es2015', {modules: false}]],
+        presets: [['es2015', { modules: false }]],
         include: '**/*.js',
         sourceMap: true
       })
@@ -141,15 +141,15 @@ export function buildCombinedStyles() {
       format: 'iife',
       sourceMap: true,
       moduleName: 's'
-    });
+    })
     bundle.write({
       dest: './output/output_combine_styles.js',
       format: 'iife',
       moduleName: 's',
       sourceMap: true
-    });
-    return result.code;
-  });
+    })
+    return result.code
+  })
 }
 
 export function buildWithExtract() {
@@ -162,7 +162,7 @@ export function buildWithExtract() {
       }),
       babel({
         babelrc: false,
-        presets: [['es2015', {modules: false}]],
+        presets: [['es2015', { modules: false }]],
         include: '**/*.js',
         sourceMap: true
       })
@@ -174,23 +174,24 @@ export function buildWithExtract() {
       moduleName: 'default',
       format: 'umd',
       sourceMap: true
-    });
-  });
+    })
+  })
 }
 
 export function buildWithStylus() {
-  const preprocessor = (content, id) => new Promise((resolve, reject) => {
-    const renderer = stylus(content, {
-      filename: id,
-      sourcemap: {inline: true}
-    });
-    renderer.render((err, code) => {
-      if (err) {
-        return reject(err);
-      }
-      resolve({code, map: renderer.sourcemap});
-    });
-  });
+  const preprocessor = (content, id) =>
+    new Promise((resolve, reject) => {
+      const renderer = stylus(content, {
+        filename: id,
+        sourcemap: { inline: true }
+      })
+      renderer.render((err, code) => {
+        if (err) {
+          return reject(err)
+        }
+        resolve({ code, map: renderer.sourcemap })
+      })
+    })
 
   return rollup({
     entry: path.resolve('./fixtures/fixture_preprocessor.js'),
@@ -203,7 +204,7 @@ export function buildWithStylus() {
   }).then(bundle => {
     const result = bundle.generate({
       format: 'cjs'
-    });
-    return result;
-  });
+    })
+    return result
+  })
 }

@@ -29,13 +29,14 @@
   "devDependencies": {
     "ava": "^0.19.1",
     "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.3.3",
+    "babel-preset-env": "^1.5.1",
     "babel-preset-es2015": "^6.16.0",
     "babel-preset-stage-2": "^6.16.0",
     "babel-register": "^6.9.0",
-    "bili": "^0.14.1",
-    "jsdom": "^9.2.1",
-    "postcss-modules": "^0.7.0",
+    "bili": "^0.15.3",
+    "browser-env": "^2.0.31",
+    "eslint-config-rem": "^3.1.0",
+    "postcss-modules": "^0.8.0",
     "postcss-nested": "^2.0.2",
     "require-from-string": "^1.1.0",
     "rimraf": "^2.6.1",
@@ -43,7 +44,7 @@
     "rollup-plugin-babel": "^2.6.1",
     "stylus": "^0.54.5",
     "sugarss": "^1.0.0",
-    "xo": "^0.18.1"
+    "xo": "^0.18.2"
   },
   "dependencies": {
     "concat-with-sourcemaps": "^1.0.4",
@@ -54,13 +55,13 @@
   },
   "ava": {
     "require": [
-      "./test/helpers/set-browser-env.js",
-      "babel-register"
+      "babel-register",
+      "./test/helpers/set-browser-env.js"
     ],
     "babel": "inherit"
   },
   "xo": {
-    "space": 2,
+    "extends": "rem/prettier",
     "envs": [
       "browser"
     ],
