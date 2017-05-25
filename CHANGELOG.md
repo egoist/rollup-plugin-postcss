@@ -1,3 +1,11 @@
+## [Version 0.5.3](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v0.5.3) (2017-5-25)
+
+### Bug fixes
+
+- fix js reserved keyword as classname: [`03d3b86`](https://github.com/egoist/rollup-plugin-postcss/commit/03d3b86) ([#25](https://github.com/egoist/rollup-plugin-postcss/issues/25))
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v0.5.1...v0.5.3)
+
 ## [Version 0.5.1](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v0.5.1) (2017-5-23)
 
 ### Bug fixes
