@@ -4,6 +4,7 @@ import { createFilter } from 'rollup-pluginutils'
 import postcss from 'postcss'
 import styleInject from 'style-inject'
 import Concat from 'concat-with-sourcemaps'
+import reserved from 'reserved-words'
 
 function dashesCamelCase(str) {
   return str.replace(/-(\w)/g, (match, firstLetter) => {
@@ -134,7 +135,9 @@ export default function(options = {}) {
                 codeExportDefault = getExport(result.opts.from)
                 Object.keys(codeExportDefault).forEach(k => {
                   const camelCasedKey = dashesCamelCase(k)
-                  codeExportSparse += `export const ${camelCasedKey}=${JSON.stringify(codeExportDefault[k])};\n`
+                  if (!reserved.check(camelCasedKey)) {
+                    codeExportSparse += `export const ${camelCasedKey}=${JSON.stringify(codeExportDefault[k])};\n`
+                  }
                   if (camelCasedKey !== k) {
                     codeExportDefault[camelCasedKey] = codeExportDefault[k]
                   }
