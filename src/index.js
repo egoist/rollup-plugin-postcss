@@ -5,6 +5,7 @@ import postcss from 'postcss'
 import styleInject from 'style-inject'
 import Concat from 'concat-with-sourcemaps'
 import reserved from 'reserved-words'
+import chalk from 'chalk'
 
 function dashesCamelCase(str) {
   return str.replace(/-(\w)/g, (match, firstLetter) => {
@@ -137,13 +138,13 @@ export default function(options = {}) {
                   const camelCasedKey = dashesCamelCase(k)
                   if (reserved.check(camelCasedKey)) {
                     console.warn(
-                      '\x1b[33m:',
-                      'You are using a reserved keyword',
-                      '\x1b[32m',
-                      camelCasedKey,
-                      '\x1b[33m',
-                      "as className so it's not available in named exports"
+                      chalk.yellow('You are using a reserved keyword'),
+                      chalk.cyan(camelCasedKey),
+                      chalk.yellow(
+                        "as className so it's not available in named exports"
+                      )
                     )
+                    console.warn(chalk.dim(`location: ${id}`))
                   } else {
                     codeExportSparse += `export const ${camelCasedKey}=${JSON.stringify(codeExportDefault[k])};\n`
                   }
