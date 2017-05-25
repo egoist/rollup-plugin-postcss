@@ -4,6 +4,8 @@ import { createFilter } from 'rollup-pluginutils'
 import postcss from 'postcss'
 import styleInject from 'style-inject'
 import Concat from 'concat-with-sourcemaps'
+import reserved from 'reserved-words'
+import chalk from 'chalk'
 
 function dashesCamelCase(str) {
   return str.replace(/-(\w)/g, (match, firstLetter) => {
@@ -134,7 +136,18 @@ export default function(options = {}) {
                 codeExportDefault = getExport(result.opts.from)
                 Object.keys(codeExportDefault).forEach(k => {
                   const camelCasedKey = dashesCamelCase(k)
-                  codeExportSparse += `export const ${camelCasedKey}=${JSON.stringify(codeExportDefault[k])};\n`
+                  if (reserved.check(camelCasedKey)) {
+                    console.warn(
+                      chalk.yellow('You are using a reserved keyword'),
+                      chalk.cyan(camelCasedKey),
+                      chalk.yellow(
+                        "as className so it's not available in named exports"
+                      )
+                    )
+                    console.warn(chalk.dim(`location: ${id}`))
+                  } else {
+                    codeExportSparse += `export const ${camelCasedKey}=${JSON.stringify(codeExportDefault[k])};\n`
+                  }
                   if (camelCasedKey !== k) {
                     codeExportDefault[camelCasedKey] = codeExportDefault[k]
                   }
