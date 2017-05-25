@@ -135,7 +135,16 @@ export default function(options = {}) {
                 codeExportDefault = getExport(result.opts.from)
                 Object.keys(codeExportDefault).forEach(k => {
                   const camelCasedKey = dashesCamelCase(k)
-                  if (!reserved.check(camelCasedKey)) {
+                  if (reserved.check(camelCasedKey)) {
+                    console.warn(
+                      '\x1b[33m:',
+                      'You are using a reserved keyword',
+                      '\x1b[32m',
+                      camelCasedKey,
+                      '\x1b[33m',
+                      "as className so it's not available in named exports"
+                    )
+                  } else {
                     codeExportSparse += `export const ${camelCasedKey}=${JSON.stringify(codeExportDefault[k])};\n`
                   }
                   if (camelCasedKey !== k) {
