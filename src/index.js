@@ -8,7 +8,7 @@ import reserved from 'reserved-words'
 import chalk from 'chalk'
 
 function dashesCamelCase(str) {
-  return str.replace(/-(\w)/g, (match, firstLetter) => {
+  return str.replace(/-+(\w)/g, (match, firstLetter) => {
     return firstLetter.toUpperCase()
   })
 }
