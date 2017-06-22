@@ -152,19 +152,41 @@ export default function(options = {}) {
   const combineStyleTags = Boolean(options.combineStyleTags)
   const extract = Boolean(options.extract)
   const extractPath = isString(options.extract) ? options.extract : null
-
-  let concat = null
-  let watcher
-  const transformedFiles = {}
-
   const injectStyleFuncCode = styleInject.toString().replace(/styleInject/, injectFnName)
   const needsTransformation = extract || combineStyleTags
 
+  let concat = null
+  let watcher
+  let source
+  let destination
+  const transformedFiles = {}
+  let hadOnwrite = false
+
+  function createConcat() {
+    let concat = new Concat(true, path.basename(extractPath || 'styles.css'), '\n')
+    Object.entries(transformedFiles).forEach(([file, {css, map}]) => concat.add(file, css, map))
+    return concat
+  }
+
   if (isFunction(options.getInstance) && extract) {
     watcher = new Watcher()
-    watcher.on('change', (file) => {
-      console.log(`${file} changed, rebuilding`)
-      // TODO: rebuild
+    watcher.on('change', file => {
+      console.log(`${file} changed, rebuilding...`)
+      fs.readFile(source, 'utf8', (err, code) => {
+        if(!err){
+          _transform(code, source, options, needsTransformation, transformedFiles)
+            .then(() => {
+              if (needsTransformation) {
+                concat = createConcat()
+              }
+              return _intro(needsTransformation, combineStyleTags, injectStyleFuncCode, injectFnName)
+            })
+            .then(() => extractCssAndWriteToFile(concat, extractPath, destination, options.sourceMap))
+            .then(() => {
+              console.log(`...done`)
+            })
+        }
+      })
     })
     options.getInstance({
       watcher: watcher
@@ -174,9 +196,8 @@ export default function(options = {}) {
   return {
     intro() {
       if (needsTransformation) {
-        Object.entries(transformedFiles).forEach(([file, {css, map}]) => concat.add(file, css, map))
+        concat = createConcat()
       }
-
       return _intro(needsTransformation, combineStyleTags, injectStyleFuncCode, injectFnName)
     },
     transform(code, id) {
@@ -184,16 +205,19 @@ export default function(options = {}) {
         return null
       }
 
-      watcher.source = id
+      source = id
 
       return _transform(code, id, options, needsTransformation, transformedFiles)
     },
     onwrite(opts) {
-      if (extract) {
+      if (!hadOnwrite && extract) {
+        hadOnwrite = true
+        destination = extractPath ? extractPath : opts.dest
+
         return extractCssAndWriteToFile(
           concat,
           options.sourceMap,
-          extractPath ? extractPath : opts.dest,
+          destination,
           extractPath
         )
       }
