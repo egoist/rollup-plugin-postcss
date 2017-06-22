@@ -28,23 +28,21 @@ function extractCssAndWriteToFile(source, manualDest, autoDest, sourceMap) {
       }
     })
     .then(() => {
-      const fileName = path.basename(autoDest, path.extname(autoDest))
-      const cssOutputDest = manualDest
-        ? manualDest
-        : path.join(path.dirname(autoDest), fileName + '.css')
+      const fileName = path.basename(autoDest, path.extname(autoDest)) + '.css'
+      const cssOutputDest = manualDest || path.join(path.dirname(autoDest), fileName)
       let css = source.content.toString('utf8')
       const promises = []
       if (sourceMap) {
         let map = source.sourceMap
         if (!manualDest) {
           map = JSON.parse(map)
-          map.file = fileName + '.css'
+          map.file = fileName
           map = JSON.stringify(map)
         }
         if (sourceMap === 'inline') {
           css += `\n/*# sourceMappingURL=data:application/json;base64,${Buffer.from(map, 'utf8').toString('base64')}*/`
         } else {
-          css += `\n/*# sourceMappingURL=${fileName}.css.map */`
+          css += `\n/*# sourceMappingURL=${fileName}.map */`
           promises.push(fs.writeFile(`${cssOutputDest}.map`, map))
         }
       }
@@ -141,19 +139,41 @@ export default function(options = {}) {
   const combineStyleTags = Boolean(options.combineStyleTags)
   const extract = Boolean(options.extract)
   const extractPath = isString(options.extract) ? options.extract : null
-
-  let concat = null
-  let watcher
-  const transformedFiles = {}
-
   const injectStyleFuncCode = styleInject.toString().replace(/styleInject/, injectFnName)
   const needsTransformation = extract || combineStyleTags
 
+  let concat = null
+  let watcher
+  let source
+  let destination
+  const transformedFiles = {}
+  let hadOnwrite = false
+
+  function createConcat() {
+    let concat = new Concat(true, path.basename(extractPath || 'styles.css'), '\n')
+    Object.entries(transformedFiles).forEach(([file, {css, map}]) => concat.add(file, css, map))
+    return concat
+  }
+
   if (isFunction(options.getInstance) && extract) {
     watcher = new Watcher()
-    watcher.on('change', (file) => {
-      console.log(`${file} changed, rebuilding`)
-      // TODO: rebuild
+    watcher.on('change', file => {
+      console.log(`${file} changed, rebuilding...`)
+      fs.readFile(source, 'utf8', (err, code) => {
+        if(!err){
+          _transform(code, source, options, needsTransformation, transformedFiles)
+            .then(() => {
+              if (needsTransformation) {
+                concat = createConcat()
+              }
+              return _intro(needsTransformation, combineStyleTags, injectStyleFuncCode, injectFnName)
+            })
+            .then(() => extractCssAndWriteToFile(concat, extractPath, destination, options.sourceMap))
+            .then(() => {
+              console.log(`...done`)
+            })
+        }
+      })
     })
     options.getInstance({
       watcher: watcher
@@ -163,11 +183,8 @@ export default function(options = {}) {
   return {
     intro() {
       if (needsTransformation) {
-        concat = new Concat(true, path.basename(extractPath || 'styles.css'), '\n')
-
-        Object.entries(transformedFiles).forEach(([file, {css, map}]) => concat.add(file, css, map))
+        concat = createConcat()
       }
-
       return _intro(needsTransformation, combineStyleTags, injectStyleFuncCode, injectFnName)
     },
     transform(code, id) {
@@ -175,18 +192,16 @@ export default function(options = {}) {
         return null
       }
 
-      watcher.source = id
+      source = id
 
       return _transform(code, id, options, needsTransformation, transformedFiles)
     },
     onwrite(opts) {
-      if (extract) {
-        return extractCssAndWriteToFile(
-          concat,
-          extractPath,
-          opts.dest,
-          options.sourceMap
-        )
+      if (!hadOnwrite && extract) {
+        hadOnwrite = true
+        destination = opts.dest
+
+        return extractCssAndWriteToFile(concat, extractPath, destination, options.sourceMap)
       }
     }
   }
