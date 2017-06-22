@@ -19,6 +19,8 @@ import {
   dashesCamelCase
 } from './helpers'
 
+import Watcher from './watcher'
+
 function cwd(file) {
   return path.join(process.cwd(), file)
 }
@@ -152,10 +154,22 @@ export default function(options = {}) {
   const extractPath = isString(options.extract) ? options.extract : null
 
   let concat = null
+  let watcher
   const transformedFiles = {}
 
   const injectStyleFuncCode = styleInject.toString().replace(/styleInject/, injectFnName)
   const needsTransformation = extract || combineStyleTags
+
+  if (isFunction(options.getInstance) && extract) {
+    watcher = new Watcher()
+    watcher.on('file-change', (file) => {
+      console.log(`${file} changed, rebuilding`)
+      // TODO: rebuild
+    })
+    options.getInstance({
+      watcher: watcher
+    })
+  }
 
   return {
     intro() {
@@ -166,9 +180,11 @@ export default function(options = {}) {
       return _intro(needsTransformation, combineStyleTags, injectStyleFuncCode, injectFnName)
     },
     transform(code, id) {
-      if (!filter(id) || extensions.indexOf(path.extname(id)) === -1) {
+      if (!filter(id) || !extensions.includes(path.extname(id))) {
         return null
       }
+
+      watcher.source = id
 
       return _transform(code, id, options, needsTransformation, transformedFiles)
     },
