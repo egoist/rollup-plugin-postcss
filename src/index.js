@@ -7,11 +7,11 @@ import Concat from 'concat-with-sourcemaps'
 import reserved from 'reserved-words'
 import chalk from 'chalk'
 
-function dashesCamelCase(str) {
-  return str.replace(/-(\w)/g, (match, firstLetter) => {
-    return firstLetter.toUpperCase()
-  })
-}
+import {
+  isFunction,
+  dummyPreprocessor,
+  dashesCamelCase
+} from './helpers'
 
 function cwd(file) {
   return path.join(process.cwd(), file)
@@ -54,9 +54,6 @@ export default function(options = {}) {
   const filter = createFilter(options.include, options.exclude)
   const injectFnName = '__$styleInject'
   const extensions = options.extensions || ['.css', '.sss']
-  const getExport = typeof options.getExport === 'function'
-    ? options.getExport
-    : false
   const combineStyleTags = Boolean(options.combineStyleTags)
   const extract = Boolean(options.extract)
   const extractPath = typeof options.extract === 'string'
@@ -93,12 +90,10 @@ export default function(options = {}) {
       }
     },
     transform(code, id) {
-      if (!filter(id)) {
+      if (!filter(id) || extensions.indexOf(path.extname(id)) === -1) {
         return null
       }
-      if (extensions.indexOf(path.extname(id)) === -1) {
-        return null
-      }
+
       const opts = {
         from: options.from ? cwd(options.from) : id,
         to: options.to ? cwd(options.to) : id,
@@ -109,14 +104,7 @@ export default function(options = {}) {
         parser: options.parser
       }
 
-      return Promise.resolve()
-        .then(() => {
-          if (options.preprocessor) {
-            return options.preprocessor(code, id)
-          }
-          return { code }
-        })
-        .then(input => {
+      return (options.preprocessor || dummyPreprocessor)(code, id).then(input => {
           if (input.map && input.map.mappings) {
             opts.map.prev = input.map
           }
@@ -132,8 +120,8 @@ export default function(options = {}) {
               let codeExportDefault
               let codeExportSparse = ''
 
-              if (getExport) {
-                codeExportDefault = getExport(result.opts.from)
+              if (isFunction(options.getExport)) {
+                codeExportDefault = options.getExport(result.opts.from)
                 Object.keys(codeExportDefault).forEach(k => {
                   const camelCasedKey = dashesCamelCase(k)
                   if (reserved.check(camelCasedKey)) {
@@ -154,7 +142,7 @@ export default function(options = {}) {
                 })
               }
 
-              if (combineStyleTags || extract) {
+              if (extract || combineStyleTags) {
                 transformedFiles[result.opts.from] = {
                   css: result.css,
                   map: result.map && result.map.toString()
