@@ -59,7 +59,14 @@ function extractCssAndWriteToFile(source, sourceMap, dest, manualDest) {
     })
 }
 
-function _transform(code, id, options, needsTransformation, transformedFiles){
+function _transform(
+  code,
+  id,
+  options,
+  needsTransformation,
+  transformedFiles,
+  injectFnName
+) {
   const opts = {
     from: options.from ? cwd(options.from) : id,
     to: options.to ? cwd(options.to) : id,
@@ -89,20 +96,20 @@ function _transform(code, id, options, needsTransformation, transformedFiles){
         if (isFunction(options.getExport)) {
           codeExportDefault = options.getExport(result.opts.from)
           if (getExportNamed) {
-            Object.entries(codeExportDefault).forEach(([key, v]) => {
-              let newKey = escapeClassNameDashes(key)
+            Object.entries(codeExportDefault).forEach(([k, v]) => {
+              let newKey = escapeClassNameDashes(k)
 
-              if (reserved.check(key)) newKey = `$${key}$`
+              if (reserved.check(k)) newKey = `$${k}$`
               codeExportSparse += `export const ${newKey}=${JSON.stringify(
                 v
               )};\n`
 
-              if (newKey !== key) {
+              if (newKey !== k) {
                 console.warn(
                   chalk.yellow('use'),
                   chalk.cyan(`${newKey}`),
                   chalk.yellow('to import'),
-                  chalk.cyan(`${key}`),
+                  chalk.cyan(`${k}`),
                   chalk.yellow('className')
                 )
                 codeExportDefault[newKey] = v
@@ -117,25 +124,36 @@ function _transform(code, id, options, needsTransformation, transformedFiles){
             map: result.map && result.map.toString()
           }
 
-          ret.code = `${codeExportSparse}export default ${JSON.stringify(codeExportDefault)};`
+          ret.code = `${codeExportSparse}export default ${JSON.stringify(
+            codeExportDefault
+          )};`
         } else {
-          ret.code = `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(codeExportDefault)});`
+          ret.code = `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(
+            result.css
+          )},${JSON.stringify(codeExportDefault)});`
           if (options.sourceMap && result.map) {
             ret.map = JSON.parse(result.map)
           }
         }
-        
         return ret
       })
   })
 }
 
-function _intro(needsTransformation, combineStyleTags, injectStyleFuncCode, injectFnName){
+function _intro(
+  needsTransformation,
+  combineStyleTags,
+  injectStyleFuncCode,
+  injectFnName,
+  concat
+) {
   let ret
 
   if (needsTransformation) {
     if (combineStyleTags) {
-      ret = `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(concat.content.toString('utf8'))})`
+      ret = `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(
+        concat.content.toString('utf8')
+      )})`
     }
   } else {
     ret = injectStyleFuncCode
@@ -152,7 +170,9 @@ export default function(options = {}) {
   const combineStyleTags = Boolean(options.combineStyleTags)
   const extract = Boolean(options.extract)
   const extractPath = isString(options.extract) ? options.extract : null
-  const injectStyleFuncCode = styleInject.toString().replace(/styleInject/, injectFnName)
+  const injectStyleFuncCode = styleInject
+    .toString()
+    .replace(/styleInject/, injectFnName)
   const needsTransformation = extract || combineStyleTags
 
   let concat = null
@@ -163,8 +183,14 @@ export default function(options = {}) {
   let hadOnwrite = false
 
   function createConcat() {
-    let concat = new Concat(true, path.basename(extractPath || 'styles.css'), '\n')
-    Object.entries(transformedFiles).forEach(([file, {css, map}]) => concat.add(file, css, map))
+    const concat = new Concat(
+      true,
+      path.basename(extractPath || 'styles.css'),
+      '\n'
+    )
+    Object.entries(transformedFiles).forEach(([file, { css, map }]) =>
+      concat.add(file, css, map)
+    )
     return concat
   }
 
@@ -173,15 +199,35 @@ export default function(options = {}) {
     watcher.on('change', file => {
       console.log(`${file} changed, rebuilding...`)
       fs.readFile(source, 'utf8', (err, code) => {
-        if(!err){
-          _transform(code, source, options, needsTransformation, transformedFiles)
+        if (!err) {
+          _transform(
+            code,
+            source,
+            options,
+            needsTransformation,
+            transformedFiles,
+            injectFnName
+          )
             .then(() => {
               if (needsTransformation) {
                 concat = createConcat()
               }
-              return _intro(needsTransformation, combineStyleTags, injectStyleFuncCode, injectFnName)
+              return _intro(
+                needsTransformation,
+                combineStyleTags,
+                injectStyleFuncCode,
+                injectFnName,
+                concat
+              )
             })
-            .then(() => extractCssAndWriteToFile(concat, extractPath, destination, options.sourceMap))
+            .then(() =>
+              extractCssAndWriteToFile(
+                concat,
+                extractPath,
+                destination,
+                options.sourceMap
+              )
+            )
             .then(() => {
               console.log(`...done`)
             })
@@ -189,7 +235,7 @@ export default function(options = {}) {
       })
     })
     options.getInstance({
-      watcher: watcher
+      watcher
     })
   }
 
@@ -198,7 +244,13 @@ export default function(options = {}) {
       if (needsTransformation) {
         concat = createConcat()
       }
-      return _intro(needsTransformation, combineStyleTags, injectStyleFuncCode, injectFnName)
+      return _intro(
+        needsTransformation,
+        combineStyleTags,
+        injectStyleFuncCode,
+        injectFnName,
+        concat
+      )
     },
     transform(code, id) {
       if (!filter(id) || !extensions.includes(path.extname(id))) {
@@ -207,7 +259,14 @@ export default function(options = {}) {
 
       source = id
 
-      return _transform(code, id, options, needsTransformation, transformedFiles)
+      return _transform(
+        code,
+        id,
+        options,
+        needsTransformation,
+        transformedFiles,
+        injectFnName
+      )
     },
     onwrite(opts) {
       if (!hadOnwrite && extract) {
@@ -217,8 +276,8 @@ export default function(options = {}) {
         return extractCssAndWriteToFile(
           concat,
           options.sourceMap,
-          destination,
-          extractPath
+          extractPath,
+          destination
         )
       }
     }
