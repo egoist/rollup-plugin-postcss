@@ -3,7 +3,7 @@ function isFunction(f) {
 }
 
 function isString(s) {
-  return typeof f === 'string'
+  return typeof s === 'string'
 }
 
 function dummyPreprocessor(code) {

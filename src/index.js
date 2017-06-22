@@ -77,6 +77,9 @@ function _transform(code, id, options, needsTransformation, transformedFiles){
       .then(result => {
         let codeExportDefault
         let codeExportSparse = ''
+        const ret = {
+          map: { mappings: '' }
+        }
 
         if (isFunction(options.getExport)) {
           codeExportDefault = options.getExport(result.opts.from)
@@ -84,11 +87,9 @@ function _transform(code, id, options, needsTransformation, transformedFiles){
             const camelCasedKey = dashesCamelCase(k)
             if (reserved.check(camelCasedKey)) {
               console.warn(
-                chalk.yellow('You are using a reserved keyword'),
+                chalk.yellow(`You are using a reserved keyword`),
                 chalk.cyan(camelCasedKey),
-                chalk.yellow(
-                  "as className so it's not available in named exports"
-                )
+                chalk.yellow(`as className so it's not available in named exports`)
               )
               console.warn(chalk.dim(`location: ${id}`))
             } else {
@@ -106,18 +107,15 @@ function _transform(code, id, options, needsTransformation, transformedFiles){
             map: result.map && result.map.toString()
           }
 
-          return {
-            code: `${codeExportSparse}export default ${JSON.stringify(codeExportDefault)};`,
-            map: { mappings: '' }
+          ret.code = `${codeExportSparse}export default ${JSON.stringify(codeExportDefault)};`
+        } else {
+          ret.code = `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(codeExportDefault)});`
+          if (options.sourceMap && result.map) {
+            ret.map = JSON.parse(result.map)
           }
         }
-
-        return {
-          code: `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(codeExportDefault)});`,
-          map: options.sourceMap && result.map
-            ? JSON.parse(result.map)
-            : { mappings: '' }
-        }
+        
+        return ret
       })
   })
 }
