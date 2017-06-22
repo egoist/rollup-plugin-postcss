@@ -20,6 +20,10 @@ function cwd(file) {
   return path.join(process.cwd(), file)
 }
 
+function needsTransformation(options) {
+  return Boolean(options.combineStyleTags) || Boolean(options.extract)
+}
+
 function extractCssAndWriteToFile(source, manualDest, autoDest, sourceMap) {
   return Promise.resolve()
     .then(() => {
@@ -41,10 +45,7 @@ function extractCssAndWriteToFile(source, manualDest, autoDest, sourceMap) {
           map = JSON.stringify(map)
         }
         if (sourceMap === 'inline') {
-          css += `\n/*# sourceMappingURL=data:application/json;base64,${Buffer.from(
-            map,
-            'utf8'
-          ).toString('base64')}*/`
+          css += `\n/*# sourceMappingURL=data:application/json;base64,${Buffer.from(map, 'utf8').toString('base64')}*/`
         } else {
           css += `\n/*# sourceMappingURL=${fileName}.map */`
           promises.push(fs.writeFile(`${cssOutputDest}.map`, map))
@@ -55,14 +56,7 @@ function extractCssAndWriteToFile(source, manualDest, autoDest, sourceMap) {
     })
 }
 
-function _transform(
-  code,
-  id,
-  options,
-  needsTransformation,
-  transformedFiles,
-  injectFnName
-) {
+function _transform({ code, id }, options, transformedFiles, injectFnName) {
   const opts = {
     from: options.from ? cwd(options.from) : id,
     to: options.to ? cwd(options.to) : id,
@@ -104,9 +98,7 @@ function _transform(
               )
               console.warn(chalk.dim(`location: ${id}`))
             } else {
-              codeExportSparse += `export const ${camelCasedKey}=${JSON.stringify(
-                v
-              )};\n`
+              codeExportSparse += `export const ${camelCasedKey}=${JSON.stringify(v)};\n`
             }
             if (camelCasedKey !== k) {
               codeExportDefault[camelCasedKey] = v
@@ -114,19 +106,15 @@ function _transform(
           })
         }
 
-        if (needsTransformation) {
+        if (needsTransformation(options)) {
           transformedFiles[result.opts.from] = {
             css: result.css,
             map: result.map && result.map.toString()
           }
 
-          ret.code = `${codeExportSparse}export default ${JSON.stringify(
-            codeExportDefault
-          )};`
+          ret.code = `${codeExportSparse}export default ${JSON.stringify(codeExportDefault)};`
         } else {
-          ret.code = `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(
-            result.css
-          )},${JSON.stringify(codeExportDefault)});`
+          ret.code = `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(codeExportDefault)});`
           if (options.sourceMap && result.map) {
             ret.map = JSON.parse(result.map)
           }
@@ -136,20 +124,12 @@ function _transform(
   })
 }
 
-function _intro(
-  needsTransformation,
-  combineStyleTags,
-  injectStyleFuncCode,
-  injectFnName,
-  concat
-) {
+function _intro(options, injectStyleFuncCode, injectFnName, concat) {
   let ret
 
-  if (needsTransformation) {
-    if (combineStyleTags) {
-      ret = `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(
-        concat.content.toString('utf8')
-      )})`
+  if (needsTransformation(options)) {
+    if (options.combineStyleTags) {
+      ret = `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(concat.content.toString('utf8'))})`
     }
   } else {
     ret = injectStyleFuncCode
@@ -162,13 +142,11 @@ export default function(options = {}) {
   const filter = createFilter(options.include, options.exclude)
   const injectFnName = '__$styleInject'
   const extensions = options.extensions || ['.css', '.sss']
-  const combineStyleTags = Boolean(options.combineStyleTags)
   const extract = Boolean(options.extract)
   const extractPath = isString(options.extract) ? options.extract : null
   const injectStyleFuncCode = styleInject
     .toString()
     .replace(/styleInject/, injectFnName)
-  const needsTransformation = extract || combineStyleTags
 
   let concat = null
   let watcher
@@ -196,24 +174,16 @@ export default function(options = {}) {
       fs.readFile(source, 'utf8', (err, code) => {
         if (!err) {
           _transform(
-            code,
-            source,
+            { code, id: source },
             options,
-            needsTransformation,
             transformedFiles,
             injectFnName
           )
             .then(() => {
-              if (needsTransformation) {
+              if (needsTransformation(options)) {
                 concat = createConcat()
               }
-              return _intro(
-                needsTransformation,
-                combineStyleTags,
-                injectStyleFuncCode,
-                injectFnName,
-                concat
-              )
+              return _intro(options, injectStyleFuncCode, injectFnName, concat)
             })
             .then(() =>
               extractCssAndWriteToFile(
@@ -236,16 +206,10 @@ export default function(options = {}) {
 
   return {
     intro() {
-      if (needsTransformation) {
+      if (needsTransformation(options)) {
         concat = createConcat()
       }
-      return _intro(
-        needsTransformation,
-        combineStyleTags,
-        injectStyleFuncCode,
-        injectFnName,
-        concat
-      )
+      return _intro(options, injectStyleFuncCode, injectFnName, concat)
     },
     transform(code, id) {
       if (!filter(id) || !extensions.includes(path.extname(id))) {
@@ -254,14 +218,7 @@ export default function(options = {}) {
 
       source = id
 
-      return _transform(
-        code,
-        id,
-        options,
-        needsTransformation,
-        transformedFiles,
-        injectFnName
-      )
+      return _transform({ code, id }, options, transformedFiles, injectFnName)
     },
     onwrite(opts) {
       if (!hadOnwrite && extract) {
