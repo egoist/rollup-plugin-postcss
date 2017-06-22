@@ -1,6 +1,11 @@
 import EventEmitter from 'eventemitter3'
-
 import { clone } from './helpers'
+import fs from 'fs'
+import chokidar from 'chokidar'
+
+function checkIfFileExists(fileName){
+  return fs.existsSync(fileName)
+}
 
 export default class Watcher extends EventEmitter{
   constructor(){
@@ -8,7 +13,7 @@ export default class Watcher extends EventEmitter{
 
     this._ = {
       source: '',
-      filesToWatch: []
+      watcher: null
     }
   }
 
@@ -18,13 +23,14 @@ export default class Watcher extends EventEmitter{
 
   watch(filesToWatch){
     if(Array.isArray(filesToWatch)){
-      let files = clone(filesToWatch).filter(file => file !== this._.source)
+      if(this._.watcher){
+        this._.watcher.close()
+        this._.watcher = null
+      }
 
-      // TODO: check is files exist
-      // TODO: remove watching of previous values in this._.filesToWatch
-      // TODO: add watch for new files
+      const files = clone(filesToWatch).filter(file => file !== this._.source && checkIfFileExists(file))
 
-      this._.filesToWatch = files
+      this._.watcher = chokidar.watch(files).on('change', (fileName) => this.emit('change', fileName))
     }
   }
 }
