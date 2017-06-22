@@ -1,5 +1,9 @@
 function isFunction(f) {
-  return typeof f === 'function';
+  return typeof f === 'function'
+}
+
+function isString(s) {
+  return typeof f === 'string'
 }
 
 function dummyPreprocessor(code) {
@@ -14,6 +18,7 @@ function dashesCamelCase(str) {
 
 export {
   isFunction,
+  isString,
   dummyPreprocessor,
   dashesCamelCase
 }

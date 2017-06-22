@@ -14,6 +14,7 @@ function escapeClassNameDashes(str) {
 }
 import {
   isFunction,
+  isString,
   dummyPreprocessor,
   dashesCamelCase
 } from './helpers'
@@ -56,6 +57,80 @@ function extractCssAndWriteToFile(source, sourceMap, dest, manualDest) {
     })
 }
 
+function _transform(code, id, options, needsTransformation, transformedFiles){
+  const opts = {
+    from: options.from ? cwd(options.from) : id,
+    to: options.to ? cwd(options.to) : id,
+    map: {
+      inline: false,
+      annotation: false
+    },
+    parser: options.parser
+  }
+
+  return (options.preprocessor || dummyPreprocessor)(code, id).then(input => {
+    if (input.map && input.map.mappings) {
+      opts.map.prev = input.map
+    }
+    return postcss(options.plugins || [])
+      .process(
+        input.code.replace(
+          /\/\*[@#][\s\t]+sourceMappingURL=.*?\*\/$/gm,
+          ''
+        ),
+        opts
+      )
+      .then(result => {
+        let codeExportDefault
+        let codeExportSparse = ''
+
+        if (isFunction(options.getExport)) {
+          codeExportDefault = options.getExport(result.opts.from)
+          if (getExportNamed) {
+            Object.keys(codeExportDefault).forEach(key => {
+              let newKey = escapeClassNameDashes(key)
+
+              if (reserved.check(key)) newKey = `$${key}$`
+              codeExportSparse += `export const ${newKey}=${JSON.stringify(
+                codeExportDefault[key]
+              )};\n`
+
+              if (newKey !== key) {
+                console.warn(
+                  chalk.yellow('use'),
+                  chalk.cyan(`${newKey}`),
+                  chalk.yellow('to import'),
+                  chalk.cyan(`${key}`),
+                  chalk.yellow('className')
+                )
+                codeExportDefault[newKey] = codeExportDefault[key]
+              }
+            })
+          }
+        }
+
+        if (needsTransformation) {
+          transformedFiles[result.opts.from] = {
+            css: result.css,
+            map: result.map && result.map.toString()
+          }
+
+          return {
+            code: `${codeExportSparse}export default ${JSON.stringify(codeExportDefault)};`,
+            map: { mappings: '' }
+          }
+        }
+
+        return {
+          code: `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(codeExportDefault)});`,
+          map: options.sourceMap && result.map
+            ? JSON.parse(result.map)
+            : { mappings: '' }
+        }
+      })
+  })
+}
+
 export default function(options = {}) {
   const filter = createFilter(options.include, options.exclude)
   const injectFnName = '__$styleInject'
@@ -63,9 +138,7 @@ export default function(options = {}) {
   const getExportNamed = options.getExportNamed || false
   const combineStyleTags = Boolean(options.combineStyleTags)
   const extract = Boolean(options.extract)
-  const extractPath = typeof options.extract === 'string'
-    ? options.extract
-    : null
+  const extractPath = isString(options.extract) ? options.extract : null
 
   let concat = null
   const transformedFiles = {}
@@ -103,81 +176,7 @@ export default function(options = {}) {
         return null
       }
 
-      const opts = {
-        from: options.from ? cwd(options.from) : id,
-        to: options.to ? cwd(options.to) : id,
-        map: {
-          inline: false,
-          annotation: false
-        },
-        parser: options.parser
-      }
-
-      return (options.preprocessor || dummyPreprocessor)(code, id).then(input => {
-          if (input.map && input.map.mappings) {
-            opts.map.prev = input.map
-          }
-          return postcss(options.plugins || [])
-            .process(
-              input.code.replace(
-                /\/\*[@#][\s\t]+sourceMappingURL=.*?\*\/$/gm,
-                ''
-              ),
-              opts
-            )
-            .then(result => {
-              let codeExportDefault
-              let codeExportSparse = ''
-              
-              if (isFunction(options.getExport)) {
-                codeExportDefault = options.getExport(result.opts.from)
-                if (getExportNamed) {
-                  Object.keys(codeExportDefault).forEach(key => {
-                    let newKey = escapeClassNameDashes(key)
-
-                    if (reserved.check(key)) newKey = `$${key}$`
-                    codeExportSparse += `export const ${newKey}=${JSON.stringify(
-                      codeExportDefault[key]
-                    )};\n`
-
-                    if (newKey !== key) {
-                      console.warn(
-                        chalk.yellow('use'),
-                        chalk.cyan(`${newKey}`),
-                        chalk.yellow('to import'),
-                        chalk.cyan(`${key}`),
-                        chalk.yellow('className')
-                      )
-                      codeExportDefault[newKey] = codeExportDefault[key]
-                    }
-                  })
-                }
-              }
-
-              if (extract || combineStyleTags) {
-                transformedFiles[result.opts.from] = {
-                  css: result.css,
-                  map: result.map && result.map.toString()
-                }
-
-                return {
-                  code: `${codeExportSparse}export default ${JSON.stringify(
-                    codeExportDefault
-                  )};`,
-                  map: { mappings: '' }
-                }
-              }
-
-              return {
-                code: `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(
-                  result.css
-                )},${JSON.stringify(codeExportDefault)});`,
-                map: options.sourceMap && result.map
-                  ? JSON.parse(result.map)
-                  : { mappings: '' }
-              }
-            })
-        })
+      return _transform(code, id, options, extract || combineStyleTags, transformedFiles)
     },
     onwrite(opts) {
       if (extract) {
