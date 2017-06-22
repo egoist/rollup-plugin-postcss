@@ -40,6 +40,8 @@ export default {
       ],
       //sourceMap: false, // default value
       //extract: false, // default value
+      //exportNamed: false, // default value
+      //escapeDashes: false, // default value
       extensions: ['.css', '.sss']  // default value
       // parser: sugarss
     })
@@ -88,21 +90,21 @@ import style from './style.css';
 
 console.log(style.className); // .className_echwj_1
 ```
-You also can import only a specific CSS className like this:
+When `exportNamed` is set to `true`, you also can import only a specific CSS className like this:
 
 ```js
 import {className} from './style.css';
 
 console.log(className); // .className_echwj_2
 ```
-Also, note that all your dashed class names will be transformed to camlCased one when it be individually imported, but the original will not be removed from the locals. For example:
+When `escapeDashes` is set to `true`, your dashed class names will be transformed to camelCased. For example:
 
 ```css
 .class-name {}
 ```
 ```js
 import style, { className } from './style.css';
-console.log(style['class-name'] === className) // true
+console.log(style.className === className) // true
 ```
 
 ### Extract CSS
