@@ -9,6 +9,7 @@ import chalk from 'chalk'
 
 import {
   isFunction,
+  isString,
   dummyPreprocessor,
   dashesCamelCase
 } from './helpers'
@@ -50,15 +51,84 @@ function extractCssAndWriteToFile(source, manualDest, autoDest, sourceMap) {
     })
 }
 
+function _transform(code, id, options, needsTransformation, transformedFiles){
+  const opts = {
+    from: options.from ? cwd(options.from) : id,
+    to: options.to ? cwd(options.to) : id,
+    map: {
+      inline: false,
+      annotation: false
+    },
+    parser: options.parser
+  }
+
+  return (options.preprocessor || dummyPreprocessor)(code, id).then(input => {
+    if (input.map && input.map.mappings) {
+      opts.map.prev = input.map
+    }
+    return postcss(options.plugins || [])
+      .process(
+        input.code.replace(
+          /\/\*[@#][\s\t]+sourceMappingURL=.*?\*\/$/gm,
+          ''
+        ),
+        opts
+      )
+      .then(result => {
+        let codeExportDefault
+        let codeExportSparse = ''
+
+        if (isFunction(options.getExport)) {
+          codeExportDefault = options.getExport(result.opts.from)
+          Object.keys(codeExportDefault).forEach(k => {
+            const camelCasedKey = dashesCamelCase(k)
+            if (reserved.check(camelCasedKey)) {
+              console.warn(
+                chalk.yellow('You are using a reserved keyword'),
+                chalk.cyan(camelCasedKey),
+                chalk.yellow(
+                  "as className so it's not available in named exports"
+                )
+              )
+              console.warn(chalk.dim(`location: ${id}`))
+            } else {
+              codeExportSparse += `export const ${camelCasedKey}=${JSON.stringify(codeExportDefault[k])};\n`
+            }
+            if (camelCasedKey !== k) {
+              codeExportDefault[camelCasedKey] = codeExportDefault[k]
+            }
+          })
+        }
+
+        if (needsTransformation) {
+          transformedFiles[result.opts.from] = {
+            css: result.css,
+            map: result.map && result.map.toString()
+          }
+
+          return {
+            code: `${codeExportSparse}export default ${JSON.stringify(codeExportDefault)};`,
+            map: { mappings: '' }
+          }
+        }
+
+        return {
+          code: `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(codeExportDefault)});`,
+          map: options.sourceMap && result.map
+            ? JSON.parse(result.map)
+            : { mappings: '' }
+        }
+      })
+  })
+}
+
 export default function(options = {}) {
   const filter = createFilter(options.include, options.exclude)
   const injectFnName = '__$styleInject'
   const extensions = options.extensions || ['.css', '.sss']
   const combineStyleTags = Boolean(options.combineStyleTags)
   const extract = Boolean(options.extract)
-  const extractPath = typeof options.extract === 'string'
-    ? options.extract
-    : null
+  const extractPath = isString(options.extract) ? options.extract : null
 
   let concat = null
   const transformedFiles = {}
@@ -94,74 +164,7 @@ export default function(options = {}) {
         return null
       }
 
-      const opts = {
-        from: options.from ? cwd(options.from) : id,
-        to: options.to ? cwd(options.to) : id,
-        map: {
-          inline: false,
-          annotation: false
-        },
-        parser: options.parser
-      }
-
-      return (options.preprocessor || dummyPreprocessor)(code, id).then(input => {
-          if (input.map && input.map.mappings) {
-            opts.map.prev = input.map
-          }
-          return postcss(options.plugins || [])
-            .process(
-              input.code.replace(
-                /\/\*[@#][\s\t]+sourceMappingURL=.*?\*\/$/gm,
-                ''
-              ),
-              opts
-            )
-            .then(result => {
-              let codeExportDefault
-              let codeExportSparse = ''
-
-              if (isFunction(options.getExport)) {
-                codeExportDefault = options.getExport(result.opts.from)
-                Object.keys(codeExportDefault).forEach(k => {
-                  const camelCasedKey = dashesCamelCase(k)
-                  if (reserved.check(camelCasedKey)) {
-                    console.warn(
-                      chalk.yellow('You are using a reserved keyword'),
-                      chalk.cyan(camelCasedKey),
-                      chalk.yellow(
-                        "as className so it's not available in named exports"
-                      )
-                    )
-                    console.warn(chalk.dim(`location: ${id}`))
-                  } else {
-                    codeExportSparse += `export const ${camelCasedKey}=${JSON.stringify(codeExportDefault[k])};\n`
-                  }
-                  if (camelCasedKey !== k) {
-                    codeExportDefault[camelCasedKey] = codeExportDefault[k]
-                  }
-                })
-              }
-
-              if (extract || combineStyleTags) {
-                transformedFiles[result.opts.from] = {
-                  css: result.css,
-                  map: result.map && result.map.toString()
-                }
-
-                return {
-                  code: `${codeExportSparse}export default ${JSON.stringify(codeExportDefault)};`,
-                  map: { mappings: '' }
-                }
-              }
-
-              return {
-                code: `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(codeExportDefault)});`,
-                map: options.sourceMap && result.map
-                  ? JSON.parse(result.map)
-                  : { mappings: '' }
-              }
-            })
-        })
+      return _transform(code, id, options, extract || combineStyleTags, transformedFiles)
     },
     onwrite(opts) {
       if (extract) {
