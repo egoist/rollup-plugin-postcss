@@ -162,7 +162,7 @@ export default function(options = {}) {
 
   if (isFunction(options.getInstance) && extract) {
     watcher = new Watcher()
-    watcher.on('file-change', (file) => {
+    watcher.on('change', (file) => {
       console.log(`${file} changed, rebuilding`)
       // TODO: rebuild
     })
