@@ -6,6 +6,8 @@ import {
   buildDefault,
   buildWithParser,
   buildWithCssModules,
+  buildWithCssModulesEscapingDashes,
+  buildWithCssModulesEscapingDashesExportNamed,
   buildCombinedStyles,
   buildWithExtract,
   buildWithStylus
@@ -36,10 +38,27 @@ test('use sugarss as parser', async t => {
 test('use cssmodules', async t => {
   const data = await buildWithCssModules().catch(err => console.log(err.stack))
   const exported = requireFromString(data)
-  t.regex(exported.style.trendy, /trendy_/)
-  t.regex(exported.style.fooBar, /foo-bar_/)
-  t.regex(exported.fooBar, /foo-bar_/)
-  t.regex(exported.foo_bar, /foo_bar_/)
+  t.regex(exported.styleDefault.trendy, /trendy_/)
+  t.regex(exported.styleDefault['foo-bar'], /foo-bar_/)
+})
+
+test('use cssmodules with escaped dashes', async t => {
+  const data = await buildWithCssModulesEscapingDashes().catch(err =>
+    console.log(err.stack)
+  )
+  const exported = requireFromString(data)
+  t.regex(exported.styleDefault.trendy, /trendy_/)
+  t.regex(exported.styleDefault.fooBar, /foo-bar_/)
+})
+
+test('use cssmodules with escaped dashes and named exports', async t => {
+  const data = await buildWithCssModulesEscapingDashesExportNamed().catch(err =>
+    console.log(err.stack)
+  )
+  const exported = requireFromString(data)
+  t.regex(exported.styleDefault.trendy, /trendy_/)
+  t.regex(exported.styleDefault.fooBar, /foo-bar_/)
+  t.regex(exported.styleAll.fooBar, /foo-bar_/)
 })
 
 test('combine styles', async t => {
