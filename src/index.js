@@ -74,10 +74,7 @@ function _transform(code, id, options, needsTransformation, transformedFiles){
     }
     return postcss(options.plugins || [])
       .process(
-        input.code.replace(
-          /\/\*[@#][\s\t]+sourceMappingURL=.*?\*\/$/gm,
-          ''
-        ),
+        input.code.replace(/\/\*[@#][\s\t]+sourceMappingURL=.*?\*\/$/gm, ''),
         opts
       )
       .then(result => {
@@ -90,12 +87,12 @@ function _transform(code, id, options, needsTransformation, transformedFiles){
         if (isFunction(options.getExport)) {
           codeExportDefault = options.getExport(result.opts.from)
           if (getExportNamed) {
-            Object.keys(codeExportDefault).forEach(key => {
+            Object.entries(codeExportDefault).forEach(([key, v]) => {
               let newKey = escapeClassNameDashes(key)
 
               if (reserved.check(key)) newKey = `$${key}$`
               codeExportSparse += `export const ${newKey}=${JSON.stringify(
-                codeExportDefault[key]
+                v
               )};\n`
 
               if (newKey !== key) {
@@ -106,7 +103,7 @@ function _transform(code, id, options, needsTransformation, transformedFiles){
                   chalk.cyan(`${key}`),
                   chalk.yellow('className')
                 )
-                codeExportDefault[newKey] = codeExportDefault[key]
+                codeExportDefault[newKey] = v
               }
             })
           }
@@ -131,6 +128,20 @@ function _transform(code, id, options, needsTransformation, transformedFiles){
   })
 }
 
+function _intro(needsTransformation, combineStyleTags, injectStyleFuncCode, injectFnName){
+  let ret
+
+  if (needsTransformation) {
+    if (combineStyleTags) {
+      ret = `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(concat.content.toString('utf8'))})`
+    }
+  } else {
+    ret = injectStyleFuncCode
+  }
+
+  return ret
+}
+
 export default function(options = {}) {
   const filter = createFilter(options.include, options.exclude)
   const injectFnName = '__$styleInject'
@@ -143,40 +154,23 @@ export default function(options = {}) {
   let concat = null
   const transformedFiles = {}
 
-  const injectStyleFuncCode = styleInject
-    .toString()
-    .replace(/styleInject/, injectFnName)
+  const injectStyleFuncCode = styleInject.toString().replace(/styleInject/, injectFnName)
+  const needsTransformation = extract || combineStyleTags
 
   return {
     intro() {
-      if (extract || combineStyleTags) {
-        concat = new Concat(
-          true,
-          path.basename(extractPath || 'styles.css'),
-          '\n'
-        )
-        Object.keys(transformedFiles).forEach(file => {
-          concat.add(
-            file,
-            transformedFiles[file].css,
-            transformedFiles[file].map
-          )
-        })
-        if (combineStyleTags) {
-          return `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(
-            concat.content.toString('utf8')
-          )})`
-        }
-      } else {
-        return injectStyleFuncCode
+      if (needsTransformation) {
+        Object.entries(transformedFiles).forEach(([file, {css, map}]) => concat.add(file, css, map))
       }
+
+      return _intro(needsTransformation, combineStyleTags, injectStyleFuncCode, injectFnName)
     },
     transform(code, id) {
       if (!filter(id) || extensions.indexOf(path.extname(id)) === -1) {
         return null
       }
 
-      return _transform(code, id, options, extract || combineStyleTags, transformedFiles)
+      return _transform(code, id, options, needsTransformation, transformedFiles)
     },
     onwrite(opts) {
       if (extract) {
