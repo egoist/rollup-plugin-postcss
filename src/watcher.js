@@ -25,10 +25,10 @@ export default class Watcher extends EventEmitter {
       const toWatch = difference(filesToWatch, this._.files)
       
       if (toUnwatch.length > 0) {
-        console.log(`Removing watch from ${toUnwatch}`)
+        console.log('Removing watch from:', toUnwatch)
       }
       if (toWatch.length > 0) {
-        console.log(`Adding watch for ${toWatch}`)
+        console.log('Adding watch for:', toWatch)
       }
 
       toUnwatch.forEach(fileName => {
