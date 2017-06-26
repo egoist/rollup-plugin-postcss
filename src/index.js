@@ -41,6 +41,7 @@ function extractCssAndWriteToFile(source, manualDest, autoDest, sourceMap) {
         if (sourceMap === 'inline') {
           css += `\n/*# sourceMappingURL=data:application/json;base64,${Buffer.from(map, 'utf8').toString('base64')}*/`
         } else {
+          fileName = path.basename(cssOutputDest)
           css += `\n/*# sourceMappingURL=${fileName}.css.map */`
           promises.push(fs.writeFile(`${cssOutputDest}.map`, map))
         }
