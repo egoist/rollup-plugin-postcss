@@ -23,7 +23,7 @@ export default class Watcher extends EventEmitter {
 
       const toUnwatch = difference(this._.files, filesToWatch)
       const toWatch = difference(filesToWatch, this._.files)
-      
+
       if (toUnwatch.length > 0) {
         console.log('Removing watch from:', toUnwatch)
       }
