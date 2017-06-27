@@ -7,6 +7,9 @@
 .foo-bar {
   color: cyan;
 }
+.foo--bar {
+  color: grey;
+}
 .switch: {
   color: green;
 }

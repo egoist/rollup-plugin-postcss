@@ -1,4 +1,4 @@
-# rollup-plugin-postcss 
+# rollup-plugin-postcss
 
 [![NPM version](https://img.shields.io/npm/v/rollup-plugin-postcss.svg?style=flat)](https://npmjs.com/package/rollup-plugin-postcss) [![NPM downloads](https://img.shields.io/npm/dm/rollup-plugin-postcss.svg?style=flat)](https://npmjs.com/package/rollup-plugin-postcss) [![Build Status](https://img.shields.io/circleci/project/egoist/rollup-plugin-postcss/master.svg?style=flat)](https://circleci.com/gh/egoist/rollup-plugin-postcss)
  [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/egoist/donate)
@@ -73,6 +73,7 @@ export default {
           }
         })
       ],
+      getExportNamed: false, //Default false, when set to true it will also named export alongside default export your class names
       getExport (id) {
         return cssExportMap[id];
       }
@@ -95,14 +96,28 @@ import {className} from './style.css';
 
 console.log(className); // .className_echwj_2
 ```
-Also, note that all your dashed class names will be transformed to camlCased one when it be individually imported, but the original will not be removed from the locals. For example:
+Important, when importing specific classNames (getExportNamed), the following will happen :
+ - dashed class names will be transformed by replacing all the dashes to `$` sign wrapped underlines, eg. `--` => `$__$`
+ - js protected names used as your style class names, will be transformed by wrapping the names between `$` signs, eg. `switch` => `$switch$`
+
+All transformed names will be logged in your terminal like:
+```
+use `foo$__$bar` to import `foo--bar` className
+use `$switch$` to import `switch` className
+```
+The original will not be removed from the locals.
+For example:
 
 ```css
 .class-name {}
+.class--name {}
+.switch {}
 ```
 ```js
-import style, { className } from './style.css';
-console.log(style['class-name'] === className) // true
+import style, { class$_$name, class$__$name, $switch$ } from './style.css';
+console.log(style['class-name'] === class$_$name) // true
+console.log(style['class--name'] === class$__$name) // true
+console.log(style['switch'] === $switch$) // true
 ```
 
 ### Extract CSS
