@@ -1,3 +1,11 @@
+## [Version 0.5.4](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v0.5.4) (2017-7-25)
+
+### Bug fixes
+
+- Transform named exported classNames to accepted js var names and other fixes: [`29a38ad`](https://github.com/egoist/rollup-plugin-postcss/commit/29a38ad)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v0.5.3...v0.5.4)
+
 ## [Version 0.5.3](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v0.5.3) (2017-5-25)
 
 ### Bug fixes
