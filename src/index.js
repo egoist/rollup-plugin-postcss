@@ -7,9 +7,9 @@ import Concat from 'concat-with-sourcemaps'
 import reserved from 'reserved-words'
 import chalk from 'chalk'
 
-function dashesCamelCase(str) {
-  return str.replace(/-(\w)/g, (match, firstLetter) => {
-    return firstLetter.toUpperCase()
+function escapeClassNameDashes(str) {
+  return str.replace(/-+/g, match => {
+    return `$${match.replace(/-/g, '_')}$`
   })
 }
 
@@ -17,31 +17,32 @@ function cwd(file) {
   return path.join(process.cwd(), file)
 }
 
-function extractCssAndWriteToFile(source, manualDest, autoDest, sourceMap) {
+function extractCssAndWriteToFile(source, sourceMap, dest, manualDest) {
   return Promise.resolve()
     .then(() => {
       if (manualDest) {
-        return fs.ensureDir(path.dirname(manualDest))
+        return fs.ensureDir(path.dirname(dest))
       }
     })
     .then(() => {
-      const fileName = path.basename(autoDest, path.extname(autoDest))
-      const cssOutputDest = manualDest
-        ? manualDest
-        : path.join(path.dirname(autoDest), fileName + '.css')
+      const fileName = path.basename(dest, path.extname(dest)) + '.css'
+      const cssOutputDest = path.join(path.dirname(dest), fileName)
       let css = source.content.toString('utf8')
       const promises = []
       if (sourceMap) {
         let map = source.sourceMap
         if (!manualDest) {
           map = JSON.parse(map)
-          map.file = fileName + '.css'
+          map.file = fileName
           map = JSON.stringify(map)
         }
         if (sourceMap === 'inline') {
-          css += `\n/*# sourceMappingURL=data:application/json;base64,${Buffer.from(map, 'utf8').toString('base64')}*/`
+          css += `\n/*# sourceMappingURL=data:application/json;base64,${Buffer.from(
+            map,
+            'utf8'
+          ).toString('base64')}*/`
         } else {
-          css += `\n/*# sourceMappingURL=${fileName}.css.map */`
+          css += `\n/*# sourceMappingURL=${fileName}.map */`
           promises.push(fs.writeFile(`${cssOutputDest}.map`, map))
         }
       }
@@ -57,6 +58,7 @@ export default function(options = {}) {
   const getExport = typeof options.getExport === 'function'
     ? options.getExport
     : false
+  const getExportNamed = options.getExportNamed || false
   const combineStyleTags = Boolean(options.combineStyleTags)
   const extract = Boolean(options.extract)
   const extractPath = typeof options.extract === 'string'
@@ -86,7 +88,9 @@ export default function(options = {}) {
           )
         })
         if (combineStyleTags) {
-          return `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(concat.content.toString('utf8'))})`
+          return `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(
+            concat.content.toString('utf8')
+          )})`
         }
       } else {
         return injectStyleFuncCode
@@ -131,27 +135,29 @@ export default function(options = {}) {
             .then(result => {
               let codeExportDefault
               let codeExportSparse = ''
-
               if (getExport) {
                 codeExportDefault = getExport(result.opts.from)
-                Object.keys(codeExportDefault).forEach(k => {
-                  const camelCasedKey = dashesCamelCase(k)
-                  if (reserved.check(camelCasedKey)) {
-                    console.warn(
-                      chalk.yellow('You are using a reserved keyword'),
-                      chalk.cyan(camelCasedKey),
-                      chalk.yellow(
-                        "as className so it's not available in named exports"
+                if (getExportNamed) {
+                  Object.keys(codeExportDefault).forEach(key => {
+                    let newKey = escapeClassNameDashes(key)
+
+                    if (reserved.check(key)) newKey = `$${key}$`
+                    codeExportSparse += `export const ${newKey}=${JSON.stringify(
+                      codeExportDefault[key]
+                    )};\n`
+
+                    if (newKey !== key) {
+                      console.warn(
+                        chalk.yellow('use'),
+                        chalk.cyan(`${newKey}`),
+                        chalk.yellow('to import'),
+                        chalk.cyan(`${key}`),
+                        chalk.yellow('className')
                       )
-                    )
-                    console.warn(chalk.dim(`location: ${id}`))
-                  } else {
-                    codeExportSparse += `export const ${camelCasedKey}=${JSON.stringify(codeExportDefault[k])};\n`
-                  }
-                  if (camelCasedKey !== k) {
-                    codeExportDefault[camelCasedKey] = codeExportDefault[k]
-                  }
-                })
+                      codeExportDefault[newKey] = codeExportDefault[key]
+                    }
+                  })
+                }
               }
 
               if (combineStyleTags || extract) {
@@ -161,13 +167,17 @@ export default function(options = {}) {
                 }
 
                 return {
-                  code: `${codeExportSparse}export default ${JSON.stringify(codeExportDefault)};`,
+                  code: `${codeExportSparse}export default ${JSON.stringify(
+                    codeExportDefault
+                  )};`,
                   map: { mappings: '' }
                 }
               }
 
               return {
-                code: `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(codeExportDefault)});`,
+                code: `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(
+                  result.css
+                )},${JSON.stringify(codeExportDefault)});`,
                 map: options.sourceMap && result.map
                   ? JSON.parse(result.map)
                   : { mappings: '' }
@@ -179,9 +189,9 @@ export default function(options = {}) {
       if (extract) {
         return extractCssAndWriteToFile(
           concat,
-          extractPath,
-          opts.dest,
-          options.sourceMap
+          options.sourceMap,
+          extractPath ? extractPath : opts.dest,
+          extractPath
         )
       }
     }

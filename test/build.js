@@ -66,7 +66,7 @@ export function buildWithParser() {
   })
 }
 
-export function buildWithCssModules() {
+export function buildWithCssModules(file = 'modules', getExportNamed = false) {
   const exportMap = {}
   return rollup({
     plugins: [
@@ -80,6 +80,7 @@ export function buildWithCssModules() {
             }
           })
         ],
+        getExportNamed,
         getExport(id) {
           return exportMap[id]
         }
@@ -91,7 +92,7 @@ export function buildWithCssModules() {
         sourceMap: true
       })
     ],
-    entry: path.resolve('./fixtures/fixture_modules.js')
+    entry: path.resolve(`./fixtures/fixture_${file}.js`)
   }).then(bundle => {
     const result = bundle.generate({
       format: 'umd',
@@ -99,7 +100,7 @@ export function buildWithCssModules() {
       sourceMap: true
     })
     bundle.write({
-      dest: './output/output_modules.js',
+      dest: `./output/output_${file}.js`,
       moduleName: 'default',
       format: 'umd',
       sourceMap: true
@@ -108,7 +109,7 @@ export function buildWithCssModules() {
   })
 }
 
-export function buildCombinedStyles() {
+export function buildCombinedStyles(getExportNamed = false) {
   const exportMap = {}
   return rollup({
     plugins: [
@@ -124,6 +125,7 @@ export function buildCombinedStyles() {
           })
         ],
         combineStyleTags: true,
+        getExportNamed,
         getExport(id) {
           return exportMap[id]
         }
@@ -152,13 +154,13 @@ export function buildCombinedStyles() {
   })
 }
 
-export function buildWithExtract() {
+export function buildWithExtract(extract = true) {
   return rollup({
     plugins: [
       postcss({
         include: '**/*.css',
         sourceMap: true,
-        extract: true
+        extract
       }),
       babel({
         babelrc: false,
