@@ -6,21 +6,19 @@ import styleInject from 'style-inject'
 import Concat from 'concat-with-sourcemaps'
 import reserved from 'reserved-words'
 import chalk from 'chalk'
+import {
+  isFunction,
+  isString,
+  dummyPreprocessor
+} from './helpers'
+
+import Watcher from './watcher'
 
 function escapeClassNameDashes(str) {
   return str.replace(/-+/g, match => {
     return `$${match.replace(/-/g, '_')}$`
   })
 }
-import {
-  isFunction,
-  isString,
-  dummyPreprocessor,
-  dashesCamelCase
-} from './helpers'
-
-import Watcher from './watcher'
-
 function cwd(file) {
   return path.join(process.cwd(), file)
 }
@@ -49,7 +47,10 @@ function extractCssAndWriteToFile(source, sourceMap, dest, manualDest) {
           map = JSON.stringify(map)
         }
         if (sourceMap === 'inline') {
-          css += `\n/*# sourceMappingURL=data:application/json;base64,${Buffer.from(map, 'utf8').toString('base64')}*/`
+          css += `\n/*# sourceMappingURL=data:application/json;base64,${Buffer.from(
+            map,
+            'utf8'
+          ).toString('base64')}*/`
         } else {
           css += `\n/*# sourceMappingURL=${fileName}.map */`
           promises.push(fs.writeFile(`${cssOutputDest}.map`, map))
@@ -118,9 +119,15 @@ function _transform({ code, id }, options, transformedFiles, injectFnName) {
             map: result.map && result.map.toString()
           }
 
-          ret.code = `${codeExportSparse}export default ${JSON.stringify(codeExportDefault)};`
+          ret.code = `${codeExportSparse}export default ${JSON.stringify(
+            codeExportDefault
+          )};`
         } else {
-          ret.code = `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(result.css)},${JSON.stringify(codeExportDefault)});`
+          ret.code = `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(
+            result.css
+          )},${JSON.stringify(
+            codeExportDefault
+          )});`
           if (options.sourceMap && result.map) {
             ret.map = JSON.parse(result.map)
           }
@@ -135,7 +142,9 @@ function _intro(options, injectStyleFuncCode, injectFnName, concat) {
 
   if (needsTransformation(options)) {
     if (options.combineStyleTags) {
-      ret = `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(concat.content.toString('utf8'))})`
+      ret = `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(
+        concat.content.toString('utf8')
+      )})`
     }
   } else {
     ret = injectStyleFuncCode
