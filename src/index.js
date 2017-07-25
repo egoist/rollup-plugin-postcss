@@ -235,8 +235,8 @@ export default function(options = {}) {
         return extractCssAndWriteToFile(
           concat,
           options.sourceMap,
-          extractPath,
-          destination
+          destination,
+          extractPath
         )
       }
     }
