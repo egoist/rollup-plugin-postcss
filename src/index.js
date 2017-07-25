@@ -89,7 +89,7 @@ function _transform({ code, id }, options, transformedFiles, injectFnName) {
 
         if (isFunction(options.getExport)) {
           codeExportDefault = options.getExport(result.opts.from)
-          if (getExportNamed) {
+          if (options.getExportNamed) {
             Object.entries(codeExportDefault).forEach(([k, v]) => {
               let newKey = escapeClassNameDashes(k)
 
@@ -148,7 +148,6 @@ export default function(options = {}) {
   const filter = createFilter(options.include, options.exclude)
   const injectFnName = '__$styleInject'
   const extensions = options.extensions || ['.css', '.sss']
-  const getExportNamed = options.getExportNamed || false
   const extract = Boolean(options.extract)
   const extractPath = isString(options.extract) ? options.extract : null
   const injectStyleFuncCode = styleInject
