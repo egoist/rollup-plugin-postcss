@@ -6,11 +6,7 @@ import styleInject from 'style-inject'
 import Concat from 'concat-with-sourcemaps'
 import reserved from 'reserved-words'
 import chalk from 'chalk'
-import {
- isFunction,
- isString,
- dummyPreprocessor
-} from './helpers'
+import { isFunction, isString, dummyPreprocessor } from './helpers'
 
 import Watcher from './watcher'
 

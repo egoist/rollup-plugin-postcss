@@ -18,10 +18,4 @@ function difference(a, b) {
   return a.filter(ax => !b.includes(ax))
 }
 
-export {
- isFunction,
- isString,
- dummyPreprocessor,
- clone,
- difference
-}
+export { isFunction, isString, dummyPreprocessor, clone, difference }
