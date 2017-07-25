@@ -7,9 +7,9 @@ import Concat from 'concat-with-sourcemaps'
 import reserved from 'reserved-words'
 import chalk from 'chalk'
 import {
-  isFunction,
-  isString,
-  dummyPreprocessor
+ isFunction,
+ isString,
+ dummyPreprocessor
 } from './helpers'
 
 import Watcher from './watcher'
@@ -125,9 +125,7 @@ function _transform({ code, id }, options, transformedFiles, injectFnName) {
         } else {
           ret.code = `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(
             result.css
-          )},${JSON.stringify(
-            codeExportDefault
-          )});`
+          )},${JSON.stringify(codeExportDefault)});`
           if (options.sourceMap && result.map) {
             ret.map = JSON.parse(result.map)
           }

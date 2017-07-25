@@ -19,9 +19,9 @@ function difference(a, b) {
 }
 
 export {
-  isFunction,
-  isString,
-  dummyPreprocessor,
-  clone,
-  difference
+ isFunction,
+ isString,
+ dummyPreprocessor,
+ clone,
+ difference
 }
