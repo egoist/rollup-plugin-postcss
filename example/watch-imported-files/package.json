@@ -1,0 +1,21 @@
+{
+  "name": "watch-imported-files",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "build:watch": "npm run build -- --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "less": "^2.7.2",
+    "postcss-less-engine": "github:meszaros-lajos-gyorgy/postcss-less",
+    "rollup": "^0.45.2",
+    "rollup-plugin-postcss": "file:..\\.."
+  },
+  "devDependencies": {
+    "rollup-watch": "^4.3.1"
+  }
+}

@@ -7,14 +7,22 @@ import Concat from 'concat-with-sourcemaps'
 import reserved from 'reserved-words'
 import chalk from 'chalk'
 
-function escapeClassNameDashes(str) {
-  return str.replace(/-+/g, match => {
-    return `$${match.replace(/-/g, '_')}$`
-  })
-}
+import './polyfills'
+
+import {
+  isFunction,
+  isString,
+  dummyPreprocessor,
+  escapeClassNameDashes
+} from './helpers'
+import Watcher from './watcher'
 
 function cwd(file) {
   return path.join(process.cwd(), file)
+}
+
+function needsTransformation(options) {
+  return Boolean(options.combineStyleTags) || Boolean(options.extract)
 }
 
 function extractCssAndWriteToFile(source, sourceMap, dest, manualDest) {
@@ -51,146 +59,188 @@ function extractCssAndWriteToFile(source, sourceMap, dest, manualDest) {
     })
 }
 
+function _intro(options, injectStyleFuncCode, injectFnName, concat) {
+  let ret
+
+  if (needsTransformation(options)) {
+    if (options.combineStyleTags) {
+      ret = `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(
+        concat.content.toString('utf8')
+      )})`
+    }
+  } else {
+    ret = injectStyleFuncCode
+  }
+
+  return ret
+}
+
+function _transform({ code, id }, options, transformedFiles, injectFnName) {
+  const opts = {
+    from: options.from ? cwd(options.from) : id,
+    to: options.to ? cwd(options.to) : id,
+    map: {
+      inline: false,
+      annotation: false
+    },
+    parser: options.parser
+  }
+
+  return (options.preprocessor || dummyPreprocessor)(code, id).then(input => {
+    if (input.map && input.map.mappings) {
+      opts.map.prev = input.map
+    }
+
+    return postcss(options.plugins || [])
+      .process(
+        input.code.replace(/\/\*[@#][\s\t]+sourceMappingURL=.*?\*\/$/gm, ''),
+        opts
+      )
+      .then(result => {
+        let codeExportDefault
+        let codeExportSparse = ''
+        const ret = {
+          map: { mappings: '' }
+        }
+
+        if (isFunction(options.getExport)) {
+          codeExportDefault = options.getExport(result.opts.from)
+
+          if (options.getExportNamed) {
+            Object.entries(codeExportDefault).forEach(([key, v]) => {
+              let newKey = escapeClassNameDashes(key)
+
+              if (reserved.check(key)) newKey = `$${key}$`
+              codeExportSparse += `export const ${newKey}=${JSON.stringify(
+                v
+              )};\n`
+
+              if (newKey !== key) {
+                console.warn(
+                  chalk.yellow('use'),
+                  chalk.cyan(`${newKey}`),
+                  chalk.yellow('to import'),
+                  chalk.cyan(`${key}`),
+                  chalk.yellow('className')
+                )
+                codeExportDefault[newKey] = v
+              }
+            })
+          }
+        }
+
+        if (needsTransformation(options)) {
+          transformedFiles[result.opts.from] = {
+            css: result.css,
+            map: result.map && result.map.toString()
+          }
+
+          ret.code = `${codeExportSparse}export default ${JSON.stringify(
+            codeExportDefault
+          )};`
+        } else {
+          ret.code = `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(
+            result.css
+          )},${JSON.stringify(codeExportDefault)});`
+          if (options.sourceMap && result.map) {
+            ret.map = JSON.parse(result.map)
+          }
+        }
+
+        return ret
+      })
+  })
+}
+
 export default function(options = {}) {
   const filter = createFilter(options.include, options.exclude)
   const injectFnName = '__$styleInject'
   const extensions = options.extensions || ['.css', '.sss']
-  const getExport = typeof options.getExport === 'function'
-    ? options.getExport
-    : false
-  const getExportNamed = options.getExportNamed || false
-  const combineStyleTags = Boolean(options.combineStyleTags)
   const extract = Boolean(options.extract)
-  const extractPath = typeof options.extract === 'string'
-    ? options.extract
-    : null
-
-  let concat = null
-  const transformedFiles = {}
-
+  const extractPath = isString(options.extract) ? options.extract : null
   const injectStyleFuncCode = styleInject
     .toString()
     .replace(/styleInject/, injectFnName)
 
+  let concat = null
+  let watcher
+  let source
+  let destination
+  const transformedFiles = {}
+  let hadOnwrite = false
+
+  function createConcat() {
+    const concat = new Concat(
+      true,
+      path.basename(extractPath || 'styles.css'),
+      '\n'
+    )
+    Object.entries(transformedFiles).forEach(([file, { css, map }]) =>
+      concat.add(file, css, map)
+    )
+    return concat
+  }
+
+  if (isFunction(options.getInstance) && extract) {
+    watcher = new Watcher()
+    watcher.on('change', file => {
+      console.log(`${file} changed, rebuilding...`)
+      fs.readFile(source, 'utf8', (err, code) => {
+        if (!err) {
+          _transform(
+            { code, id: source },
+            options,
+            transformedFiles,
+            injectFnName
+          )
+            .then(() => {
+              if (needsTransformation(options)) {
+                concat = createConcat()
+              }
+              return _intro(options, injectStyleFuncCode, injectFnName, concat)
+            })
+            .then(() =>
+              extractCssAndWriteToFile(
+                concat,
+                options.sourceMap,
+                destination,
+                extractPath
+              )
+            )
+            .then(() => {
+              console.log(`...done`)
+            })
+        }
+      })
+    })
+    options.getInstance({
+      watcher
+    })
+  }
+
   return {
     intro() {
-      if (extract || combineStyleTags) {
-        concat = new Concat(
-          true,
-          path.basename(extractPath || 'styles.css'),
-          '\n'
-        )
-        Object.keys(transformedFiles).forEach(file => {
-          concat.add(
-            file,
-            transformedFiles[file].css,
-            transformedFiles[file].map
-          )
-        })
-        if (combineStyleTags) {
-          return `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(
-            concat.content.toString('utf8')
-          )})`
-        }
-      } else {
-        return injectStyleFuncCode
+      if (needsTransformation(options)) {
+        concat = createConcat()
       }
+      return _intro(options, injectStyleFuncCode, injectFnName, concat)
     },
     transform(code, id) {
-      if (!filter(id)) {
+      if (!filter(id) || !extensions.includes(path.extname(id))) {
         return null
       }
-      if (extensions.indexOf(path.extname(id)) === -1) {
-        return null
-      }
-      const opts = {
-        from: options.from ? cwd(options.from) : id,
-        to: options.to ? cwd(options.to) : id,
-        map: {
-          inline: false,
-          annotation: false
-        },
-        parser: options.parser
-      }
-
-      return Promise.resolve()
-        .then(() => {
-          if (options.preprocessor) {
-            return options.preprocessor(code, id)
-          }
-          return { code }
-        })
-        .then(input => {
-          if (input.map && input.map.mappings) {
-            opts.map.prev = input.map
-          }
-          return postcss(options.plugins || [])
-            .process(
-              input.code.replace(
-                /\/\*[@#][\s\t]+sourceMappingURL=.*?\*\/$/gm,
-                ''
-              ),
-              opts
-            )
-            .then(result => {
-              let codeExportDefault
-              let codeExportSparse = ''
-              if (getExport) {
-                codeExportDefault = getExport(result.opts.from)
-                if (getExportNamed) {
-                  Object.keys(codeExportDefault).forEach(key => {
-                    let newKey = escapeClassNameDashes(key)
-
-                    if (reserved.check(key)) newKey = `$${key}$`
-                    codeExportSparse += `export const ${newKey}=${JSON.stringify(
-                      codeExportDefault[key]
-                    )};\n`
-
-                    if (newKey !== key) {
-                      console.warn(
-                        chalk.yellow('use'),
-                        chalk.cyan(`${newKey}`),
-                        chalk.yellow('to import'),
-                        chalk.cyan(`${key}`),
-                        chalk.yellow('className')
-                      )
-                      codeExportDefault[newKey] = codeExportDefault[key]
-                    }
-                  })
-                }
-              }
-
-              if (combineStyleTags || extract) {
-                transformedFiles[result.opts.from] = {
-                  css: result.css,
-                  map: result.map && result.map.toString()
-                }
-
-                return {
-                  code: `${codeExportSparse}export default ${JSON.stringify(
-                    codeExportDefault
-                  )};`,
-                  map: { mappings: '' }
-                }
-              }
-
-              return {
-                code: `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(
-                  result.css
-                )},${JSON.stringify(codeExportDefault)});`,
-                map: options.sourceMap && result.map
-                  ? JSON.parse(result.map)
-                  : { mappings: '' }
-              }
-            })
-        })
+      source = id
+      return _transform({ code, id }, options, transformedFiles, injectFnName)
     },
     onwrite(opts) {
-      if (extract) {
+      if (!hadOnwrite && extract) {
+        hadOnwrite = true
+        destination = extractPath ? extractPath : opts.dest
+
         return extractCssAndWriteToFile(
           concat,
           options.sourceMap,
-          extractPath ? extractPath : opts.dest,
+          destination,
           extractPath
         )
       }
