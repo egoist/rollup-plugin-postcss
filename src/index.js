@@ -7,7 +7,7 @@ import Concat from 'concat-with-sourcemaps'
 import reserved from 'reserved-words'
 import chalk from 'chalk'
 
-import './polyfills'
+import runPolyfills from './polyfills'
 
 import {
   isFunction,
@@ -16,6 +16,8 @@ import {
   escapeClassNameDashes
 } from './helpers'
 import Watcher from './watcher'
+
+runPolyfills()
 
 function cwd(file) {
   return path.join(process.cwd(), file)
