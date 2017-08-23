@@ -17,7 +17,7 @@ function cwd(file) {
   return path.join(process.cwd(), file)
 }
 
-function extractCssAndWriteToFile(source, sourceMap, dest, manualDest) {
+function extractCssAndWriteToFile(source, sourcemap, dest, manualDest) {
   return Promise.resolve()
     .then(() => {
       if (manualDest) {
@@ -29,14 +29,14 @@ function extractCssAndWriteToFile(source, sourceMap, dest, manualDest) {
       const cssOutputDest = path.join(path.dirname(dest), fileName)
       let css = source.content.toString('utf8')
       const promises = []
-      if (sourceMap) {
-        let map = source.sourceMap
+      if (sourcemap) {
+        let map = source.sourcemap
         if (!manualDest) {
           map = JSON.parse(map)
           map.file = fileName
           map = JSON.stringify(map)
         }
-        if (sourceMap === 'inline') {
+        if (sourcemap === 'inline') {
           css += `\n/*# sourceMappingURL=data:application/json;base64,${Buffer.from(
             map,
             'utf8'
@@ -178,7 +178,7 @@ export default function(options = {}) {
                 code: `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(
                   result.css
                 )},${JSON.stringify(codeExportDefault)});`,
-                map: options.sourceMap && result.map
+                map: options.sourcemap && result.map
                   ? JSON.parse(result.map)
                   : { mappings: '' }
               }
@@ -189,8 +189,8 @@ export default function(options = {}) {
       if (extract) {
         return extractCssAndWriteToFile(
           concat,
-          options.sourceMap,
-          extractPath ? extractPath : opts.dest,
+          options.sourcemap,
+          extractPath ? extractPath : opts.file,
           extractPath
         )
       }
