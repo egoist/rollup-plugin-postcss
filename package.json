@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-postcss",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "Seamless integration between Rollup and PostCSS",
   "main": "dist/index.common.js",
   "files": [
@@ -40,7 +40,7 @@
     "postcss-nested": "^2.0.2",
     "require-from-string": "^1.1.0",
     "rimraf": "^2.6.1",
-    "rollup": "^0.41.6",
+    "rollup": "^0.49.2",
     "rollup-plugin-babel": "^2.6.1",
     "stylus": "^0.54.5",
     "sugarss": "^1.0.0",
