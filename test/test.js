@@ -20,34 +20,31 @@ test.after(() => {
 })
 
 test('test postcss', async t => {
-  const data = await buildDefault().catch(err => console.log(err.stack))
-  requireFromString(data)
-  const styles = window.getComputedStyle(document.body)
-  t.is(styles.margin, '0px')
+  const { code } = await buildDefault().catch(err => console.log(err.stack))
+  t.true(code.indexOf('h1') > -1)
+  t.true(code.indexOf('html body') > -1)
 })
 
 test('use sugarss as parser', async t => {
-  const data = await buildWithParser().catch(err => console.log(err.stack))
-  requireFromString(data)
-  const styles = window.getComputedStyle(document.body)
-  t.is(styles.fontSize, '20px')
+  const { code } = await buildWithParser().catch(err => console.log(err.stack))
+  t.true(code.indexOf('font-size: 20px') > -1)
 })
 
 test('use cssmodules', async t => {
-  const data = await buildWithCssModules('modules').catch(err =>
+  const { code } = await buildWithCssModules('modules').catch(err =>
     console.log(err.stack)
   )
-  const exported = requireFromString(data)
+  const exported = requireFromString(code)
   t.regex(exported.style.trendy, /trendy_/)
   t.regex(exported.style['foo--bar'], /foo--bar_/)
 })
 
 test('use cssmodules with named exports', async t => {
-  const data = await buildWithCssModules(
+  const { code } = await buildWithCssModules(
     'modules_export_named',
     true
   ).catch(err => console.log(err.stack))
-  const exported = requireFromString(data)
+  const exported = requireFromString(code)
   t.regex(exported.style.trendy, /trendy_/)
   t.regex(exported.style.foo$_$bar, /foo-bar_/)
   t.regex(exported.namedExports.foo$_$bar, /foo-bar_/)
@@ -59,11 +56,11 @@ test('use cssmodules with named exports', async t => {
 })
 
 test('combine styles', async t => {
-  const data = await buildCombinedStyles().catch(err => console.log(err.stack))
-  requireFromString(data)
-  const styles = window.getComputedStyle(document.body)
-  t.is(styles.margin, '0px')
-  t.is(styles.fontSize, '20px')
+  const { code } = await buildCombinedStyles().catch(err =>
+    console.log(err.stack)
+  )
+  t.true(code.indexOf('"trendy":"_trendy_') > -1)
+  t.true(code.indexOf('h1 {') > -1)
 })
 
 test('extract styles', async t => {

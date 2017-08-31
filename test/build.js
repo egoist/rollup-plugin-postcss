@@ -20,18 +20,18 @@ export function buildDefault() {
         sourceMap: true
       })
     ],
-    entry: path.resolve('./fixtures/fixture.js')
+    input: path.resolve('./fixtures/fixture.js')
   }).then(bundle => {
     const result = bundle.generate({
       format: 'umd',
-      sourceMap: true
+      sourcemap: true
     })
     bundle.write({
-      dest: './output/output.js',
+      file: './output/output.js',
       format: 'umd',
-      sourceMap: true
+      sourcemap: true
     })
-    return result.code
+    return result
   })
 }
 
@@ -51,18 +51,18 @@ export function buildWithParser() {
         sourceMap: true
       })
     ],
-    entry: path.resolve('./fixtures/fixture_parser.js')
+    input: path.resolve('./fixtures/fixture_parser.js')
   }).then(bundle => {
     const result = bundle.generate({
       format: 'umd',
-      sourceMap: true
+      sourcemap: true
     })
     bundle.write({
-      dest: './output/output_parser.js',
+      file: './output/output_parser.js',
       format: 'umd',
-      sourceMap: true
+      sourcemap: true
     })
-    return result.code
+    return result
   })
 }
 
@@ -92,20 +92,20 @@ export function buildWithCssModules(file = 'modules', getExportNamed = false) {
         sourceMap: true
       })
     ],
-    entry: path.resolve(`./fixtures/fixture_${file}.js`)
+    input: path.resolve(`./fixtures/fixture_${file}.js`)
   }).then(bundle => {
     const result = bundle.generate({
       format: 'umd',
-      moduleName: 'default',
-      sourceMap: true
+      name: 'default',
+      sourcemap: true
     })
     bundle.write({
-      dest: `./output/output_${file}.js`,
-      moduleName: 'default',
+      file: `./output/output_${file}.js`,
+      name: 'default',
       format: 'umd',
-      sourceMap: true
+      sourcemap: true
     })
-    return result.code
+    return result
   })
 }
 
@@ -137,20 +137,20 @@ export function buildCombinedStyles(getExportNamed = false) {
         sourceMap: true
       })
     ],
-    entry: path.resolve('./fixtures/fixture_combine_styles.js')
+    input: path.resolve('./fixtures/fixture_combine_styles.js')
   }).then(bundle => {
     const result = bundle.generate({
       format: 'iife',
-      sourceMap: true,
-      moduleName: 's'
+      sourcemap: true,
+      name: 's'
     })
     bundle.write({
-      dest: './output/output_combine_styles.js',
+      file: './output/output_combine_styles.js',
       format: 'iife',
-      moduleName: 's',
-      sourceMap: true
+      name: 's',
+      sourcemap: true
     })
-    return result.code
+    return result
   })
 }
 
@@ -169,13 +169,13 @@ export function buildWithExtract(extract = true) {
         sourceMap: true
       })
     ],
-    entry: path.resolve('./fixtures/fixture_extract.js')
+    input: path.resolve('./fixtures/fixture_extract.js')
   }).then(bundle => {
     return bundle.write({
-      dest: './output/output_extract.js',
-      moduleName: 'default',
+      file: './output/output_extract.js',
+      name: 'default',
       format: 'umd',
-      sourceMap: true
+      sourcemap: true
     })
   })
 }
@@ -196,7 +196,7 @@ export function buildWithStylus() {
     })
 
   return rollup({
-    entry: path.resolve('./fixtures/fixture_preprocessor.js'),
+    input: path.resolve('./fixtures/fixture_preprocessor.js'),
     plugins: [
       postcss({
         extensions: ['.styl'],

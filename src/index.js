@@ -55,15 +55,13 @@ export default function(options = {}) {
   const filter = createFilter(options.include, options.exclude)
   const injectFnName = '__$styleInject'
   const extensions = options.extensions || ['.css', '.sss']
-  const getExport = typeof options.getExport === 'function'
-    ? options.getExport
-    : false
+  const getExport =
+    typeof options.getExport === 'function' ? options.getExport : false
   const getExportNamed = options.getExportNamed || false
   const combineStyleTags = Boolean(options.combineStyleTags)
   const extract = Boolean(options.extract)
-  const extractPath = typeof options.extract === 'string'
-    ? options.extract
-    : null
+  const extractPath =
+    typeof options.extract === 'string' ? options.extract : null
 
   let concat = null
   const transformedFiles = {}
@@ -178,19 +176,21 @@ export default function(options = {}) {
                 code: `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(
                   result.css
                 )},${JSON.stringify(codeExportDefault)});`,
-                map: options.sourceMap && result.map
-                  ? JSON.parse(result.map)
-                  : { mappings: '' }
+                map:
+                  (options.sourceMap || options.sourcemap) && result.map
+                    ? JSON.parse(result.map)
+                    : { mappings: '' }
               }
             })
         })
     },
     onwrite(opts) {
-      if (extract) {
+      const rollupDest = opts.dest || opts.file
+      if (rollupDest && extract) {
         return extractCssAndWriteToFile(
           concat,
-          options.sourceMap,
-          extractPath ? extractPath : opts.dest,
+          options.sourceMap || options.sourcemap,
+          extractPath ? extractPath : rollupDest,
           extractPath
         )
       }
