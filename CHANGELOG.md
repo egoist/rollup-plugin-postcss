@@ -1,3 +1,11 @@
+## [Version 0.5.5](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v0.5.5) (2017-8-31)
+
+### Bug fixes
+
+- Update to latest rollup config changes. : [`4fb18a2`](https://github.com/egoist/rollup-plugin-postcss/commit/4fb18a2)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v0.5.4...v0.5.5)
+
 ## [Version 0.5.4](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v0.5.4) (2017-7-25)
 
 ### Bug fixes
