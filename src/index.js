@@ -140,7 +140,7 @@ export default function(options = {}) {
                     let newKey = escapeClassNameDashes(key)
 
                     if (reserved.check(key)) newKey = `$${key}$`
-                    codeExportSparse += `export const ${newKey}=${JSON.stringify(
+                    codeExportSparse += `export var ${newKey}=${JSON.stringify(
                       codeExportDefault[key]
                     )};\n`
 
