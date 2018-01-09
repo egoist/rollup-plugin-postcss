@@ -5,8 +5,6 @@ import styleInject from 'style-inject'
 import fs from 'fs-extra'
 import Concat from 'concat-with-sourcemaps'
 
-const EXT = ['.css', '.styl', '.sass', '.scss', '.less']
-
 export default (options = {}) => {
   const filter = createFilter(options.include, options.exclude)
 
@@ -33,7 +31,7 @@ export default (options = {}) => {
     use
   })
 
-  const extracted = []
+  let extracted = []
 
   return {
     name: 'postcss',
@@ -86,6 +84,9 @@ export default (options = {}) => {
         fs.writeFile(file, code, 'utf8'),
         fs.writeFile(file + '.map', concat.sourceMap, 'utf8')
       ])
+
+      // Release for potential next build
+      extracted = []
     }
   }
 }

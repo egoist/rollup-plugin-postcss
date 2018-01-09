@@ -3,7 +3,7 @@ export default {
   test: /\.css$/,
   process({ code, map }) {
     const shouldExtract = this.options.extract
-    const shouldInject = typeof this.options.inject === 'undefined' ? true : this.options.inject
+    const shouldInject = this.options.inject
     let output = ''
     let extracted
     if (shouldExtract) {
