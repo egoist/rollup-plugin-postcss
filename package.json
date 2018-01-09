@@ -1,0 +1,64 @@
+{
+  "name": "rollup-plugin-postcss",
+  "version": "0.5.5",
+  "description": "Seamless integration between Rollup and PostCSS",
+  "main": "dist/index.common.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "jest",
+    "build": "bili",
+    "lint": "xo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egoist/rollup-plugin-postcss.git"
+  },
+  "keywords": [
+    "postcss",
+    "rollup"
+  ],
+  "author": "EGOIST <0x142857@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/egoist/rollup-plugin-postcss/issues"
+  },
+  "homepage": "https://github.com/egoist/rollup-plugin-postcss#readme",
+  "devDependencies": {
+    "babel-jest": "^22.0.4",
+    "babel-preset-env": "^1.5.1",
+    "bili": "^1.0.0",
+    "eslint-config-rem": "^4.0.0",
+    "jest": "^22.0.4",
+    "rollup": "^0.53.3",
+    "xo": "^0.18.2"
+  },
+  "dependencies": {
+    "chalk": "^2.0.0",
+    "concat-with-sourcemaps": "^1.0.5",
+    "fs-extra": "^5.0.0",
+    "postcss": "^6.0.1",
+    "promise.series": "^0.2.0",
+    "rollup-pluginutils": "^2.0.1",
+    "style-inject": "^0.2.0"
+  },
+  "xo": {
+    "extends": "rem",
+    "envs": [
+      "browser"
+    ]
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ]
+  }
+}
