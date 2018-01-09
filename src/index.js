@@ -53,7 +53,8 @@ function extractCssAndWriteToFile(source, sourceMap, dest, manualDest) {
 
 export default function(options = {}) {
   const filter = createFilter(options.include, options.exclude)
-  const injectFnName = '__$styleInject'
+  const styleInjectProperties = options.styleInject || { options: {} }
+  const injectFnName = styleInjectProperties.fnName || '__$styleInject'
   const extensions = options.extensions || ['.css', '.sss']
   const getExport =
     typeof options.getExport === 'function' ? options.getExport : false
@@ -88,7 +89,7 @@ export default function(options = {}) {
         if (combineStyleTags) {
           return `${injectStyleFuncCode}\n${injectFnName}(${JSON.stringify(
             concat.content.toString('utf8')
-          )})`
+          )}, ${JSON.stringify(styleInjectProperties.options)});`
         }
       } else {
         return injectStyleFuncCode
@@ -173,9 +174,13 @@ export default function(options = {}) {
               }
 
               return {
-                code: `${codeExportSparse}export default ${injectFnName}(${JSON.stringify(
+                code: `${injectFnName}(${JSON.stringify(
                   result.css
-                )},${JSON.stringify(codeExportDefault)});`,
+                )}, ${JSON.stringify(
+                  styleInjectProperties.options
+                )});\n${codeExportSparse}export default ${JSON.stringify(
+                  codeExportDefault
+                )};`,
                 map:
                   (options.sourceMap || options.sourcemap) && result.map
                     ? JSON.parse(result.map)

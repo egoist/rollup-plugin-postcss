@@ -40,12 +40,20 @@ export default {
       ],
       //sourceMap: false, // default value
       //extract: false, // default value
-      extensions: ['.css', '.sss']  // default value
+      extensions: ['.css', '.sss']  // default value,
+      styleInject : {
+        fnName: '__$styleInject', // style-inject function name, default value,
+        options: {
+          insertAt: 'top',
+        } // Optional
+      },
       // parser: sugarss
     })
   ]
 }
 ```
+
+For more details about styleInject options see [style-inject](https://github.com/egoist/style-inject)
 
 **entry**
 
