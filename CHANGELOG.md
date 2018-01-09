@@ -1,3 +1,11 @@
+## [Version 0.5.6](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v0.5.5) (2018-1-9)
+
+### Updates
+
+- Update to latest style-inject changes. : [`507f89`](https://github.com/egoist/rollup-plugin-postcss/commit/507f89)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v0.5.4...v0.5.5)
+
 ## [Version 0.5.5](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v0.5.5) (2017-8-31)
 
 ### Bug fixes
