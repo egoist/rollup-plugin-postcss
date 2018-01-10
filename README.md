@@ -62,10 +62,12 @@ postcss({
 
 ### inject
 
-Type: `boolean`<br>
+Type: `boolean` `object`<br>
 Default: `true`
 
 Inject CSS into `<head>`, it's always `false` when `extract: true`.
+
+You can also use it as options for [`style-inject`](https://github.com/egoist/style-inject#options).
 
 ### extract
 

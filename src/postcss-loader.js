@@ -5,7 +5,9 @@ export default {
   test: /\.css$/,
   async process({ code, map }) {
     if (!this.sourceMap && map) {
-      console.warn(`\n\n ⚠️  rollup-plugin-postcss\n\nPrevious source map found, but options.sourceMap isn't set.\nIn this case the loader will discard the source map entirely for performance reasons.\n\n`)
+      console.warn(
+        `\n\n ⚠️  rollup-plugin-postcss\n\nPrevious source map found, but options.sourceMap isn't set.\nIn this case the loader will discard the source map entirely for performance reasons.\n\n`
+      )
     }
 
     const options = this.options
@@ -15,18 +17,18 @@ export default {
 
     const modulesExported = {}
     if (options.modules) {
-      const modulesOpts =
-        typeof options.module === 'object' ? options.module : {}
-      modulesOpts.getJSON = (filepath, json) => {
-        modulesExported[filepath] = json
-      }
-      plugins.unshift(require('postcss-modules')(modulesOpts))
+      plugins.unshift(
+        require('postcss-modules')({
+          ...options.modules,
+          getJSON(filepath, json) {
+            modulesExported[filepath] = json
+          }
+        })
+      )
     }
 
     if (options.minimize) {
-      const cssnanoOpts =
-        typeof options.minimize === 'object' ? options.minimize : {}
-      plugins.push(require('cssnano')(cssnanoOpts))
+      plugins.push(require('cssnano')(options.minimize))
     }
 
     const postcssOpts = {
@@ -60,7 +62,9 @@ export default {
       };`
     }
     if (!shouldExtract && shouldInject) {
-      output += '\n__$$styleInject(css);'
+      output += `\n__$$styleInject(css${
+        Object.keys(options.inject).length > 0 ? `,${JSON.stringify(options.inject)}` : ''
+      });`
     }
 
     return {

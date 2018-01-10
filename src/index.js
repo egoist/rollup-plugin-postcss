@@ -5,18 +5,28 @@ import styleInject from 'style-inject'
 import Concat from 'concat-with-sourcemaps'
 import Loaders from './loaders'
 
+/**
+ * The options that could be `boolean` or `object`
+ * We convert it to an object when it's truthy
+ * Otherwise fallback to default value
+ */
+function inferOption(option, defaultValue) {
+  if (option && typeof option === 'object') return option
+  return option ? {} : defaultValue
+}
+
 export default (options = {}) => {
   const filter = createFilter(options.include, options.exclude)
   const sourceMap = options.sourceMap
   const postcssLoaderOptions = {
     /** Inject CSS as `<style>` to `<head>` */
-    inject: typeof options.inject === 'undefined' ? {} : options.inject,
+    inject: inferOption(options.inject, {}),
     /** Extract CSS */
-    extract: options.extract,
+    extract: typeof options.extract === 'undefined' ? false : options.extract,
     /** CSS modules */
-    modules: options.modules,
+    modules: inferOption(options.modules, false),
     /** Options for cssnano */
-    minimize: options.minimize
+    minimize: inferOption(options.minimize, false)
   }
   let use = options.use || []
   use.unshift(['postcss', postcssLoaderOptions])

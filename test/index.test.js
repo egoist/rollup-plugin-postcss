@@ -160,3 +160,12 @@ snapshot({
   }
 })
 
+snapshot({
+  title: 'inject:top',
+  input: 'simple/index.js',
+  options: {
+    inject: {
+      insertAt: 'top'
+    }
+  }
+})
