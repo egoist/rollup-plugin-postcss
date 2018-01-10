@@ -169,3 +169,24 @@ snapshot({
     }
   }
 })
+
+snapshot({
+  title: 'sass',
+  input: 'sass/index.js',
+  options: {
+    use: [
+      'sass'
+    ]
+  }
+})
+
+snapshot({
+  title: 'sass:sourcemap',
+  input: 'sass/index.js',
+  options: {
+    sourceMap: true,
+    use: [
+      'sass'
+    ]
+  }
+})

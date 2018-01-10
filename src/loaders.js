@@ -1,5 +1,6 @@
 import series from 'promise.series'
 import postcssLoader from './postcss-loader'
+import sassLoader from './sass-loader'
 
 export default class Loaders {
   constructor(options = {}) {
@@ -7,13 +8,23 @@ export default class Loaders {
     this.loaders = []
 
     this.registerLoader(postcssLoader)
+    this.registerLoader(sassLoader)
     if (options.loaders) {
       options.loaders.forEach(loader => this.registerLoader(loader))
     }
   }
 
   registerLoader(loader) {
+    const existing = this.getLoader(loader.name)
+    if (existing) {
+      this.removeLoader(loader.name)
+    }
     this.loaders.push(loader)
+    return this
+  }
+
+  removeLoader(name) {
+    this.loaders = this.loaders.filter(loader => loader.name !== name)
     return this
   }
 

@@ -32,6 +32,7 @@
     "bili": "^1.0.0",
     "eslint-config-rem": "^4.0.0",
     "jest": "^22.0.4",
+    "node-sass": "^4.7.2",
     "rollup": "^0.53.3",
     "xo": "^0.18.2"
   },
@@ -40,6 +41,7 @@
     "concat-with-sourcemaps": "^1.0.5",
     "cssnano": "^3.10.0",
     "fs-extra": "^5.0.0",
+    "pify": "^3.0.0",
     "postcss": "^6.0.1",
     "postcss-modules": "^1.1.0",
     "promise.series": "^0.2.0",
@@ -50,7 +52,10 @@
     "extends": "rem",
     "envs": [
       "jest"
-    ]
+    ],
+    "rules": {
+      "import/prefer-default-export": 0
+    }
   },
   "babel": {
     "presets": [

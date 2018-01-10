@@ -93,7 +93,41 @@ Enable sourceMap.
 
 Type: `name[]` `[name, options][]`
 
-Use a loader.
+Use a loader, currently built-in loaders are:
+
+- `sass` (Support `.scss` and `.sass`)
+- `stylus` (TODO)
+- `less` (TODO)
+
+### loaders
+
+Type: `Loader[]`
+
+An array of custom loaders.
+
+```js
+interface Loader {
+  name: string,
+  test: RegExp,
+  process: (this: Context, input: Payload) => Promise<Payload> | Payload
+}
+
+interface Context {
+  /** Loader options */
+  options: any
+  /** Sourcemap */
+  sourceMap: any
+  /** Resource path */
+  id: string
+}
+
+interface Payload {
+  /** File content */
+  code: string
+  /** Sourcemap */
+  map?: string | SourceMap
+}
+```
 
 ## License
 
