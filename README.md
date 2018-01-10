@@ -156,6 +156,12 @@ interface Payload {
 }
 ```
 
+### onImport
+
+Type: `id => void`
+
+A function to be invoked when an import for CSS file is detected.
+
 ## License
 
 MIT &copy; [EGOIST](https://github.com/egoist)

@@ -65,6 +65,10 @@ export default (options = {}) => {
         return null
       }
 
+      if (typeof options.onImport === 'function') {
+        options.onImport(id)
+      }
+
       const res = await loaders.process({
         code,
         map: undefined,
