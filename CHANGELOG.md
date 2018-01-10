@@ -1,3 +1,11 @@
+## [Version 1.0.2](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.0.2) (2018-1-10)
+
+### Bug fixes
+
+- actually skip loader if didn't pass `test`: [`4c3688d`](https://github.com/egoist/rollup-plugin-postcss/commit/4c3688d)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.0.1...v1.0.2)
+
 ## [Version 1.0.1](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.0.1) (2018-1-10)
 
 ### Bug fixes
