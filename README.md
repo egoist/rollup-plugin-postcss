@@ -91,6 +91,31 @@ Type: `boolean` `"inline"`
 
 Enable sourceMap.
 
+### parser
+
+Type: `string` `function`
+
+PostCSS parser, like `sugarss`.
+
+### config
+
+Type: `boolean` `object`<br>
+Default: `true`
+
+Load PostCSS config file.
+
+#### path
+
+Type: `string`
+
+The path to config file, so that we can skip searching.
+
+#### ctx
+
+Type: `object`
+
+`ctx` argument for PostCSS config file.
+
 ### use
 
 Type: `name[]` `[name, options][]`

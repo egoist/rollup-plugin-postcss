@@ -1,8 +1,34 @@
+import path from 'path'
 import postcss from 'postcss'
+import findPostcssConfig from 'postcss-load-config'
+import { localRequire } from './utils'
+
+function loadConfig(id, { ctx: configOptions, path: configPath }) {
+  const handleError = err => {
+    if (err.message.indexOf('No PostCSS Config found') === -1) {
+      throw err
+    }
+    // Return empty options for PostCSS
+    return {}
+  }
+
+  configPath = configPath ? path.resolve(configPath) : path.dirname(id)
+  const ctx = {
+    file: {
+      extname: path.extname(id),
+      dirname: path.dirname(id),
+      basename: path.basename(id)
+    },
+    options: configOptions || {}
+  }
+
+  return findPostcssConfig(ctx, configPath, { argv: false })
+    .catch(handleError)
+}
 
 export default {
   name: 'postcss',
-  test: /\.css$/,
+  test: /\.(css|sss)$/,
   async process({ code, map }) {
     if (!this.sourceMap && map) {
       console.warn(
@@ -10,8 +36,10 @@ export default {
       )
     }
 
+    const config = this.options.config ? await loadConfig(this.id, this.options.config) : {}
+
     const options = this.options
-    const plugins = options.plugins || []
+    const plugins = [...(options.plugins || []), ...(config.plugins || [])]
     const shouldExtract = options.extract
     const shouldInject = options.inject
 
@@ -32,13 +60,19 @@ export default {
     }
 
     const postcssOpts = {
+      parser: this.options.parser,
       from: this.id,
       to: this.id,
       map: this.sourceMap ?
         shouldExtract ?
           { inline: false, annotation: false } :
           { inline: true, annotation: false } :
-        false
+        false,
+      ...config.options
+    }
+
+    if (typeof postcssOpts.parser === 'string') {
+      postcssOpts.parser = localRequire(postcssOpts.parser)
     }
 
     if (map && postcssOpts.map) {

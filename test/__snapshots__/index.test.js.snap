@@ -204,6 +204,41 @@ console.log(style.foo);
 "
 `;
 
+exports[`postcss-config: js code 1`] = `
+"'use strict';
+
+function __$styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css) { return }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\"a {\\\\n  color: blue\\\\n}\\\\n\\\\n.multiline,\\\\n.selector {\\\\n  box-shadow: 1px 0 9px rgba(0, 0, 0, .4),\\\\n              1px 0 3px rgba(0, 0, 0, .6)\\\\n}\\\\n\\";
+__$$styleInject(css);
+"
+`;
+
 exports[`sass: js code 1`] = `
 "'use strict';
 

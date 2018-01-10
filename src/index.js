@@ -26,7 +26,11 @@ export default (options = {}) => {
     /** CSS modules */
     modules: inferOption(options.modules, false),
     /** Options for cssnano */
-    minimize: inferOption(options.minimize, false)
+    minimize: inferOption(options.minimize, false),
+    /** Postcss config file */
+    config: inferOption(options.config, {}),
+    /** Parser */
+    parser: options.parser
   }
   let use = options.use || []
   use.unshift(['postcss', postcssLoaderOptions])

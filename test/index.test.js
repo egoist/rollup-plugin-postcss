@@ -190,3 +190,8 @@ snapshot({
     ]
   }
 })
+
+snapshot({
+  title: 'postcss-config',
+  input: 'postcss-config/index.js'
+})
