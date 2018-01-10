@@ -25,6 +25,7 @@ export default (options = {}) => {
     extract: typeof options.extract === 'undefined' ? false : options.extract,
     /** CSS modules */
     modules: inferOption(options.modules, false),
+    namedExports: options.namedExports,
     /** Options for cssnano */
     minimize: inferOption(options.minimize, false),
     /** Postcss config file */

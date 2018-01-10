@@ -48,6 +48,7 @@
     "postcss-load-config": "^1.2.0",
     "postcss-modules": "^1.1.0",
     "promise.series": "^0.2.0",
+    "reserved-words": "^0.1.2",
     "rollup-pluginutils": "^2.0.1",
     "style-inject": "^0.2.0"
   },

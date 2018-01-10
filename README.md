@@ -78,6 +78,40 @@ Default: `false`
 
 Extract CSS into its own file.
 
+### modules
+
+Type: `boolean` `object`<br>
+Default: `false`
+
+Enable CSS modules or set options for `postcss-modules`.
+
+### namedExports
+
+Type: `boolean`<br>
+Default: `false`
+
+Use named exports alongside default export.
+
+When importing specific classNames, the following will happen:
+
+- dashed class names will be transformed by replacing all the dashes to `$` sign wrapped underlines, eg. `--` => `$__$`
+- js protected names used as your style class names, will be transformed by wrapping the names between `$` signs, eg. `switch` => `$switch$`
+
+All transformed names will be logged in your terminal like:
+
+```bash
+Exported "new" as "$new$" in test/fixtures/named-exports/style.css
+```
+
+The original will not be removed, it's still available on `default` export:
+
+```js
+import style, { class$_$name, class$__$name, $switch$ } from './style.css';
+console.log(style['class-name'] === class$_$name) // true
+console.log(style['class--name'] === class$__$name) // true
+console.log(style['switch'] === $switch$) // true
+```
+
 ### minimize
 
 Type: `boolean` `object`<br>

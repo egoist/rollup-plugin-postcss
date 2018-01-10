@@ -1,6 +1,7 @@
 import path from 'path'
 import postcss from 'postcss'
 import findPostcssConfig from 'postcss-load-config'
+import reserved from 'reserved-words'
 import { localRequire } from './utils'
 
 function loadConfig(id, { ctx: configOptions, path: configPath }) {
@@ -22,8 +23,21 @@ function loadConfig(id, { ctx: configOptions, path: configPath }) {
     options: configOptions || {}
   }
 
-  return findPostcssConfig(ctx, configPath, { argv: false })
-    .catch(handleError)
+  return findPostcssConfig(ctx, configPath, { argv: false }).catch(handleError)
+}
+
+function escapeClassNameDashes(str) {
+  return str.replace(/-+/g, match => {
+    return `$${match.replace(/-/g, '_')}$`
+  })
+}
+
+function ensureClassName(name) {
+  name = escapeClassNameDashes(name)
+  if (reserved.check(name)) {
+    name = `$${name}$`
+  }
+  return name
 }
 
 export default {
@@ -36,7 +50,9 @@ export default {
       )
     }
 
-    const config = this.options.config ? await loadConfig(this.id, this.options.config) : {}
+    const config = this.options.config ?
+      await loadConfig(this.id, this.options.config) :
+      {}
 
     const options = this.options
     const plugins = [...(options.plugins || []), ...(config.plugins || [])]
@@ -84,6 +100,21 @@ export default {
 
     let output = ''
     let extracted
+
+    if (options.namedExports) {
+      const json = modulesExported[this.id]
+      // eslint-disable-next-line guard-for-in
+      for (const name in json) {
+        const newName = ensureClassName(name)
+        if (name !== newName) {
+          console.warn(`Exported "${name}" as "${newName}" in ${path.relative(process.cwd(), this.id)}`)
+        }
+        output += `export var ${newName} = ${JSON.stringify(
+          json[name]
+        )};\n`
+      }
+    }
+
     if (shouldExtract) {
       output += `export default ${JSON.stringify(modulesExported[this.id])};`
       extracted = {
@@ -98,7 +129,9 @@ export default {
     }
     if (!shouldExtract && shouldInject) {
       output += `\n__$$styleInject(css${
-        Object.keys(options.inject).length > 0 ? `,${JSON.stringify(options.inject)}` : ''
+        Object.keys(options.inject).length > 0 ?
+          `,${JSON.stringify(options.inject)}` :
+          ''
       });`
     }
 

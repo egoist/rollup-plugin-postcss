@@ -117,6 +117,15 @@ snapshot({
 })
 
 snapshot({
+  title: 'modules:named-exports',
+  input: 'named-exports/index.js',
+  options: {
+    modules: true,
+    namedExports: true
+  }
+})
+
+snapshot({
   title: 'modules:extract',
   input: 'css-modules/index.js',
   options: {
