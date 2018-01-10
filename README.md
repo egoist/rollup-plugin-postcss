@@ -11,6 +11,8 @@ Seamless integration between [Rollup](https://github.com/rollup/rollup) and [Pos
 
 ## Usage
 
+You are viewing the docs for `v1.0`, for `v0.5` please see [here](https://github.com/egoist/rollup-plugin-postcss/tree/0.5).
+
 ```js
 import postcss from 'rollup-plugin-postcss'
 
