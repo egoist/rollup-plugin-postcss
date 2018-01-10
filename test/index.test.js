@@ -195,3 +195,14 @@ snapshot({
   title: 'postcss-config',
   input: 'postcss-config/index.js'
 })
+
+snapshot({
+  title: 'sass:modules',
+  input: 'sass-modules/index.js',
+  options: {
+    modules: true,
+    use: [
+      'sass'
+    ]
+  }
+})

@@ -151,7 +151,7 @@ console.log(css, css$1);
 `;
 
 exports[`modules:extract: css code 1`] = `
-"._foo_1829j_1 {
+".style_foo__33weH {
   color: red;
 }
 "
@@ -160,7 +160,7 @@ exports[`modules:extract: css code 1`] = `
 exports[`modules:extract: js code 1`] = `
 "'use strict';
 
-var style = {\\"foo\\":\\"_foo_1829j_1\\"};
+var style = {\\"foo\\":\\"style_foo__33weH\\"};
 
 console.log(style.foo);
 "
@@ -196,8 +196,8 @@ function __$styleInject(css, ref) {
   }
 }
 
-var css = \\"._foo_1829j_1 {\\\\n  color: red;\\\\n}\\\\n\\";
-var style = {\\"foo\\":\\"_foo_1829j_1\\"};
+var css = \\".style_foo__33weH {\\\\n  color: red;\\\\n}\\\\n\\";
+var style = {\\"foo\\":\\"style_foo__33weH\\"};
 __$$styleInject(css);
 
 console.log(style.foo);
@@ -271,6 +271,44 @@ function __$styleInject(css, ref) {
 
 var css = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
 __$$styleInject(css);
+"
+`;
+
+exports[`sass:modules: js code 1`] = `
+"'use strict';
+
+function __$styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css) { return }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\".style_foo__2demv {\\\\n  color: red; }\\\\n\\";
+var style = {\\"foo\\":\\"style_foo__2demv\\"};
+__$$styleInject(css);
+
+console.log(style);
 "
 `;
 
