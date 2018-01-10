@@ -1,7 +1,6 @@
 import path from 'path'
 import postcss from 'postcss'
 import series from 'promise.series'
-import cssLoader from './css-loader'
 import postcssLoader from './postcss-loader'
 
 export default class Loaders {
@@ -9,8 +8,10 @@ export default class Loaders {
     this.use = options.use
     this.loaders = []
 
-    this.registerLoader(cssLoader)
     this.registerLoader(postcssLoader)
+    if (options.loaders) {
+      options.loaders.forEach(loader => this.registerLoader(loader))
+    }
   }
 
   registerLoader(loader) {
@@ -43,5 +44,5 @@ export default class Loaders {
 }
 
 function localRequire(name) {
-  return require(process.resolve('node_modules', name))
+  return require(path.resolve('node_modules', name))
 }

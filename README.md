@@ -25,10 +25,7 @@ export default {
 
 ```js
 postcss({
-  use: [
-    ['css', { extract: true }],
-    'postcss'
-  ]
+  extract: true
 })
 ```
 
@@ -45,7 +42,9 @@ Then enable it in the plugin:
 
 ```js
 postcss({
-  use: ['css', 'postcss', 'sass']
+  use: [
+    ['sass', {/* optional sass options */}]
+  ]
 })
 ```
 

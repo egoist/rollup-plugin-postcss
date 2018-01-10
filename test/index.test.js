@@ -69,8 +69,7 @@ test('extract', async () => {
   const res = await write({
     input: 'simple/index.js',
     use: [
-      ['css', { extract: true }],
-      'postcss'
+      ['postcss', { extract: true }]
     ]
   })
 

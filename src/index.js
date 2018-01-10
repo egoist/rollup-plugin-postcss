@@ -8,9 +8,15 @@ import Concat from 'concat-with-sourcemaps'
 export default (options = {}) => {
   const filter = createFilter(options.include, options.exclude)
 
-  const inject = typeof options.inject === 'undefined' ? {} : options.inject
-
-  let use = options.use || ['css', 'postcss']
+  const postcssLoaderOptions = {
+    inject: typeof options.inject === 'undefined' ? {} : options.inject,
+    extract: options.extract
+  }
+  let use = options.use || []
+  use.unshift([
+    'postcss',
+    postcssLoaderOptions
+  ])
   use = use.reduce((res, rule) => {
     if (typeof rule === 'string') {
       rule = [rule]
@@ -18,17 +24,13 @@ export default (options = {}) => {
     const name = rule[0]
     const options = rule[1] || {}
 
-    if (name === 'css') {
-      if (typeof options.inject === 'undefined') {
-        options.inject = true
-      }
-    }
-
     res[name] = options
     return res
   }, {})
+
   const loaders = new Loaders({
-    use
+    use,
+    loaders: options.loaders
   })
 
   let extracted = []
@@ -37,7 +39,7 @@ export default (options = {}) => {
     name: 'postcss',
 
     intro() {
-      if (!use.css.inject || use.css.extract) return
+      if (!postcssLoaderOptions.inject || postcssLoaderOptions.extract) return
       return styleInject.toString().replace('styleInject', '__$$styleInject')
     },
 
@@ -52,7 +54,7 @@ export default (options = {}) => {
         id
       })
 
-      if (use.css.extract) {
+      if (postcssLoaderOptions.extract) {
         extracted.push(res.extracted)
         return {
           code: res.code,
@@ -62,7 +64,7 @@ export default (options = {}) => {
 
       return {
         code: res.code,
-        map: res.map
+        map: JSON.parse(res.map.toString())
       }
     },
 
@@ -77,7 +79,7 @@ export default (options = {}) => {
       const concat = new Concat(true, file, '\n')
       for (const res of extracted) {
         const relative = path.relative(process.cwd(), res.id)
-        concat.add(relative, res.code, res.map)
+        concat.add(relative, res.code, JSON.parse(res.map.toString()))
       }
       const code = concat.content + `\n/*# sourceMappingURL=${basename}.css.map */`
 
