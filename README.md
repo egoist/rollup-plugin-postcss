@@ -81,6 +81,12 @@ Default: `false`
 
 Minimize CSS, `boolean` or options for `cssnano`.
 
+### sourceMap
+
+Type: `boolean` `"inline"`
+
+Enable sourceMap.
+
 ### use
 
 Type: `name[]` `[name, options][]`

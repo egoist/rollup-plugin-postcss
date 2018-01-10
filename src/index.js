@@ -1,13 +1,13 @@
 import path from 'path'
 import fs from 'fs-extra'
 import { createFilter } from 'rollup-pluginutils'
-import Loaders from './loaders'
 import styleInject from 'style-inject'
 import Concat from 'concat-with-sourcemaps'
+import Loaders from './loaders'
 
 export default (options = {}) => {
   const filter = createFilter(options.include, options.exclude)
-
+  const sourceMap = options.sourceMap
   const postcssLoaderOptions = {
     /** Inject CSS as `<style>` to `<head>` */
     inject: typeof options.inject === 'undefined' ? {} : options.inject,
@@ -19,10 +19,7 @@ export default (options = {}) => {
     minimize: options.minimize
   }
   let use = options.use || []
-  use.unshift([
-    'postcss',
-    postcssLoaderOptions
-  ])
+  use.unshift(['postcss', postcssLoaderOptions])
   use = use.reduce((res, rule) => {
     if (typeof rule === 'string') {
       rule = [rule]
@@ -57,7 +54,8 @@ export default (options = {}) => {
       const res = await loaders.process({
         code,
         map: undefined,
-        id
+        id,
+        sourceMap
       })
 
       if (postcssLoaderOptions.extract) {
@@ -70,7 +68,7 @@ export default (options = {}) => {
 
       return {
         code: res.code,
-        map: JSON.parse(res.map.toString())
+        map: res.map ? JSON.parse(res.map.toString()) : { mappings: '' }
       }
     },
 
@@ -78,20 +76,40 @@ export default (options = {}) => {
       if (extracted.length === 0) return
 
       const basename = path.basename(opts.file, path.extname(opts.file))
-      const file = path.relative(process.cwd(), path.join(
-        path.dirname(opts.file),
-        basename + '.css'
-      ))
+      const file = path.relative(
+        process.cwd(),
+        path.join(path.dirname(opts.file), basename + '.css')
+      )
       const concat = new Concat(true, file, '\n')
       for (const res of extracted) {
         const relative = path.relative(process.cwd(), res.id)
-        concat.add(relative, res.code, JSON.parse(res.map.toString()))
+        const map = res.map ? JSON.parse(res.map.toString()) : null
+        if (map) {
+          map.file = file
+          map.sources = map.sources.map(source =>
+            path.relative(
+              process.cwd(),
+              path.join(path.dirname(opts.file), source)
+            )
+          )
+        }
+        concat.add(relative, res.code, map)
       }
-      const code = concat.content + `\n/*# sourceMappingURL=${basename}.css.map */`
+      let code = concat.content
+
+      if (sourceMap === 'inline') {
+        code += `\n/*# sourceMappingURL=data:application/json;base64,${Buffer.from(
+          concat.sourceMap,
+          'utf8'
+        ).toString('base64')}*/`
+      } else if (sourceMap === true) {
+        code += `\n/*# sourceMappingURL=${basename}.css.map */`
+      }
 
       await Promise.all([
         fs.writeFile(file, code, 'utf8'),
-        fs.writeFile(file + '.map', concat.sourceMap, 'utf8')
+        sourceMap === true &&
+          fs.writeFile(file + '.map', concat.sourceMap, 'utf8')
       ])
 
       // Release for potential next build

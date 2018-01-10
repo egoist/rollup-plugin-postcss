@@ -12,7 +12,7 @@ beforeAll(() => fs.remove(fixture('dist')))
 async function write({
   input,
   dirname,
-  ...options
+  options
 }) {
   dirname = fixture('dist', dirname)
   const bundle = await rollup({
@@ -23,7 +23,6 @@ async function write({
   })
   await bundle.write({
     format: 'cjs',
-    sourcemap: true,
     file: path.join(dirname, 'bundle.js')
   })
   const cssCodePath = path.join(dirname, 'bundle.css')
@@ -42,7 +41,7 @@ async function write({
     hasCssFile() {
       return fs.pathExists(cssCodePath)
     },
-    hasCssMap() {
+    hasCssMapFile() {
       return fs.pathExists(cssMapPath)
     }
   }
@@ -51,13 +50,13 @@ async function write({
 function snapshot({
   title,
   input,
-  ...options
+  options = {}
 }) {
   test(title, async () => {
     const res = await write({
-      input: input,
+      input,
       dirname: title,
-      ...options
+      options
     })
 
     expect(await res.jsCode()).toMatchSnapshot('js code')
@@ -65,6 +64,16 @@ function snapshot({
     if (options.extract) {
       expect(await res.hasCssFile()).toBe(true)
       expect(await res.cssCode()).toMatchSnapshot('css code')
+    }
+
+    const sourceMap = options && options.sourceMap
+    if (sourceMap === 'inline') {
+      expect(await res.hasCssMapFile()).toBe(false)
+    } else if (sourceMap === true) {
+      expect(await res.hasCssMapFile()).toBe(Boolean(options.extract))
+      if (options.extract) {
+        expect(await res.cssMap()).toMatchSnapshot('css map')
+      }
     }
   })
 }
@@ -77,31 +86,77 @@ snapshot({
 snapshot({
   title: 'extract',
   input: 'simple/index.js',
-  extract: true
+  options: {
+    extract: true
+  }
 })
 
 snapshot({
   title: 'minimize:inject',
   input: 'simple/index.js',
-  minimize: true
+  options: {
+    minimize: true
+  }
 })
 
 snapshot({
   title: 'minimize:extract',
   input: 'simple/index.js',
-  minimize: true,
-  extract: true
+  options: {
+    minimize: true,
+    extract: true
+  }
 })
 
 snapshot({
   title: 'modules:inject',
   input: 'css-modules/index.js',
-  modules: true
+  options: {
+    modules: true
+  }
 })
 
 snapshot({
   title: 'modules:extract',
   input: 'css-modules/index.js',
-  modules: true,
-  extract: true
+  options: {
+    modules: true,
+    extract: true
+  }
 })
+
+snapshot({
+  title: 'sourcemap:true',
+  input: 'simple/index.js',
+  options: {
+    sourceMap: true
+  }
+})
+
+snapshot({
+  title: 'extract::sourcemap:true',
+  input: 'simple/index.js',
+  options: {
+    sourceMap: true,
+    extract: true
+  }
+})
+
+// inline is actually broken for now
+snapshot({
+  title: 'sourcemap:inline',
+  input: 'simple/index.js',
+  options: {
+    sourceMap: 'inline'
+  }
+})
+
+snapshot({
+  title: 'extract::sourcemap:inline',
+  input: 'simple/index.js',
+  options: {
+    sourceMap: 'inline',
+    extract: true
+  }
+})
+

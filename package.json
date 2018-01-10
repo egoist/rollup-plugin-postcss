@@ -2,14 +2,15 @@
   "name": "rollup-plugin-postcss",
   "version": "0.5.5",
   "description": "Seamless integration between Rollup and PostCSS",
-  "main": "dist/index.common.js",
+  "main": "dist/index.cjs.js",
   "files": [
     "dist"
   ],
   "scripts": {
-    "test": "jest",
+    "test": "npm run lint && jest",
     "build": "bili",
-    "lint": "xo"
+    "lint": "xo",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -48,7 +49,7 @@
   "xo": {
     "extends": "rem",
     "envs": [
-      "browser"
+      "jest"
     ]
   },
   "babel": {

@@ -1,14 +1,19 @@
-import path from 'path'
 import postcss from 'postcss'
 
 export default {
   name: 'postcss',
   test: /\.css$/,
   async process({ code, map }) {
+    if (!this.sourceMap && map) {
+      console.warn(`\n\n ⚠️  rollup-plugin-postcss\n\nPrevious source map found, but options.sourceMap isn't set.\nIn this case the loader will discard the source map entirely for performance reasons.\n\n`)
+    }
+
     const options = this.options
     const plugins = options.plugins || []
+    const shouldExtract = options.extract
+    const shouldInject = options.inject
 
-    let modulesExported = {}
+    const modulesExported = {}
     if (options.modules) {
       const modulesOpts =
         typeof options.module === 'object' ? options.module : {}
@@ -25,18 +30,21 @@ export default {
     }
 
     const postcssOpts = {
-      from: path.relative(process.cwd(), this.id),
-      to: path.relative(process.cwd(), this.id),
-      map: {
-        inline: false,
-        annotation: false
-      }
+      from: this.id,
+      to: this.id,
+      map: this.sourceMap ?
+        shouldExtract ?
+          { inline: false, annotation: false } :
+          { inline: true, annotation: false } :
+        false
+    }
+
+    if (map && postcssOpts.map) {
+      postcssOpts.map.prev = typeof map === 'string' ? JSON.parse(map) : map
     }
 
     const res = await postcss(plugins).process(code, postcssOpts)
 
-    const shouldExtract = options.extract
-    const shouldInject = options.inject
     let output = ''
     let extracted
     if (shouldExtract) {

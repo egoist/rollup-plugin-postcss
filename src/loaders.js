@@ -1,5 +1,3 @@
-import path from 'path'
-import postcss from 'postcss'
 import series from 'promise.series'
 import postcssLoader from './postcss-loader'
 
@@ -25,14 +23,15 @@ export default class Loaders {
     })
   }
 
-  process({ code, map, id }) {
+  process({ code, map, id, sourceMap }) {
     const names = Object.keys(this.use)
     return series(names.slice().reverse().map(name => {
       const loader = this.getLoader(name)
       const options = this.use[name]
       const loaderContext = {
         options,
-        id
+        id,
+        sourceMap
       }
       return v => loader.process.call(loaderContext, v)
     }), { code, map })
@@ -41,8 +40,4 @@ export default class Loaders {
   getLoader(name) {
     return this.loaders.find(loader => loader.name === name)
   }
-}
-
-function localRequire(name) {
-  return require(path.resolve('node_modules', name))
 }
