@@ -7,28 +7,14 @@ function fixture(...args) {
   return path.join(__dirname, 'fixtures', ...args)
 }
 
-async function generate({
-  input,
-  ...options
-}) {
-  const bundle = await rollup({
-    input: fixture(input),
-    plugins: [
-      postcss(options)
-    ]
-  })
-  const res = await bundle.generate({
-    format: 'cjs',
-    sourcemap: true
-  })
-  return res
-}
+beforeAll(() => fs.remove(fixture('dist')))
 
 async function write({
   input,
+  dirname,
   ...options
 }) {
-  const dirname = path.dirname(input)
+  dirname = fixture('dist', dirname)
   const bundle = await rollup({
     input: fixture(input),
     plugins: [
@@ -38,43 +24,84 @@ async function write({
   await bundle.write({
     format: 'cjs',
     sourcemap: true,
-    file: fixture(dirname, 'dist/bundle.js')
+    file: path.join(dirname, 'bundle.js')
   })
-  const codePath = fixture(dirname, 'dist/bundle.css')
-  const mapPath = fixture(dirname, 'dist/bundle.css.map')
+  const cssCodePath = path.join(dirname, 'bundle.css')
+  const cssMapPath = path.join(dirname, 'bundle.css.map')
+  const jsCodePath = path.join(dirname, 'bundle.js')
   return {
-    code() {
-      return fs.readFile(codePath, 'utf8')
+    jsCode() {
+      return fs.readFile(jsCodePath, 'utf8')
     },
-    map() {
-      return fs.readFile(mapPath, 'utf8')
+    cssCode() {
+      return fs.readFile(cssCodePath, 'utf8')
     },
-    hasCode() {
-      return fs.pathExists(codePath)
+    cssMap() {
+      return fs.readFile(cssMapPath, 'utf8')
     },
-    hasMap() {
-      return fs.pathExists(mapPath)
+    hasCssFile() {
+      return fs.pathExists(cssCodePath)
+    },
+    hasCssMap() {
+      return fs.pathExists(cssMapPath)
     }
   }
 }
 
-test('simple', async () => {
-  const res = await generate({
-    input: 'simple/index.js'
+function snapshot({
+  title,
+  input,
+  ...options
+}) {
+  test(title, async () => {
+    const res = await write({
+      input: input,
+      dirname: title,
+      ...options
+    })
+
+    expect(await res.jsCode()).toMatchSnapshot('js code')
+
+    if (options.extract) {
+      expect(await res.hasCssFile()).toBe(true)
+      expect(await res.cssCode()).toMatchSnapshot('css code')
+    }
   })
-  expect(res.code).toMatchSnapshot()
+}
+
+snapshot({
+  title: 'simple',
+  input: 'simple/index.js'
 })
 
-test('extract', async () => {
-  const res = await write({
-    input: 'simple/index.js',
-    use: [
-      ['postcss', { extract: true }]
-    ]
-  })
+snapshot({
+  title: 'extract',
+  input: 'simple/index.js',
+  extract: true
+})
 
-  expect(await res.hasCode()).toBe(true)
-  expect(await res.hasMap()).toBe(true)
-  expect(await res.code()).toMatchSnapshot('code')
-  expect(await res.map()).toMatchSnapshot('map')
+snapshot({
+  title: 'minimize:inject',
+  input: 'simple/index.js',
+  minimize: true
+})
+
+snapshot({
+  title: 'minimize:extract',
+  input: 'simple/index.js',
+  minimize: true,
+  extract: true
+})
+
+snapshot({
+  title: 'modules:inject',
+  input: 'css-modules/index.js',
+  modules: true
+})
+
+snapshot({
+  title: 'modules:extract',
+  input: 'css-modules/index.js',
+  modules: true,
+  extract: true
 })

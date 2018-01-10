@@ -9,8 +9,14 @@ export default (options = {}) => {
   const filter = createFilter(options.include, options.exclude)
 
   const postcssLoaderOptions = {
+    /** Inject CSS as `<style>` to `<head>` */
     inject: typeof options.inject === 'undefined' ? {} : options.inject,
-    extract: options.extract
+    /** Extract CSS */
+    extract: options.extract,
+    /** CSS modules */
+    modules: options.modules,
+    /** Options for cssnano */
+    minimize: options.minimize
   }
   let use = options.use || []
   use.unshift([

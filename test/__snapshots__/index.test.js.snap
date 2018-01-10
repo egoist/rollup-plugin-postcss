@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`extract: code 1`] = `
+exports[`extract: css code 1`] = `
 "body {
   color: red;
 }
@@ -12,9 +12,127 @@ exports[`extract: code 1`] = `
 /*# sourceMappingURL=bundle.css.map */"
 `;
 
-exports[`extract: map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"foo.css\\",\\"bar.css\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,WAAW;CACZ;;ACFD;EACE,WAAW;CACZ\\",\\"file\\":\\"test/fixtures/simple/dist/bundle.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\"]}"`;
+exports[`extract: js code 1`] = `
+"'use strict';
 
-exports[`simple 1`] = `
+console.log(undefined, undefined);
+//# sourceMappingURL=bundle.js.map
+"
+`;
+
+exports[`minimize:extract: css code 1`] = `
+"body{color:red}
+.bar{color:red}
+/*# sourceMappingURL=bundle.css.map */"
+`;
+
+exports[`minimize:extract: js code 1`] = `
+"'use strict';
+
+console.log(undefined, undefined);
+//# sourceMappingURL=bundle.js.map
+"
+`;
+
+exports[`minimize:inject: js code 1`] = `
+"'use strict';
+
+function __$styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css) { return }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\"body{color:red}\\";
+__$$styleInject(css);
+
+var css$1 = \\".bar{color:red}\\";
+__$$styleInject(css$1);
+
+console.log(css, css$1);
+//# sourceMappingURL=bundle.js.map
+"
+`;
+
+exports[`modules:extract: css code 1`] = `
+"._foo_1829j_1 {
+  color: red;
+}
+
+/*# sourceMappingURL=bundle.css.map */"
+`;
+
+exports[`modules:extract: js code 1`] = `
+"'use strict';
+
+var style = {\\"foo\\":\\"_foo_1829j_1\\"};
+
+console.log(style.foo);
+//# sourceMappingURL=bundle.js.map
+"
+`;
+
+exports[`modules:inject: js code 1`] = `
+"'use strict';
+
+function __$styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css) { return }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\"._foo_1829j_1 {\\\\n  color: red;\\\\n}\\\\n\\";
+var style = {\\"foo\\":\\"_foo_1829j_1\\"};
+__$$styleInject(css);
+
+console.log(style.foo);
+//# sourceMappingURL=bundle.js.map
+"
+`;
+
+exports[`simple: js code 1`] = `
 "'use strict';
 
 function __$styleInject(css, ref) {
@@ -51,5 +169,6 @@ var css$1 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
 __$$styleInject(css$1);
 
 console.log(css, css$1);
+//# sourceMappingURL=bundle.js.map
 "
 `;

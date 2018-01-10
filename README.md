@@ -29,6 +29,16 @@ postcss({
 })
 ```
 
+### CSS modules
+
+```js
+postcss({
+  modules: true,
+  // Or with custom options for `postcss-modules`
+  modules: {}
+})
+```
+
 ### With Sass/Stylus/Less
 
 First add relevant dependency:
@@ -49,6 +59,27 @@ postcss({
 ```
 
 ## Options
+
+### inject
+
+Type: `boolean`<br>
+Default: `true`
+
+Inject CSS into `<head>`, it's always `false` when `extract: true`.
+
+### extract
+
+Type: `boolean`<br>
+Default: `false`
+
+Extract CSS into its own file.
+
+### minimize
+
+Type: `boolean` `object`<br>
+Default: `false`
+
+Minimize CSS, `boolean` or options for `cssnano`.
 
 ### use
 

@@ -8,6 +8,22 @@ export default {
     const options = this.options
     const plugins = options.plugins || []
 
+    let modulesExported = {}
+    if (options.modules) {
+      const modulesOpts =
+        typeof options.module === 'object' ? options.module : {}
+      modulesOpts.getJSON = (filepath, json) => {
+        modulesExported[filepath] = json
+      }
+      plugins.unshift(require('postcss-modules')(modulesOpts))
+    }
+
+    if (options.minimize) {
+      const cssnanoOpts =
+        typeof options.minimize === 'object' ? options.minimize : {}
+      plugins.push(require('cssnano')(cssnanoOpts))
+    }
+
     const postcssOpts = {
       from: path.relative(process.cwd(), this.id),
       to: path.relative(process.cwd(), this.id),
@@ -24,14 +40,16 @@ export default {
     let output = ''
     let extracted
     if (shouldExtract) {
-      output += `export default {};`
+      output += `export default ${JSON.stringify(modulesExported[this.id])};`
       extracted = {
         id: this.id,
         code: res.css,
         map: res.map
       }
     } else {
-      output += `var css = ${JSON.stringify(res.css)};\nexport default css;`
+      output += `var css = ${JSON.stringify(res.css)};\nexport default ${
+        options.modules ? JSON.stringify(modulesExported[this.id]) : 'css'
+      };`
     }
     if (!shouldExtract && shouldInject) {
       output += '\n__$$styleInject(css);'
