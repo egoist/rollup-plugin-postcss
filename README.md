@@ -160,6 +160,8 @@ Use a loader, currently built-in loaders are:
 - `stylus` (TODO)
 - `less` (TODO)
 
+They are executed from right to left.
+
 ### loaders
 
 Type: `Loader[]`

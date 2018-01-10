@@ -44,7 +44,15 @@ export default class Loaders {
         id,
         sourceMap
       }
-      return v => loader.process.call(loaderContext, v)
+      return v => {
+        // Only process if it's postcss loader
+        // Or passed `test`
+        if (name === 'postcss' || loader.test.test(id)) {
+          return loader.process.call(loaderContext, v)
+        }
+        // Otherwise directly return input value
+        return v
+      }
     }), { code, map })
   }
 

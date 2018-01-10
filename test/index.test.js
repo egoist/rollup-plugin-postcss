@@ -215,3 +215,20 @@ snapshot({
     ]
   }
 })
+
+snapshot({
+  title: 'skip-loader',
+  input: 'simple/index.js',
+  options: {
+    use: ['loader'],
+    loaders: [
+      {
+        name: 'loader',
+        test: /\.random$/,
+        process() {
+          return 'lol'
+        }
+      }
+    ]
+  }
+})
