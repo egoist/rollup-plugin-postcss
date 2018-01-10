@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`extract: code 1`] = `
+"body {
+  color: red;
+}
+
+.bar {
+  color: red;
+}
+
+/*# sourceMappingURL=bundle.css.map */"
+`;
+
+exports[`extract: map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"foo.css\\",\\"bar.css\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,WAAW;CACZ;;ACFD;EACE,WAAW;CACZ\\",\\"file\\":\\"test/fixtures/simple/dist/bundle.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\"]}"`;
+
 exports[`simple 1`] = `
 "'use strict';
 

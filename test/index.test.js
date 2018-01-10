@@ -1,4 +1,5 @@
 import path from 'path'
+import fs from 'fs-extra'
 import { rollup } from 'rollup'
 import postcss from '../src'
 
@@ -27,17 +28,34 @@ async function write({
   input,
   ...options
 }) {
+  const dirname = path.dirname(input)
   const bundle = await rollup({
     input: fixture(input),
     plugins: [
       postcss(options)
     ]
   })
-  return bundle.write({
+  await bundle.write({
     format: 'cjs',
     sourcemap: true,
-    file: fixture('dist/bundle.js')
+    file: fixture(dirname, 'dist/bundle.js')
   })
+  const codePath = fixture(dirname, 'dist/bundle.css')
+  const mapPath = fixture(dirname, 'dist/bundle.css.map')
+  return {
+    code() {
+      return fs.readFile(codePath, 'utf8')
+    },
+    map() {
+      return fs.readFile(mapPath, 'utf8')
+    },
+    hasCode() {
+      return fs.pathExists(codePath)
+    },
+    hasMap() {
+      return fs.pathExists(mapPath)
+    }
+  }
 }
 
 test('simple', async () => {
@@ -55,5 +73,9 @@ test('extract', async () => {
       'postcss'
     ]
   })
-  console.log(res)
+
+  expect(await res.hasCode()).toBe(true)
+  expect(await res.hasMap()).toBe(true)
+  expect(await res.code()).toMatchSnapshot('code')
+  expect(await res.map()).toMatchSnapshot('map')
 })

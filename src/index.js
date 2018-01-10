@@ -1,8 +1,8 @@
 import path from 'path'
+import fs from 'fs-extra'
 import { createFilter } from 'rollup-pluginutils'
 import Loaders from './loaders'
 import styleInject from 'style-inject'
-import fs from 'fs-extra'
 import Concat from 'concat-with-sourcemaps'
 
 export default (options = {}) => {
@@ -80,6 +80,7 @@ export default (options = {}) => {
         concat.add(relative, res.code, res.map)
       }
       const code = concat.content + `\n/*# sourceMappingURL=${basename}.css.map */`
+
       await Promise.all([
         fs.writeFile(file, code, 'utf8'),
         fs.writeFile(file + '.map', concat.sourceMap, 'utf8')
