@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "test": "npm run lint && jest",
+    "test:cov": "npm run lint && jest --coverage",
     "build": "bili --buble.target.node 6",
     "lint": "xo",
     "prepublishOnly": "npm run build"
