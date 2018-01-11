@@ -61,7 +61,7 @@ console.log(undefined, undefined);
 exports[`inject:top: js code 1`] = `
 "'use strict';
 
-function __$styleInject(css, ref) {
+function __$$styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
@@ -113,7 +113,7 @@ console.log(undefined, undefined);
 exports[`minimize:inject: js code 1`] = `
 "'use strict';
 
-function __$styleInject(css, ref) {
+function __$$styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
@@ -169,7 +169,7 @@ console.log(style.foo);
 exports[`modules:inject: js code 1`] = `
 "'use strict';
 
-function __$styleInject(css, ref) {
+function __$$styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
@@ -207,7 +207,7 @@ console.log(style.foo);
 exports[`modules:named-exports: js code 1`] = `
 "'use strict';
 
-function __$styleInject(css, ref) {
+function __$$styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
@@ -253,7 +253,7 @@ console.log(style$1);
 exports[`postcss-config: js code 1`] = `
 "'use strict';
 
-function __$styleInject(css, ref) {
+function __$$styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
@@ -288,7 +288,7 @@ __$$styleInject(css);
 exports[`postcss-options: js code 1`] = `
 "'use strict';
 
-function __$styleInject(css, ref) {
+function __$$styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
@@ -323,7 +323,7 @@ __$$styleInject(css);
 exports[`sass: js code 1`] = `
 "'use strict';
 
-function __$styleInject(css, ref) {
+function __$$styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
@@ -358,7 +358,7 @@ __$$styleInject(css);
 exports[`sass:modules: js code 1`] = `
 "'use strict';
 
-function __$styleInject(css, ref) {
+function __$$styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
@@ -396,7 +396,7 @@ console.log(style);
 exports[`sass:sourcemap: js code 1`] = `
 "'use strict';
 
-function __$styleInject(css, ref) {
+function __$$styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
@@ -431,7 +431,7 @@ __$$styleInject(css);
 exports[`simple: js code 1`] = `
 "'use strict';
 
-function __$styleInject(css, ref) {
+function __$$styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
@@ -471,7 +471,7 @@ console.log(css, css$1);
 exports[`skip-loader: js code 1`] = `
 "'use strict';
 
-function __$styleInject(css, ref) {
+function __$$styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
@@ -511,7 +511,7 @@ console.log(css, css$1);
 exports[`sourcemap:inline: js code 1`] = `
 "'use strict';
 
-function __$styleInject(css, ref) {
+function __$$styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
@@ -551,7 +551,7 @@ console.log(css, css$1);
 exports[`sourcemap:true: js code 1`] = `
 "'use strict';
 
-function __$styleInject(css, ref) {
+function __$$styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 

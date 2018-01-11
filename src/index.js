@@ -64,7 +64,7 @@ export default (options = {}) => {
 
     intro() {
       if (!postcssLoaderOptions.inject || postcssLoaderOptions.extract) return
-      return styleInject.toString().replace('styleInject', '__$$styleInject')
+      return styleInject.toString().replace('styleInject', '__$$$$styleInject')
     },
 
     async transform(code, id) {
