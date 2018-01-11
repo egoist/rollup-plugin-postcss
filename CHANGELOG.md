@@ -1,3 +1,11 @@
+## [Version 1.0.4](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.0.4) (2018-1-11)
+
+### Bug fixes
+
+- escape $ in replace argument, fixed [#58](https://github.com/egoist/rollup-plugin-postcss/issues/58): [`924513e`](https://github.com/egoist/rollup-plugin-postcss/commit/924513e)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.0.3...v1.0.4)
+
 ## [Version 1.0.3](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.0.3) (2018-1-11)
 
 ### Bug fixes
