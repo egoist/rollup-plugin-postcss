@@ -9,19 +9,30 @@
 
 Seamless integration between [Rollup](https://github.com/rollup/rollup) and [PostCSS](https://github.com/postcss/postcss).
 
+## Install
+
+```bash
+yarn add rollup-plugin-postcss --dev
+```
+
 ## Usage
 
 You are viewing the docs for `v1.0`, for `v0.5` please see [here](https://github.com/egoist/rollup-plugin-postcss/tree/0.5).
 
 ```js
+// rollup.config.js
 import postcss from 'rollup-plugin-postcss'
 
 export default {
   plugins: [
-    postcss()
+    postcss({
+      plugins: []
+    })
   ]
 }
 ```
+
+It will also automatically load local PostCSS config files.
 
 ### Extract CSS
 
@@ -61,6 +72,12 @@ postcss({
 ```
 
 ## Options
+
+### plugins
+
+Type: `Array`
+
+PostCSS Plugins.
 
 ### inject
 
@@ -130,6 +147,24 @@ Enable sourceMap.
 Type: `string` `function`
 
 PostCSS parser, like `sugarss`.
+
+### stringifier
+
+Type: `string` `function`
+
+PostCSS Stringifier.
+
+### syntax
+
+Type: `string` `function`
+
+PostCSS Syntax.
+
+### exec
+
+Type: `boolean`
+
+Enable PostCSS Parser support in `CSS-in-JS`.
 
 ### config
 
