@@ -1,3 +1,11 @@
+## [Version 1.0.3](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.0.3) (2018-1-11)
+
+### Bug fixes
+
+- fix postcss options, closed [#57](https://github.com/egoist/rollup-plugin-postcss/issues/57): [`92f1394`](https://github.com/egoist/rollup-plugin-postcss/commit/92f1394)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.0.2...v1.0.3)
+
 ## [Version 1.0.2](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.0.2) (2018-1-10)
 
 ### Bug fixes
