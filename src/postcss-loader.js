@@ -40,6 +40,10 @@ function ensureClassName(name) {
   return name
 }
 
+function ensurePostCSSOption(option) {
+  return typeof option === 'string' ? localRequire(option) : option
+}
+
 export default {
   name: 'postcss',
   test: /\.(css|sss)$/,
@@ -55,7 +59,7 @@ export default {
       {}
 
     const options = this.options
-    const plugins = [...(options.plugins || []), ...(config.plugins || [])]
+    const plugins = [...(options.postcss.plugins || []), ...(config.plugins || [])]
     const shouldExtract = options.extract
     const shouldInject = options.inject
 
@@ -77,20 +81,22 @@ export default {
     }
 
     const postcssOpts = {
-      parser: this.options.parser,
+      ...this.options.postcss,
+      ...config.options,
+      // Followings are never modified by user config config
       from: this.id,
       to: this.id,
       map: this.sourceMap ?
         shouldExtract ?
           { inline: false, annotation: false } :
           { inline: true, annotation: false } :
-        false,
-      ...config.options
+        false
     }
+    delete postcssOpts.plugins
 
-    if (typeof postcssOpts.parser === 'string') {
-      postcssOpts.parser = localRequire(postcssOpts.parser)
-    }
+    postcssOpts.parser = ensurePostCSSOption(postcssOpts.parser)
+    postcssOpts.syntax = ensurePostCSSOption(postcssOpts.syntax)
+    postcssOpts.stringifier = ensurePostCSSOption(postcssOpts.stringifier)
 
     if (map && postcssOpts.map) {
       postcssOpts.map.prev = typeof map === 'string' ? JSON.parse(map) : map

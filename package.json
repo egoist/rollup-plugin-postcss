@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/egoist/rollup-plugin-postcss#readme",
   "devDependencies": {
+    "autoprefixer": "^7.2.4",
     "babel-jest": "^22.0.4",
     "babel-preset-env": "^1.5.1",
     "bili": "^1.0.0",

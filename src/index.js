@@ -30,8 +30,14 @@ export default (options = {}) => {
     minimize: inferOption(options.minimize, false),
     /** Postcss config file */
     config: inferOption(options.config, {}),
-    /** Parser */
-    parser: options.parser
+    /** PostCSS options */
+    postcss: {
+      parser: options.parser,
+      plugins: options.plugins,
+      syntax: options.syntax,
+      stringifier: options.stringifier,
+      exec: options.exec
+    }
   }
   let use = options.use || []
   use.unshift(['postcss', postcssLoaderOptions])

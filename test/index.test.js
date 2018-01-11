@@ -232,3 +232,13 @@ snapshot({
     ]
   }
 })
+
+snapshot({
+  title: 'postcss-options',
+  input: 'postcss-options/index.js',
+  options: {
+    plugins: [
+      require('autoprefixer')()
+    ]
+  }
+})
