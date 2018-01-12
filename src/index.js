@@ -11,6 +11,7 @@ import Loaders from './loaders'
  * Otherwise fallback to default value
  */
 function inferOption(option, defaultValue) {
+  if (option === false) return false
   if (option && typeof option === 'object') return option
   return option ? {} : defaultValue
 }

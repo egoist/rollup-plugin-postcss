@@ -58,6 +58,17 @@ console.log(undefined, undefined);
 "
 `;
 
+exports[`inject:false: js code 1`] = `
+"'use strict';
+
+var css = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+
+var css$1 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
+
+console.log(css, css$1);
+"
+`;
+
 exports[`inject:top: js code 1`] = `
 "'use strict';
 

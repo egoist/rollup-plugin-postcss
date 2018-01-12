@@ -242,3 +242,11 @@ snapshot({
     ]
   }
 })
+
+snapshot({
+  title: 'inject:false',
+  input: 'simple/index.js',
+  options: {
+    inject: false
+  }
+})
