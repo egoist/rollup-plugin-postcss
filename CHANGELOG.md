@@ -1,3 +1,11 @@
+## [Version 1.0.5](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.0.5) (2018-1-12)
+
+### Bug fixes
+
+- fix inferOption [#54](https://github.com/egoist/rollup-plugin-postcss/issues/54): [`10d7523`](https://github.com/egoist/rollup-plugin-postcss/commit/10d7523)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.0.4...v1.0.5)
+
 ## [Version 1.0.4](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.0.4) (2018-1-11)
 
 ### Bug fixes
