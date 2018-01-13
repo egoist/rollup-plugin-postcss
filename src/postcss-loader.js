@@ -48,12 +48,6 @@ export default {
   name: 'postcss',
   test: /\.(css|sss)$/,
   async process({ code, map }) {
-    if (!this.sourceMap && map) {
-      console.warn(
-        `\n\n ⚠️  rollup-plugin-postcss\n\nPrevious source map found, but options.sourceMap isn't set.\nIn this case the loader will discard the source map entirely for performance reasons.\n\n`
-      )
-    }
-
     const config = this.options.config ?
       await loadConfig(this.id, this.options.config) :
       {}
