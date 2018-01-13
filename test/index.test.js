@@ -181,22 +181,14 @@ snapshot({
 
 snapshot({
   title: 'sass',
-  input: 'sass/index.js',
-  options: {
-    use: [
-      'sass'
-    ]
-  }
+  input: 'sass/index.js'
 })
 
 snapshot({
   title: 'sass:sourcemap',
   input: 'sass/index.js',
   options: {
-    sourceMap: true,
-    use: [
-      'sass'
-    ]
+    sourceMap: true
   }
 })
 
@@ -209,16 +201,13 @@ snapshot({
   title: 'sass:modules',
   input: 'sass-modules/index.js',
   options: {
-    modules: true,
-    use: [
-      'sass'
-    ]
+    modules: true
   }
 })
 
 snapshot({
   title: 'skip-loader',
-  input: 'simple/index.js',
+  input: 'skip-loader/index.js',
   options: {
     use: ['loader'],
     loaders: [

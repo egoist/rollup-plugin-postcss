@@ -1,6 +1,8 @@
 import series from 'promise.series'
 import postcssLoader from './postcss-loader'
 import sassLoader from './sass-loader'
+import stylusLoader from './stylus-loader'
+import lessLoader from './less-loader'
 
 export default class Loaders {
   constructor(options = {}) {
@@ -9,6 +11,8 @@ export default class Loaders {
 
     this.registerLoader(postcssLoader)
     this.registerLoader(sassLoader)
+    this.registerLoader(stylusLoader)
+    this.registerLoader(lessLoader)
     if (options.loaders) {
       options.loaders.forEach(loader => this.registerLoader(loader))
     }

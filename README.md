@@ -54,22 +54,13 @@ postcss({
 
 ### With Sass/Stylus/Less
 
-First add relevant dependency:
+Install corresponding dependency:
 
-```bash
-yarn add node-sass --dev
-# Now you can import `.sass` and `.scss` files in your library
-```
+- For `Sass` install `node-sass`: `yarn add node-sass --dev`
+- For `Stylus` Install `stylus`: `yarn add stylus --dev`
+- For `Less` Install `less`: `yarn add less --dev`
 
-Then enable it in the plugin:
-
-```js
-postcss({
-  use: [
-    ['sass', {/* optional sass options */}]
-  ]
-})
-```
+That's it, you can now import `.styl` `.scss` `.sass` `.less` files in your library.
 
 ## Options
 
@@ -187,7 +178,8 @@ Type: `object`
 
 ### use
 
-Type: `name[]` `[name, options][]`
+Type: `name[]` `[name, options][]`<br>
+Default: `['sass', 'stylus', 'less']`
 
 Use a loader, currently built-in loaders are:
 
@@ -201,7 +193,7 @@ They are executed from right to left.
 
 Type: `Loader[]`
 
-An array of custom loaders.
+An array of custom loaders, check out our [sass-loader](./src/sass-loader) as example.
 
 ```js
 interface Loader {

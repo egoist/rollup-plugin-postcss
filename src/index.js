@@ -40,7 +40,7 @@ export default (options = {}) => {
       exec: options.exec
     }
   }
-  let use = options.use || []
+  let use = options.use || ['sass', 'stylus', 'less']
   use.unshift(['postcss', postcssLoaderOptions])
   use = use.reduce((res, rule) => {
     if (typeof rule === 'string') {
