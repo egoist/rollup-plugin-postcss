@@ -193,7 +193,7 @@ They are executed from right to left.
 
 Type: `Loader[]`
 
-An array of custom loaders, check out our [sass-loader](./src/sass-loader) as example.
+An array of custom loaders, check out our [sass-loader](./src/sass-loader.js) as example.
 
 ```js
 interface Loader {
