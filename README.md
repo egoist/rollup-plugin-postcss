@@ -32,7 +32,20 @@ export default {
 }
 ```
 
-It will also automatically load local PostCSS config files.
+Then you can use CSS files: 
+
+```js
+import './style.css'
+```
+
+Note that the generated CSS will be injected to `<head>` by default, and the CSS string is also available as default export unless `extract: true`:
+
+```js
+// Inject to `<head>` and also available as `style`
+import style from './style.css'
+```
+
+It will also automatically use local PostCSS config files.
 
 ### Extract CSS
 
