@@ -1,3 +1,16 @@
+## [Version 1.1.0](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.1.0) (2018-1-13)
+
+### New features
+
+- support stylus/less and enable loaders by default: [`977c666`](https://github.com/egoist/rollup-plugin-postcss/commit/977c666)
+
+### Bug fixes
+
+- tweaks: [`0565a37`](https://github.com/egoist/rollup-plugin-postcss/commit/0565a37)
+- no need to warn about sourcemap: [`19cbe01`](https://github.com/egoist/rollup-plugin-postcss/commit/19cbe01)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.0.5...v1.1.0)
+
 ## [Version 1.0.5](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.0.5) (2018-1-12)
 
 ### Bug fixes
