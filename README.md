@@ -184,8 +184,8 @@ Default: `['sass', 'stylus', 'less']`
 Use a loader, currently built-in loaders are:
 
 - `sass` (Support `.scss` and `.sass`)
-- `stylus` (TODO)
-- `less` (TODO)
+- `stylus` (Support `.styl` and `.stylus`)
+- `less` (Support `.less`)
 
 They are executed from right to left.
 
