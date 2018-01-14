@@ -1,3 +1,11 @@
+## [Version 1.2.1](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.2.1) (2018-1-14)
+
+### Bug fixes
+
+- update bili to fix a transpilation bug: [`5e4c8dd`](https://github.com/egoist/rollup-plugin-postcss/commit/5e4c8dd)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.2.0...v1.2.1)
+
 ## [Version 1.2.0](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.2.0) (2018-1-14)
 
 ### New features
