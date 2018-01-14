@@ -242,7 +242,7 @@ A function to be invoked when an import for CSS file is detected.
 
 Type: `({ code, map, codeFilePath, mapFilePath }) => any`
 
-A function to be invoked before extracting CSS file, you can make it return `false` to disable CSS extraction.
+A function to be invoked before extracting CSS file, you can make it return `false` to disable writing CSS and map file.
 
 ## License
 
