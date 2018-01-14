@@ -1,3 +1,15 @@
+## [Version 1.2.0](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.2.0) (2018-1-14)
+
+### New features
+
+- add onExtract option: [`25360d5`](https://github.com/egoist/rollup-plugin-postcss/commit/25360d5)
+
+### Bug fixes
+
+- tweaks: [`9297035`](https://github.com/egoist/rollup-plugin-postcss/commit/9297035)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.1.0...v1.2.0)
+
 ## [Version 1.1.0](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.1.0) (2018-1-13)
 
 ### New features
