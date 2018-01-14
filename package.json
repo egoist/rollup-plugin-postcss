@@ -31,7 +31,7 @@
     "autoprefixer": "^7.2.4",
     "babel-jest": "^22.0.4",
     "babel-preset-env": "^1.5.1",
-    "bili": "^1.0.0",
+    "bili": "^1.5.4",
     "eslint-config-rem": "^4.0.0",
     "jest": "^22.0.4",
     "less": "^2.7.3",
