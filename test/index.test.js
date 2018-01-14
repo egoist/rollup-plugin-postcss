@@ -239,3 +239,18 @@ snapshot({
     inject: false
   }
 })
+
+test('onExtract', async () => {
+  const res = await write({
+    input: 'simple/index.js',
+    dirname: 'onExtract',
+    options: {
+      extract: true,
+      onExtract() {
+        return false
+      }
+    }
+  })
+  expect(await res.jsCode()).toMatchSnapshot()
+  expect(await res.hasCssFile()).toBe(false)
+})

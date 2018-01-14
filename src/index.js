@@ -132,14 +132,26 @@ export default (options = {}) => {
         code += `\n/*# sourceMappingURL=${basename}.css.map */`
       }
 
+      // Release for potential next build
+      extracted = []
+
+      if (options.onExtract) {
+        const shouldExtract = await options.onExtract({
+          code,
+          map: concat.sourceMap,
+          codeFilePath: file,
+          mapFilePath: file + '.map'
+        })
+        if (shouldExtract === false) {
+          return
+        }
+      }
+
       await Promise.all([
         fs.writeFile(file, code, 'utf8'),
         sourceMap === true &&
           fs.writeFile(file + '.map', concat.sourceMap, 'utf8')
       ])
-
-      // Release for potential next build
-      extracted = []
     }
   }
 }

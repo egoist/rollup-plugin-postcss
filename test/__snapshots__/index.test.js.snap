@@ -322,6 +322,13 @@ console.log(style$1);
 "
 `;
 
+exports[`onExtract 1`] = `
+"'use strict';
+
+console.log(undefined, undefined);
+"
+`;
+
 exports[`postcss-config: js code 1`] = `
 "'use strict';
 

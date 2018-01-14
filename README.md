@@ -238,6 +238,12 @@ Type: `id => void`
 
 A function to be invoked when an import for CSS file is detected.
 
+### onExtract
+
+Type: `({ code, map, codeFilePath, mapFilePath }) => any`
+
+A function to be invoked before extracting CSS file, you can make it return `false` to disable CSS extraction.
+
 ## License
 
 MIT &copy; [EGOIST](https://github.com/egoist)
