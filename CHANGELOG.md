@@ -1,3 +1,11 @@
+## [Version 1.2.2](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.2.2) (2018-1-16)
+
+### Bug fixes
+
+- support custom path for extracted css file, fixed [#60](https://github.com/egoist/rollup-plugin-postcss/issues/60): [`6eb0cc5`](https://github.com/egoist/rollup-plugin-postcss/commit/6eb0cc5)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.2.1...v1.2.2)
+
 ## [Version 1.2.1](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.2.1) (2018-1-14)
 
 ### Bug fixes
