@@ -1,3 +1,11 @@
+## [Version 1.2.3](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.2.3) (2018-1-16)
+
+### Bug fixes
+
+- normalize extracted path: [`14e5df0`](https://github.com/egoist/rollup-plugin-postcss/commit/14e5df0)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.2.2...v1.2.3)
+
 ## [Version 1.2.2](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.2.2) (2018-1-16)
 
 ### Bug fixes
