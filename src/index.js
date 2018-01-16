@@ -108,9 +108,10 @@ export default (options = {}) => {
             filepath = postcssLoaderOptions.extract
           } else {
             const basename = path.basename(opts.file, path.extname(opts.file))
-            filepath = normalizePath(path.join(path.dirname(opts.file), basename + '.css'))
+            filepath = path.join(path.dirname(opts.file), basename + '.css')
           }
         }
+        filepath = normalizePath(filepath)
         const concat = new Concat(true, filepath, '\n')
         for (const res of extracted) {
           const relative = normalizePath(res.id)
