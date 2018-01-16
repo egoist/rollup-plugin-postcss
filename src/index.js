@@ -59,7 +59,7 @@ export default (options = {}) => {
     loaders: options.loaders
   })
 
-  let extracted = []
+  const extracted = new Map()
 
   return {
     name: 'postcss',
@@ -86,7 +86,7 @@ export default (options = {}) => {
       })
 
       if (postcssLoaderOptions.extract) {
-        extracted.push(res.extracted)
+        extracted.set(id, res.extracted)
         return {
           code: res.code,
           map: { mappings: '' }
@@ -100,7 +100,7 @@ export default (options = {}) => {
     },
 
     async onwrite(opts) {
-      if (extracted.length === 0) return
+      if (extracted.size === 0) return
 
       const getExtracted = filepath => {
         if (!filepath) {
@@ -113,7 +113,7 @@ export default (options = {}) => {
         }
         filepath = normalizePath(filepath)
         const concat = new Concat(true, filepath, '\n')
-        for (const res of extracted) {
+        for (const res of extracted.values()) {
           const relative = normalizePath(res.id)
           const map = res.map ? JSON.parse(res.map.toString()) : null
           if (map) {
@@ -134,9 +134,6 @@ export default (options = {}) => {
         } else if (sourceMap === true) {
           code += `\n/*# sourceMappingURL=${path.basename(filepath)}.map */`
         }
-
-        // Release for potential next build
-        extracted = []
 
         return {
           code,
