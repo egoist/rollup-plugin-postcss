@@ -98,6 +98,40 @@ console.log(undefined, undefined);
 "
 `;
 
+exports[`extract:path: css code 1`] = `
+"body {
+  color: red;
+}
+
+.bar {
+  color: red;
+}
+
+body {
+  color: #f00;
+  background: #f00;
+}
+/*# sourceMappingURL=test/fixtures/simple/style.css.map */
+#sidebar {
+  width: 30%;
+  background-color: #faa; }
+
+#header {
+  color: #6c94be;
+}
+
+/*# sourceMappingURL=extracted.css.map */"
+`;
+
+exports[`extract:path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"test/fixtures/dist/extract:path/foo.css\\",\\"test/fixtures/dist/extract:path/bar.css\\",\\"test/fixtures/dist/extract:path/test/fixtures/simple/style.styl\\",\\"test/fixtures/dist/extract:path/style.styl\\",\\"test/fixtures/dist/extract:path/style.sass\\",\\"test/fixtures/dist/extract:path/input\\",\\"test/fixtures/dist/extract:path/style.less\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,WAAW;CACZ;;ACFD;EACE,WAAW;CACZ;;ACFD;EACE,YAAA;EACA,iBAAA;CCCD;AACD,0DAA0D;ACJ1D;EACE,WAAW;EACX,uBAAuB,EAAE;;ACC3B;EACE,eAAA;CCFD\\",\\"file\\":\\"/Users/egoist/dev/rollup-plugin-postcss/test/fixtures/dist/extract:path/this/is/extracted.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",null,null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",null,null]}"`;
+
+exports[`extract:path: js code 1`] = `
+"'use strict';
+
+console.log(undefined, undefined);
+"
+`;
+
 exports[`inject:false: js code 1`] = `
 "'use strict';
 

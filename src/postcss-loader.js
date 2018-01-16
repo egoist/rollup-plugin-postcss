@@ -2,7 +2,7 @@ import path from 'path'
 import postcss from 'postcss'
 import findPostcssConfig from 'postcss-load-config'
 import reserved from 'reserved-words'
-import { localRequire } from './utils'
+import { localRequire, normalizePath } from './utils'
 
 function loadConfig(id, { ctx: configOptions, path: configPath }) {
   const handleError = err => {
@@ -107,7 +107,7 @@ export default {
       for (const name in json) {
         const newName = ensureClassName(name)
         if (name !== newName) {
-          console.warn(`Exported "${name}" as "${newName}" in ${path.relative(process.cwd(), this.id)}`)
+          console.warn(`Exported "${name}" as "${newName}" in ${normalizePath(this.id)}`)
         }
         output += `export var ${newName} = ${JSON.stringify(
           json[name]

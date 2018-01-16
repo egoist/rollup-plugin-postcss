@@ -25,8 +25,8 @@ async function write({
     format: 'cjs',
     file: path.join(dirname, 'bundle.js')
   })
-  const cssCodePath = path.join(dirname, 'bundle.css')
-  const cssMapPath = path.join(dirname, 'bundle.css.map')
+  const cssCodePath = typeof options.extract === 'string' ? options.extract : path.join(dirname, 'bundle.css')
+  const cssMapPath = `${cssCodePath}.map`
   const jsCodePath = path.join(dirname, 'bundle.js')
   return {
     jsCode() {
@@ -88,6 +88,15 @@ snapshot({
   input: 'simple/index.js',
   options: {
     extract: true
+  }
+})
+
+snapshot({
+  title: 'extract:path',
+  input: 'simple/index.js',
+  options: {
+    extract: fixture('dist/extract:path/this/is/extracted.css'),
+    sourceMap: true
   }
 })
 

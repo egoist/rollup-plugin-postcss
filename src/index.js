@@ -4,6 +4,7 @@ import { createFilter } from 'rollup-pluginutils'
 import styleInject from 'style-inject'
 import Concat from 'concat-with-sourcemaps'
 import Loaders from './loaders'
+import { normalizePath } from './utils'
 
 /**
  * The options that could be `boolean` or `object`
@@ -101,57 +102,63 @@ export default (options = {}) => {
     async onwrite(opts) {
       if (extracted.length === 0) return
 
-      const basename = path.basename(opts.file, path.extname(opts.file))
-      const file = path.relative(
-        process.cwd(),
-        path.join(path.dirname(opts.file), basename + '.css')
-      )
-      const concat = new Concat(true, file, '\n')
-      for (const res of extracted) {
-        const relative = path.relative(process.cwd(), res.id)
-        const map = res.map ? JSON.parse(res.map.toString()) : null
-        if (map) {
-          map.file = file
-          map.sources = map.sources.map(source =>
-            path.relative(
-              process.cwd(),
-              path.join(path.dirname(opts.file), source)
-            )
-          )
+      const getExtracted = filepath => {
+        if (!filepath) {
+          if (typeof postcssLoaderOptions.extract === 'string') {
+            filepath = postcssLoaderOptions.extract
+          } else {
+            const basename = path.basename(opts.file, path.extname(opts.file))
+            filepath = normalizePath(path.join(path.dirname(opts.file), basename + '.css'))
+          }
         }
-        concat.add(relative, res.code, map)
-      }
-      let code = concat.content
+        const concat = new Concat(true, filepath, '\n')
+        for (const res of extracted) {
+          const relative = normalizePath(res.id)
+          const map = res.map ? JSON.parse(res.map.toString()) : null
+          if (map) {
+            map.file = filepath
+            map.sources = map.sources.map(source =>
+              normalizePath(path.join(path.dirname(opts.file), source))
+            )
+          }
+          concat.add(relative, res.code, map)
+        }
+        let code = concat.content
 
-      if (sourceMap === 'inline') {
-        code += `\n/*# sourceMappingURL=data:application/json;base64,${Buffer.from(
-          concat.sourceMap,
-          'utf8'
-        ).toString('base64')}*/`
-      } else if (sourceMap === true) {
-        code += `\n/*# sourceMappingURL=${basename}.css.map */`
-      }
+        if (sourceMap === 'inline') {
+          code += `\n/*# sourceMappingURL=data:application/json;base64,${Buffer.from(
+            concat.sourceMap,
+            'utf8'
+          ).toString('base64')}*/`
+        } else if (sourceMap === true) {
+          code += `\n/*# sourceMappingURL=${path.basename(filepath)}.map */`
+        }
 
-      // Release for potential next build
-      extracted = []
+        // Release for potential next build
+        extracted = []
 
-      if (options.onExtract) {
-        const shouldExtract = await options.onExtract({
+        return {
           code,
           map: concat.sourceMap,
-          codeFilePath: file,
-          mapFilePath: file + '.map'
-        })
+          codeFilePath: filepath,
+          mapFilePath: filepath + '.map'
+        }
+      }
+
+      if (options.onExtract) {
+        const shouldExtract = await options.onExtract(getExtracted)
         if (shouldExtract === false) {
           return
         }
       }
 
-      await Promise.all([
-        fs.writeFile(file, code, 'utf8'),
-        sourceMap === true &&
-          fs.writeFile(file + '.map', concat.sourceMap, 'utf8')
-      ])
+      const { code, codeFilePath, map, mapFilePath } = getExtracted()
+      await fs.ensureDir(path.dirname(codeFilePath))
+        .then(() => Promise.all([
+          fs.writeFile(codeFilePath, code, 'utf8'),
+          sourceMap === true &&
+            fs.writeFile(mapFilePath, map, 'utf8')
+        ]))
     }
   }
 }

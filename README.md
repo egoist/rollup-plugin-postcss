@@ -94,10 +94,12 @@ You can also use it as options for [`style-inject`](https://github.com/egoist/st
 
 ### extract
 
-Type: `boolean`<br>
+Type: `boolean` `string`<br>
 Default: `false`
 
-Extract CSS into its own file.
+Extract CSS to the same location where JS file is generated but with `.css` extension.
+
+You can also set it to an absolute path.
 
 ### modules
 
@@ -237,12 +239,6 @@ interface Payload {
 Type: `id => void`
 
 A function to be invoked when an import for CSS file is detected.
-
-### onExtract
-
-Type: `({ code, map, codeFilePath, mapFilePath }) => any`
-
-A function to be invoked before extracting CSS file, you can make it return `false` to disable writing CSS and map file.
 
 ## License
 
