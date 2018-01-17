@@ -1,3 +1,11 @@
+## [Version 1.2.5](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.2.5) (2018-1-17)
+
+### Bug fixes
+
+- fix for..of transpilation error: [`0fe23ad`](https://github.com/egoist/rollup-plugin-postcss/commit/0fe23ad)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.2.4...v1.2.5)
+
 ## [Version 1.2.3](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.2.3) (2018-1-16)
 
 ### Bug fixes
