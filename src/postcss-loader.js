@@ -59,7 +59,7 @@ export default {
 
     const modulesExported = {}
     if (options.modules) {
-      plugins.unshift(
+      plugins.push(
         require('postcss-modules')({
           generateScopedName: '[name]_[local]__[hash:base64:5]',
           ...options.modules,
