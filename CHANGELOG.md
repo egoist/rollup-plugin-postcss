@@ -1,3 +1,11 @@
+## [Version 1.2.6](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.2.6) (2018-1-24)
+
+### Bug fixes
+
+- Fix issues with using postcss-import plugin and postcss-modules plugin: [`0897815`](https://github.com/egoist/rollup-plugin-postcss/commit/0897815) ([#62](https://github.com/egoist/rollup-plugin-postcss/issues/62))
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.2.4...v1.2.6)
+
 ## [Version 1.2.5](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.2.5) (2018-1-17)
 
 ### Bug fixes
