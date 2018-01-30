@@ -1,3 +1,11 @@
+## [Version 1.2.8](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.2.8) (2018-1-30)
+
+### Bug fixes
+
+- allow to control how exported named is generated, fixed [#64](https://github.com/egoist/rollup-plugin-postcss/issues/64): [`3b6d7cb`](https://github.com/egoist/rollup-plugin-postcss/commit/3b6d7cb)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.2.7...v1.2.8)
+
 ## [Version 1.2.6](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.2.6) (2018-1-24)
 
 ### Bug fixes
