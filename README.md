@@ -110,12 +110,21 @@ Enable CSS modules or set options for `postcss-modules`.
 
 ### namedExports
 
-Type: `boolean`<br>
+Type: `boolean` `function`<br>
 Default: `false`
 
 Use named exports alongside default export.
 
-When importing specific classNames, the following will happen:
+You can supply a function to control how exported named is generated:
+
+```js
+namedExports(name) {
+  // Maybe you simply want to convert dash to underswcore
+  return name.replace(/-/g, '_')
+}
+```
+
+If you set it to `true`, the following will happen when importing specific classNames:
 
 - dashed class names will be transformed by replacing all the dashes to `$` sign wrapped underlines, eg. `--` => `$__$`
 - js protected names used as your style class names, will be transformed by wrapping the names between `$` signs, eg. `switch` => `$switch$`

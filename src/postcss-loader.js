@@ -103,9 +103,12 @@ export default {
 
     if (options.namedExports) {
       const json = modulesExported[this.id]
+      const getClassName = typeof options.namedExports === 'function' ?
+        options.namedExports :
+        ensureClassName
       // eslint-disable-next-line guard-for-in
       for (const name in json) {
-        const newName = ensureClassName(name)
+        const newName = getClassName(name)
         if (name !== newName) {
           console.warn(`Exported "${name}" as "${newName}" in ${normalizePath(this.id)}`)
         }

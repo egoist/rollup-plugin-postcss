@@ -135,6 +135,17 @@ snapshot({
 })
 
 snapshot({
+  title: 'modules:named-exports-custom-class-name',
+  input: 'named-exports/index.js',
+  options: {
+    modules: true,
+    namedExports(name) {
+      return name + 'hacked'
+    }
+  }
+})
+
+snapshot({
   title: 'modules:extract',
   input: 'css-modules/index.js',
   options: {

@@ -356,6 +356,52 @@ console.log(style$1);
 "
 `;
 
+exports[`modules:named-exports-custom-class-name: js code 1`] = `
+"'use strict';
+
+function __$$styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css) { return }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var foohacked = \\"style_foo__23nAE\\";
+var newhacked = \\"style_new__155Jg\\";
+var css = \\".style_foo__23nAE {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new__155Jg {\\\\n  color: blue;\\\\n}\\\\n\\";
+var style = {\\"foo\\":\\"style_foo__23nAE\\",\\"new\\":\\"style_new__155Jg\\"};
+__$$styleInject(css);
+
+var style$1 = Object.freeze({
+	foohacked: foohacked,
+	newhacked: newhacked,
+	default: style
+});
+
+console.log(style$1);
+"
+`;
+
 exports[`onExtract 1`] = `
 "'use strict';
 
