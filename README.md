@@ -119,7 +119,7 @@ You can supply a function to control how exported named is generated:
 
 ```js
 namedExports(name) {
-  // Maybe you simply want to convert dash to underswcore
+  // Maybe you simply want to convert dash to underscore
   return name.replace(/-/g, '_')
 }
 ```
