@@ -1,7 +1,6 @@
 import path from 'path'
 import fs from 'fs-extra'
 import { createFilter } from 'rollup-pluginutils'
-import styleInject from 'style-inject'
 import Concat from 'concat-with-sourcemaps'
 import Loaders from './loaders'
 import { normalizePath } from './utils'
@@ -63,11 +62,6 @@ export default (options = {}) => {
 
   return {
     name: 'postcss',
-
-    intro() {
-      if (!postcssLoaderOptions.inject || postcssLoaderOptions.extract) return
-      return styleInject.toString().replace('styleInject', '__$$$$styleInject')
-    },
 
     async transform(code, id) {
       if (!filter(id) || !loaders.isSupported(id)) {

@@ -5357,6 +5357,10 @@ style-inject@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/style-inject/-/style-inject-0.2.0.tgz#a13fba17a11fe9f91d6bfc3732df7692501199cb"
 
+style-inject@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/style-inject/-/style-inject-0.3.0.tgz#d21c477affec91811cc82355832a700d22bf8dd3"
+
 stylus@^0.54.5:
   version "0.54.5"
   resolved "https://registry.yarnpkg.com/stylus/-/stylus-0.54.5.tgz#42b9560931ca7090ce8515a798ba9e6aa3d6dc79"

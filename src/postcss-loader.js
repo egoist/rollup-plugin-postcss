@@ -4,6 +4,8 @@ import findPostcssConfig from 'postcss-load-config'
 import reserved from 'reserved-words'
 import { localRequire, normalizePath } from './utils'
 
+const styleInjectPath = require.resolve('style-inject/dist/style-inject.es')
+
 function loadConfig(id, { ctx: configOptions, path: configPath }) {
   const handleError = err => {
     if (err.message.indexOf('No PostCSS Config found') === -1) {
@@ -131,7 +133,7 @@ export default {
       };`
     }
     if (!shouldExtract && shouldInject) {
-      output += `\n__$$styleInject(css${
+      output += `\nimport styleInject from '${styleInjectPath}';\nstyleInject(css${
         Object.keys(options.inject).length > 0 ?
           `,${JSON.stringify(options.inject)}` :
           ''

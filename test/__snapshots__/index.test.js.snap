@@ -146,11 +146,11 @@ console.log(css, css$1);
 exports[`inject:top: js code 1`] = `
 "'use strict';
 
-function __$$styleInject(css, ref) {
+function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
-  if (!css) { return }
+  if (!css || typeof document === 'undefined') { return; }
 
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
@@ -174,19 +174,19 @@ function __$$styleInject(css, ref) {
 }
 
 var css = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
-__$$styleInject(css,{\\"insertAt\\":\\"top\\"});
+styleInject(css,{\\"insertAt\\":\\"top\\"});
 
 var css$1 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
-__$$styleInject(css$1,{\\"insertAt\\":\\"top\\"});
+styleInject(css$1,{\\"insertAt\\":\\"top\\"});
 
 var css$2 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
-__$$styleInject(css$2,{\\"insertAt\\":\\"top\\"});
+styleInject(css$2,{\\"insertAt\\":\\"top\\"});
 
 var css$4 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
-__$$styleInject(css$4,{\\"insertAt\\":\\"top\\"});
+styleInject(css$4,{\\"insertAt\\":\\"top\\"});
 
 var css$6 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
-__$$styleInject(css$6,{\\"insertAt\\":\\"top\\"});
+styleInject(css$6,{\\"insertAt\\":\\"top\\"});
 
 console.log(css, css$1);
 "
@@ -210,11 +210,11 @@ console.log(undefined, undefined);
 exports[`minimize:inject: js code 1`] = `
 "'use strict';
 
-function __$$styleInject(css, ref) {
+function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
-  if (!css) { return }
+  if (!css || typeof document === 'undefined') { return; }
 
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
@@ -238,19 +238,19 @@ function __$$styleInject(css, ref) {
 }
 
 var css = \\"body{color:red}\\";
-__$$styleInject(css);
+styleInject(css);
 
 var css$1 = \\".bar{color:red}\\";
-__$$styleInject(css$1);
+styleInject(css$1);
 
 var css$2 = \\"body{color:red;background:red}\\";
-__$$styleInject(css$2);
+styleInject(css$2);
 
 var css$4 = \\"#sidebar{width:30%;background-color:#faa}\\";
-__$$styleInject(css$4);
+styleInject(css$4);
 
 var css$6 = \\"#header{color:#6c94be}\\";
-__$$styleInject(css$6);
+styleInject(css$6);
 
 console.log(css, css$1);
 "
@@ -275,11 +275,11 @@ console.log(style.foo);
 exports[`modules:inject: js code 1`] = `
 "'use strict';
 
-function __$$styleInject(css, ref) {
+function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
-  if (!css) { return }
+  if (!css || typeof document === 'undefined') { return; }
 
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
@@ -304,7 +304,7 @@ function __$$styleInject(css, ref) {
 
 var css = \\".style_foo__33weH {\\\\n  color: red;\\\\n}\\\\n\\";
 var style = {\\"foo\\":\\"style_foo__33weH\\"};
-__$$styleInject(css);
+styleInject(css);
 
 console.log(style.foo);
 "
@@ -313,11 +313,11 @@ console.log(style.foo);
 exports[`modules:named-exports: js code 1`] = `
 "'use strict';
 
-function __$$styleInject(css, ref) {
+function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
-  if (!css) { return }
+  if (!css || typeof document === 'undefined') { return; }
 
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
@@ -344,7 +344,7 @@ var foo = \\"style_foo__23nAE\\";
 var $new$ = \\"style_new__155Jg\\";
 var css = \\".style_foo__23nAE {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new__155Jg {\\\\n  color: blue;\\\\n}\\\\n\\";
 var style = {\\"foo\\":\\"style_foo__23nAE\\",\\"new\\":\\"style_new__155Jg\\"};
-__$$styleInject(css);
+styleInject(css);
 
 var style$1 = Object.freeze({
 	foo: foo,
@@ -359,11 +359,11 @@ console.log(style$1);
 exports[`modules:named-exports-custom-class-name: js code 1`] = `
 "'use strict';
 
-function __$$styleInject(css, ref) {
+function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
-  if (!css) { return }
+  if (!css || typeof document === 'undefined') { return; }
 
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
@@ -390,7 +390,7 @@ var foohacked = \\"style_foo__23nAE\\";
 var newhacked = \\"style_new__155Jg\\";
 var css = \\".style_foo__23nAE {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new__155Jg {\\\\n  color: blue;\\\\n}\\\\n\\";
 var style = {\\"foo\\":\\"style_foo__23nAE\\",\\"new\\":\\"style_new__155Jg\\"};
-__$$styleInject(css);
+styleInject(css);
 
 var style$1 = Object.freeze({
 	foohacked: foohacked,
@@ -412,11 +412,11 @@ console.log(undefined, undefined);
 exports[`postcss-config: js code 1`] = `
 "'use strict';
 
-function __$$styleInject(css, ref) {
+function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
-  if (!css) { return }
+  if (!css || typeof document === 'undefined') { return; }
 
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
@@ -440,18 +440,18 @@ function __$$styleInject(css, ref) {
 }
 
 var css = \\"a {\\\\n  color: blue\\\\n}\\\\n\\\\n.multiline,\\\\n.selector {\\\\n  box-shadow: 1px 0 9px rgba(0, 0, 0, .4),\\\\n              1px 0 3px rgba(0, 0, 0, .6)\\\\n}\\\\n\\";
-__$$styleInject(css);
+styleInject(css);
 "
 `;
 
 exports[`postcss-options: js code 1`] = `
 "'use strict';
 
-function __$$styleInject(css, ref) {
+function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
-  if (!css) { return }
+  if (!css || typeof document === 'undefined') { return; }
 
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
@@ -475,18 +475,18 @@ function __$$styleInject(css, ref) {
 }
 
 var css = \\"body {\\\\n  display: -webkit-box;\\\\n  display: -ms-flexbox;\\\\n  display: flex;\\\\n}\\\\n\\";
-__$$styleInject(css);
+styleInject(css);
 "
 `;
 
 exports[`sass: js code 1`] = `
 "'use strict';
 
-function __$$styleInject(css, ref) {
+function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
-  if (!css) { return }
+  if (!css || typeof document === 'undefined') { return; }
 
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
@@ -510,18 +510,18 @@ function __$$styleInject(css, ref) {
 }
 
 var css = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
-__$$styleInject(css);
+styleInject(css);
 "
 `;
 
 exports[`sass:modules: js code 1`] = `
 "'use strict';
 
-function __$$styleInject(css, ref) {
+function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
-  if (!css) { return }
+  if (!css || typeof document === 'undefined') { return; }
 
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
@@ -546,7 +546,7 @@ function __$$styleInject(css, ref) {
 
 var css = \\".style_foo__2demv {\\\\n  color: red; }\\\\n\\";
 var style = {\\"foo\\":\\"style_foo__2demv\\"};
-__$$styleInject(css);
+styleInject(css);
 
 console.log(style);
 "
@@ -555,11 +555,11 @@ console.log(style);
 exports[`sass:sourcemap: js code 1`] = `
 "'use strict';
 
-function __$$styleInject(css, ref) {
+function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
-  if (!css) { return }
+  if (!css || typeof document === 'undefined') { return; }
 
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
@@ -583,18 +583,18 @@ function __$$styleInject(css, ref) {
 }
 
 var css = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5zYXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBVztFQUNYLHVCQUF1QixFQUFFIiwiZmlsZSI6ImZvby5zYXNzIiwic291cmNlc0NvbnRlbnQiOlsiI3NpZGViYXIge1xuICB3aWR0aDogMzAlO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmFhOyB9XG4iXX0= */\\";
-__$$styleInject(css);
+styleInject(css);
 "
 `;
 
 exports[`simple: js code 1`] = `
 "'use strict';
 
-function __$$styleInject(css, ref) {
+function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
-  if (!css) { return }
+  if (!css || typeof document === 'undefined') { return; }
 
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
@@ -618,19 +618,19 @@ function __$$styleInject(css, ref) {
 }
 
 var css = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
-__$$styleInject(css);
+styleInject(css);
 
 var css$1 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
-__$$styleInject(css$1);
+styleInject(css$1);
 
 var css$2 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
-__$$styleInject(css$2);
+styleInject(css$2);
 
 var css$4 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
-__$$styleInject(css$4);
+styleInject(css$4);
 
 var css$6 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
-__$$styleInject(css$6);
+styleInject(css$6);
 
 console.log(css, css$1);
 "
@@ -639,11 +639,11 @@ console.log(css, css$1);
 exports[`skip-loader: js code 1`] = `
 "'use strict';
 
-function __$$styleInject(css, ref) {
+function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
-  if (!css) { return }
+  if (!css || typeof document === 'undefined') { return; }
 
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
@@ -667,18 +667,18 @@ function __$$styleInject(css, ref) {
 }
 
 var css = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
-__$$styleInject(css);
+styleInject(css);
 "
 `;
 
 exports[`sourcemap:inline: js code 1`] = `
 "'use strict';
 
-function __$$styleInject(css, ref) {
+function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
-  if (!css) { return }
+  if (!css || typeof document === 'undefined') { return; }
 
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
@@ -702,19 +702,19 @@ function __$$styleInject(css, ref) {
 }
 
 var css = \\"body {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxXQUFXO0NBQ1oiLCJmaWxlIjoiZm9vLmNzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHkge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
-__$$styleInject(css);
+styleInject(css);
 
 var css$1 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhci5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxXQUFXO0NBQ1oiLCJmaWxlIjoiYmFyLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iYXIge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
-__$$styleInject(css$1);
+styleInject(css$1);
 
 var css$2 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n/*# sourceMappingURL=test/fixtures/simple/style.css.map */\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnN0eWwiLCJzdHlsZS5zdHlsIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsWUFBQTtFQUNBLGlCQUFBO0NDQ0Q7QUFDRCwwREFBMEQiLCJmaWxlIjoic3R5bGUuc3R5bCJ9 */\\";
-__$$styleInject(css$2);
+styleInject(css$2);
 
 var css$4 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\\\n/*# sourceMappingURL=../../../inline */\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnNhc3MiLCJzdHlsZS5zYXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBVTtFQUNWLHVCQUFzQixFQUFJOztBQ0U1Qix1Q0FBdUMiLCJmaWxlIjoic3R5bGUuc2FzcyJ9 */\\";
-__$$styleInject(css$4);
+styleInject(css$4);
 
 var css$6 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImlucHV0Iiwic3R5bGUubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFHQTtFQUNFLGVBQUE7Q0NGRCIsImZpbGUiOiJzdHlsZS5sZXNzIn0= */\\";
-__$$styleInject(css$6);
+styleInject(css$6);
 
 console.log(css, css$1);
 "
@@ -723,11 +723,11 @@ console.log(css, css$1);
 exports[`sourcemap:true: js code 1`] = `
 "'use strict';
 
-function __$$styleInject(css, ref) {
+function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
 
-  if (!css) { return }
+  if (!css || typeof document === 'undefined') { return; }
 
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
@@ -751,19 +751,19 @@ function __$$styleInject(css, ref) {
 }
 
 var css = \\"body {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxXQUFXO0NBQ1oiLCJmaWxlIjoiZm9vLmNzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHkge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
-__$$styleInject(css);
+styleInject(css);
 
 var css$1 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhci5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxXQUFXO0NBQ1oiLCJmaWxlIjoiYmFyLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iYXIge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
-__$$styleInject(css$1);
+styleInject(css$1);
 
 var css$2 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n/*# sourceMappingURL=test/fixtures/simple/style.css.map */\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnN0eWwiLCJzdHlsZS5zdHlsIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsWUFBQTtFQUNBLGlCQUFBO0NDQ0Q7QUFDRCwwREFBMEQiLCJmaWxlIjoic3R5bGUuc3R5bCJ9 */\\";
-__$$styleInject(css$2);
+styleInject(css$2);
 
 var css$4 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnNhc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxXQUFXO0VBQ1gsdUJBQXVCLEVBQUUiLCJmaWxlIjoic3R5bGUuc2FzcyIsInNvdXJjZXNDb250ZW50IjpbIiNzaWRlYmFyIHtcbiAgd2lkdGg6IDMwJTtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZhYTsgfVxuIl19 */\\";
-__$$styleInject(css$4);
+styleInject(css$4);
 
 var css$6 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImlucHV0Iiwic3R5bGUubGVzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFHQTtFQUNFLGVBQUE7Q0NGRCIsImZpbGUiOiJzdHlsZS5sZXNzIn0= */\\";
-__$$styleInject(css$6);
+styleInject(css$6);
 
 console.log(css, css$1);
 "
