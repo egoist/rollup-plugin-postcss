@@ -55,7 +55,10 @@ export default {
       {}
 
     const options = this.options
-    const plugins = [...(options.postcss.plugins || []), ...(config.plugins || [])]
+    const plugins = [
+      ...(options.postcss.plugins || []),
+      ...(config.plugins || [])
+    ]
     const shouldExtract = options.extract
     const shouldInject = options.inject
 
@@ -81,7 +84,6 @@ export default {
       ...config.options,
       // Followings are never modified by user config config
       from: this.id,
-      to: this.id,
       map: this.sourceMap ?
         shouldExtract ?
           { inline: false, annotation: false } :
@@ -105,18 +107,19 @@ export default {
 
     if (options.namedExports) {
       const json = modulesExported[this.id]
-      const getClassName = typeof options.namedExports === 'function' ?
-        options.namedExports :
-        ensureClassName
+      const getClassName =
+        typeof options.namedExports === 'function' ?
+          options.namedExports :
+          ensureClassName
       // eslint-disable-next-line guard-for-in
       for (const name in json) {
         const newName = getClassName(name)
         if (name !== newName) {
-          console.warn(`Exported "${name}" as "${newName}" in ${normalizePath(this.id)}`)
+          console.warn(
+            `Exported "${name}" as "${newName}" in ${normalizePath(this.id)}`
+          )
         }
-        output += `export var ${newName} = ${JSON.stringify(
-          json[name]
-        )};\n`
+        output += `export var ${newName} = ${JSON.stringify(json[name])};\n`
       }
     }
 

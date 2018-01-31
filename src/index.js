@@ -40,6 +40,15 @@ export default (options = {}) => {
       exec: options.exec
     }
   }
+  if (
+    postcssLoaderOptions.extract &&
+    typeof postcssLoaderOptions.extract === 'string'
+  ) {
+    postcssLoaderOptions.postcss.to = postcssLoaderOptions.extract
+  } else if (postcssLoaderOptions.extract) {
+    // Fix behaviour for extract = true -
+    // https://github.com/egoist/rollup-plugin-postcss/issues/65
+  }
   let use = options.use || ['sass', 'stylus', 'less']
   use.unshift(['postcss', postcssLoaderOptions])
   use = use.reduce((res, rule) => {
@@ -145,12 +154,14 @@ export default (options = {}) => {
       }
 
       const { code, codeFilePath, map, mapFilePath } = getExtracted()
-      await fs.ensureDir(path.dirname(codeFilePath))
-        .then(() => Promise.all([
-          fs.writeFile(codeFilePath, code, 'utf8'),
-          sourceMap === true &&
-            fs.writeFile(mapFilePath, map, 'utf8')
-        ]))
+      await fs
+        .ensureDir(path.dirname(codeFilePath))
+        .then(() =>
+          Promise.all([
+            fs.writeFile(codeFilePath, code, 'utf8'),
+            sourceMap === true && fs.writeFile(mapFilePath, map, 'utf8')
+          ])
+        )
     }
   }
 }
