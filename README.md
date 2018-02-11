@@ -138,7 +138,7 @@ Exported "new" as "$new$" in test/fixtures/named-exports/style.css
 The original will not be removed, it's still available on `default` export:
 
 ```js
-import style, { class$_$name, class$__$name, $switch$ } from './style.css';
+import style, { class$_$name, class$__$name, $switch$ } from './style.css'
 console.log(style['class-name'] === class$_$name) // true
 console.log(style['class--name'] === class$__$name) // true
 console.log(style['switch'] === $switch$) // true
@@ -208,17 +208,17 @@ the postcss config.
 postcss({
   config: {
     ctx: {
-      foo: 'bar',
-    },
-  },
-}),
+      foo: 'bar'
+    }
+  }
+})
 
 // postcss.config.js
-module.exports = (context) => {
-  console.log(context.options.foo); // 'bar'
+module.exports = context => {
+  console.log(context.options.foo) // 'bar'
 
-  return {};
-};
+  return {}
+}
 ```
 
 ### use
