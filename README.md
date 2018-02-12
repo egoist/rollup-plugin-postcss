@@ -32,7 +32,7 @@ export default {
 }
 ```
 
-Then you can use CSS files: 
+Then you can use CSS files:
 
 ```js
 import './style.css'
@@ -138,7 +138,7 @@ Exported "new" as "$new$" in test/fixtures/named-exports/style.css
 The original will not be removed, it's still available on `default` export:
 
 ```js
-import style, { class$_$name, class$__$name, $switch$ } from './style.css';
+import style, { class$_$name, class$__$name, $switch$ } from './style.css'
 console.log(style['class-name'] === class$_$name) // true
 console.log(style['class--name'] === class$__$name) // true
 console.log(style['switch'] === $switch$) // true
@@ -188,17 +188,38 @@ Default: `true`
 
 Load PostCSS config file.
 
-#### path
+#### config.path
 
 Type: `string`
 
 The path to config file, so that we can skip searching.
 
-#### ctx
+#### config.ctx
 
 Type: `object`
 
-`ctx` argument for PostCSS config file.
+[`ctx`](https://github.com/michael-ciniawsky/postcss-load-config#context) argument for PostCSS config file.
+
+Note: Every keys you pass to `config.ctx` will be available under `options` inside
+the postcss config.
+
+```js
+// rollup.config.js
+postcss({
+  config: {
+    ctx: {
+      foo: 'bar'
+    }
+  }
+})
+
+// postcss.config.js
+module.exports = context => {
+  console.log(context.options.foo) // 'bar'
+
+  return {}
+}
+```
 
 ### use
 
