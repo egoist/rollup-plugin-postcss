@@ -7,11 +7,14 @@ export default {
   async process({ code }) {
     const stylus = localRequire('stylus')
 
-    const style = stylus(code)
-      .set('filename', this.id)
-      .set('sourcemap', this.sourceMap && {})
+    const style = stylus(code, {
+      ...this.options,
+      filename: this.id,
+      sourcemap: this.sourceMap && {}
+    })
 
     const css = await pify(style.render.bind(style))()
+
     return {
       code: css,
       map: style.sourcemap

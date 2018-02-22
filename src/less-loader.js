@@ -8,9 +8,9 @@ export default {
     const less = localRequire('less')
 
     let { css, map } = await pify(less.render.bind(less))(code, {
+      ...this.options,
       sourceMap: this.sourceMap && {},
-      filename: this.id,
-      relativeUrls: true
+      filename: this.id
     })
 
     if (map) {
