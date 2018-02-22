@@ -1,3 +1,14 @@
+## [Version 1.2.9](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.2.9) (2018-2-22)
+
+### Bug fixes
+
+- inject style-inject as a module: [`beef7c5`](https://github.com/egoist/rollup-plugin-postcss/commit/beef7c5)
+- pass filename to less: [`c8ed3e2`](https://github.com/egoist/rollup-plugin-postcss/commit/c8ed3e2) ([#74](https://github.com/egoist/rollup-plugin-postcss/issues/74))
+- use relative path in less sourcemap: [`bf33792`](https://github.com/egoist/rollup-plugin-postcss/commit/bf33792)
+- pass options to less and stylus loaders: [`71a2265`](https://github.com/egoist/rollup-plugin-postcss/commit/71a2265)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.2.8...v1.2.9)
+
 ## [Version 1.2.8](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.2.8) (2018-1-30)
 
 ### Bug fixes
