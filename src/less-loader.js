@@ -8,7 +8,8 @@ export default {
     const less = localRequire('less')
 
     const { css, map } = await pify(less.render.bind(less))(code, {
-      sourceMap: this.sourceMap && {}
+      sourceMap: this.sourceMap && {},
+      filename: this.id
     })
 
     return {
