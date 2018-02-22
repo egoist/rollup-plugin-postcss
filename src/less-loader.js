@@ -1,5 +1,5 @@
 import pify from 'pify'
-import { localRequire } from './utils'
+import { localRequire, normalizePath } from './utils'
 
 export default {
   name: 'less',
@@ -7,10 +7,16 @@ export default {
   async process({ code }) {
     const less = localRequire('less')
 
-    const { css, map } = await pify(less.render.bind(less))(code, {
+    let { css, map } = await pify(less.render.bind(less))(code, {
       sourceMap: this.sourceMap && {},
-      filename: this.id
+      filename: this.id,
+      relativeUrls: true
     })
+
+    if (map) {
+      map = JSON.parse(map)
+      map.sources = map.sources.map(source => normalizePath(source))
+    }
 
     return {
       code: css,
