@@ -1,5 +1,6 @@
 import pify from 'pify'
-import { localRequire, normalizePath } from './utils'
+import normalizePath from './utils/normalize-path'
+import localRequire from './utils/local-require'
 
 export default {
   name: 'less',

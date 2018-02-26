@@ -1,5 +1,5 @@
 import pify from 'pify'
-import { localRequire } from './utils'
+import localRequire from './utils/local-require'
 
 export default {
   name: 'stylus',
