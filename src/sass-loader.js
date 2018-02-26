@@ -21,12 +21,15 @@ export default {
 
         resolve(url.slice(1), {
           basedir: path.dirname(this.id),
-          extensions: ['.sass', '.scss', '.css']
+          extensions: ['.scss', '.sass', '.css']
         }, (err, id) => {
           if (err) {
             return Promise.reject(err)
           }
-          done({ file: id })
+          done({
+            // Do not add `.css` extension in order to inline the file
+            file: id.endsWith('.css') ? id.replace(/\.css$/, '') : id
+          })
         })
       }].concat(this.options.importer || [])
     })

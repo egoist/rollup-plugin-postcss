@@ -544,7 +544,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css = \\".a {\\\\n  color: pink; }\\\\n\\\\n.b {\\\\n  color: red; }\\\\n\\";
+var css = \\".a {\\\\n  color: pink; }\\\\n\\\\n.b {\\\\n  color: red; }\\\\n\\\\n.c {\\\\n  color: black; }\\\\n\\";
 styleInject(css);
 "
 `;
