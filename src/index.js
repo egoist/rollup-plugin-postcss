@@ -3,7 +3,7 @@ import fs from 'fs-extra'
 import { createFilter } from 'rollup-pluginutils'
 import Concat from 'concat-with-sourcemaps'
 import Loaders from './loaders'
-import { normalizePath } from './utils'
+import normalizePath from './utils/normalize-path'
 
 /**
  * The options that could be `boolean` or `object`

@@ -2,7 +2,8 @@ import path from 'path'
 import postcss from 'postcss'
 import findPostcssConfig from 'postcss-load-config'
 import reserved from 'reserved-words'
-import { localRequire, normalizePath } from './utils'
+import normalizePath from './utils/normalize-path'
+import localRequire from './utils/local-require'
 
 const styleInjectPath = require.resolve('style-inject/dist/style-inject.es')
 

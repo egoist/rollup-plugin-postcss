@@ -260,6 +260,11 @@ snapshot({
   }
 })
 
+snapshot({
+  title: 'sass:import',
+  input: 'sass-import/index.js'
+})
+
 test('onExtract', async () => {
   const res = await write({
     input: 'simple/index.js',

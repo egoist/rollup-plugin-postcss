@@ -101,6 +101,16 @@ Extract CSS to the same location where JS file is generated but with `.css` exte
 
 You can also set it to an absolute path.
 
+### imports
+
+__For Sass/Scss Only.__
+
+Similar to how webpack's [sass-loader](https://github.com/webpack-contrib/sass-loader#imports) works, you can prepend the path with `~` to tell this plugin to resolve in `node_modules`:
+
+```sass
+@import "~bootstrap/dist/css/bootstrap";
+```
+
 ### modules
 
 Type: `boolean` `object`<br>

@@ -1,5 +1,9 @@
+import path from 'path'
 import pify from 'pify'
-import { localRequire } from './utils'
+import resolve from 'resolve'
+import localRequire from './utils/local-require'
+
+const moduleRe = /^~([a-z0-9]|@).+/i
 
 export default {
   name: 'sass',
@@ -11,7 +15,23 @@ export default {
       file: this.id,
       data: code,
       indentedSyntax: /\.sass$/.test(this.id),
-      sourceMap: this.sourceMap
+      sourceMap: this.sourceMap,
+      importer: [(url, prev, done) => {
+        if (!moduleRe.test(url)) return done({ file: prev })
+
+        resolve(url.slice(1), {
+          basedir: path.dirname(this.id),
+          extensions: ['.scss', '.sass', '.css']
+        }, (err, id) => {
+          if (err) {
+            return Promise.reject(err)
+          }
+          done({
+            // Do not add `.css` extension in order to inline the file
+            file: id.endsWith('.css') ? id.replace(/\.css$/, '') : id
+          })
+        })
+      }].concat(this.options.importer || [])
     })
 
     return {

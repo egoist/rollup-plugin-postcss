@@ -9,7 +9,7 @@
   "scripts": {
     "test": "npm run lint && jest",
     "test:cov": "npm run lint && jest --coverage",
-    "build": "bili --buble.target.node 6",
+    "build": "bili --target node --no-babel.babelrc",
     "lint": "xo",
     "prepublishOnly": "npm run build"
   },
@@ -31,7 +31,7 @@
     "autoprefixer": "^7.2.4",
     "babel-jest": "^22.0.4",
     "babel-preset-env": "^1.5.1",
-    "bili": "^2.2.6",
+    "bili": "^3.0.1",
     "eslint-config-rem": "^4.0.0",
     "jest": "^22.0.4",
     "less": "^2.7.3",
@@ -52,6 +52,7 @@
     "postcss-modules": "^1.1.0",
     "promise.series": "^0.2.0",
     "reserved-words": "^0.1.2",
+    "resolve": "^1.5.0",
     "rollup-pluginutils": "^2.0.1",
     "style-inject": "^0.3.0"
   },
