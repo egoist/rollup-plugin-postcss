@@ -1,3 +1,11 @@
+## [Version 1.3.0](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.3.0) (2018-2-26)
+
+### New features
+
+- Use ~ to resolve node_modules in Sass: [`913c2db`](https://github.com/egoist/rollup-plugin-postcss/commit/913c2db) ([#77](https://github.com/egoist/rollup-plugin-postcss/issues/77))
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.2.9...v1.3.0)
+
 ## [Version 1.2.9](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.2.9) (2018-2-22)
 
 ### Bug fixes
