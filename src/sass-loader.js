@@ -16,11 +16,11 @@ export default {
       data: code,
       indentedSyntax: /\.sass$/.test(this.id),
       sourceMap: this.sourceMap,
-      importer: [(url, prev, done) => {
-        if (!moduleRe.test(url)) return done({ file: prev })
+      importer: [(url, importer, done) => {
+        if (!moduleRe.test(url)) return done({ file: url })
 
         resolve(url.slice(1), {
-          basedir: path.dirname(this.id),
+          basedir: path.dirname(importer),
           extensions: ['.scss', '.sass', '.css']
         }, (err, id) => {
           if (err) {
