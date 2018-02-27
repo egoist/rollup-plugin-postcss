@@ -1,3 +1,11 @@
+## [Version 1.3.1](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.3.1) (2018-2-27)
+
+### Bug fixes
+
+- fix sass importer, closed [#78](https://github.com/egoist/rollup-plugin-postcss/issues/78): [`e7b435d`](https://github.com/egoist/rollup-plugin-postcss/commit/e7b435d)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.3.0...v1.3.1)
+
 ## [Version 1.3.0](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.3.0) (2018-2-26)
 
 ### New features
