@@ -27,6 +27,7 @@ export default (options = {}) => {
     /** CSS modules */
     modules: inferOption(options.modules, false),
     namedExports: options.namedExports,
+    localIdentName: options.localIdentName,
     /** Options for cssnano */
     minimize: inferOption(options.minimize, false),
     /** Postcss config file */

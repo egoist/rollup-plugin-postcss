@@ -310,6 +310,22 @@ console.log(style.foo);
 "
 `;
 
+exports[`modules:local-ident-name: css code 1`] = `
+".GENERATED__style__foo {
+  color: red;
+}
+"
+`;
+
+exports[`modules:local-ident-name: js code 1`] = `
+"'use strict';
+
+var style = {\\"foo\\":\\"GENERATED__style__foo\\"};
+
+console.log(style.foo);
+"
+`;
+
 exports[`modules:named-exports: js code 1`] = `
 "'use strict';
 

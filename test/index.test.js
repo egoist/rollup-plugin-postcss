@@ -146,6 +146,16 @@ snapshot({
 })
 
 snapshot({
+  title: 'modules:local-ident-name',
+  input: 'css-modules/index.js',
+  options: {
+    localIdentName: 'GENERATED__[name]__[local]',
+    modules: true,
+    extract: true
+  }
+})
+
+snapshot({
   title: 'modules:extract',
   input: 'css-modules/index.js',
   options: {
