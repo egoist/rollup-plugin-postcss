@@ -118,6 +118,13 @@ Default: `false`
 
 Enable CSS modules or set options for `postcss-modules`.
 
+### localIdentName
+
+Type: `string` `function`<br>
+Default: `[name]_[local]__[hash:base64:5]`
+
+Configure the generated ident. More details in [here](https://github.com/css-modules/postcss-modules#generating-scoped-names)
+
 ### namedExports
 
 Type: `boolean` `function`<br>
