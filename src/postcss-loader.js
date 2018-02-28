@@ -64,7 +64,7 @@ export default {
     if (options.modules) {
       plugins.push(
         require('postcss-modules')({
-          generateScopedName: '[name]_[local]__[hash:base64:5]',
+          generateScopedName: options.localIdentName || '[name]_[local]__[hash:base64:5]',
           ...options.modules,
           getJSON(filepath, json) {
             modulesExported[filepath] = json
