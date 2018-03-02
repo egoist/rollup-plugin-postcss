@@ -1,5 +1,5 @@
 import pify from 'pify'
-import normalizePath from './utils/normalize-path'
+import humanlizePath from './utils/humanlize-path'
 import localRequire from './utils/local-require'
 
 export default {
@@ -16,7 +16,7 @@ export default {
 
     if (map) {
       map = JSON.parse(map)
-      map.sources = map.sources.map(source => normalizePath(source))
+      map.sources = map.sources.map(source => humanlizePath(source))
     }
 
     return {

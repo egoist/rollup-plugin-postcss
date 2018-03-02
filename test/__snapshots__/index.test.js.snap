@@ -1,104 +1,160 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`extract: css code 1`] = `
-"body {
-  color: red;
-}
-
-.bar {
-  color: red;
-}
-
-body {
-  color: #f00;
-  background: #f00;
-}
-
-#sidebar {
-  width: 30%;
-  background-color: #faa; }
-
-#header {
-  color: #6c94be;
-}
-"
-`;
-
-exports[`extract: js code 1`] = `
+exports[`basic postcss-config: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\"a {\\\\n  color: blue\\\\n}\\\\n\\\\n.multiline,\\\\n.selector {\\\\n  box-shadow: 1px 0 9px rgba(0, 0, 0, .4),\\\\n              1px 0 3px rgba(0, 0, 0, .6)\\\\n}\\\\n\\";
+styleInject(css);
 "
 `;
 
-exports[`extract::sourcemap:inline: css code 1`] = `
-"body {
-  color: red;
-}
-
-.bar {
-  color: red;
-}
-
-body {
-  color: #f00;
-  background: #f00;
-}
-/*# sourceMappingURL=test/fixtures/simple/style.css.map */
-#sidebar {
-  width: 30%;
-  background-color: #faa; }
-
-/*# sourceMappingURL=../../../inline */
-#header {
-  color: #6c94be;
-}
-
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvZGlzdC9leHRyYWN0Ojpzb3VyY2VtYXA6aW5saW5lL2Zvby5jc3MiLCJ0ZXN0L2ZpeHR1cmVzL2Rpc3QvZXh0cmFjdDo6c291cmNlbWFwOmlubGluZS9iYXIuY3NzIiwidGVzdC9maXh0dXJlcy9kaXN0L2V4dHJhY3Q6OnNvdXJjZW1hcDppbmxpbmUvdGVzdC9maXh0dXJlcy9zaW1wbGUvc3R5bGUuc3R5bCIsInRlc3QvZml4dHVyZXMvZGlzdC9leHRyYWN0Ojpzb3VyY2VtYXA6aW5saW5lL3N0eWxlLnN0eWwiLCJ0ZXN0L2ZpeHR1cmVzL2Rpc3QvZXh0cmFjdDo6c291cmNlbWFwOmlubGluZS90ZXN0L2ZpeHR1cmVzL3NpbXBsZS9zdHlsZS5zYXNzIiwidGVzdC9maXh0dXJlcy9kaXN0L2V4dHJhY3Q6OnNvdXJjZW1hcDppbmxpbmUvc3R5bGUuc2FzcyIsInRlc3QvZml4dHVyZXMvZGlzdC9leHRyYWN0Ojpzb3VyY2VtYXA6aW5saW5lL3Rlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLmxlc3MiLCJ0ZXN0L2ZpeHR1cmVzL2Rpc3QvZXh0cmFjdDo6c291cmNlbWFwOmlubGluZS9zdHlsZS5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBVztDQUNaOztBQ0ZEO0VBQ0UsV0FBVztDQUNaOztBQ0ZEO0VBQ0UsWUFBQTtFQUNBLGlCQUFBO0NDQ0Q7QUFDRCwwREFBMEQ7QUNKMUQ7RUFDRSxXQUFVO0VBQ1YsdUJBQXNCLEVBQUk7O0FDRTVCLHVDQUF1QztBQ0R2QztFQUNFLGVBQUE7Q0NGRCIsImZpbGUiOiJ0ZXN0L2ZpeHR1cmVzL2Rpc3QvZXh0cmFjdDo6c291cmNlbWFwOmlubGluZS9idW5kbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XG4gIGNvbG9yOiByZWQ7XG59XG4iLCIuYmFyIHtcbiAgY29sb3I6IHJlZDtcbn1cbiIsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGxdfQ==*/"
-`;
-
-exports[`extract::sourcemap:inline: js code 1`] = `
+exports[`basic postcss-options: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\"body {\\\\n  display: -webkit-box;\\\\n  display: -ms-flexbox;\\\\n  display: flex;\\\\n}\\\\n\\";
+styleInject(css);
 "
 `;
 
-exports[`extract::sourcemap:true: css code 1`] = `
-"body {
-  color: red;
-}
-
-.bar {
-  color: red;
-}
-
-body {
-  color: #f00;
-  background: #f00;
-}
-/*# sourceMappingURL=test/fixtures/simple/style.css.map */
-#sidebar {
-  width: 30%;
-  background-color: #faa; }
-
-#header {
-  color: #6c94be;
-}
-
-/*# sourceMappingURL=bundle.css.map */"
-`;
-
-exports[`extract::sourcemap:true: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"test/fixtures/dist/extract::sourcemap:true/foo.css\\",\\"test/fixtures/dist/extract::sourcemap:true/bar.css\\",\\"test/fixtures/dist/extract::sourcemap:true/test/fixtures/simple/style.styl\\",\\"test/fixtures/dist/extract::sourcemap:true/style.styl\\",\\"test/fixtures/dist/extract::sourcemap:true/style.sass\\",\\"test/fixtures/dist/extract::sourcemap:true/test/fixtures/simple/style.less\\",\\"test/fixtures/dist/extract::sourcemap:true/style.less\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,WAAW;CACZ;;ACFD;EACE,WAAW;CACZ;;ACFD;EACE,YAAA;EACA,iBAAA;CCCD;AACD,0DAA0D;ACJ1D;EACE,WAAW;EACX,uBAAuB,EAAE;;ACC3B;EACE,eAAA;CCFD\\",\\"file\\":\\"test/fixtures/dist/extract::sourcemap:true/bundle.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",null,null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",null,null]}"`;
-
-exports[`extract::sourcemap:true: js code 1`] = `
+exports[`basic simple: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(css);
+
+var css$1 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(css$1);
+
+var css$2 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
+styleInject(css$2);
+
+var css$4 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
+styleInject(css$4);
+
+var css$6 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
+styleInject(css$6);
+
+console.log(css, css$1);
 "
 `;
 
-exports[`extract:path: css code 1`] = `
+exports[`basic skip-loader: js code 1`] = `
+"'use strict';
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(css);
+"
+`;
+
+exports[`extract custom-path: css code 1`] = `
 "body {
   color: red;
 }
@@ -123,16 +179,114 @@ body {
 /*# sourceMappingURL=extracted.css.map */"
 `;
 
-exports[`extract:path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"test/fixtures/dist/extract:path/foo.css\\",\\"test/fixtures/dist/extract:path/bar.css\\",\\"test/fixtures/dist/extract:path/test/fixtures/simple/style.styl\\",\\"test/fixtures/dist/extract:path/style.styl\\",\\"test/fixtures/dist/extract:path/style.sass\\",\\"test/fixtures/dist/extract:path/test/fixtures/simple/style.less\\",\\"test/fixtures/dist/extract:path/style.less\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,WAAW;CACZ;;ACFD;EACE,WAAW;CACZ;;ACFD;EACE,YAAA;EACA,iBAAA;CCCD;AACD,0DAA0D;ACJ1D;EACE,WAAW;EACX,uBAAuB,EAAE;;ACC3B;EACE,eAAA;CCFD\\",\\"file\\":\\"test/fixtures/dist/extract:path/this/is/extracted.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",null,null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",null,null]}"`;
+exports[`extract custom-path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"test/fixtures/dist/extract--custom-path/foo.css\\",\\"test/fixtures/dist/extract--custom-path/bar.css\\",\\"test/fixtures/dist/extract--custom-path/test/fixtures/simple/style.styl\\",\\"test/fixtures/dist/extract--custom-path/style.styl\\",\\"test/fixtures/dist/extract--custom-path/style.sass\\",\\"test/fixtures/dist/extract--custom-path/test/fixtures/simple/style.less\\",\\"test/fixtures/dist/extract--custom-path/style.less\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,WAAW;CACZ;;ACFD;EACE,WAAW;CACZ;;ACFD;EACE,YAAA;EACA,iBAAA;CCCD;AACD,0DAA0D;ACJ1D;EACE,WAAW;EACX,uBAAuB,EAAE;;ACC3B;EACE,eAAA;CCFD\\",\\"file\\":\\"test/fixtures/dist/extract--custom-path/this/is/extracted.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",null,null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",null,null]}"`;
 
-exports[`extract:path: js code 1`] = `
+exports[`extract custom-path: js code 1`] = `
 "'use strict';
 
 console.log(undefined, undefined);
 "
 `;
 
-exports[`inject:false: js code 1`] = `
+exports[`extract sourcemap-inline: css code 1`] = `
+"body {
+  color: red;
+}
+
+.bar {
+  color: red;
+}
+
+body {
+  color: #f00;
+  background: #f00;
+}
+/*# sourceMappingURL=test/fixtures/simple/style.css.map */
+#sidebar {
+  width: 30%;
+  background-color: #faa; }
+
+/*# sourceMappingURL=../../../inline */
+#header {
+  color: #6c94be;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvZGlzdC9leHRyYWN0LS1zb3VyY2VtYXAtaW5saW5lL2Zvby5jc3MiLCJ0ZXN0L2ZpeHR1cmVzL2Rpc3QvZXh0cmFjdC0tc291cmNlbWFwLWlubGluZS9iYXIuY3NzIiwidGVzdC9maXh0dXJlcy9kaXN0L2V4dHJhY3QtLXNvdXJjZW1hcC1pbmxpbmUvdGVzdC9maXh0dXJlcy9zaW1wbGUvc3R5bGUuc3R5bCIsInRlc3QvZml4dHVyZXMvZGlzdC9leHRyYWN0LS1zb3VyY2VtYXAtaW5saW5lL3N0eWxlLnN0eWwiLCJ0ZXN0L2ZpeHR1cmVzL2Rpc3QvZXh0cmFjdC0tc291cmNlbWFwLWlubGluZS90ZXN0L2ZpeHR1cmVzL3NpbXBsZS9zdHlsZS5zYXNzIiwidGVzdC9maXh0dXJlcy9kaXN0L2V4dHJhY3QtLXNvdXJjZW1hcC1pbmxpbmUvc3R5bGUuc2FzcyIsInRlc3QvZml4dHVyZXMvZGlzdC9leHRyYWN0LS1zb3VyY2VtYXAtaW5saW5lL3Rlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLmxlc3MiLCJ0ZXN0L2ZpeHR1cmVzL2Rpc3QvZXh0cmFjdC0tc291cmNlbWFwLWlubGluZS9zdHlsZS5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBVztDQUNaOztBQ0ZEO0VBQ0UsV0FBVztDQUNaOztBQ0ZEO0VBQ0UsWUFBQTtFQUNBLGlCQUFBO0NDQ0Q7QUFDRCwwREFBMEQ7QUNKMUQ7RUFDRSxXQUFVO0VBQ1YsdUJBQXNCLEVBQUk7O0FDRTVCLHVDQUF1QztBQ0R2QztFQUNFLGVBQUE7Q0NGRCIsImZpbGUiOiJ0ZXN0L2ZpeHR1cmVzL2Rpc3QvZXh0cmFjdC0tc291cmNlbWFwLWlubGluZS9idW5kbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XG4gIGNvbG9yOiByZWQ7XG59XG4iLCIuYmFyIHtcbiAgY29sb3I6IHJlZDtcbn1cbiIsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLG51bGxdfQ==*/"
+`;
+
+exports[`extract sourcemap-inline: js code 1`] = `
+"'use strict';
+
+console.log(undefined, undefined);
+"
+`;
+
+exports[`extract sourcemap-true: css code 1`] = `
+"body {
+  color: red;
+}
+
+.bar {
+  color: red;
+}
+
+body {
+  color: #f00;
+  background: #f00;
+}
+/*# sourceMappingURL=test/fixtures/simple/style.css.map */
+#sidebar {
+  width: 30%;
+  background-color: #faa; }
+
+#header {
+  color: #6c94be;
+}
+
+/*# sourceMappingURL=bundle.css.map */"
+`;
+
+exports[`extract sourcemap-true: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"test/fixtures/dist/extract--sourcemap-true/foo.css\\",\\"test/fixtures/dist/extract--sourcemap-true/bar.css\\",\\"test/fixtures/dist/extract--sourcemap-true/test/fixtures/simple/style.styl\\",\\"test/fixtures/dist/extract--sourcemap-true/style.styl\\",\\"test/fixtures/dist/extract--sourcemap-true/style.sass\\",\\"test/fixtures/dist/extract--sourcemap-true/test/fixtures/simple/style.less\\",\\"test/fixtures/dist/extract--sourcemap-true/style.less\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,WAAW;CACZ;;ACFD;EACE,WAAW;CACZ;;ACFD;EACE,YAAA;EACA,iBAAA;CCCD;AACD,0DAA0D;ACJ1D;EACE,WAAW;EACX,uBAAuB,EAAE;;ACC3B;EACE,eAAA;CCFD\\",\\"file\\":\\"test/fixtures/dist/extract--sourcemap-true/bundle.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",null,null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",null,null]}"`;
+
+exports[`extract sourcemap-true: js code 1`] = `
+"'use strict';
+
+console.log(undefined, undefined);
+"
+`;
+
+exports[`extract true: css code 1`] = `
+"body {
+  color: red;
+}
+
+.bar {
+  color: red;
+}
+
+body {
+  color: #f00;
+  background: #f00;
+}
+
+#sidebar {
+  width: 30%;
+  background-color: #faa; }
+
+#header {
+  color: #6c94be;
+}
+"
+`;
+
+exports[`extract true: js code 1`] = `
+"'use strict';
+
+console.log(undefined, undefined);
+"
+`;
+
+exports[`inject false: js code 1`] = `
 "'use strict';
 
 var css = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
@@ -143,7 +297,7 @@ console.log(css, css$1);
 "
 `;
 
-exports[`inject:top: js code 1`] = `
+exports[`inject top: js code 1`] = `
 "'use strict';
 
 function styleInject(css, ref) {
@@ -192,7 +346,7 @@ console.log(css, css$1);
 "
 `;
 
-exports[`minimize:extract: css code 1`] = `
+exports[`minimize extract: css code 1`] = `
 "body{color:red}
 .bar{color:red}
 body{color:red;background:red}
@@ -200,14 +354,14 @@ body{color:red;background:red}
 #header{color:#6c94be}"
 `;
 
-exports[`minimize:extract: js code 1`] = `
+exports[`minimize extract: js code 1`] = `
 "'use strict';
 
 console.log(undefined, undefined);
 "
 `;
 
-exports[`minimize:inject: js code 1`] = `
+exports[`minimize inject: js code 1`] = `
 "'use strict';
 
 function styleInject(css, ref) {
@@ -256,23 +410,23 @@ console.log(css, css$1);
 "
 `;
 
-exports[`modules:extract: css code 1`] = `
-".style_foo__33weH {
+exports[`modules extract: css code 1`] = `
+".style_foo {
   color: red;
 }
 "
 `;
 
-exports[`modules:extract: js code 1`] = `
+exports[`modules extract: js code 1`] = `
 "'use strict';
 
-var style = {\\"foo\\":\\"style_foo__33weH\\"};
+var style = {\\"foo\\":\\"style_foo\\"};
 
 console.log(style.foo);
 "
 `;
 
-exports[`modules:inject: js code 1`] = `
+exports[`modules inject: js code 1`] = `
 "'use strict';
 
 function styleInject(css, ref) {
@@ -302,15 +456,15 @@ function styleInject(css, ref) {
   }
 }
 
-var css = \\".style_foo__33weH {\\\\n  color: red;\\\\n}\\\\n\\";
-var style = {\\"foo\\":\\"style_foo__33weH\\"};
+var css = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\";
+var style = {\\"foo\\":\\"style_foo\\"};
 styleInject(css);
 
 console.log(style.foo);
 "
 `;
 
-exports[`modules:named-exports: js code 1`] = `
+exports[`modules named-exports: js code 1`] = `
 "'use strict';
 
 function styleInject(css, ref) {
@@ -340,10 +494,10 @@ function styleInject(css, ref) {
   }
 }
 
-var foo = \\"style_foo__23nAE\\";
-var $new$ = \\"style_new__155Jg\\";
-var css = \\".style_foo__23nAE {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new__155Jg {\\\\n  color: blue;\\\\n}\\\\n\\";
-var style = {\\"foo\\":\\"style_foo__23nAE\\",\\"new\\":\\"style_new__155Jg\\"};
+var foo = \\"style_foo\\";
+var $new$ = \\"style_new\\";
+var css = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\";
+var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\"};
 styleInject(css);
 
 var style$1 = Object.freeze({
@@ -356,7 +510,7 @@ console.log(style$1);
 "
 `;
 
-exports[`modules:named-exports-custom-class-name: js code 1`] = `
+exports[`modules named-exports-custom-class-name: js code 1`] = `
 "'use strict';
 
 function styleInject(css, ref) {
@@ -386,10 +540,10 @@ function styleInject(css, ref) {
   }
 }
 
-var foohacked = \\"style_foo__23nAE\\";
-var newhacked = \\"style_new__155Jg\\";
-var css = \\".style_foo__23nAE {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new__155Jg {\\\\n  color: blue;\\\\n}\\\\n\\";
-var style = {\\"foo\\":\\"style_foo__23nAE\\",\\"new\\":\\"style_new__155Jg\\"};
+var foohacked = \\"style_foo\\";
+var newhacked = \\"style_new\\";
+var css = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\";
+var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\"};
 styleInject(css);
 
 var style$1 = Object.freeze({
@@ -409,77 +563,7 @@ console.log(undefined, undefined);
 "
 `;
 
-exports[`postcss-config: js code 1`] = `
-"'use strict';
-
-function styleInject(css, ref) {
-  if ( ref === void 0 ) ref = {};
-  var insertAt = ref.insertAt;
-
-  if (!css || typeof document === 'undefined') { return; }
-
-  var head = document.head || document.getElementsByTagName('head')[0];
-  var style = document.createElement('style');
-  style.type = 'text/css';
-
-  if (insertAt === 'top') {
-    if (head.firstChild) {
-      head.insertBefore(style, head.firstChild);
-    } else {
-      head.appendChild(style);
-    }
-  } else {
-    head.appendChild(style);
-  }
-
-  if (style.styleSheet) {
-    style.styleSheet.cssText = css;
-  } else {
-    style.appendChild(document.createTextNode(css));
-  }
-}
-
-var css = \\"a {\\\\n  color: blue\\\\n}\\\\n\\\\n.multiline,\\\\n.selector {\\\\n  box-shadow: 1px 0 9px rgba(0, 0, 0, .4),\\\\n              1px 0 3px rgba(0, 0, 0, .6)\\\\n}\\\\n\\";
-styleInject(css);
-"
-`;
-
-exports[`postcss-options: js code 1`] = `
-"'use strict';
-
-function styleInject(css, ref) {
-  if ( ref === void 0 ) ref = {};
-  var insertAt = ref.insertAt;
-
-  if (!css || typeof document === 'undefined') { return; }
-
-  var head = document.head || document.getElementsByTagName('head')[0];
-  var style = document.createElement('style');
-  style.type = 'text/css';
-
-  if (insertAt === 'top') {
-    if (head.firstChild) {
-      head.insertBefore(style, head.firstChild);
-    } else {
-      head.appendChild(style);
-    }
-  } else {
-    head.appendChild(style);
-  }
-
-  if (style.styleSheet) {
-    style.styleSheet.cssText = css;
-  } else {
-    style.appendChild(document.createTextNode(css));
-  }
-}
-
-var css = \\"body {\\\\n  display: -webkit-box;\\\\n  display: -ms-flexbox;\\\\n  display: flex;\\\\n}\\\\n\\";
-styleInject(css);
-"
-`;
-
-exports[`sass: js code 1`] = `
+exports[`sass default: js code 1`] = `
 "'use strict';
 
 function styleInject(css, ref) {
@@ -514,7 +598,7 @@ styleInject(css);
 "
 `;
 
-exports[`sass:import: js code 1`] = `
+exports[`sass import: js code 1`] = `
 "'use strict';
 
 function styleInject(css, ref) {
@@ -549,7 +633,7 @@ styleInject(css);
 "
 `;
 
-exports[`sass:modules: js code 1`] = `
+exports[`sass modules: js code 1`] = `
 "'use strict';
 
 function styleInject(css, ref) {
@@ -579,15 +663,15 @@ function styleInject(css, ref) {
   }
 }
 
-var css = \\".style_foo__2demv {\\\\n  color: red; }\\\\n\\";
-var style = {\\"foo\\":\\"style_foo__2demv\\"};
+var css = \\".style_foo {\\\\n  color: red; }\\\\n\\";
+var style = {\\"foo\\":\\"style_foo\\"};
 styleInject(css);
 
 console.log(style);
 "
 `;
 
-exports[`sass:sourcemap: js code 1`] = `
+exports[`sass sourcemap: js code 1`] = `
 "'use strict';
 
 function styleInject(css, ref) {
@@ -622,91 +706,7 @@ styleInject(css);
 "
 `;
 
-exports[`simple: js code 1`] = `
-"'use strict';
-
-function styleInject(css, ref) {
-  if ( ref === void 0 ) ref = {};
-  var insertAt = ref.insertAt;
-
-  if (!css || typeof document === 'undefined') { return; }
-
-  var head = document.head || document.getElementsByTagName('head')[0];
-  var style = document.createElement('style');
-  style.type = 'text/css';
-
-  if (insertAt === 'top') {
-    if (head.firstChild) {
-      head.insertBefore(style, head.firstChild);
-    } else {
-      head.appendChild(style);
-    }
-  } else {
-    head.appendChild(style);
-  }
-
-  if (style.styleSheet) {
-    style.styleSheet.cssText = css;
-  } else {
-    style.appendChild(document.createTextNode(css));
-  }
-}
-
-var css = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
-styleInject(css);
-
-var css$1 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
-styleInject(css$1);
-
-var css$2 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
-styleInject(css$2);
-
-var css$4 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
-styleInject(css$4);
-
-var css$6 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
-styleInject(css$6);
-
-console.log(css, css$1);
-"
-`;
-
-exports[`skip-loader: js code 1`] = `
-"'use strict';
-
-function styleInject(css, ref) {
-  if ( ref === void 0 ) ref = {};
-  var insertAt = ref.insertAt;
-
-  if (!css || typeof document === 'undefined') { return; }
-
-  var head = document.head || document.getElementsByTagName('head')[0];
-  var style = document.createElement('style');
-  style.type = 'text/css';
-
-  if (insertAt === 'top') {
-    if (head.firstChild) {
-      head.insertBefore(style, head.firstChild);
-    } else {
-      head.appendChild(style);
-    }
-  } else {
-    head.appendChild(style);
-  }
-
-  if (style.styleSheet) {
-    style.styleSheet.cssText = css;
-  } else {
-    style.appendChild(document.createTextNode(css));
-  }
-}
-
-var css = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
-styleInject(css);
-"
-`;
-
-exports[`sourcemap:inline: js code 1`] = `
+exports[`sourcemap inline: js code 1`] = `
 "'use strict';
 
 function styleInject(css, ref) {
@@ -755,7 +755,7 @@ console.log(css, css$1);
 "
 `;
 
-exports[`sourcemap:true: js code 1`] = `
+exports[`sourcemap true: js code 1`] = `
 "'use strict';
 
 function styleInject(css, ref) {

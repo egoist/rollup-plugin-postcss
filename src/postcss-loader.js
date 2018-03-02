@@ -2,10 +2,11 @@ import path from 'path'
 import postcss from 'postcss'
 import findPostcssConfig from 'postcss-load-config'
 import reserved from 'reserved-words'
-import normalizePath from './utils/normalize-path'
+import humanlizePath from './utils/humanlize-path'
 import localRequire from './utils/local-require'
+import normalizePath from './utils/normalize-path'
 
-const styleInjectPath = require.resolve('style-inject/dist/style-inject.es')
+const styleInjectPath = require.resolve('style-inject/dist/style-inject.es').replace(/[\\/]+/g, '/')
 
 function loadConfig(id, { ctx: configOptions, path: configPath }) {
   const handleError = err => {
@@ -64,7 +65,9 @@ export default {
     if (options.modules) {
       plugins.push(
         require('postcss-modules')({
-          generateScopedName: '[name]_[local]__[hash:base64:5]',
+          // In tests
+          // Skip hash in names since css content on windows and linux would differ because of `new line` (\r?\n)
+          generateScopedName: process.env.ROLLUP_POSTCSS_TEST ? '[name]_[local]' : '[name]_[local]__[hash:base64:5]',
           ...options.modules,
           getJSON(filepath, json) {
             modulesExported[filepath] = json
@@ -100,6 +103,10 @@ export default {
     }
 
     const res = await postcss(plugins).process(code, postcssOpts)
+    const outputMap = res.map && JSON.parse(res.map.toString())
+    if (outputMap && outputMap.sources) {
+      outputMap.sources = outputMap.sources.map(v => normalizePath(v))
+    }
 
     let output = ''
     let extracted
@@ -113,7 +120,7 @@ export default {
       for (const name in json) {
         const newName = getClassName(name)
         if (name !== newName) {
-          console.warn(`Exported "${name}" as "${newName}" in ${normalizePath(this.id)}`)
+          console.warn(`Exported "${name}" as "${newName}" in ${humanlizePath(this.id)}`)
         }
         output += `export var ${newName} = ${JSON.stringify(
           json[name]
@@ -126,7 +133,7 @@ export default {
       extracted = {
         id: this.id,
         code: res.css,
-        map: res.map
+        map: outputMap
       }
     } else {
       output += `var css = ${JSON.stringify(res.css)};\nexport default ${
@@ -143,7 +150,7 @@ export default {
 
     return {
       code: output,
-      map: res.map,
+      map: outputMap,
       extracted
     }
   }

@@ -3,7 +3,7 @@ import fs from 'fs-extra'
 import { createFilter } from 'rollup-pluginutils'
 import Concat from 'concat-with-sourcemaps'
 import Loaders from './loaders'
-import normalizePath from './utils/normalize-path'
+import humanlizePath from './utils/humanlize-path'
 
 /**
  * The options that could be `boolean` or `object`
@@ -89,7 +89,7 @@ export default (options = {}) => {
 
       return {
         code: res.code,
-        map: res.map ? JSON.parse(res.map.toString()) : { mappings: '' }
+        map: res.map || { mappings: '' }
       }
     },
 
@@ -105,15 +105,15 @@ export default (options = {}) => {
             filepath = path.join(path.dirname(opts.file), basename + '.css')
           }
         }
-        filepath = normalizePath(filepath)
+        filepath = humanlizePath(filepath)
         const concat = new Concat(true, filepath, '\n')
         for (const res of extracted.values()) {
-          const relative = normalizePath(res.id)
-          const map = res.map ? JSON.parse(res.map.toString()) : null
+          const relative = humanlizePath(res.id)
+          const map = res.map || null
           if (map) {
             map.file = filepath
             map.sources = map.sources.map(source =>
-              normalizePath(path.join(path.dirname(opts.file), source))
+              humanlizePath(path.join(path.dirname(opts.file), source))
             )
           }
           concat.add(relative, res.code, map)

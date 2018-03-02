@@ -3,6 +3,8 @@ import fs from 'fs-extra'
 import { rollup } from 'rollup'
 import postcss from '../src'
 
+process.env.ROLLUP_POSTCSS_TEST = true
+
 function fixture(...args) {
   return path.join(__dirname, 'fixtures', ...args)
 }
@@ -11,10 +13,10 @@ beforeAll(() => fs.remove(fixture('dist')))
 
 async function write({
   input,
-  dirname,
+  outDir,
   options
 }) {
-  dirname = fixture('dist', dirname)
+  outDir = fixture('dist', outDir)
   const bundle = await rollup({
     input: fixture(input),
     plugins: [
@@ -23,11 +25,11 @@ async function write({
   })
   await bundle.write({
     format: 'cjs',
-    file: path.join(dirname, 'bundle.js')
+    file: path.join(outDir, 'bundle.js')
   })
-  const cssCodePath = typeof options.extract === 'string' ? options.extract : path.join(dirname, 'bundle.css')
+  const cssCodePath = typeof options.extract === 'string' ? options.extract : path.join(outDir, 'bundle.css')
   const cssMapPath = `${cssCodePath}.map`
-  const jsCodePath = path.join(dirname, 'bundle.js')
+  const jsCodePath = path.join(outDir, 'bundle.js')
   return {
     jsCode() {
       return fs.readFile(jsCodePath, 'utf8')
@@ -50,12 +52,13 @@ async function write({
 function snapshot({
   title,
   input,
+  outDir,
   options = {}
 }) {
   test(title, async () => {
     const res = await write({
       input,
-      dirname: title,
+      outDir,
       options
     })
 
@@ -78,197 +81,207 @@ function snapshot({
   })
 }
 
-snapshot({
-  title: 'simple',
-  input: 'simple/index.js'
-})
-
-snapshot({
-  title: 'extract',
-  input: 'simple/index.js',
-  options: {
-    extract: true
-  }
-})
-
-snapshot({
-  title: 'extract:path',
-  input: 'simple/index.js',
-  options: {
-    extract: fixture('dist/extract:path/this/is/extracted.css'),
-    sourceMap: true
-  }
-})
-
-snapshot({
-  title: 'minimize:inject',
-  input: 'simple/index.js',
-  options: {
-    minimize: true
-  }
-})
-
-snapshot({
-  title: 'minimize:extract',
-  input: 'simple/index.js',
-  options: {
-    minimize: true,
-    extract: true
-  }
-})
-
-snapshot({
-  title: 'modules:inject',
-  input: 'css-modules/index.js',
-  options: {
-    modules: true
-  }
-})
-
-snapshot({
-  title: 'modules:named-exports',
-  input: 'named-exports/index.js',
-  options: {
-    modules: true,
-    namedExports: true
-  }
-})
-
-snapshot({
-  title: 'modules:named-exports-custom-class-name',
-  input: 'named-exports/index.js',
-  options: {
-    modules: true,
-    namedExports(name) {
-      return name + 'hacked'
+function snapshotMany(title, tests) {
+  describe(title, () => {
+    for (const test of tests) {
+      snapshot({
+        ...test,
+        outDir: `${title}--${test.title}`
+      })
     }
-  }
-})
+  })
+}
 
-snapshot({
-  title: 'modules:extract',
-  input: 'css-modules/index.js',
-  options: {
-    modules: true,
-    extract: true
-  }
-})
-
-snapshot({
-  title: 'sourcemap:true',
-  input: 'simple/index.js',
-  options: {
-    sourceMap: true
-  }
-})
-
-snapshot({
-  title: 'extract::sourcemap:true',
-  input: 'simple/index.js',
-  options: {
-    sourceMap: true,
-    extract: true
-  }
-})
-
-// inline is actually broken for now
-snapshot({
-  title: 'sourcemap:inline',
-  input: 'simple/index.js',
-  options: {
-    sourceMap: 'inline'
-  }
-})
-
-snapshot({
-  title: 'extract::sourcemap:inline',
-  input: 'simple/index.js',
-  options: {
-    sourceMap: 'inline',
-    extract: true
-  }
-})
-
-snapshot({
-  title: 'inject:top',
-  input: 'simple/index.js',
-  options: {
-    inject: {
-      insertAt: 'top'
-    }
-  }
-})
-
-snapshot({
-  title: 'sass',
-  input: 'sass/index.js'
-})
-
-snapshot({
-  title: 'sass:sourcemap',
-  input: 'sass/index.js',
-  options: {
-    sourceMap: true
-  }
-})
-
-snapshot({
-  title: 'postcss-config',
-  input: 'postcss-config/index.js'
-})
-
-snapshot({
-  title: 'sass:modules',
-  input: 'sass-modules/index.js',
-  options: {
-    modules: true
-  }
-})
-
-snapshot({
-  title: 'skip-loader',
-  input: 'skip-loader/index.js',
-  options: {
-    use: ['loader'],
-    loaders: [
-      {
-        name: 'loader',
-        test: /\.random$/,
-        process() {
-          return 'lol'
+snapshotMany('basic', [
+  {
+    title: 'simple',
+    input: 'simple/index.js'
+  },
+  {
+    title: 'postcss-config',
+    input: 'postcss-config/index.js'
+  },
+  {
+    title: 'skip-loader',
+    input: 'skip-loader/index.js',
+    options: {
+      use: ['loader'],
+      loaders: [
+        {
+          name: 'loader',
+          test: /\.random$/,
+          process() {
+            return 'lol'
+          }
         }
+      ]
+    }
+  },
+  {
+    title: 'postcss-options',
+    input: 'postcss-options/index.js',
+    options: {
+      plugins: [
+        require('autoprefixer')()
+      ]
+    }
+  }
+])
+
+snapshotMany('minimize', [
+  {
+    title: 'inject',
+    input: 'simple/index.js',
+    options: {
+      minimize: true
+    }
+  },
+  {
+    title: 'extract',
+    input: 'simple/index.js',
+    options: {
+      minimize: true,
+      extract: true
+    }
+  }
+])
+
+snapshotMany('modules', [
+  {
+    title: 'inject',
+    input: 'css-modules/index.js',
+    options: {
+      modules: true
+    }
+  },
+  {
+    title: 'named-exports',
+    input: 'named-exports/index.js',
+    options: {
+      modules: true,
+      namedExports: true
+    }
+  },
+  {
+    title: 'named-exports-custom-class-name',
+    input: 'named-exports/index.js',
+    options: {
+      modules: true,
+      namedExports(name) {
+        return name + 'hacked'
       }
-    ]
+    }
+  },
+  {
+    title: 'extract',
+    input: 'css-modules/index.js',
+    options: {
+      modules: true,
+      extract: true
+    }
   }
-})
+])
 
-snapshot({
-  title: 'postcss-options',
-  input: 'postcss-options/index.js',
-  options: {
-    plugins: [
-      require('autoprefixer')()
-    ]
+snapshotMany('sourcemap', [
+  {
+    title: 'true',
+    input: 'simple/index.js',
+    options: {
+      sourceMap: true
+    }
+  },
+  // Is it broken?
+  {
+    title: 'inline',
+    input: 'simple/index.js',
+    options: {
+      sourceMap: 'inline'
+    }
   }
-})
+])
 
-snapshot({
-  title: 'inject:false',
-  input: 'simple/index.js',
-  options: {
-    inject: false
+snapshotMany('extract', [
+  {
+    title: 'true',
+    input: 'simple/index.js',
+    options: {
+      extract: true
+    }
+  },
+  {
+    title: 'custom-path',
+    input: 'simple/index.js',
+    options: {
+      extract: fixture('dist/extract--custom-path/this/is/extracted.css'),
+      sourceMap: true
+    }
+  },
+  {
+    title: 'sourcemap-true',
+    input: 'simple/index.js',
+    options: {
+      sourceMap: true,
+      extract: true
+    }
+  },
+  {
+    title: 'sourcemap-inline',
+    input: 'simple/index.js',
+    options: {
+      sourceMap: 'inline',
+      extract: true
+    }
   }
-})
+])
 
-snapshot({
-  title: 'sass:import',
-  input: 'sass-import/index.js'
-})
+snapshotMany('inject', [
+  {
+    title: 'top',
+    input: 'simple/index.js',
+    options: {
+      inject: {
+        insertAt: 'top'
+      }
+    }
+  },
+  {
+    title: 'false',
+    input: 'simple/index.js',
+    options: {
+      inject: false
+    }
+  }
+])
+
+snapshotMany('sass', [
+  {
+    title: 'default',
+    input: 'sass/index.js'
+  },
+  {
+    title: 'sourcemap',
+    input: 'sass/index.js',
+    options: {
+      sourceMap: true
+    }
+  },
+  {
+    title: 'modules',
+    input: 'sass-modules/index.js',
+    options: {
+      modules: true
+    }
+  },
+  {
+    title: 'import',
+    input: 'sass-import/index.js'
+  }
+])
 
 test('onExtract', async () => {
   const res = await write({
     input: 'simple/index.js',
-    dirname: 'onExtract',
+    outDir: 'onExtract',
     options: {
       extract: true,
       onExtract() {
