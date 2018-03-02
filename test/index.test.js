@@ -3,6 +3,8 @@ import fs from 'fs-extra'
 import { rollup } from 'rollup'
 import postcss from '../src'
 
+process.env.ROLLUP_POSTCSS_TEST = true
+
 function fixture(...args) {
   return path.join(__dirname, 'fixtures', ...args)
 }

@@ -64,7 +64,7 @@ export default {
     if (options.modules) {
       plugins.push(
         require('postcss-modules')({
-          generateScopedName: '[name]_[local]__[hash:base64:5]',
+          generateScopedName: process.env.ROLLUP_POSTCSS_TEST ? '[name]_[local]__[hash]' : '[name]_[local]__[hash:base64:5]',
           ...options.modules,
           getJSON(filepath, json) {
             modulesExported[filepath] = json
