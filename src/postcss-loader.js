@@ -5,7 +5,7 @@ import reserved from 'reserved-words'
 import normalizePath from './utils/normalize-path'
 import localRequire from './utils/local-require'
 
-const styleInjectPath = require.resolve('style-inject/dist/style-inject.es')
+const styleInjectPath = require.resolve('style-inject/dist/style-inject.es').replace(/[\\\/]+/g, '/')
 
 function loadConfig(id, { ctx: configOptions, path: configPath }) {
   const handleError = err => {
