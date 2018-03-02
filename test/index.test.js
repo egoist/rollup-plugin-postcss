@@ -212,7 +212,7 @@ snapshotMany('extract', [
     title: 'custom-path',
     input: 'simple/index.js',
     options: {
-      extract: fixture('dist/extract:path/this/is/extracted.css'),
+      extract: fixture('dist/extract--custom-path/this/is/extracted.css'),
       sourceMap: true
     }
   },
