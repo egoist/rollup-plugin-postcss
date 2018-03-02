@@ -1,3 +1,11 @@
+## [Version 1.3.2](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.3.2) (2018-3-2)
+
+### Bug fixes
+
+- fix styleInject path on windows: [`db7db7a`](https://github.com/egoist/rollup-plugin-postcss/commit/db7db7a) ([#81](https://github.com/egoist/rollup-plugin-postcss/issues/81))
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.3.1...v1.3.2)
+
 ## [Version 1.3.1](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.3.1) (2018-2-27)
 
 ### Bug fixes
