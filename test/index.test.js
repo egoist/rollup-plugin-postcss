@@ -11,10 +11,10 @@ beforeAll(() => fs.remove(fixture('dist')))
 
 async function write({
   input,
-  dirname,
+  outDir,
   options
 }) {
-  dirname = fixture('dist', dirname)
+  outDir = fixture('dist', outDir)
   const bundle = await rollup({
     input: fixture(input),
     plugins: [
@@ -23,11 +23,11 @@ async function write({
   })
   await bundle.write({
     format: 'cjs',
-    file: path.join(dirname, 'bundle.js')
+    file: path.join(outDir, 'bundle.js')
   })
-  const cssCodePath = typeof options.extract === 'string' ? options.extract : path.join(dirname, 'bundle.css')
+  const cssCodePath = typeof options.extract === 'string' ? options.extract : path.join(outDir, 'bundle.css')
   const cssMapPath = `${cssCodePath}.map`
-  const jsCodePath = path.join(dirname, 'bundle.js')
+  const jsCodePath = path.join(outDir, 'bundle.js')
   return {
     jsCode() {
       return fs.readFile(jsCodePath, 'utf8')
@@ -56,7 +56,7 @@ function snapshot({
   test(title, async () => {
     const res = await write({
       input,
-      dirname: outDir,
+      outDir,
       options
     })
 
@@ -279,7 +279,7 @@ snapshotMany('sass', [
 test('onExtract', async () => {
   const res = await write({
     input: 'simple/index.js',
-    dirname: 'onExtract',
+    outDir: 'onExtract',
     options: {
       extract: true,
       onExtract() {
