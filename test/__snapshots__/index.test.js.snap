@@ -411,7 +411,7 @@ console.log(css, css$1);
 `;
 
 exports[`modules extract: css code 1`] = `
-".style_foo__2fc7c60dcbd87f84a9cf2846d6ea80c3 {
+".style_foo {
   color: red;
 }
 "
@@ -420,7 +420,7 @@ exports[`modules extract: css code 1`] = `
 exports[`modules extract: js code 1`] = `
 "'use strict';
 
-var style = {\\"foo\\":\\"style_foo__2fc7c60dcbd87f84a9cf2846d6ea80c3\\"};
+var style = {\\"foo\\":\\"style_foo\\"};
 
 console.log(style.foo);
 "
@@ -456,8 +456,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css = \\".style_foo__2fc7c60dcbd87f84a9cf2846d6ea80c3 {\\\\n  color: red;\\\\n}\\\\n\\";
-var style = {\\"foo\\":\\"style_foo__2fc7c60dcbd87f84a9cf2846d6ea80c3\\"};
+var css = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\";
+var style = {\\"foo\\":\\"style_foo\\"};
 styleInject(css);
 
 console.log(style.foo);
@@ -494,10 +494,10 @@ function styleInject(css, ref) {
   }
 }
 
-var foo = \\"style_foo__64c06344057379957f67df27204a5e83\\";
-var $new$ = \\"style_new__c1f60a9bd0e9a8de31ff3c822dd41645\\";
-var css = \\".style_foo__64c06344057379957f67df27204a5e83 {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new__c1f60a9bd0e9a8de31ff3c822dd41645 {\\\\n  color: blue;\\\\n}\\\\n\\";
-var style = {\\"foo\\":\\"style_foo__64c06344057379957f67df27204a5e83\\",\\"new\\":\\"style_new__c1f60a9bd0e9a8de31ff3c822dd41645\\"};
+var foo = \\"style_foo\\";
+var $new$ = \\"style_new\\";
+var css = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\";
+var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\"};
 styleInject(css);
 
 var style$1 = Object.freeze({
@@ -540,10 +540,10 @@ function styleInject(css, ref) {
   }
 }
 
-var foohacked = \\"style_foo__64c06344057379957f67df27204a5e83\\";
-var newhacked = \\"style_new__c1f60a9bd0e9a8de31ff3c822dd41645\\";
-var css = \\".style_foo__64c06344057379957f67df27204a5e83 {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new__c1f60a9bd0e9a8de31ff3c822dd41645 {\\\\n  color: blue;\\\\n}\\\\n\\";
-var style = {\\"foo\\":\\"style_foo__64c06344057379957f67df27204a5e83\\",\\"new\\":\\"style_new__c1f60a9bd0e9a8de31ff3c822dd41645\\"};
+var foohacked = \\"style_foo\\";
+var newhacked = \\"style_new\\";
+var css = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\";
+var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\"};
 styleInject(css);
 
 var style$1 = Object.freeze({
@@ -663,8 +663,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css = \\".style_foo__f82e4900884699fec1e664aafb67398d {\\\\n  color: red; }\\\\n\\";
-var style = {\\"foo\\":\\"style_foo__f82e4900884699fec1e664aafb67398d\\"};
+var css = \\".style_foo {\\\\n  color: red; }\\\\n\\";
+var style = {\\"foo\\":\\"style_foo\\"};
 styleInject(css);
 
 console.log(style);
