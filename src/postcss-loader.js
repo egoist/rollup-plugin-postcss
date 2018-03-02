@@ -104,8 +104,8 @@ export default {
 
     const res = await postcss(plugins).process(code, postcssOpts)
     const outputMap = res.map && JSON.parse(res.map.toString())
-    if (outputMap && outputMap.source) {
-      outputMap.source = outputMap.source.map(v => normalizePath(v))
+    if (outputMap && outputMap.sources) {
+      outputMap.sources = outputMap.sources.map(v => normalizePath(v))
     }
 
     let output = ''
