@@ -1,3 +1,11 @@
+## [Version 1.3.3](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.3.3) (2018-3-5)
+
+### Bug fixes
+
+- skip logging when namedExports is a function, closed [#82](https://github.com/egoist/rollup-plugin-postcss/issues/82): [`3163614`](https://github.com/egoist/rollup-plugin-postcss/commit/3163614)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.3.2...v1.3.3)
+
 ## [Version 1.3.2](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.3.2) (2018-3-2)
 
 ### Bug fixes
