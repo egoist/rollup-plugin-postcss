@@ -119,7 +119,10 @@ export default {
       // eslint-disable-next-line guard-for-in
       for (const name in json) {
         const newName = getClassName(name)
-        if (name !== newName) {
+        // Log transformed class names
+        // But skip this when namedExports is a function
+        // Since a user like you can manually log that if you want
+        if (name !== newName && typeof options.namedExports !== 'function') {
           console.warn(`Exported "${name}" as "${newName}" in ${humanlizePath(this.id)}`)
         }
         output += `export var ${newName} = ${JSON.stringify(
