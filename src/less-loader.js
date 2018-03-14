@@ -1,12 +1,12 @@
+import importCwd from 'import-cwd'
 import pify from 'pify'
 import humanlizePath from './utils/humanlize-path'
-import localRequire from './utils/local-require'
 
 export default {
   name: 'less',
   test: /\.less$/,
   async process({ code }) {
-    const less = localRequire('less')
+    const less = importCwd('less')
 
     let { css, map } = await pify(less.render.bind(less))(code, {
       ...this.options,
