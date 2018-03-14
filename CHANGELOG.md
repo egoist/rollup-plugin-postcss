@@ -1,3 +1,12 @@
+## [Version 1.3.4](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.3.4) (2018-3-15)
+
+### Bug fixes
+
+- only return sourceMap if necessary: [`88f7aff`](https://github.com/egoist/rollup-plugin-postcss/commit/88f7aff)
+- Replace localRequire with the `import-cwd` package: [`df195e2`](https://github.com/egoist/rollup-plugin-postcss/commit/df195e2) ([#85](https://github.com/egoist/rollup-plugin-postcss/issues/85))
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.3.3...v1.3.4)
+
 ## [Version 1.3.3](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.3.3) (2018-3-5)
 
 ### Bug fixes
