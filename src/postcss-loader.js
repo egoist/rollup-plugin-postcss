@@ -1,9 +1,9 @@
 import path from 'path'
+import importCwd from 'import-cwd'
 import postcss from 'postcss'
 import findPostcssConfig from 'postcss-load-config'
 import reserved from 'reserved-words'
 import humanlizePath from './utils/humanlize-path'
-import localRequire from './utils/local-require'
 import normalizePath from './utils/normalize-path'
 
 const styleInjectPath = require.resolve('style-inject/dist/style-inject.es').replace(/[\\/]+/g, '/')
@@ -45,7 +45,7 @@ function ensureClassName(name) {
 }
 
 function ensurePostCSSOption(option) {
-  return typeof option === 'string' ? localRequire(option) : option
+  return typeof option === 'string' ? importCwd(option) : option
 }
 
 export default {

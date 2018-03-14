@@ -1,11 +1,11 @@
+import importCwd from 'import-cwd'
 import pify from 'pify'
-import localRequire from './utils/local-require'
 
 export default {
   name: 'stylus',
   test: /\.(styl|stylus)$/,
   async process({ code }) {
-    const stylus = localRequire('stylus')
+    const stylus = importCwd('stylus')
 
     const style = stylus(code, {
       ...this.options,

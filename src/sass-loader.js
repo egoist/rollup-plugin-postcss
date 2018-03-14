@@ -1,7 +1,7 @@
 import path from 'path'
 import pify from 'pify'
 import resolve from 'resolve'
-import localRequire from './utils/local-require'
+import importCwd from 'import-cwd'
 
 const moduleRe = /^~([a-z0-9]|@).+/i
 
@@ -9,7 +9,7 @@ export default {
   name: 'sass',
   test: /\.s[ac]ss$/,
   async process({ code }) {
-    const sass = localRequire('node-sass')
+    const sass = importCwd('node-sass')
     const res = await pify(sass.render.bind(sass))({
       ...this.options,
       file: this.id,
