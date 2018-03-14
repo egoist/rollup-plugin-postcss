@@ -131,7 +131,7 @@ export default (options = {}) => {
 
         return {
           code,
-          map: concat.sourceMap,
+          map: sourceMap === true && concat.sourceMap,
           codeFilePath: filepath,
           mapFilePath: filepath + '.map'
         }
