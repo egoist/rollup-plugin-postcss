@@ -27,6 +27,8 @@ export default (options = {}) => {
     /** CSS modules */
     modules: inferOption(options.modules, false),
     namedExports: options.namedExports,
+    /** Automatically CSS modules for .module.xxx files */
+    autoModules: options.autoModules,
     /** Options for cssnano */
     minimize: inferOption(options.minimize, false),
     /** Postcss config file */

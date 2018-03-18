@@ -410,6 +410,56 @@ console.log(css, css$1);
 "
 `;
 
+exports[`modules auto-modules: js code 1`] = `
+"'use strict';
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\".a-module_foo {\\\\n  color: red;\\\\n}\\\\n\\";
+var a = {\\"foo\\":\\"a-module_foo\\"};
+styleInject(css);
+
+var css$1 = \\".b-module_b {\\\\n  color: red; }\\\\n\\";
+var b = {\\"b\\":\\"b-module_b\\"};
+styleInject(css$1);
+
+var css$2 = \\".c-module_c {\\\\n  color: red;\\\\n}\\\\n\\";
+var c = {\\"c\\":\\"c-module_c\\"};
+styleInject(css$2);
+
+console.log(
+  a,
+  b,
+  c
+);
+"
+`;
+
 exports[`modules extract: css code 1`] = `
 ".style_foo {
   color: red;

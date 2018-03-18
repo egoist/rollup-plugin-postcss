@@ -118,6 +118,13 @@ Default: `false`
 
 Enable CSS modules or set options for `postcss-modules`.
 
+### autoModules
+
+Type: `boolean`<br>
+Default: `true`
+
+Automatically enable CSS modules for `.module.css` `.module.sss` `.module.scss` `.module.sass` `.module.styl` `.module.stylus` `.module.less` files.
+
 ### namedExports
 
 Type: `boolean` `function`<br>

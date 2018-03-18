@@ -179,6 +179,10 @@ snapshotMany('modules', [
       modules: true,
       extract: true
     }
+  },
+  {
+    title: 'auto-modules',
+    input: 'auto-modules/index.js'
   }
 ])
 

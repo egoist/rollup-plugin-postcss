@@ -48,6 +48,10 @@ function ensurePostCSSOption(option) {
   return typeof option === 'string' ? importCwd(option) : option
 }
 
+function isModuleFile(file) {
+  return /\.module\.(css|styl|stylus|sass|scss|less|sss)$/.test(file)
+}
+
 export default {
   name: 'postcss',
   test: /\.(css|sss)$/,
@@ -62,7 +66,9 @@ export default {
     const shouldInject = options.inject
 
     const modulesExported = {}
-    if (options.modules) {
+    const autoModules = options.autoModules !== false && isModuleFile(this.id)
+    const supportModules = options.modules || autoModules
+    if (supportModules) {
       plugins.push(
         require('postcss-modules')({
           // In tests
@@ -140,7 +146,7 @@ export default {
       }
     } else {
       output += `var css = ${JSON.stringify(res.css)};\nexport default ${
-        options.modules ? JSON.stringify(modulesExported[this.id]) : 'css'
+        supportModules ? JSON.stringify(modulesExported[this.id]) : 'css'
       };`
     }
     if (!shouldExtract && shouldInject) {
