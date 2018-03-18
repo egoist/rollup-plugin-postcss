@@ -1,3 +1,11 @@
+## [Version 1.4.0](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.4.0) (2018-3-18)
+
+### New features
+
+- automatically css modules, closes [#87](https://github.com/egoist/rollup-plugin-postcss/issues/87): [`707ca3e`](https://github.com/egoist/rollup-plugin-postcss/commit/707ca3e)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.3.4...v1.4.0)
+
 ## [Version 1.3.4](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.3.4) (2018-3-15)
 
 ### Bug fixes
