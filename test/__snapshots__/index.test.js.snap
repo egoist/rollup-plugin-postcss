@@ -547,7 +547,7 @@ function styleInject(css, ref) {
 var foo = \\"style_foo\\";
 var $new$ = \\"style_new\\";
 var css = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\";
-var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\"};
+var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"$new$\\":\\"style_new\\"};
 styleInject(css);
 
 var style$1 = Object.freeze({
@@ -593,7 +593,7 @@ function styleInject(css, ref) {
 var foohacked = \\"style_foo\\";
 var newhacked = \\"style_new\\";
 var css = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\";
-var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\"};
+var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"foohacked\\":\\"style_foo\\",\\"newhacked\\":\\"style_new\\"};
 styleInject(css);
 
 var style$1 = Object.freeze({
