@@ -131,6 +131,9 @@ export default {
         if (name !== newName && typeof options.namedExports !== 'function') {
           console.warn(`Exported "${name}" as "${newName}" in ${humanlizePath(this.id)}`)
         }
+        if (!json[newName]) {
+          json[newName] = json[name]
+        }
         output += `export var ${newName} = ${JSON.stringify(
           json[name]
         )};\n`
