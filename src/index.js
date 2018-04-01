@@ -16,6 +16,8 @@ function inferOption(option, defaultValue) {
   return option ? {} : defaultValue
 }
 
+const SCOPED_REGEXP = /\?scoped=(.+)$/
+
 export default (options = {}) => {
   const filter = createFilter(options.include, options.exclude)
   const sourceMap = options.sourceMap
@@ -44,16 +46,6 @@ export default (options = {}) => {
   }
   let use = options.use || ['sass', 'stylus', 'less']
   use.unshift(['postcss', postcssLoaderOptions])
-  use = use.reduce((res, rule) => {
-    if (typeof rule === 'string') {
-      rule = [rule]
-    }
-    const name = rule[0]
-    const options = rule[1] || {}
-
-    res[name] = options
-    return res
-  }, {})
 
   const loaders = new Loaders({
     use,
@@ -65,7 +57,25 @@ export default (options = {}) => {
   return {
     name: 'postcss',
 
+    resolveId(id, importer) {
+      if (importer && SCOPED_REGEXP.test(id)) {
+        return path.resolve(path.dirname(importer), id)
+      }
+    },
+
+    load(id) {
+      if (SCOPED_REGEXP.test(id)) {
+        return fs.readFile(id.replace(SCOPED_REGEXP, ''), 'utf8')
+      }
+    },
+
     async transform(code, id) {
+      let scoped
+      if (SCOPED_REGEXP.test(id)) {
+        scoped = SCOPED_REGEXP.exec(id)[1]
+        id = id.replace(SCOPED_REGEXP, '')
+      }
+
       if (!filter(id) || !loaders.isSupported(id)) {
         return null
       }
@@ -78,7 +88,8 @@ export default (options = {}) => {
         code,
         map: undefined,
         id,
-        sourceMap
+        sourceMap,
+        scoped
       })
 
       if (postcssLoaderOptions.extract) {
@@ -147,12 +158,14 @@ export default (options = {}) => {
       }
 
       const { code, codeFilePath, map, mapFilePath } = getExtracted()
-      await fs.ensureDir(path.dirname(codeFilePath))
-        .then(() => Promise.all([
-          fs.writeFile(codeFilePath, code, 'utf8'),
-          sourceMap === true &&
-            fs.writeFile(mapFilePath, map, 'utf8')
-        ]))
+      await fs
+        .ensureDir(path.dirname(codeFilePath))
+        .then(() =>
+          Promise.all([
+            fs.writeFile(codeFilePath, code, 'utf8'),
+            sourceMap === true && fs.writeFile(mapFilePath, map, 'utf8')
+          ])
+        )
     }
   }
 }

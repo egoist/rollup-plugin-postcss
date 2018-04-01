@@ -56,11 +56,20 @@ function snapshot({
   options = {}
 }) {
   test(title, async () => {
-    const res = await write({
-      input,
-      outDir,
-      options
-    })
+    let res
+    try {
+      res = await write({
+        input,
+        outDir,
+        options
+      })
+    } catch (err) {
+      const frame = err.codeFrame || err.snippet
+      if (frame) {
+        throw new Error(frame + err.message)
+      }
+      throw err
+    }
 
     expect(await res.jsCode()).toMatchSnapshot('js code')
 
@@ -279,6 +288,13 @@ snapshotMany('sass', [
   {
     title: 'import',
     input: 'sass-import/index.js'
+  }
+])
+
+snapshotMany('vue', [
+  {
+    title: 'scopedId',
+    input: 'vue/scoped-id/index.js'
   }
 ])
 

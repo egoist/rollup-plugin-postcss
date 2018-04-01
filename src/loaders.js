@@ -6,7 +6,15 @@ import lessLoader from './less-loader'
 
 export default class Loaders {
   constructor(options = {}) {
-    this.use = options.use
+    this.use = options.use.map(rule => {
+      if (typeof rule === 'string') {
+        return [rule]
+      }
+      if (Array.isArray(rule)) {
+        return rule
+      }
+      throw new TypeError('The rule in `use` option must be string or Array!')
+    })
     this.loaders = []
 
     this.registerLoader(postcssLoader)
@@ -34,24 +42,21 @@ export default class Loaders {
 
   isSupported(filepath) {
     return this.loaders.some(loader => {
-      return loader.test.test(filepath)
+      return loader.test && loader.test.test(filepath)
     })
   }
 
-  process({ code, map, id, sourceMap }) {
-    const names = Object.keys(this.use)
-    return series(names.slice().reverse().map(name => {
+  process({ code, map, id, sourceMap, scoped }) {
+    return series(this.use.slice().reverse().map(([name, options]) => {
       const loader = this.getLoader(name)
-      const options = this.use[name]
       const loaderContext = {
-        options,
+        options: options || {},
         id,
-        sourceMap
+        sourceMap,
+        scoped
       }
       return v => {
-        // Only process if it's postcss loader
-        // Or passed `test`
-        if (name === 'postcss' || loader.test.test(id)) {
+        if (loader.alwaysProcess || loader.test.test(id)) {
           return loader.process.call(loaderContext, v)
         }
         // Otherwise directly return input value

@@ -3,10 +3,13 @@ import importCwd from 'import-cwd'
 import postcss from 'postcss'
 import findPostcssConfig from 'postcss-load-config'
 import reserved from 'reserved-words'
+import scopedPlugin from '@vue/component-compiler-utils/dist/stylePlugins/scoped'
 import humanlizePath from './utils/humanlize-path'
 import normalizePath from './utils/normalize-path'
 
-const styleInjectPath = require.resolve('style-inject/dist/style-inject.es').replace(/[\\/]+/g, '/')
+const styleInjectPath = require
+  .resolve('style-inject/dist/style-inject.es')
+  .replace(/[\\/]+/g, '/')
 
 function loadConfig(id, { ctx: configOptions, path: configPath }) {
   const handleError = err => {
@@ -54,14 +57,18 @@ function isModuleFile(file) {
 
 export default {
   name: 'postcss',
+  alwaysProcess: true,
   test: /\.(css|sss)$/,
   async process({ code, map }) {
-    const config = this.options.config ?
-      await loadConfig(this.id, this.options.config) :
-      {}
+    const config = this.options.config
+      ? await loadConfig(this.id, this.options.config)
+      : {}
 
     const options = this.options
-    const plugins = [...(options.postcss.plugins || []), ...(config.plugins || [])]
+    const plugins = [
+      ...(options.postcss.plugins || []),
+      ...(config.plugins || [])
+    ]
     const shouldExtract = options.extract
     const shouldInject = options.inject
 
@@ -73,7 +80,9 @@ export default {
         require('postcss-modules')({
           // In tests
           // Skip hash in names since css content on windows and linux would differ because of `new line` (\r?\n)
-          generateScopedName: process.env.ROLLUP_POSTCSS_TEST ? '[name]_[local]' : '[name]_[local]__[hash:base64:5]',
+          generateScopedName: process.env.ROLLUP_POSTCSS_TEST
+            ? '[name]_[local]'
+            : '[name]_[local]__[hash:base64:5]',
           ...options.modules,
           getJSON(filepath, json) {
             modulesExported[filepath] = json
@@ -86,17 +95,21 @@ export default {
       plugins.push(require('cssnano')(options.minimize))
     }
 
+    if (this.scoped) {
+      plugins.unshift(scopedPlugin(this.scoped))
+    }
+
     const postcssOpts = {
       ...this.options.postcss,
       ...config.options,
       // Followings are never modified by user config config
       from: this.id,
       to: this.id,
-      map: this.sourceMap ?
-        shouldExtract ?
-          { inline: false, annotation: false } :
-          { inline: true, annotation: false } :
-        false
+      map: this.sourceMap
+        ? shouldExtract
+          ? { inline: false, annotation: false }
+          : { inline: true, annotation: false }
+        : false
     }
     delete postcssOpts.plugins
 
@@ -119,9 +132,10 @@ export default {
 
     if (options.namedExports) {
       const json = modulesExported[this.id]
-      const getClassName = typeof options.namedExports === 'function' ?
-        options.namedExports :
-        ensureClassName
+      const getClassName =
+        typeof options.namedExports === 'function'
+          ? options.namedExports
+          : ensureClassName
       // eslint-disable-next-line guard-for-in
       for (const name in json) {
         const newName = getClassName(name)
@@ -129,14 +143,14 @@ export default {
         // But skip this when namedExports is a function
         // Since a user like you can manually log that if you want
         if (name !== newName && typeof options.namedExports !== 'function') {
-          console.warn(`Exported "${name}" as "${newName}" in ${humanlizePath(this.id)}`)
+          console.warn(
+            `Exported "${name}" as "${newName}" in ${humanlizePath(this.id)}`
+          )
         }
         if (!json[newName]) {
           json[newName] = json[name]
         }
-        output += `export var ${newName} = ${JSON.stringify(
-          json[name]
-        )};\n`
+        output += `export var ${newName} = ${JSON.stringify(json[name])};\n`
       }
     }
 
@@ -154,9 +168,9 @@ export default {
     }
     if (!shouldExtract && shouldInject) {
       output += `\nimport styleInject from '${styleInjectPath}';\nstyleInject(css${
-        Object.keys(options.inject).length > 0 ?
-          `,${JSON.stringify(options.inject)}` :
-          ''
+        Object.keys(options.inject).length > 0
+          ? `,${JSON.stringify(options.inject)}`
+          : ''
       });`
     }
 
