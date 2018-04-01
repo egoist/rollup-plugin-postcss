@@ -60,9 +60,9 @@ export default {
   alwaysProcess: true,
   test: /\.(css|sss)$/,
   async process({ code, map }) {
-    const config = this.options.config
-      ? await loadConfig(this.id, this.options.config)
-      : {}
+    const config = this.options.config ?
+      await loadConfig(this.id, this.options.config) :
+      {}
 
     const options = this.options
     const plugins = [
@@ -80,9 +80,9 @@ export default {
         require('postcss-modules')({
           // In tests
           // Skip hash in names since css content on windows and linux would differ because of `new line` (\r?\n)
-          generateScopedName: process.env.ROLLUP_POSTCSS_TEST
-            ? '[name]_[local]'
-            : '[name]_[local]__[hash:base64:5]',
+          generateScopedName: process.env.ROLLUP_POSTCSS_TEST ?
+            '[name]_[local]' :
+            '[name]_[local]__[hash:base64:5]',
           ...options.modules,
           getJSON(filepath, json) {
             modulesExported[filepath] = json
@@ -105,11 +105,11 @@ export default {
       // Followings are never modified by user config config
       from: this.id,
       to: this.id,
-      map: this.sourceMap
-        ? shouldExtract
-          ? { inline: false, annotation: false }
-          : { inline: true, annotation: false }
-        : false
+      map: this.sourceMap ?
+        shouldExtract ?
+          { inline: false, annotation: false } :
+          { inline: true, annotation: false } :
+        false
     }
     delete postcssOpts.plugins
 
@@ -133,9 +133,9 @@ export default {
     if (options.namedExports) {
       const json = modulesExported[this.id]
       const getClassName =
-        typeof options.namedExports === 'function'
-          ? options.namedExports
-          : ensureClassName
+        typeof options.namedExports === 'function' ?
+          options.namedExports :
+          ensureClassName
       // eslint-disable-next-line guard-for-in
       for (const name in json) {
         const newName = getClassName(name)
@@ -168,9 +168,9 @@ export default {
     }
     if (!shouldExtract && shouldInject) {
       output += `\nimport styleInject from '${styleInjectPath}';\nstyleInject(css${
-        Object.keys(options.inject).length > 0
-          ? `,${JSON.stringify(options.inject)}`
-          : ''
+        Object.keys(options.inject).length > 0 ?
+          `,${JSON.stringify(options.inject)}` :
+          ''
       });`
     }
 
