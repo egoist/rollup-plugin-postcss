@@ -1,3 +1,11 @@
+## [Version 1.5.0](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.5.0) (2018-4-2)
+
+### New features
+
+- support scoped id: [`fc988db`](https://github.com/egoist/rollup-plugin-postcss/commit/fc988db)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.4.1...v1.5.0)
+
 ## [Version 1.4.0](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.4.0) (2018-3-18)
 
 ### New features
