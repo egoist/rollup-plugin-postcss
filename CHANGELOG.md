@@ -1,3 +1,11 @@
+## [Version 1.5.1](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.5.1) (2018-4-4)
+
+### Bug fixes
+
+- support transforming css within a file by range: [`038ff6b`](https://github.com/egoist/rollup-plugin-postcss/commit/038ff6b)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.5.0...v1.5.1)
+
 ## [Version 1.5.0](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.5.0) (2018-4-2)
 
 ### New features
