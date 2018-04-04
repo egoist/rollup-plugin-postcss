@@ -1,3 +1,5 @@
+@import "partial";
+
 .foo {
-  color: magenta;
+  color: $color;
 }
