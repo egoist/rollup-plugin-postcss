@@ -1,4 +1,5 @@
 import path from 'path'
+import queryString from 'querystring'
 import fs from 'fs-extra'
 import { createFilter } from 'rollup-pluginutils'
 import Concat from 'concat-with-sourcemaps'
@@ -16,7 +17,19 @@ function inferOption(option, defaultValue) {
   return option ? {} : defaultValue
 }
 
-const SCOPED_REGEXP = /\?scoped=(.+)$/
+const QUERY_REGEXP = /\?(.+)$/
+
+function hasQuery(str) {
+  return QUERY_REGEXP.test(str)
+}
+
+function parseQuery(str) {
+  return queryString.parse(QUERY_REGEXP.exec(str)[1])
+}
+
+function stripQuery(str) {
+  return str.replace(QUERY_REGEXP, '')
+}
 
 export default (options = {}) => {
   const filter = createFilter(options.include, options.exclude)
@@ -58,22 +71,31 @@ export default (options = {}) => {
     name: 'postcss',
 
     resolveId(id, importer) {
-      if (importer && SCOPED_REGEXP.test(id)) {
+      if (importer && hasQuery(id)) {
         return path.resolve(path.dirname(importer), id)
       }
     },
 
-    load(id) {
-      if (SCOPED_REGEXP.test(id)) {
-        return fs.readFile(id.replace(SCOPED_REGEXP, ''), 'utf8')
+    async load(id) {
+      if (hasQuery(id)) {
+        const { start, end, file } = parseQuery(id)
+        const bareId = stripQuery(id)
+        const content = await fs.readFile(
+          file ? path.resolve(path.dirname(bareId), file) : bareId,
+          'utf8'
+        )
+        return start && end ?
+          content.slice(Number(start), Number(end)) :
+          content
       }
     },
 
     async transform(code, id) {
       let scoped
-      if (SCOPED_REGEXP.test(id)) {
-        scoped = SCOPED_REGEXP.exec(id)[1]
-        id = id.replace(SCOPED_REGEXP, '')
+      if (hasQuery(id)) {
+        const query = parseQuery(id)
+        scoped = query.scoped
+        id = stripQuery(id)
       }
 
       if (!filter(id) || !loaders.isSupported(id)) {

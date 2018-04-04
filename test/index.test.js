@@ -295,6 +295,10 @@ snapshotMany('vue', [
   {
     title: 'scopedId',
     input: 'vue/scoped-id/index.js'
+  },
+  {
+    title: 'range',
+    input: 'vue/range/index.js'
   }
 ])
 
