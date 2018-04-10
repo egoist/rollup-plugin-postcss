@@ -52,13 +52,13 @@ function ensurePostCSSOption(option) {
 }
 
 function isModuleFile(file) {
-  return /\.module\.(css|styl|stylus|sass|scss|less|sss)$/.test(file)
+  return /\.module\.(css|styl|stylus|sass|scss|less|sss|pcss)$/.test(file)
 }
 
 export default {
   name: 'postcss',
   alwaysProcess: true,
-  test: /\.(css|sss)$/,
+  test: /\.(css|sss|pcss)$/,
   async process({ code, map }) {
     const config = this.options.config ?
       await loadConfig(this.id, this.options.config) :
