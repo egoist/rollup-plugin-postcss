@@ -134,6 +134,10 @@ snapshotMany('basic', [
         require('autoprefixer')()
       ]
     }
+  },
+  {
+    title: 'postcss-wxss',
+    input: 'postcss-wxss/index.js'
   }
 ])
 
