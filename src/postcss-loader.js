@@ -58,7 +58,6 @@ function isModuleFile(file) {
 export default {
   name: 'postcss',
   alwaysProcess: true,
-  test: /\.(css|sss|wxss)$/,
   async process({ code, map }) {
     const config = this.options.config ?
       await loadConfig(this.id, this.options.config) :

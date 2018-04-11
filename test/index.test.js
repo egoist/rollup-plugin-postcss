@@ -134,10 +134,6 @@ snapshotMany('basic', [
         require('autoprefixer')()
       ]
     }
-  },
-  {
-    title: 'postcss-wxss',
-    input: 'postcss-wxss/index.js'
   }
 ])
 
@@ -303,6 +299,28 @@ snapshotMany('vue', [
   {
     title: 'range',
     input: 'vue/range/index.js'
+  }
+])
+
+snapshotMany('extensions', [
+  {
+    title: 'extensions-css',
+    input: 'postcss-extensions/css/index.js'
+  },
+  {
+    title: 'extensions-pcss',
+    input: 'postcss-extensions/pcss/index.js'
+  },
+  {
+    title: 'extensions-sss',
+    input: 'postcss-extensions/sss/index.js'
+  },
+  {
+    title: 'extensions-wxss',
+    input: 'postcss-extensions/wxss/index.js',
+    options: {
+      extensions: ['.css', '.sss', '.pcss', '.wxss']
+    }
   }
 ])
 

@@ -1,3 +1,4 @@
+import path from 'path'
 import series from 'promise.series'
 import postcssLoader from './postcss-loader'
 import sassLoader from './sass-loader'
@@ -16,6 +17,7 @@ export default class Loaders {
       throw new TypeError('The rule in `use` option must be string or Array!')
     })
     this.loaders = []
+    this.postcssExts = options.extensions
 
     this.registerLoader(postcssLoader)
     this.registerLoader(sassLoader)
@@ -42,7 +44,7 @@ export default class Loaders {
 
   isSupported(filepath) {
     return this.loaders.some(loader => {
-      return loader.test && loader.test.test(filepath)
+      return loader.test ? loader.test.test(filepath) : this.postcssExts.includes(path.extname(filepath))
     })
   }
 
