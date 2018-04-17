@@ -1,3 +1,11 @@
+## [Version 1.6.1](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.6.1) (2018-4-17)
+
+### Bug fixes
+
+- fix regexp for css modules extension: [`8ecce8c`](https://github.com/egoist/rollup-plugin-postcss/commit/8ecce8c)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.6.0...v1.6.1)
+
 ## [Version 1.6.0](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.6.0) (2018-4-17)
 
 ### New features
