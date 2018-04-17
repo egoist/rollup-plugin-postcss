@@ -5,6 +5,13 @@ import importCwd from 'import-cwd'
 
 const moduleRe = /^~([a-z0-9]|@).+/i
 
+const getUrlOfPartial = url => {
+  const parsedUrl = path.parse(url)
+  return `${parsedUrl.dir}${path.sep}_${parsedUrl.base}`
+}
+
+const resolvePromise = pify(resolve)
+
 export default {
   name: 'sass',
   test: /\.s[ac]ss$/,
@@ -16,22 +23,43 @@ export default {
       data: code,
       indentedSyntax: /\.sass$/.test(this.id),
       sourceMap: this.sourceMap,
-      importer: [(url, importer, done) => {
-        if (!moduleRe.test(url)) return done({ file: url })
+      importer: [
+        (url, importer, done) => {
+          if (!moduleRe.test(url)) return done({ file: url })
 
-        resolve(url.slice(1), {
-          basedir: path.dirname(importer),
-          extensions: ['.scss', '.sass', '.css']
-        }, (err, id) => {
-          if (err) {
-            return Promise.reject(err)
+          const moduleUrl = url.slice(1)
+          const partialUrl = getUrlOfPartial(moduleUrl)
+
+          const options = {
+            basedir: path.dirname(importer),
+            extensions: ['.scss', '.sass', '.css']
           }
-          done({
-            // Do not add `.css` extension in order to inline the file
-            file: id.endsWith('.css') ? id.replace(/\.css$/, '') : id
-          })
-        })
-      }].concat(this.options.importer || [])
+          const finishImport = id => {
+            done({
+              // Do not add `.css` extension in order to inline the file
+              file: id.endsWith('.css') ? id.replace(/\.css$/, '') : id
+            })
+          }
+
+          const next = () => {
+            // Catch all resolving errors, return the original file and pass responsibility back to other custom importers
+            done({ file: url })
+          }
+
+          // Give precedence to importing a partial
+          resolvePromise(partialUrl, options)
+            .then(finishImport)
+            .catch(err => {
+              if (err.code === 'MODULE_NOT_FOUND' || err.code === 'ENOENT') {
+                resolvePromise(moduleUrl, options)
+                  .then(finishImport)
+                  .catch(next)
+              } else {
+                next()
+              }
+            })
+        }
+      ].concat(this.options.importer || [])
     })
 
     return {
