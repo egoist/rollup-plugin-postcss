@@ -62,7 +62,8 @@ export default (options = {}) => {
 
   const loaders = new Loaders({
     use,
-    loaders: options.loaders
+    loaders: options.loaders,
+    extensions: options.extensions || ['.css', '.sss', '.pcss']
   })
 
   const extracted = new Map()

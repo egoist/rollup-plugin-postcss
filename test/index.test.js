@@ -302,6 +302,28 @@ snapshotMany('vue', [
   }
 ])
 
+snapshotMany('extensions', [
+  {
+    title: 'extensions-css',
+    input: 'postcss-extensions/css/index.js'
+  },
+  {
+    title: 'extensions-pcss',
+    input: 'postcss-extensions/pcss/index.js'
+  },
+  {
+    title: 'extensions-sss',
+    input: 'postcss-extensions/sss/index.js'
+  },
+  {
+    title: 'extensions-wxss',
+    input: 'postcss-extensions/wxss/index.js',
+    options: {
+      extensions: ['.css', '.sss', '.pcss', '.wxss']
+    }
+  }
+])
+
 test('onExtract', async () => {
   const res = await write({
     input: 'simple/index.js',
