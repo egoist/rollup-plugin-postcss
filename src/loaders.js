@@ -1,8 +1,16 @@
+import path from 'path'
 import series from 'promise.series'
 import postcssLoader from './postcss-loader'
 import sassLoader from './sass-loader'
 import stylusLoader from './stylus-loader'
 import lessLoader from './less-loader'
+
+const matchFile = (filepath, condition) => {
+  if (typeof condition === 'function') {
+    return condition(filepath)
+  }
+  return condition && condition.test(filepath)
+}
 
 export default class Loaders {
   constructor(options = {}) {
@@ -17,6 +25,9 @@ export default class Loaders {
     })
     this.loaders = []
 
+    const extensions = options.extensions || ['.css', '.sss', '.pcss']
+    postcssLoader.test = filepath =>
+      extensions.some(ext => path.extname(filepath) === ext)
     this.registerLoader(postcssLoader)
     this.registerLoader(sassLoader)
     this.registerLoader(stylusLoader)
@@ -42,7 +53,7 @@ export default class Loaders {
 
   isSupported(filepath) {
     return this.loaders.some(loader => {
-      return loader.test && loader.test.test(filepath)
+      return matchFile(filepath, loader.test)
     })
   }
 
@@ -56,7 +67,7 @@ export default class Loaders {
         scoped
       }
       return v => {
-        if (loader.alwaysProcess || loader.test.test(id)) {
+        if (loader.alwaysProcess || matchFile(id, loader.test)) {
           return loader.process.call(loaderContext, v)
         }
         // Otherwise directly return input value

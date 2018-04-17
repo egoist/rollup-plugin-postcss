@@ -87,6 +87,13 @@ Similar to how webpack's [sass-loader](https://github.com/webpack-contrib/sass-l
 
 ## Options
 
+### extensions
+
+Type: `string[]`<br>
+Default: `['.css', '.sss', '.pcss']`
+
+This plugin will process files ending with these extensions and the extensions supported by [custom loaders](#loaders).
+
 ### plugins
 
 Type: `Array`

@@ -58,7 +58,7 @@ function isModuleFile(file) {
 export default {
   name: 'postcss',
   alwaysProcess: true,
-  test: /\.(css|sss)$/,
+  // `test` option is dynamically set in ./loaders
   async process({ code, map }) {
     const config = this.options.config ?
       await loadConfig(this.id, this.options.config) :
