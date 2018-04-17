@@ -1,3 +1,15 @@
+## [Version 1.6.0](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.6.0) (2018-4-17)
+
+### New features
+
+- add extensions option: [`bfec612`](https://github.com/egoist/rollup-plugin-postcss/commit/bfec612)
+
+### Bug fixes
+
+- handle importing Sass partials in node_modules: [`347d570`](https://github.com/egoist/rollup-plugin-postcss/commit/347d570) ([#90](https://github.com/egoist/rollup-plugin-postcss/issues/90))
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.5.1...v1.6.0)
+
 ## [Version 1.5.1](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.5.1) (2018-4-4)
 
 ### Bug fixes
