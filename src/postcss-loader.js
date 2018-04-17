@@ -52,7 +52,7 @@ function ensurePostCSSOption(option) {
 }
 
 function isModuleFile(file) {
-  return /\.module\.(css|styl|stylus|sass|scss|less|sss)$/.test(file)
+  return /\.module\.[a-z]{2,6}$/.test(file)
 }
 
 export default {
