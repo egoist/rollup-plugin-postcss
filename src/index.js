@@ -5,6 +5,7 @@ import { createFilter } from 'rollup-pluginutils'
 import Concat from 'concat-with-sourcemaps'
 import Loaders from './loaders'
 import humanlizePath from './utils/humanlize-path'
+import * as hash from './utils/hash'
 
 /**
  * The options that could be `boolean` or `object`
@@ -133,6 +134,8 @@ export default (options = {}) => {
       if (extracted.size === 0) return
 
       const getExtracted = filepath => {
+        const addHash = options.hash
+
         if (!filepath) {
           if (typeof postcssLoaderOptions.extract === 'string') {
             filepath = postcssLoaderOptions.extract
@@ -163,6 +166,11 @@ export default (options = {}) => {
           ).toString('base64')}*/`
         } else if (sourceMap === true) {
           code += `\n/*# sourceMappingURL=${path.basename(filepath)}.map */`
+        }
+
+        if (options.hash) {
+          const hashOpts = options.hash === true ? { algorithm: 'sha256', trim: 10 } : options.hash;
+          filepath = hash.rename(filepath, code, hashOpts)
         }
 
         return {

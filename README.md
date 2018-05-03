@@ -118,6 +118,16 @@ Extract CSS to the same location where JS file is generated but with `.css` exte
 
 You can also set it to an absolute path.
 
+### hash
+
+Type: `boolean` `object`<br>
+Default: `false`
+
+Add hash to the extracted file. 
+
+If `true` default hashing options are `{algorithm: 'sha256', trim: 10}`
+
+
 ### modules
 
 Type: `boolean` `object`<br>
