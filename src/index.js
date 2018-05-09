@@ -136,6 +136,8 @@ export default (options = {}) => {
         if (!filepath) {
           if (typeof postcssLoaderOptions.extract === 'string') {
             filepath = postcssLoaderOptions.extract
+          } else if (typeof postcssLoaderOptions.extract === "function") {
+            filepath = postcssLoaderOptions.extract(opts.file);
           } else {
             const basename = path.basename(opts.file, path.extname(opts.file))
             filepath = path.join(path.dirname(opts.file), basename + '.css')
