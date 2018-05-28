@@ -1,3 +1,11 @@
+## [Version 1.6.2](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.6.2) (2018-5-28)
+
+### Bug fixes
+
+- Limit threads when transpiling with node-sass: [`bf131cf`](https://github.com/egoist/rollup-plugin-postcss/commit/bf131cf) ([#105](https://github.com/egoist/rollup-plugin-postcss/issues/105))
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.6.1...v1.6.2)
+
 ## [Version 1.6.1](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.6.1) (2018-4-17)
 
 ### Bug fixes
