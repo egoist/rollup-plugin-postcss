@@ -48,6 +48,7 @@
     "cssnano": "^3.10.0",
     "fs-extra": "^5.0.0",
     "import-cwd": "^2.1.0",
+    "p-queue": "^2.4.2",
     "pify": "^3.0.0",
     "postcss": "^6.0.21",
     "postcss-load-config": "^1.2.0",
