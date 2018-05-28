@@ -24,7 +24,7 @@ export default {
   async process({ code }) {
     const sass = importCwd('node-sass')
 
-    return await new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       workQueue.add(() =>
         pify(sass.render.bind(sass))({
           ...this.options,
@@ -74,7 +74,7 @@ export default {
             code: res.css.toString(),
             map: res.map && res.map.toString()
           })
-        )
+        ).catch(reject)
       )
     })
   }
