@@ -129,7 +129,7 @@ export default (options = {}) => {
       }
     },
 
-    async onwrite(opts) {
+    async onwrite(opts, bundle) {
       if (extracted.size === 0) return
 
       const getExtracted = filepath => {
@@ -143,7 +143,16 @@ export default (options = {}) => {
         }
         filepath = humanlizePath(filepath)
         const concat = new Concat(true, filepath, '\n')
-        for (const res of extracted.values()) {
+        const entries = [...extracted.entries()]
+
+        if (bundle.modules) {
+          entries.sort((a, b) => (
+            bundle.modules.indexOf(a[0]) - bundle.modules.indexOf(b[0])
+          ))
+        }
+
+        // eslint-disable-next-line no-unused-vars
+        for (const [_, res] of entries) {
           const relative = humanlizePath(res.id)
           const map = res.map || null
           if (map) {
