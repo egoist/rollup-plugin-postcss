@@ -11,8 +11,7 @@
     "test:cov": "npm run lint && jest --coverage",
     "build": "bili --target node --no-babel.babelrc",
     "lint": "xo",
-    "prepublishOnly": "npm run build",
-    "postinstall": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
