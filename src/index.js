@@ -68,6 +68,68 @@ export default (options = {}) => {
 
   const extracted = new Map()
 
+  async function onGenerateBundle (opts) {
+    if (extracted.size === 0) return
+
+    const getExtracted = filepath => {
+      if (!filepath) {
+        if (typeof postcssLoaderOptions.extract === 'string') {
+          filepath = postcssLoaderOptions.extract
+        } else {
+          const basename = path.basename(opts.file, path.extname(opts.file))
+          filepath = path.join(path.dirname(opts.file), basename + '.css')
+        }
+      }
+      filepath = humanlizePath(filepath)
+      const concat = new Concat(true, filepath, '\n')
+      for (const res of extracted.values()) {
+        const relative = humanlizePath(res.id)
+        const map = res.map || null
+        if (map) {
+          map.file = filepath
+          map.sources = map.sources.map(source =>
+            humanlizePath(path.join(path.dirname(opts.file), source))
+          )
+        }
+        concat.add(relative, res.code, map)
+      }
+      let code = concat.content
+
+      if (sourceMap === 'inline') {
+        code += `\n/*# sourceMappingURL=data:application/json;base64,${Buffer.from(
+          concat.sourceMap,
+          'utf8'
+        ).toString('base64')}*/`
+      } else if (sourceMap === true) {
+        code += `\n/*# sourceMappingURL=${path.basename(filepath)}.map */`
+      }
+
+      return {
+        code,
+        map: sourceMap === true && concat.sourceMap,
+        codeFilePath: filepath,
+        mapFilePath: filepath + '.map'
+      }
+    }
+
+    if (options.onExtract) {
+      const shouldExtract = await options.onExtract(getExtracted)
+      if (shouldExtract === false) {
+        return
+      }
+    }
+
+    const { code, codeFilePath, map, mapFilePath } = getExtracted()
+    await fs
+      .ensureDir(path.dirname(codeFilePath))
+      .then(() =>
+        Promise.all([
+          fs.writeFile(codeFilePath, code, 'utf8'),
+          sourceMap === true && fs.writeFile(mapFilePath, map, 'utf8')
+        ])
+      )
+  }
+
   return {
     name: 'postcss',
 
@@ -129,66 +191,12 @@ export default (options = {}) => {
       }
     },
 
-    async onwrite(opts) {
-      if (extracted.size === 0) return
+    async generateBundle (opts) {
+      await onGenerateBundle(opts)
+    },
 
-      const getExtracted = filepath => {
-        if (!filepath) {
-          if (typeof postcssLoaderOptions.extract === 'string') {
-            filepath = postcssLoaderOptions.extract
-          } else {
-            const basename = path.basename(opts.file, path.extname(opts.file))
-            filepath = path.join(path.dirname(opts.file), basename + '.css')
-          }
-        }
-        filepath = humanlizePath(filepath)
-        const concat = new Concat(true, filepath, '\n')
-        for (const res of extracted.values()) {
-          const relative = humanlizePath(res.id)
-          const map = res.map || null
-          if (map) {
-            map.file = filepath
-            map.sources = map.sources.map(source =>
-              humanlizePath(path.join(path.dirname(opts.file), source))
-            )
-          }
-          concat.add(relative, res.code, map)
-        }
-        let code = concat.content
-
-        if (sourceMap === 'inline') {
-          code += `\n/*# sourceMappingURL=data:application/json;base64,${Buffer.from(
-            concat.sourceMap,
-            'utf8'
-          ).toString('base64')}*/`
-        } else if (sourceMap === true) {
-          code += `\n/*# sourceMappingURL=${path.basename(filepath)}.map */`
-        }
-
-        return {
-          code,
-          map: sourceMap === true && concat.sourceMap,
-          codeFilePath: filepath,
-          mapFilePath: filepath + '.map'
-        }
-      }
-
-      if (options.onExtract) {
-        const shouldExtract = await options.onExtract(getExtracted)
-        if (shouldExtract === false) {
-          return
-        }
-      }
-
-      const { code, codeFilePath, map, mapFilePath } = getExtracted()
-      await fs
-        .ensureDir(path.dirname(codeFilePath))
-        .then(() =>
-          Promise.all([
-            fs.writeFile(codeFilePath, code, 'utf8'),
-            sourceMap === true && fs.writeFile(mapFilePath, map, 'utf8')
-          ])
-        )
+    async onwrite (opts) {
+      await onGenerateBundle(opts)
     }
   }
 }
