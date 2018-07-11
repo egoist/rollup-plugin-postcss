@@ -51,10 +51,6 @@ function ensurePostCSSOption(option) {
   return typeof option === 'string' ? importCwd(option) : option
 }
 
-function isModuleFile(file) {
-  return /\.module\.[a-z]{2,6}$/.test(file)
-}
-
 export default {
   name: 'postcss',
   alwaysProcess: true,
@@ -73,7 +69,8 @@ export default {
     const shouldInject = options.inject
 
     const modulesExported = {}
-    const autoModules = options.autoModules !== false && isModuleFile(this.id)
+    const autoModulesPattern = options.autoModulesPattern || /\.module\.[a-z]{2,6}$/
+    const autoModules = options.autoModules !== false && autoModulesPattern.test(this.id)
     const supportModules = options.modules || autoModules
     if (supportModules) {
       plugins.push(

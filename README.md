@@ -130,7 +130,14 @@ Enable CSS modules or set options for `postcss-modules`.
 Type: `boolean`<br>
 Default: `true`
 
-Automatically enable CSS modules for `.module.css` `.module.sss` `.module.scss` `.module.sass` `.module.styl` `.module.stylus` `.module.less` files.
+Automatically enable CSS modules for files matched by `autoModulesPattern`. Defaults to `.module.css` `.module.sss` `.module.scss` `.module.sass` `.module.styl` `.module.stylus` `.module.less` files.
+
+### autoModulesPattern
+
+Type: `RegExp`<br>
+Default: `/\.module\.[a-z]{2,6}$/`
+
+Change the default file path test pattern for autoModules.
 
 ### namedExports
 
