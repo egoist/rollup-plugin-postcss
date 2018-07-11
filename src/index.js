@@ -44,6 +44,7 @@ export default (options = {}) => {
     namedExports: options.namedExports,
     /** Automatically CSS modules for .module.xxx files */
     autoModules: options.autoModules,
+    autoModulesPattern: options.autoModulesPattern,
     /** Options for cssnano */
     minimize: inferOption(options.minimize, false),
     /** Postcss config file */
