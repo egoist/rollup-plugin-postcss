@@ -84,8 +84,12 @@ export default {
             '[name]_[local]' :
             '[name]_[local]__[hash:base64:5]',
           ...options.modules,
-          getJSON(filepath, json) {
+          getJSON(filepath, json, outfilepath) {
             modulesExported[filepath] = json
+            if (options.modules && options.modules.getJSON) {
+              // return because getJSON may be a Promise
+              return options.modules.getJSON(filepath, json, outfilepath)
+            }
           }
         })
       )
