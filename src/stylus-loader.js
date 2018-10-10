@@ -15,9 +15,12 @@ export default {
 
     const css = await pify(style.render.bind(style))()
 
+    const dependencies = style.deps()
+
     return {
       code: css,
-      map: style.sourcemap
+      map: style.sourcemap,
+      dependencies
     }
   }
 }
