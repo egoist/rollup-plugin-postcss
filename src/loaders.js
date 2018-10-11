@@ -58,6 +58,8 @@ export default class Loaders {
   }
 
   process({ code, map, id, sourceMap, scoped }) {
+    const dependencies = new Set()
+
     return series(this.use.slice().reverse().map(([name, options]) => {
       const loader = this.getLoader(name)
       const loaderContext = {
@@ -68,12 +70,24 @@ export default class Loaders {
       }
       return v => {
         if (loader.alwaysProcess || matchFile(id, loader.test)) {
-          return loader.process.call(loaderContext, v)
+          return loader.process.call(loaderContext, v).then(result => {
+            if (result.dependencies) {
+              for (const dependency of result.dependencies) {
+                dependencies.add(dependency)
+              }
+            }
+            return result
+          })
         }
         // Otherwise directly return input value
         return v
       }
-    }), { code, map })
+    }), { code, map }).then(result => {
+      if (dependencies.size > 0) {
+        result.dependencies = [...dependencies]
+      }
+      return result
+    })
   }
 
   getLoader(name) {

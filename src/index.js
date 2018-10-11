@@ -115,18 +115,25 @@ export default (options = {}) => {
         scoped
       })
 
+      let result
       if (postcssLoaderOptions.extract) {
         extracted.set(id, res.extracted)
-        return {
+        result = {
           code: res.code,
           map: { mappings: '' }
         }
+      } else {
+        result = {
+          code: res.code,
+          map: res.map || { mappings: '' }
+        }
       }
 
-      return {
-        code: res.code,
-        map: res.map || { mappings: '' }
+      if (res.dependencies) {
+        result.dependencies = res.dependencies
       }
+
+      return result
     },
 
     async onwrite(opts) {
