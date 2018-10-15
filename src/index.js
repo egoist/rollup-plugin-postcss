@@ -57,7 +57,7 @@ export default (options = {}) => {
       exec: options.exec
     }
   }
-  const use = options.use || ['sass', 'stylus', 'less']
+  const use = options.use || [['sass', options.sass || {}], ['stylus', options.stylus || {}], ['less', options.less || {}]]
   use.unshift(['postcss', postcssLoaderOptions])
 
   const loaders = new Loaders({
