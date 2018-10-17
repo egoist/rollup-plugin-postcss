@@ -103,6 +103,11 @@ export default (options = {}) => {
         return null
       }
 
+      if (postcssLoaderOptions.extract) {
+        // initialize extracted to ensure order is kept
+        extracted.set(id, null)
+      }
+
       if (typeof options.onImport === 'function') {
         options.onImport(id)
       }
