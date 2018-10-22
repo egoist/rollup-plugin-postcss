@@ -6470,10 +6470,10 @@ rollup@^0.54.0:
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.54.0.tgz#0641b8154ba02706464285d2ead924c486b48ba9"
   integrity sha512-lgW/RpP8e8HdkrgJtFeBwzuWfvj+eo7yWfJ8AXRfi6a3d0DeYxysr4CwvqnTxJbtvcQ19L0L2bLDQkVK1Db4JA==
 
-rollup@^0.61:
-  version "0.61.2"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.61.2.tgz#30a953736964683a5b8ea952b137a393d84e6302"
-  integrity sha512-NN7GaX3c9I3oz+CjEex7+JbnSxrLMTBXNRThI4qdN2Tq0K/7RiedlEzOHyuVAHPZKvQeoPiRioTWL3xhmN+oCg==
+rollup@^0.66.6:
+  version "0.66.6"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.66.6.tgz#ce7d6185beb7acea644ce220c25e71ae03275482"
+  integrity sha512-J7/SWanrcb83vfIHqa8+aVVGzy457GcjA6GVZEnD0x2u4OnOd0Q1pCrEoNe8yLwM6z6LZP02zBT2uW0yh5TqOw==
   dependencies:
     "@types/estree" "0.0.39"
     "@types/node" "*"
