@@ -105,19 +105,19 @@ test('rollup.watch() watches directly imported .styl files', async () => {
 
   const watcher = startWatcher(watchOptions)
 
-  // For some reason, when the watcher starts, there are two sequences of
-  // START - BUNDLE_START - BUNDLE_END - END.
   await expectEvents(watcher, ['START', 'BUNDLE_START', 'BUNDLE_END', 'END'], 2000)
-  await expectEvents(watcher, ['START', 'BUNDLE_START', 'BUNDLE_END', 'END'], 2000)
+
+  // It seems that it takes a while for rollup to actually start listening to file changes.
+  // Wait 2 seconds just in case.
+  await sleep(2000)
 
   expect(read(localfile('output.css'))).toMatch(/#f0f/)
 
-  // Trigger a build by changing an imported .styl file
+  // Writing to a directly imported file should trigger a build...
   write(localfile('a.styl'), 'body { color: #0f0 }')
-
-  // This time, the build cycle only happens once.
   await expectEvents(watcher, ['START', 'BUNDLE_START', 'BUNDLE_END', 'END'], 2000)
 
+  // ...and the contents should be included in the output.
   expect(read(localfile('output.css'))).toMatch(/#0f0/)
 })
 
