@@ -131,6 +131,7 @@ export default (options = {}) => {
 
     async onwrite(opts) {
       if (extracted.size === 0) return
+      const dirnameMain = path.dirname(opts.file)
 
       const getExtracted = filepath => {
         if (!filepath) {
@@ -138,7 +139,7 @@ export default (options = {}) => {
             filepath = postcssLoaderOptions.extract
           } else {
             const basename = path.basename(opts.file, path.extname(opts.file))
-            filepath = path.join(path.dirname(opts.file), basename + '.css')
+            filepath = path.join(dirnameMain, basename + '.css')
           }
         }
         filepath = humanlizePath(filepath)
@@ -149,7 +150,7 @@ export default (options = {}) => {
           if (map) {
             map.file = filepath
             map.sources = map.sources.map(source =>
-              humanlizePath(path.join(path.dirname(opts.file), source))
+              source.substr(0, dirnameMain.length) === dirnameMain ? source : humanlizePath(path.join(dirnameMain, source))
             )
           }
           concat.add(relative, res.code, map)
