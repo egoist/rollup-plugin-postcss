@@ -1,3 +1,11 @@
+## [Version 1.6.3](https://github.com/:egoist/rollup-plugin-postcss/releases/tag/v1.6.3) (2018-11-21)
+
+### Bug fixes
+
+- fix compatibility with rollup-plugin-vue: [`cd405c3`](https://github.com/:egoist/rollup-plugin-postcss/commit/cd405c3)
+
+[...full changes](https://github.com/:egoist/rollup-plugin-postcss/compare/v1.6.2...v1.6.3)
+
 ## [Version 1.6.2](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.6.2) (2018-5-28)
 
 ### Bug fixes
