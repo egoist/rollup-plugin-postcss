@@ -3,7 +3,6 @@ import importCwd from 'import-cwd'
 import postcss from 'postcss'
 import findPostcssConfig from 'postcss-load-config'
 import reserved from 'reserved-words'
-import scopedPlugin from '@vue/component-compiler-utils/dist/stylePlugins/scoped'
 import humanlizePath from './utils/humanlize-path'
 import normalizePath from './utils/normalize-path'
 
@@ -93,10 +92,6 @@ export default {
 
     if (options.minimize) {
       plugins.push(require('cssnano')(options.minimize))
-    }
-
-    if (this.scoped) {
-      plugins.unshift(scopedPlugin(this.scoped))
     }
 
     const postcssOpts = {
