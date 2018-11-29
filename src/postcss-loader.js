@@ -85,6 +85,8 @@ export default {
           ...options.modules,
           getJSON(filepath, json) {
             modulesExported[filepath] = json
+            // Execute custom getJSON if provided in config
+            options.modules.getJSON && options.modules.getJSON(filepath, json)
           }
         })
       )
