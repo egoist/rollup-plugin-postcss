@@ -15,3 +15,25 @@ steps:
 - script: |
     yarn install
   displayName: 'Install Dependencies'
+
+- script: |
+    yarn test:cov
+  displayName: 'Run Tests'
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results'
+  inputs:
+    testResultsFiles: '**junit*.xml'
+    testRunTitle: TestRun ${{ parameters.name }} $(node_version)
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage results'
+  inputs:
+    codeCoverageTool: 'cobertura'
+    summaryFileLocation: '**/coverage/cobertura-coverage.xml'
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage results'
+  inputs:
+    codeCoverageTool: 'cobertura'
+    summaryFileLocation: '**/coverage/cobertura-coverage.xml'

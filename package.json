@@ -34,6 +34,7 @@
     "bili": "^3.0.1",
     "eslint-config-rem": "^4.0.0",
     "jest": "^22.0.4",
+    "jest-junit": "^5.2.0",
     "less": "^2.7.3",
     "node-sass": "^4.7.2",
     "rollup": "^0.57.1",
