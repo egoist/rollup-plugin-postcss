@@ -36,7 +36,7 @@ export default (options = {}) => {
     /** PostCSS options */
     postcss: {
       parser: options.parser,
-      plugins: options.plugins,
+      plugins: options.plugins.filter(Boolean),
       syntax: options.syntax,
       stringifier: options.stringifier,
       exec: options.exec
