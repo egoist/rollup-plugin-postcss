@@ -86,7 +86,7 @@ export default (options = {}) => {
       }
     },
 
-    async onwrite(opts) {
+    async onwrite(opts, bundle) {
       if (extracted.size === 0) return
       const dirnameMain = path.dirname(opts.file)
 
@@ -101,7 +101,16 @@ export default (options = {}) => {
         }
         filepath = humanlizePath(filepath)
         const concat = new Concat(true, filepath, '\n')
-        for (const res of extracted.values()) {
+
+        const entries = Array.from(extracted.values())
+        if (bundle.modules) {
+          const fileList = Object.keys(bundle.modules)
+          entries.sort((a, b) => (
+            fileList.indexOf(a.id) - fileList.indexOf(b.id)
+          ))
+        }
+
+        for (const res of entries) {
           const relative = humanlizePath(res.id)
           const map = res.map || null
           if (map) {

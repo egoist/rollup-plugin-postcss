@@ -487,8 +487,12 @@ console.log(
 `;
 
 exports[`modules extract: css code 1`] = `
-".style_foo {
+".bar_shouldBeOverridden {
   color: red;
+}
+
+.style_shouldOverride {
+  color: green;
 }
 "
 `;
@@ -496,9 +500,12 @@ exports[`modules extract: css code 1`] = `
 exports[`modules extract: js code 1`] = `
 "'use strict';
 
-var style = {\\"foo\\":\\"style_foo\\"};
+var css = {\\"shouldBeOverridden\\":\\"bar_shouldBeOverridden\\"};
 
-console.log(style.foo);
+var second = {\\"shouldOverride\\":\\"style_shouldOverride\\"};
+
+console.log(\\"first\\", css.shouldBeOverridden);
+console.log(\\"second\\", second.shouldOverride);
 "
 `;
 
@@ -532,11 +539,16 @@ function styleInject(css, ref) {
   }
 }
 
-var css = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\";
-var style = {\\"foo\\":\\"style_foo\\"};
+var css = \\".bar_shouldBeOverridden {\\\\n  color: red;\\\\n}\\\\n\\";
+var css$1 = {\\"shouldBeOverridden\\":\\"bar_shouldBeOverridden\\"};
 styleInject(css);
 
-console.log(style.foo);
+var css$2 = \\".style_shouldOverride {\\\\n  color: green;\\\\n}\\\\n\\";
+var second = {\\"shouldOverride\\":\\"style_shouldOverride\\"};
+styleInject(css$2);
+
+console.log(\\"first\\", css$1.shouldBeOverridden);
+console.log(\\"second\\", second.shouldOverride);
 "
 `;
 
