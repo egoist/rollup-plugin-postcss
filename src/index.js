@@ -86,7 +86,7 @@ export default (options = {}) => {
       }
     },
 
-    async onwrite(opts) {
+    async generateBundle(opts) {
       if (extracted.size === 0) return
       const dirnameMain = path.dirname(opts.file)
 
