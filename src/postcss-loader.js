@@ -93,7 +93,8 @@ export default {
       )
     }
 
-    if (options.minimize) {
+    // If shouldExtract, minimize is done after all CSS are extracted to a file
+    if (!shouldExtract && options.minimize) {
       plugins.push(require('cssnano')(options.minimize))
     }
 
