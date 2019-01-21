@@ -131,6 +131,27 @@ export default (options = {}) => {
         }
       }
 
+      const { code: extractedCss, codeFilePath, map: extractedMap, mapFilePath } = getExtracted()
+      let code = extractedCss
+      let map = extractedMap
+      // Perform cssnano on the extracted file
+      if (options.minimize) {
+        const cssOpts = postcssLoaderOptions.minimize
+        if (sourceMap === 'inline') {
+          cssOpts.map = { inline: true }
+        } else if (sourceMap === true && map) {
+          cssOpts.map = { prev: map }
+          cssOpts.to = codeFilePath
+        }
+
+        const result = await require('cssnano').process(code, cssOpts)
+        code = result.css
+
+        if (sourceMap === true && result.map && result.map.toString) {
+          map = result.map.toString()
+        }
+      }
+
       if (options.onExtract) {
         const shouldExtract = await options.onExtract(getExtracted)
         if (shouldExtract === false) {
@@ -138,7 +159,6 @@ export default (options = {}) => {
         }
       }
 
-      const { code, codeFilePath, map, mapFilePath } = getExtracted()
       await fs
         .ensureDir(path.dirname(codeFilePath))
         .then(() =>
