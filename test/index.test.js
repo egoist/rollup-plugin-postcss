@@ -182,6 +182,17 @@ snapshotMany('modules', [
     }
   },
   {
+    title: 'inject-object',
+    input: 'css-modules/index.js',
+    options: {
+      modules: {
+        getJSON() {
+          //
+        }
+      }
+    }
+  },
+  {
     title: 'named-exports',
     input: 'named-exports/index.js',
     options: {
