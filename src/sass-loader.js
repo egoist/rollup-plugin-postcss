@@ -72,6 +72,7 @@ export default {
         }).then(res =>
           resolve({
             code: res.css.toString(),
+            dependencies: res.stats.includedFiles,
             map: res.map && res.map.toString()
           })
         ).catch(reject)

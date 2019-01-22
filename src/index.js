@@ -73,6 +73,10 @@ export default (options = {}) => {
         sourceMap
       })
 
+      if (res.dependencies) {
+        res.dependencies.forEach(dependency => this.addWatchFile(dependency))
+      }
+
       if (postcssLoaderOptions.extract) {
         extracted.set(id, res.extracted)
         return {
