@@ -83,8 +83,11 @@ export default {
             '[name]_[local]' :
             '[name]_[local]__[hash:base64:5]',
           ...options.modules,
-          getJSON(filepath, json) {
+          getJSON(filepath, json, outpath) {
             modulesExported[filepath] = json
+            if (typeof options.modules === 'object' && typeof options.modules.getJSON === 'function') {
+              return options.modules.getJSON(filepath, json, outpath)
+            }
           }
         })
       )
