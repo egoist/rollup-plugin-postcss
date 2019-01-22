@@ -1,9 +1,7 @@
 import path from 'path'
-import fs from 'fs-extra'
 import { createFilter } from 'rollup-pluginutils'
 import Concat from 'concat-with-sourcemaps'
 import Loaders from './loaders'
-import humanlizePath from './utils/humanlize-path'
 
 /**
  * The options that could be `boolean` or `object`
@@ -86,29 +84,21 @@ export default (options = {}) => {
       }
     },
 
-    async generateBundle(opts) {
+    async generateBundle(opts, bundle) {
       if (extracted.size === 0) return
-      const dirnameMain = path.dirname(opts.file)
 
-      const getExtracted = filepath => {
-        if (!filepath) {
-          if (typeof postcssLoaderOptions.extract === 'string') {
-            filepath = postcssLoaderOptions.extract
-          } else {
-            const basename = path.basename(opts.file, path.extname(opts.file))
-            filepath = path.join(dirnameMain, basename + '.css')
-          }
-        }
-        filepath = humanlizePath(filepath)
-        const concat = new Concat(true, filepath, '\n')
+      const dir = opts.dir || path.dirname(opts.file)
+      const getExtracted = () => {
+        const fileName =
+          typeof postcssLoaderOptions.extract === 'string' ?
+            postcssLoaderOptions.extract :
+            `${path.basename(opts.file, path.extname(opts.file))}.css`
+        const concat = new Concat(true, fileName, '\n')
         for (const res of extracted.values()) {
-          const relative = humanlizePath(res.id)
+          const relative = path.relative(dir, res.id)
           const map = res.map || null
           if (map) {
-            map.file = filepath
-            map.sources = map.sources.map(source =>
-              source.substr(0, dirnameMain.length) === dirnameMain ? source : humanlizePath(path.join(dirnameMain, source))
-            )
+            map.file = fileName
           }
           concat.add(relative, res.code, map)
         }
@@ -120,14 +110,14 @@ export default (options = {}) => {
             'utf8'
           ).toString('base64')}*/`
         } else if (sourceMap === true) {
-          code += `\n/*# sourceMappingURL=${path.basename(filepath)}.map */`
+          code += `\n/*# sourceMappingURL=${fileName}.map */`
         }
 
         return {
           code,
           map: sourceMap === true && concat.sourceMap,
-          codeFilePath: filepath,
-          mapFilePath: filepath + '.map'
+          codeFileName: fileName,
+          mapFileName: fileName + '.map'
         }
       }
 
@@ -138,15 +128,21 @@ export default (options = {}) => {
         }
       }
 
-      const { code, codeFilePath, map, mapFilePath } = getExtracted()
-      await fs
-        .ensureDir(path.dirname(codeFilePath))
-        .then(() =>
-          Promise.all([
-            fs.writeFile(codeFilePath, code, 'utf8'),
-            sourceMap === true && fs.writeFile(mapFilePath, map, 'utf8')
-          ])
-        )
+      const { code, codeFileName, map, mapFileName } = getExtracted()
+      const codeFile = {
+        fileName: codeFileName,
+        isAsset: true,
+        source: code
+      }
+      bundle[codeFile.fileName] = codeFile
+      if (map) {
+        const mapFile = {
+          fileName: mapFileName,
+          isAsset: true,
+          source: map
+        }
+        bundle[mapFile.fileName] = mapFile
+      }
     }
   }
 }
