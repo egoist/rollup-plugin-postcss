@@ -94,7 +94,15 @@ export default (options = {}) => {
             path.relative(dir, postcssLoaderOptions.extract) :
             `${path.basename(opts.file, path.extname(opts.file))}.css`
         const concat = new Concat(true, fileName, '\n')
-        for (const res of extracted.values()) {
+        const entries = Array.from(extracted.values())
+        const { modules } = bundle[path.relative(dir, opts.file)]
+        if (modules) {
+          const fileList = Object.keys(modules)
+          entries.sort((a, b) => (
+            fileList.indexOf(a.id) - fileList.indexOf(b.id)
+          ))
+        }
+        for (const res of entries) {
           const relative = path.relative(dir, res.id)
           const map = res.map || null
           if (map) {
