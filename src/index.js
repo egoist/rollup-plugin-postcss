@@ -16,6 +16,7 @@ function inferOption(option, defaultValue) {
 
 export default (options = {}) => {
   const filter = createFilter(options.include, options.exclude)
+  const postcssPlugins = Array.isArray(options.plugins) ? options.plugins.filter(Boolean) : options.plugins
   const sourceMap = options.sourceMap
   const postcssLoaderOptions = {
     /** Inject CSS as `<style>` to `<head>` */
@@ -34,7 +35,7 @@ export default (options = {}) => {
     /** PostCSS options */
     postcss: {
       parser: options.parser,
-      plugins: options.plugins,
+      plugins: postcssPlugins,
       syntax: options.syntax,
       stringifier: options.stringifier,
       exec: options.exec
