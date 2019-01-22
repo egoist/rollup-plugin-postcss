@@ -87,7 +87,7 @@ export default {
           getJSON(filepath, json, outpath) {
             modulesExported[filepath] = json
             if (typeof options.modules === 'object' && typeof options.modules.getJSON === 'function') {
-              options.modules.getJSON(filepath, json, outpath)
+              return options.modules.getJSON(filepath, json, outpath)
             }
           }
         })
