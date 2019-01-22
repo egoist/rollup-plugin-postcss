@@ -91,7 +91,7 @@ export default (options = {}) => {
       const getExtracted = () => {
         const fileName =
           typeof postcssLoaderOptions.extract === 'string' ?
-            postcssLoaderOptions.extract :
+            path.relative(dir, postcssLoaderOptions.extract) :
             `${path.basename(opts.file, path.extname(opts.file))}.css`
         const concat = new Concat(true, fileName, '\n')
         for (const res of extracted.values()) {

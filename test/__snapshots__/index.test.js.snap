@@ -183,10 +183,10 @@ body {
   width: 30%;
   background-color: #faa; }
 
-/*# sourceMappingURL=/Users/egoist/dev/rollup-plugin-postcss/test/fixtures/dist/extract--custom-path/this/is/extracted.css.map */"
+/*# sourceMappingURL=this/is/extracted.css.map */"
 `;
 
-exports[`extract custom-path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"foo.css\\",\\"bar.css\\",\\"style.pcss\\",\\"test/fixtures/simple/style.styl\\",\\"style.styl\\",\\"test/fixtures/simple/style.less\\",\\"style.less\\",\\"style.sass\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,WAAW;CACZ;;ACFD;EACE,WAAW;CACZ;;ACFD;EACE,WAAW;CACZ;;ACFD;EACE,YAAA;EACA,iBAAA;CCCD;AACD,0DAA0D;ACD1D;EACE,eAAA;CCFD;;ACFD;EACE,WAAW;EACX,uBAAuB,EAAE\\",\\"file\\":\\"/Users/egoist/dev/rollup-plugin-postcss/test/fixtures/dist/extract--custom-path/this/is/extracted.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\",null,null,null,null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\"]}"`;
+exports[`extract custom-path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"foo.css\\",\\"bar.css\\",\\"style.pcss\\",\\"test/fixtures/simple/style.styl\\",\\"style.styl\\",\\"test/fixtures/simple/style.less\\",\\"style.less\\",\\"style.sass\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,WAAW;CACZ;;ACFD;EACE,WAAW;CACZ;;ACFD;EACE,WAAW;CACZ;;ACFD;EACE,YAAA;EACA,iBAAA;CCCD;AACD,0DAA0D;ACD1D;EACE,eAAA;CCFD;;ACFD;EACE,WAAW;EACX,uBAAuB,EAAE\\",\\"file\\":\\"this/is/extracted.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\",null,null,null,null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\"]}"`;
 
 exports[`extract custom-path: js code 1`] = `
 "'use strict';
@@ -204,15 +204,15 @@ exports[`extract sourcemap-inline: css code 1`] = `
   color: red;
 }
 
-.pcss {
-  color: red;
-}
-
 body {
   color: #f00;
   background: #f00;
 }
 /*# sourceMappingURL=test/fixtures/simple/style.css.map */
+.pcss {
+  color: red;
+}
+
 #header {
   color: #6c94be;
 }
@@ -222,7 +222,7 @@ body {
   background-color: #faa; }
 
 /*# sourceMappingURL=../../../inline */
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiLCJiYXIuY3NzIiwic3R5bGUucGNzcyIsInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnN0eWwiLCJzdHlsZS5zdHlsIiwidGVzdC9maXh0dXJlcy9zaW1wbGUvc3R5bGUubGVzcyIsInN0eWxlLmxlc3MiLCJ0ZXN0L2ZpeHR1cmVzL3NpbXBsZS9zdHlsZS5zYXNzIiwic3R5bGUuc2FzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFdBQVc7Q0FDWjs7QUNGRDtFQUNFLFdBQVc7Q0FDWjs7QUNGRDtFQUNFLFdBQVc7Q0FDWjs7QUNGRDtFQUNFLFlBQUE7RUFDQSxpQkFBQTtDQ0NEO0FBQ0QsMERBQTBEO0FDRDFEO0VBQ0UsZUFBQTtDQ0ZEOztBQ0ZEO0VBQ0UsV0FBVTtFQUNWLHVCQUFzQixFQUFHOztBQ0UzQix1Q0FBdUMiLCJmaWxlIjoiYnVuZGxlLmNzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHkge1xuICBjb2xvcjogcmVkO1xufVxuIiwiLmJhciB7XG4gIGNvbG9yOiByZWQ7XG59XG4iLCIucGNzcyB7XG4gIGNvbG9yOiByZWQ7XG59XG4iLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsXX0=*/"
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiLCJiYXIuY3NzIiwidGVzdC9maXh0dXJlcy9zaW1wbGUvc3R5bGUuc3R5bCIsInN0eWxlLnN0eWwiLCJzdHlsZS5wY3NzIiwidGVzdC9maXh0dXJlcy9zaW1wbGUvc3R5bGUubGVzcyIsInN0eWxlLmxlc3MiLCJ0ZXN0L2ZpeHR1cmVzL3NpbXBsZS9zdHlsZS5zYXNzIiwic3R5bGUuc2FzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFdBQVc7Q0FDWjs7QUNGRDtFQUNFLFdBQVc7Q0FDWjs7QUNGRDtFQUNFLFlBQUE7RUFDQSxpQkFBQTtDQ0NEO0FBQ0QsMERBQTBEO0FDSjFEO0VBQ0UsV0FBVztDQUNaOztBQ0NEO0VBQ0UsZUFBQTtDQ0ZEOztBQ0ZEO0VBQ0UsV0FBVTtFQUNWLHVCQUFzQixFQUFHOztBQ0UzQix1Q0FBdUMiLCJmaWxlIjoiYnVuZGxlLmNzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHkge1xuICBjb2xvcjogcmVkO1xufVxuIiwiLmJhciB7XG4gIGNvbG9yOiByZWQ7XG59XG4iLG51bGwsbnVsbCwiLnBjc3Mge1xuICBjb2xvcjogcmVkO1xufVxuIixudWxsLG51bGwsbnVsbCxudWxsXX0=*/"
 `;
 
 exports[`extract sourcemap-inline: js code 1`] = `
@@ -233,11 +233,11 @@ console.log(undefined, undefined);
 `;
 
 exports[`extract sourcemap-true: css code 1`] = `
-"body {
+".bar {
   color: red;
 }
 
-.bar {
+body {
   color: red;
 }
 
@@ -245,15 +245,15 @@ exports[`extract sourcemap-true: css code 1`] = `
   color: red;
 }
 
+#header {
+  color: #6c94be;
+}
+
 body {
   color: #f00;
   background: #f00;
 }
 /*# sourceMappingURL=test/fixtures/simple/style.css.map */
-#header {
-  color: #6c94be;
-}
-
 #sidebar {
   width: 30%;
   background-color: #faa; }
@@ -261,7 +261,7 @@ body {
 /*# sourceMappingURL=bundle.css.map */"
 `;
 
-exports[`extract sourcemap-true: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"foo.css\\",\\"bar.css\\",\\"style.pcss\\",\\"test/fixtures/simple/style.styl\\",\\"style.styl\\",\\"test/fixtures/simple/style.less\\",\\"style.less\\",\\"style.sass\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,WAAW;CACZ;;ACFD;EACE,WAAW;CACZ;;ACFD;EACE,WAAW;CACZ;;ACFD;EACE,YAAA;EACA,iBAAA;CCCD;AACD,0DAA0D;ACD1D;EACE,eAAA;CCFD;;ACFD;EACE,WAAW;EACX,uBAAuB,EAAE\\",\\"file\\":\\"bundle.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\",null,null,null,null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\"]}"`;
+exports[`extract sourcemap-true: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"bar.css\\",\\"foo.css\\",\\"style.pcss\\",\\"test/fixtures/simple/style.less\\",\\"style.less\\",\\"test/fixtures/simple/style.styl\\",\\"style.styl\\",\\"style.sass\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,WAAW;CACZ;;ACFD;EACE,WAAW;CACZ;;ACFD;EACE,WAAW;CACZ;;ACCD;EACE,eAAA;CCFD;;ACFD;EACE,YAAA;EACA,iBAAA;CCCD;AACD,0DAA0D;ACJ1D;EACE,WAAW;EACX,uBAAuB,EAAE\\",\\"file\\":\\"bundle.css\\",\\"sourcesContent\\":[\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\",null,null,null,null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\"]}"`;
 
 exports[`extract sourcemap-true: js code 1`] = `
 "'use strict';
@@ -271,11 +271,11 @@ console.log(undefined, undefined);
 `;
 
 exports[`extract true: css code 1`] = `
-"body {
+".bar {
   color: red;
 }
 
-.bar {
+body {
   color: red;
 }
 
@@ -369,10 +369,10 @@ console.log(css, css$1);
 `;
 
 exports[`minimize extract: css code 1`] = `
-"body{color:red}
-.pcss{color:red}
-.bar{color:red}
+".bar{color:red}
+body{color:red}
 body{color:red;background:red}
+.pcss{color:red}
 #header{color:#6c94be}
 #sidebar{width:30%;background-color:#faa}"
 `;
