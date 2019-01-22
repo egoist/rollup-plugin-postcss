@@ -152,6 +152,24 @@ snapshotMany('minimize', [
       minimize: true,
       extract: true
     }
+  },
+  {
+    title: 'extract-sourcemap-true',
+    input: 'simple/index.js',
+    options: {
+      minimize: true,
+      extract: true,
+      sourceMap: true
+    }
+  },
+  {
+    title: 'extract-sourcemap-inline',
+    input: 'simple/index.js',
+    options: {
+      minimize: true,
+      extract: true,
+      sourceMap: 'inline'
+    }
   }
 ])
 
