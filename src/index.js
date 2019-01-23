@@ -73,6 +73,7 @@ export default (options = {}) => {
         warn: this.warn.bind(this),
         plugin: this
       }
+
       const res = await loaders.process(
         {
           code,

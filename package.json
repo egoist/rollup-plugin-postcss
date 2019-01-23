@@ -2,14 +2,14 @@
   "name": "rollup-plugin-postcss",
   "version": "1.6.3",
   "description": "Seamless integration between Rollup and PostCSS",
-  "main": "dist/rollup-plugin-postcss.cjs.js",
+  "main": "dist/index.js",
   "files": [
     "dist"
   ],
   "scripts": {
     "test": "npm run lint && jest",
     "test:cov": "npm run lint && jest --coverage",
-    "build": "bili --target node --no-babel.babelrc",
+    "build": "rollup -c",
     "lint": "xo",
     "prepublishOnly": "npm run build"
   },
@@ -28,16 +28,18 @@
   },
   "homepage": "https://github.com/egoist/rollup-plugin-postcss#readme",
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
     "autoprefixer": "^7.2.4",
-    "babel-jest": "^22.0.4",
-    "babel-preset-env": "^1.5.1",
-    "bili": "^3.0.1",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
     "eslint-config-rem": "^4.0.0",
     "fs-extra": "^7.0.1",
-    "jest": "^22.0.4",
+    "jest": "^23.6.0",
     "less": "^2.7.3",
     "node-sass": "^4.7.2",
     "rollup": "^1.1.2",
+    "rollup-plugin-babel": "^4.3.2",
     "stylus": "^0.54.5",
     "sugarss": "^1.0.1",
     "xo": "^0.18.2"
@@ -73,10 +75,10 @@
   "babel": {
     "presets": [
       [
-        "env",
+        "@babel/preset-env",
         {
           "targets": {
-            "node": "current"
+            "node": "8"
           }
         }
       ]

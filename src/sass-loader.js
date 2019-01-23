@@ -21,12 +21,12 @@ const resolvePromise = pify(resolve)
 export default {
   name: 'sass',
   test: /\.s[ac]ss$/,
-  async process({ code }) {
-    const sass = importCwd('node-sass')
-
+  process({ code }) {
     return new Promise((resolve, reject) => {
-      workQueue.add(() =>
-        pify(sass.render.bind(sass))({
+      const sass = importCwd('node-sass')
+      const render = pify(sass.render.bind(sass))
+      return workQueue.add(() =>
+        render({
           ...this.options,
           file: this.id,
           data: code,
