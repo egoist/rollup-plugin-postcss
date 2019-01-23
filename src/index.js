@@ -66,12 +66,24 @@ export default (options = {}) => {
         options.onImport(id)
       }
 
-      const res = await loaders.process({
-        code,
-        map: undefined,
+      const loaderContext = {
         id,
-        sourceMap
-      })
+        sourceMap,
+        dependencies: new Set(),
+        warn: this.warn.bind(this),
+        plugin: this
+      }
+      const res = await loaders.process(
+        {
+          code,
+          map: undefined
+        },
+        loaderContext
+      )
+
+      for (const dep of loaderContext.dependencies) {
+        this.addWatchFile(dep)
+      }
 
       if (postcssLoaderOptions.extract) {
         extracted.set(id, res.extracted)

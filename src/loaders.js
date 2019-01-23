@@ -57,22 +57,44 @@ export default class Loaders {
     })
   }
 
-  process({ code, map, id, sourceMap }) {
-    return series(this.use.slice().reverse().map(([name, options]) => {
-      const loader = this.getLoader(name)
-      const loaderContext = {
-        options: options || {},
-        id,
-        sourceMap
-      }
-      return v => {
-        if (loader.alwaysProcess || matchFile(id, loader.test)) {
-          return loader.process.call(loaderContext, v)
-        }
-        // Otherwise directly return input value
-        return v
-      }
-    }), { code, map })
+  /**
+   * Process the resource with loaders in serial
+   * @param {object} resource
+   * @param {string} resource.code
+   * @param {any} resource.map
+   * @param {object} context
+   * @param {string} context.id The absolute path to resource
+   * @param {boolean | 'inline'} context.sourceMap
+   * @param {Set<string>} context.dependencies A set of dependencies to watch
+   * @returns {{code: string, map?: any}}
+   */
+  process({ code, map }, context) {
+    return series(
+      this.use
+        .slice()
+        .reverse()
+        .map(([name, options]) => {
+          const loader = this.getLoader(name)
+          const loaderContext = Object.assign(
+            {
+              options: options || {}
+            },
+            context
+          )
+
+          return v => {
+            if (
+              loader.alwaysProcess ||
+              matchFile(loaderContext.id, loader.test)
+            ) {
+              return loader.process.call(loaderContext, v)
+            }
+            // Otherwise directly return input value
+            return v
+          }
+        }),
+      { code, map }
+    )
   }
 
   getLoader(name) {

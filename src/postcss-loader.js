@@ -85,7 +85,10 @@ export default {
           ...options.modules,
           getJSON(filepath, json, outpath) {
             modulesExported[filepath] = json
-            if (typeof options.modules === 'object' && typeof options.modules.getJSON === 'function') {
+            if (
+              typeof options.modules === 'object' &&
+              typeof options.modules.getJSON === 'function'
+            ) {
               return options.modules.getJSON(filepath, json, outpath)
             }
           }
@@ -121,6 +124,17 @@ export default {
     }
 
     const res = await postcss(plugins).process(code, postcssOpts)
+
+    for (const msg of res.messages) {
+      if (msg.type === 'dependency') {
+        this.dependencies.add(msg.file)
+      }
+    }
+
+    for (const warning of res.warnings()) {
+      this.warn(warning)
+    }
+
     const outputMap = res.map && JSON.parse(res.map.toString())
     if (outputMap && outputMap.sources) {
       outputMap.sources = outputMap.sources.map(v => normalizePath(v))
@@ -142,7 +156,7 @@ export default {
         // But skip this when namedExports is a function
         // Since a user like you can manually log that if you want
         if (name !== newName && typeof options.namedExports !== 'function') {
-          console.warn(
+          this.warn(
             `Exported "${name}" as "${newName}" in ${humanlizePath(this.id)}`
           )
         }

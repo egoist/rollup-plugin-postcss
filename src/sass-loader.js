@@ -59,7 +59,10 @@ export default {
               resolvePromise(partialUrl, options)
                 .then(finishImport)
                 .catch(err => {
-                  if (err.code === 'MODULE_NOT_FOUND' || err.code === 'ENOENT') {
+                  if (
+                    err.code === 'MODULE_NOT_FOUND' ||
+                    err.code === 'ENOENT'
+                  ) {
                     resolvePromise(moduleUrl, options)
                       .then(finishImport)
                       .catch(next)
@@ -69,12 +72,17 @@ export default {
                 })
             }
           ].concat(this.options.importer || [])
-        }).then(res =>
-          resolve({
-            code: res.css.toString(),
-            map: res.map && res.map.toString()
+        })
+          .then(res => {
+            for (const file of res.stats.includedFiles) {
+              this.dependencies.add(file)
+            }
+            resolve({
+              code: res.css.toString(),
+              map: res.map && res.map.toString()
+            })
           })
-        ).catch(reject)
+          .catch(reject)
       )
     })
   }

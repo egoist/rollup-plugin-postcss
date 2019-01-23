@@ -278,6 +278,12 @@ interface Context {
   sourceMap: any
   /** Resource path */
   id: string
+  /** Files to watch */
+  dependencies: Set<string>
+  /** Emit a waring */
+  warn: PluginContext.warn
+  /** https://rollupjs.org/guide/en#plugin-context */
+  plugin: PluginContext
 }
 
 interface Payload {
