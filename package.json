@@ -26,6 +26,9 @@
   "bugs": {
     "url": "https://github.com/egoist/rollup-plugin-postcss/issues"
   },
+  "engines": {
+    "node": ">=8"
+  },
   "homepage": "https://github.com/egoist/rollup-plugin-postcss#readme",
   "devDependencies": {
     "@babel/core": "^7.2.2",
