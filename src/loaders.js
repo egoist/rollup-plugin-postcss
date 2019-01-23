@@ -57,14 +57,13 @@ export default class Loaders {
     })
   }
 
-  process({ code, map, id, sourceMap, scoped }) {
+  process({ code, map, id, sourceMap }) {
     return series(this.use.slice().reverse().map(([name, options]) => {
       const loader = this.getLoader(name)
       const loaderContext = {
         options: options || {},
         id,
-        sourceMap,
-        scoped
+        sourceMap
       }
       return v => {
         if (loader.alwaysProcess || matchFile(id, loader.test)) {
