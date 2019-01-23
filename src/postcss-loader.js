@@ -29,7 +29,7 @@ function loadConfig(id, { ctx: configOptions, path: configPath }) {
     options: configOptions || {}
   }
 
-  return findPostcssConfig(ctx, configPath, { argv: false }).catch(handleError)
+  return findPostcssConfig(ctx, configPath).catch(handleError)
 }
 
 function escapeClassNameDashes(str) {
@@ -59,9 +59,9 @@ export default {
   alwaysProcess: true,
   // `test` option is dynamically set in ./loaders
   async process({ code, map }) {
-    const config = this.options.config ?
-      await loadConfig(this.id, this.options.config) :
-      {}
+    const config = this.options.config
+      ? await loadConfig(this.id, this.options.config)
+      : {}
 
     const options = this.options
     const plugins = [
@@ -79,9 +79,9 @@ export default {
         require('postcss-modules')({
           // In tests
           // Skip hash in names since css content on windows and linux would differ because of `new line` (\r?\n)
-          generateScopedName: process.env.ROLLUP_POSTCSS_TEST ?
-            '[name]_[local]' :
-            '[name]_[local]__[hash:base64:5]',
+          generateScopedName: process.env.ROLLUP_POSTCSS_TEST
+            ? '[name]_[local]'
+            : '[name]_[local]__[hash:base64:5]',
           ...options.modules,
           getJSON(filepath, json, outpath) {
             modulesExported[filepath] = json
@@ -107,11 +107,11 @@ export default {
       // Followings are never modified by user config config
       from: this.id,
       to: this.id,
-      map: this.sourceMap ?
-        shouldExtract ?
-          { inline: false, annotation: false } :
-          { inline: true, annotation: false } :
-        false
+      map: this.sourceMap
+        ? shouldExtract
+          ? { inline: false, annotation: false }
+          : { inline: true, annotation: false }
+        : false
     }
     delete postcssOpts.plugins
 
@@ -121,6 +121,15 @@ export default {
 
     if (map && postcssOpts.map) {
       postcssOpts.map.prev = typeof map === 'string' ? JSON.parse(map) : map
+    }
+
+    if (plugins.length === 0) {
+      // Prevent from postcss warning:
+      // You did not set any plugins, parser, or stringifier. Right now, PostCSS does nothing. Pick plugins for your case on https://www.postcss.parts/ and use them in postcss.config.js
+      const noopPlugin = postcss.plugin('postcss-noop-plugin', () => () => {
+        /* noop */
+      })
+      plugins.push(noopPlugin())
     }
 
     const res = await postcss(plugins).process(code, postcssOpts)
@@ -146,9 +155,9 @@ export default {
     if (options.namedExports) {
       const json = modulesExported[this.id]
       const getClassName =
-        typeof options.namedExports === 'function' ?
-          options.namedExports :
-          ensureClassName
+        typeof options.namedExports === 'function'
+          ? options.namedExports
+          : ensureClassName
       // eslint-disable-next-line guard-for-in
       for (const name in json) {
         const newName = getClassName(name)
@@ -181,9 +190,9 @@ export default {
     }
     if (!shouldExtract && shouldInject) {
       output += `\nimport styleInject from '${styleInjectPath}';\nstyleInject(css${
-        Object.keys(options.inject).length > 0 ?
-          `,${JSON.stringify(options.inject)}` :
-          ''
+        Object.keys(options.inject).length > 0
+          ? `,${JSON.stringify(options.inject)}`
+          : ''
       });`
     }
 
