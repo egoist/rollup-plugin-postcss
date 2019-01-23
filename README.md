@@ -17,8 +17,7 @@ yarn add rollup-plugin-postcss --dev
 
 ## Usage
 
-You are viewing the docs for `v1.0`, for `v0.5` please see [here](https://github.com/egoist/rollup-plugin-postcss/tree/0.5).
-
+You are viewing the docs for `v2.0` which only support Rollup 1.0 or above.
 ```js
 // rollup.config.js
 import postcss from 'rollup-plugin-postcss'
