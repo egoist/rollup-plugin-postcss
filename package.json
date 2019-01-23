@@ -67,6 +67,9 @@
       "import/prefer-default-export": 0
     }
   },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "babel": {
     "presets": [
       [
