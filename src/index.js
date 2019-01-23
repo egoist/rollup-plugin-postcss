@@ -141,8 +141,9 @@ export default (options = {}) => {
 
       let { code, codeFileName, map, mapFileName } = getExtracted()
       // Perform cssnano on the extracted file
-      if (options.minimize) {
+      if (postcssLoaderOptions.minimize) {
         const cssOpts = postcssLoaderOptions.minimize
+        cssOpts.from = codeFileName
         if (sourceMap === 'inline') {
           cssOpts.map = { inline: true }
         } else if (sourceMap === true && map) {
