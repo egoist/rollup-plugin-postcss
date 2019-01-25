@@ -1,3 +1,11 @@
+## [Version 2.0.1](https://github.com/:egoist/rollup-plugin-postcss/releases/tag/v2.0.1) (2019-1-26)
+
+### Bug fixes
+
+- don't panic when code-splitting: [`63c1a8d`](https://github.com/:egoist/rollup-plugin-postcss/commit/63c1a8d)
+
+[...full changes](https://github.com/:egoist/rollup-plugin-postcss/compare/v2.0.0...v2.0.1)
+
 ## [Version 2.0.0](https://github.com/:egoist/rollup-plugin-postcss/releases/tag/v2.0.0) (2019-1-23)
 
 ### Breaking changes
