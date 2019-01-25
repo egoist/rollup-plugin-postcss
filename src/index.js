@@ -103,15 +103,23 @@ export default (options = {}) => {
     async generateBundle(opts, bundle) {
       if (extracted.size === 0) return
 
+      // TODO: support `[hash]`
       const dir = opts.dir || path.dirname(opts.file)
+      const file =
+        opts.file ||
+        path.join(
+          opts.dir,
+          Object.keys(bundle).find(fileName => bundle[fileName].isEntry)
+        )
       const getExtracted = () => {
         const fileName =
           typeof postcssLoaderOptions.extract === 'string' ?
             path.relative(dir, postcssLoaderOptions.extract) :
-            `${path.basename(opts.file, path.extname(opts.file))}.css`
+            `${path.basename(file, path.extname(file))}.css`
         const concat = new Concat(true, fileName, '\n')
         const entries = Array.from(extracted.values())
-        const { modules } = bundle[path.relative(dir, opts.file)]
+        const { modules } = bundle[path.relative(dir, file)]
+
         if (modules) {
           const fileList = Object.keys(modules)
           entries.sort(
