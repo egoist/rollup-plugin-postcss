@@ -1,3 +1,11 @@
+## [Version 2.0.3](https://github.com/:egoist/rollup-plugin-postcss/releases/tag/v2.0.3) (2019-1-31)
+
+### Bug fixes
+
+- update engines field: [`2bfbcc3`](https://github.com/:egoist/rollup-plugin-postcss/commit/2bfbcc3)
+
+[...full changes](https://github.com/:egoist/rollup-plugin-postcss/compare/v2.0.2...v2.0.3)
+
 ## [Version 2.0.2](https://github.com/:egoist/rollup-plugin-postcss/releases/tag/v2.0.2) (2019-1-31)
 
 ### Bug fixes
