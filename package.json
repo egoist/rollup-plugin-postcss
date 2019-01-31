@@ -27,7 +27,7 @@
     "url": "https://github.com/egoist/rollup-plugin-postcss/issues"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=6"
   },
   "homepage": "https://github.com/egoist/rollup-plugin-postcss#readme",
   "devDependencies": {
