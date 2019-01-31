@@ -1,3 +1,11 @@
+## [Version 2.0.2](https://github.com/:egoist/rollup-plugin-postcss/releases/tag/v2.0.2) (2019-1-31)
+
+### Bug fixes
+
+- support node 6: [`c7734ed`](https://github.com/:egoist/rollup-plugin-postcss/commit/c7734ed)
+
+[...full changes](https://github.com/:egoist/rollup-plugin-postcss/compare/v2.0.1...v2.0.2)
+
 ## [Version 2.0.1](https://github.com/:egoist/rollup-plugin-postcss/releases/tag/v2.0.1) (2019-1-26)
 
 ### Bug fixes
