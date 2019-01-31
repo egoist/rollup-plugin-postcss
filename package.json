@@ -9,7 +9,7 @@
   "scripts": {
     "test": "npm run lint && jest",
     "test:cov": "npm run lint && jest --coverage",
-    "build": "rollup -c",
+    "build": "bili",
     "lint": "xo",
     "prepublishOnly": "npm run build"
   },
@@ -32,17 +32,15 @@
   "homepage": "https://github.com/egoist/rollup-plugin-postcss#readme",
   "devDependencies": {
     "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
     "autoprefixer": "^7.2.4",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
+    "bili": "^4.2.4",
     "eslint-config-rem": "^4.0.0",
     "fs-extra": "^7.0.1",
     "jest": "^23.6.0",
     "less": "^2.7.3",
     "node-sass": "^4.7.2",
-    "rollup": "^1.1.2",
-    "rollup-plugin-babel": "^4.3.2",
     "stylus": "^0.54.5",
     "sugarss": "^1.0.1",
     "xo": "^0.18.2"
@@ -81,7 +79,7 @@
         "@babel/preset-env",
         {
           "targets": {
-            "node": "8"
+            "node": "6"
           }
         }
       ]
