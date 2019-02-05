@@ -891,6 +891,58 @@ console.log(css, css$1);
 "
 `;
 
+exports[`sourcemap sourcemap-embedSources: js code 1`] = `
+"'use strict';
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\"body {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiZm9vLmNzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHkge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
+styleInject(css);
+
+var css$1 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhci5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiYmFyLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iYXIge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
+styleInject(css$1);
+
+var css$2 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n/*# sourceMappingURL=test/fixtures/simple/style.css.map */\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnN0eWwiLCJzdHlsZS5zdHlsIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBTztFQUNQLGdCQUFZO0FDQ2Q7QUFDQSx5REFBeUQiLCJmaWxlIjoic3R5bGUuc3R5bCJ9 */\\";
+styleInject(css$2);
+
+var css$3 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\\\n/*# sourceMappingURL=../../../inline */\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnNhc3MiLCJzdHlsZS5zYXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsVUFBVTtFQUNWLHNCQUFzQixFQUFBOztBQ0V4QixzQ0FBc0MiLCJmaWxlIjoic3R5bGUuc2FzcyJ9 */\\";
+styleInject(css$3);
+
+var css$4 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLmxlc3MiLCJzdHlsZS5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUdBO0VBQ0UsY0FBQTtBQ0ZGIiwiZmlsZSI6InN0eWxlLmxlc3MifQ== */\\";
+styleInject(css$4);
+
+var css$5 = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnBjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoic3R5bGUucGNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wY3NzIHtcbiAgY29sb3I6IHJlZDtcbn1cbiJdfQ== */\\";
+styleInject(css$5);
+
+console.log(css, css$1);
+"
+`;
+
 exports[`sourcemap true: js code 1`] = `
 "'use strict';
 
