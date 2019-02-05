@@ -180,6 +180,28 @@ Type: `boolean` `"inline"`
 
 Enable sourceMap.
 
+### embedSources
+
+Type: `boolean` `Object`
+
+Embed source contents into source map data.
+
+```javascript
+...
+embedSources: true
+...
+```
+
+An object with rootPath option can be passed to specify base dir.
+
+```javascript
+...
+embedSources: {
+  rootPath: path.resolve('..');
+}
+...
+```
+
 ### parser
 
 Type: `string` `function`
