@@ -131,15 +131,15 @@ export default (options = {}) => {
           const relative = path.relative(dir, res.id)
           const map = res.map || null
           if (map) {
-            map.file = fileName;
+            map.file = fileName
 
             if (options.embedSources) {
-              let rootPath = options.embedSources.rootPath || '.';
+              const rootPath = options.embedSources.rootPath || '.'
               map.sourcesContent = map.sources.map((source, idx) => {
-                const file = idx == 0 ? res.id : source.replace(/^file\:\/\//, '');
-                map.sources[idx] = path.relative(rootPath, file);
-                return fs.readFileSync(file, 'utf8');
-              });
+                const file = idx === 0 ? res.id : source.replace(/^file:\/\//, '')
+                map.sources[idx] = path.relative(rootPath, file)
+                return fs.readFileSync(file, 'utf8')
+              })
             }
           }
           concat.add(relative, res.code, map)
