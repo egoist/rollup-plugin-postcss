@@ -134,12 +134,18 @@ export default (options = {}) => {
             map.file = fileName
 
             if (options.embedSources) {
-              const rootPath = options.embedSources.rootPath || '.'
               map.sourcesContent = map.sources.map((source, idx) => {
-                const file = idx === 0 ? res.id : source.replace(/^file:\/\//, '')
-                map.sources[idx] = path.relative(rootPath, file)
+                const trimmedSource = source.replace(/^file\:\/\//, '')
+
+                const file = res.id.substring(
+                  res.id.length - trimmedSource.length
+                ) == trimmedSource ? res.id : trimmedSource
+
+                map.sources[idx] = path.relative(
+                  options.embedSources.rootPath || '.', file)
+
                 return fs.readFileSync(file, 'utf8')
-              })
+              });
             }
           }
           concat.add(relative, res.code, map)
