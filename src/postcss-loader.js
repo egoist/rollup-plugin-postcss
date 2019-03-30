@@ -104,9 +104,10 @@ export default {
     const postcssOpts = {
       ...this.options.postcss,
       ...config.options,
+      // Allow overriding `to` for some plugins that are relying on this value
+      to: options.to || this.id,
       // Followings are never modified by user config config
       from: this.id,
-      to: this.id,
       map: this.sourceMap ?
         shouldExtract ?
           { inline: false, annotation: false } :
