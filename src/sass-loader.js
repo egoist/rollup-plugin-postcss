@@ -25,14 +25,17 @@ export default {
     return new Promise((resolve, reject) => {
       const sass = importCwd.silent('node-sass') || importCwd.silent('sass')
       if (!sass) {
-        throw new Error(`You need to install either node-sass or sass in order to process Sass files`)
+        throw new Error(
+          `You need to install either node-sass or sass in order to process Sass files`
+        )
       }
       const render = pify(sass.render.bind(sass))
+      const data = this.options.data || ''
       return workQueue.add(() =>
         render({
           ...this.options,
           file: this.id,
-          data: code,
+          data: data + code,
           indentedSyntax: /\.sass$/.test(this.id),
           sourceMap: this.sourceMap,
           importer: [
