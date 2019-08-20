@@ -2,6 +2,7 @@ import path from 'path'
 import { createFilter } from 'rollup-pluginutils'
 import Concat from 'concat-with-sourcemaps'
 import Loaders from './loaders'
+import normalizePath from './utils/normalize-path'
 
 /**
  * The options that could be `boolean` or `object`
@@ -114,11 +115,11 @@ export default (options = {}) => {
       const getExtracted = () => {
         const fileName =
           typeof postcssLoaderOptions.extract === 'string' ?
-            path.relative(dir, postcssLoaderOptions.extract) :
+            normalizePath(path.relative(dir, postcssLoaderOptions.extract)) :
             `${path.basename(file, path.extname(file))}.css`
         const concat = new Concat(true, fileName, '\n')
         const entries = Array.from(extracted.values())
-        const { modules } = bundle[path.relative(dir, file)]
+        const { modules } = bundle[normalizePath(path.relative(dir, file))]
 
         if (modules) {
           const fileList = Object.keys(modules)
@@ -127,7 +128,7 @@ export default (options = {}) => {
           )
         }
         for (const res of entries) {
-          const relative = path.relative(dir, res.id)
+          const relative = normalizePath(path.relative(dir, res.id))
           const map = res.map || null
           if (map) {
             map.file = fileName
