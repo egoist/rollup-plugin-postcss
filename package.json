@@ -1,5 +1,5 @@
 {
-  "name": "rollup-plugin-postcss",
+  "name": "@remax/rollup-plugin-postcss",
   "version": "2.0.3",
   "description": "Seamless integration between Rollup and PostCSS",
   "main": "dist/index.js",
