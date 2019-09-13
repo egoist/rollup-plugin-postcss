@@ -636,7 +636,7 @@ styleInject(css);
 var style$1 = /*#__PURE__*/Object.freeze({
   foo: foo,
   $new$: $new$,
-  default: style
+  'default': style
 });
 
 console.log(style$1);
@@ -682,7 +682,7 @@ styleInject(css);
 var style$1 = /*#__PURE__*/Object.freeze({
   foohacked: foohacked,
   newhacked: newhacked,
-  default: style
+  'default': style
 });
 
 console.log(style$1);

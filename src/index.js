@@ -180,19 +180,18 @@ export default (options = {}) => {
         }
       }
 
-      const codeFile = {
+      this.emitFile({
         fileName: codeFileName,
-        isAsset: true,
-        source: code
-      }
-      bundle[codeFile.fileName] = codeFile
+        source: code,
+        type: 'asset'
+      })
+
       if (map) {
-        const mapFile = {
+        this.emitFile({
           fileName: mapFileName,
-          isAsset: true,
+          type: 'asset',
           source: map
-        }
-        bundle[mapFile.fileName] = mapFile
+        })
       }
     }
   }
