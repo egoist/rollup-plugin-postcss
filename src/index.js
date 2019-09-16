@@ -183,6 +183,7 @@ export default (options = {}) => {
       const codeFile = {
         fileName: codeFileName,
         isAsset: true,
+        type: 'asset',
         source: code
       }
       bundle[codeFile.fileName] = codeFile
@@ -190,6 +191,7 @@ export default (options = {}) => {
         const mapFile = {
           fileName: mapFileName,
           isAsset: true,
+          type: 'asset',
           source: map
         }
         bundle[mapFile.fileName] = mapFile
