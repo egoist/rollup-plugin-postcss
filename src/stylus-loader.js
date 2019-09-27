@@ -5,10 +5,15 @@ export default {
   name: 'stylus',
   test: /\.(styl|stylus)$/,
   async process({ code }) {
-    const stylus = importCwd('stylus')
+    const { stylusInstance, ...options } = this.options
+    const stylus = stylusInstance || importCwd('stylus')
+
+    if (!stylus) {
+      throw new Error(`You need to install stylus or provide a compiler in order to process stylus files`)
+    }
 
     const style = stylus(code, {
-      ...this.options,
+      ...options,
       filename: this.id,
       sourcemap: this.sourceMap && {}
     })

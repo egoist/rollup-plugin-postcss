@@ -368,6 +368,111 @@ console.log(css, css$1);
 "
 `;
 
+exports[`less default: js code 1`] = `
+"'use strict';
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa;\\\\n}\\\\n\\";
+styleInject(css);
+"
+`;
+
+exports[`less provided instance: js code 1`] = `
+"'use strict';
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa;\\\\n}\\\\n\\";
+styleInject(css);
+"
+`;
+
+exports[`less sourcemap: js code 1`] = `
+"'use strict';
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvbGVzcy9mb28ubGVzcyIsImZvby5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsVUFBQTtFQUNBLHNCQUFBO0FDQ0YiLCJmaWxlIjoiZm9vLmxlc3MifQ== */\\";
+styleInject(css);
+"
+`;
+
 exports[`minimize extract: css code 1`] = `".bar,body{color:red}body{background:red}#sidebar{width:30%;background-color:#faa}#header{color:#6c94be}.pcss{color:red}"`;
 
 exports[`minimize extract: js code 1`] = `
@@ -804,6 +909,41 @@ console.log(style);
 "
 `;
 
+exports[`sass provided instance: js code 1`] = `
+"'use strict';
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
+styleInject(css);
+"
+`;
+
 exports[`sass sourcemap: js code 1`] = `
 "'use strict';
 
@@ -940,5 +1080,110 @@ var css$5 = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=dat
 styleInject(css$5);
 
 console.log(css, css$1);
+"
+`;
+
+exports[`stylus default: js code 1`] = `
+"'use strict';
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa;\\\\n}\\\\n\\";
+styleInject(css);
+"
+`;
+
+exports[`stylus provided instance: js code 1`] = `
+"'use strict';
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa;\\\\n}\\\\n\\";
+styleInject(css);
+"
+`;
+
+exports[`stylus sourcemap: js code 1`] = `
+"'use strict';
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa;\\\\n}\\\\n/*# sourceMappingURL=test/fixtures/stylus/foo.css.map */\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc3R5bHVzL2Zvby5zdHlsdXMiLCJmb28uc3R5bHVzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsVUFBTztFQUNQLHNCQUFrQjtBQ0NwQjtBQUNBLHVEQUF1RCIsImZpbGUiOiJmb28uc3R5bHVzIn0= */\\";
+styleInject(css);
 "
 `;

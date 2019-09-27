@@ -23,14 +23,15 @@ export default {
   test: /\.s[ac]ss$/,
   process({ code }) {
     return new Promise((resolve, reject) => {
-      const sass = importCwd.silent('node-sass') || importCwd.silent('sass')
+      const { sassInstance, ...options } = this.options
+      const sass = sassInstance || importCwd.silent('node-sass') || importCwd.silent('sass')
       if (!sass) {
-        throw new Error(`You need to install either node-sass or sass in order to process Sass files`)
+        throw new Error(`You need to install either node-sass, sass or provide a compiler in order to process Sass files`)
       }
       const render = pify(sass.render.bind(sass))
       return workQueue.add(() =>
         render({
-          ...this.options,
+          ...options,
           file: this.id,
           data: code,
           indentedSyntax: /\.sass$/.test(this.id),
