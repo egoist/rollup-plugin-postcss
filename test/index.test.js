@@ -1,6 +1,9 @@
 import path from 'path'
 import fs from 'fs-extra'
 import { rollup } from 'rollup'
+import nodeSass from 'node-sass'
+import less from 'less'
+import stylus from 'stylus'
 import postcss from '../src'
 
 process.env.ROLLUP_POSTCSS_TEST = true
@@ -308,6 +311,13 @@ snapshotMany('sass', [
     }
   },
   {
+    title: 'provided instance',
+    input: 'sass/index.js',
+    options: {
+      use: [['sass', { sassInstance: nodeSass }]]
+    }
+  },
+  {
     title: 'modules',
     input: 'sass-modules/index.js',
     options: {
@@ -317,6 +327,48 @@ snapshotMany('sass', [
   {
     title: 'import',
     input: 'sass-import/index.js'
+  }
+])
+
+snapshotMany('less', [
+  {
+    title: 'default',
+    input: 'less/index.js'
+  },
+  {
+    title: 'sourcemap',
+    input: 'less/index.js',
+    options: {
+      sourceMap: true
+    }
+  },
+  {
+    title: 'provided instance',
+    input: 'less/index.js',
+    options: {
+      use: [['less', { lessInstance: less }]]
+    }
+  }
+])
+
+snapshotMany('stylus', [
+  {
+    title: 'default',
+    input: 'stylus/index.js'
+  },
+  {
+    title: 'sourcemap',
+    input: 'stylus/index.js',
+    options: {
+      sourceMap: true
+    }
+  },
+  {
+    title: 'provided instance',
+    input: 'stylus/index.js',
+    options: {
+      use: [['stylus', { stylusInstance: stylus }]]
+    }
   }
 ])
 
