@@ -316,6 +316,31 @@ console.log(css, css$1);
 "
 `;
 
+exports[`inject function: js code 1`] = `
+"'use strict';
+
+var css = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+console.log(css);
+
+var css$1 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
+console.log(css$1);
+
+var css$2 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
+console.log(css$2);
+
+var css$3 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
+console.log(css$3);
+
+var css$4 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
+console.log(css$4);
+
+var css$5 = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
+console.log(css$5);
+
+console.log(css, css$1);
+"
+`;
+
 exports[`inject top: js code 1`] = `
 "'use strict';
 

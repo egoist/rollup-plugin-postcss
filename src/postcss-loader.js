@@ -189,11 +189,15 @@ export default {
       };`
     }
     if (!shouldExtract && shouldInject) {
-      output += `\nimport styleInject from '${styleInjectPath}';\nstyleInject(css${
-        Object.keys(options.inject).length > 0 ?
-          `,${JSON.stringify(options.inject)}` :
-          ''
-      });`
+      if (typeof options.inject === 'function') {
+        output += options.inject(this.id)
+      } else {
+        output += `\nimport styleInject from '${styleInjectPath}';\nstyleInject(css${
+          Object.keys(options.inject).length > 0 ?
+            `,${JSON.stringify(options.inject)}` :
+            ''
+        });`
+      }
     }
 
     return {
