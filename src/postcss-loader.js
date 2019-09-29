@@ -191,13 +191,17 @@ export default {
         `export const stylesheet=${JSON.stringify(res.css)};`
     }
     if (!shouldExtract && shouldInject) {
-      output += '\n' +
-        `import styleInject from '${styleInjectPath}';\n` +
-        `styleInject(css${
-          Object.keys(options.inject).length > 0 ?
-            `,${JSON.stringify(options.inject)}` :
-            ''
-        });`
+      if (typeof options.inject === 'function') {
+        output += options.inject(this.id)
+      } else {
+        output += '\n' +
+          `import styleInject from '${styleInjectPath}';\n` +
+          `styleInject(css${
+            Object.keys(options.inject).length > 0 ?
+              `,${JSON.stringify(options.inject)}` :
+              ''
+          });`
+      }
     }
 
     return {

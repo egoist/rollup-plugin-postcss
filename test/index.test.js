@@ -287,6 +287,13 @@ snapshotMany('inject', [
     }
   },
   {
+    title: 'function',
+    input: 'simple/index.js',
+    options: {
+      inject: () => 'console.log(css)'
+    }
+  },
+  {
     title: 'false',
     input: 'simple/index.js',
     options: {
