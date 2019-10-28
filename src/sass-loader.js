@@ -55,7 +55,7 @@ export default {
 
               const next = () => {
                 // Catch all resolving errors, return the original file and pass responsibility back to other custom importers
-                done({ file: url })
+                return null
               }
 
               // Give precedence to importing a partial
