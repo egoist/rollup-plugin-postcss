@@ -147,6 +147,9 @@ export default {
     const outputMap = res.map && JSON.parse(res.map.toString())
     if (outputMap && outputMap.sources) {
       outputMap.sources = outputMap.sources.map(v => normalizePath(v))
+      if (process.env.ROLLUP_POSTCSS_TEST) {
+        outputMap.sources = outputMap.sources.map(v => v.replace(path.resolve(), ''))
+      }
     }
 
     let output = ''
