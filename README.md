@@ -68,7 +68,7 @@ postcss({
 
 Install corresponding dependency:
 
-- For `Sass` install `node-sass`: `yarn add node-sass --dev`
+- For `Sass` install `node-sass` or `sass`: `yarn add node-sass --dev`
 - For `Stylus` Install `stylus`: `yarn add stylus --dev`
 - For `Less` Install `less`: `yarn add less --dev`
 
