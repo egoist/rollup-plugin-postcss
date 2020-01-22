@@ -1,12 +1,15 @@
-import importCwd from 'import-cwd'
 import pify from 'pify'
 import humanlizePath from './utils/humanlize-path'
+import { loadModule } from './utils/load-module'
 
 export default {
   name: 'less',
   test: /\.less$/,
   async process({ code }) {
-    const less = importCwd('less')
+    const less = loadModule('less')
+    if (!less) {
+      throw new Error(`You need to install "less" packages in order to process Less files`)
+    }
 
     let { css, map, imports } = await pify(less.render.bind(less))(code, {
       ...this.options,

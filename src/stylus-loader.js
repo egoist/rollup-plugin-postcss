@@ -1,11 +1,14 @@
-import importCwd from 'import-cwd'
 import pify from 'pify'
+import { loadModule } from './utils/load-module'
 
 export default {
   name: 'stylus',
   test: /\.(styl|stylus)$/,
   async process({ code }) {
-    const stylus = importCwd('stylus')
+    const stylus = loadModule('stylus')
+    if (!stylus) {
+      throw new Error(`You need to install "stylus" packages in order to process Stylus files`)
+    }
 
     const style = stylus(code, {
       ...this.options,

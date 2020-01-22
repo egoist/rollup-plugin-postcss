@@ -1,3 +1,5 @@
-/node_modules
-dist
-coverage
+/**/dist/
+/.idea/
+/coverage/
+/node_modules/
+/package-lock.json
