@@ -147,8 +147,6 @@ export default {
     const outputMap = res.map && JSON.parse(res.map.toString())
     if (outputMap && outputMap.sources) {
       outputMap.sources = outputMap.sources.map(v => normalizePath(v))
-      // Always remove the project root path from the source file path
-      outputMap.sources = outputMap.sources.map(v => v.replace(path.resolve(), ''))
     }
 
     let output = ''
