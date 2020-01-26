@@ -2,9 +2,10 @@ import importCwd from 'import-cwd'
 
 export function loadModule(moduleId) {
   // Trying to load module normally (relative to plugin directory)
-  const path = require.resolve(moduleId)
-  if (path) {
-    return require(path)
+  try {
+    return require(moduleId)
+  } catch (err) {
+    // Ignore error
   }
 
   // Then, trying to load it relative to CWD
