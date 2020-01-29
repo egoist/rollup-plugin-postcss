@@ -103,7 +103,6 @@ export default (options = {}) => {
     async generateBundle(opts, bundle) {
       if (extracted.size === 0) return
 
-      // TODO: support `[hash]`
       const dir = opts.dir || path.dirname(opts.file)
       const file =
         opts.file ||
@@ -112,11 +111,6 @@ export default (options = {}) => {
           Object.keys(bundle).find(fileName => bundle[fileName].isEntry)
         )
       const getExtracted = () => {
-        const fileName =
-          typeof postcssLoaderOptions.extract === 'string' ?
-            path.relative(dir, postcssLoaderOptions.extract) :
-            `${path.basename(file, path.extname(file))}.css`
-        const concat = new Concat(true, fileName, '\n')
         const entries = Array.from(extracted.values())
         const { modules } = bundle[path.relative(dir, file)]
 
@@ -126,6 +120,24 @@ export default (options = {}) => {
             (a, b) => fileList.indexOf(a.id) - fileList.indexOf(b.id)
           )
         }
+
+        let referenceId
+        if (typeof postcssLoaderOptions.extract === 'string') {
+          referenceId = this.emitFile({
+            type: 'asset',
+            source: '', // init
+            fileName: path.relative(dir, postcssLoaderOptions.extract)
+          })
+        } else {
+          const name = `${path.basename(file, path.extname(file))}.css`
+          // Base hash digest on concatenation of extracted code...
+          const source = entries.reduce((acc, { code }) => acc + code, '')
+
+          referenceId = this.emitFile({ type: 'asset', source, name })
+        }
+        const fileName = this.getFileName(referenceId)
+        const concat = new Concat(true, fileName, '\n')
+
         for (const res of entries) {
           const relative = path.relative(dir, res.id)
           const map = res.map || null
@@ -180,19 +192,9 @@ export default (options = {}) => {
         }
       }
 
-      const codeFile = {
-        fileName: codeFileName,
-        isAsset: true,
-        source: code
-      }
-      bundle[codeFile.fileName] = codeFile
+      bundle[codeFileName].source = code // update
       if (map) {
-        const mapFile = {
-          fileName: mapFileName,
-          isAsset: true,
-          source: map
-        }
-        bundle[mapFile.fileName] = mapFile
+        this.emitFile({ type: 'asset', source: map, fileName: mapFileName })
       }
     }
   }

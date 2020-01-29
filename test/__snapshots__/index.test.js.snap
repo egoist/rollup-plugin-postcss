@@ -634,9 +634,10 @@ var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"$new$\\":\\"
 styleInject(css);
 
 var style$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
   foo: foo,
   $new$: $new$,
-  default: style
+  'default': style
 });
 
 console.log(style$1);
@@ -680,9 +681,10 @@ var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"foohacked\\"
 styleInject(css);
 
 var style$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
   foohacked: foohacked,
   newhacked: newhacked,
-  default: style
+  'default': style
 });
 
 console.log(style$1);
