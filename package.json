@@ -85,5 +85,8 @@
         }
       ]
     ]
+  },
+  "release": {
+    "branches": ["master", "next"]
   }
 }
