@@ -25,7 +25,8 @@ async function write({
   })
   await bundle.write({
     format: 'cjs',
-    file: path.join(outDir, 'bundle.js')
+    file: path.join(outDir, 'bundle.js'),
+    assetFileNames: '[name][extname]'
   })
   const cssCodePath = typeof options.extract === 'string' ? options.extract : path.join(outDir, 'bundle.css')
   const cssMapPath = `${cssCodePath}.map`
