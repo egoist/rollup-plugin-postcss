@@ -108,6 +108,31 @@ Inject CSS into `<head>`, it's always `false` when `extract: true`.
 
 You can also use it as options for [`style-inject`](https://github.com/egoist/style-inject#options).
 
+### manualInjectName
+
+Type: `string` `function`<br>
+Default: `''`
+
+When CSS is not extracted and `manualInjectName` is not `''`, lazy inject takes effect by calling the function name defined by `manualInjectName`
+
+You can supply a function to control what the name is based on the CSS filename
+
+```js
+// rollup.config.js
+postcss({
+  manualInjectName: (filename) => filename.includes('foo') ? 'useFoo' : 'useStyle'
+})
+
+// component
+import foo, { useFoo } from './foo.css';
+import bar, { useStyle } from './bar.css';
+
+useFoo();
+useStyle()
+
+console.log(foo, bar)
+```
+
 ### extract
 
 Type: `boolean` `string`<br>

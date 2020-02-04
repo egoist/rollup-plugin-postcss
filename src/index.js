@@ -24,6 +24,8 @@ export default (options = {}) => {
   const postcssLoaderOptions = {
     /** Inject CSS as `<style>` to `<head>` */
     inject: inferOption(options.inject, {}),
+    /** Define the api's name of manually inject css */
+    manualInjectName: options.manualInjectName,
     /** Extract CSS */
     extract: typeof options.extract === 'undefined' ? false : options.extract,
     /** CSS modules */

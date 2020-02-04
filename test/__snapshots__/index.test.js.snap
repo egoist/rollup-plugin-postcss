@@ -316,6 +316,106 @@ console.log(css, css$1);
 "
 `;
 
+exports[`inject manual-inject-custom-api-name: js code 1`] = `
+"'use strict';
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+var refs = 0;
+          
+          function useFoo() {
+            if (!(refs++)) {
+              styleInject(css);
+            }
+          }
+
+var css$1 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
+var refs$1 = 0;
+          
+          function useBar() {
+            if (!(refs$1++)) {
+              styleInject(css$1);
+            }
+          }
+
+useFoo();
+useBar();
+
+console.log(css, css$1);
+"
+`;
+
+exports[`inject manual-inject-unified-api-name: js code 1`] = `
+"'use strict';
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+var refs = 0;
+          
+          function useStyle() {
+            if (!(refs++)) {
+              styleInject(css);
+            }
+          }
+
+useStyle();
+
+console.log(css);
+"
+`;
+
 exports[`inject top: js code 1`] = `
 "'use strict';
 

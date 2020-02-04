@@ -70,6 +70,7 @@ export default {
     ]
     const shouldExtract = options.extract
     const shouldInject = options.inject
+    const manualInjectName = (typeof options.manualInjectName === 'function' ? options.manualInjectName(this.id) : options.manualInjectName) || ''
 
     const modulesExported = {}
     const autoModules = options.autoModules !== false && isModuleFile(this.id)
@@ -187,13 +188,27 @@ export default {
       output += `var css = ${JSON.stringify(res.css)};\nexport default ${
         supportModules ? JSON.stringify(modulesExported[this.id]) : 'css'
       };`
-    }
-    if (!shouldExtract && shouldInject) {
-      output += `\nimport styleInject from '${styleInjectPath}';\nstyleInject(css${
-        Object.keys(options.inject).length > 0 ?
-          `,${JSON.stringify(options.inject)}` :
-          ''
-      });`
+
+      if (manualInjectName || shouldInject) {
+        output += `\nimport styleInject from '${styleInjectPath}';\n`
+
+        const injectOptsStr = Object.keys(options.inject).length > 0 ?
+        `,${JSON.stringify(options.inject)}` :
+        ''
+
+        if (manualInjectName) {
+          output += `var refs = 0;
+          
+          export function ${manualInjectName}() {
+            if (!(refs++)) {
+              styleInject(css${injectOptsStr});
+            }
+          }
+          `
+        } else {
+          output += `styleInject(css${injectOptsStr});`
+        }
+      }
     }
 
     return {

@@ -292,6 +292,20 @@ snapshotMany('inject', [
     options: {
       inject: false
     }
+  },
+  {
+    title: 'manual-inject-unified-api-name',
+    input: 'simple/manual-unified.js',
+    options: {
+      manualInjectName: 'useStyle'
+    }
+  },
+  {
+    title: 'manual-inject-custom-api-name',
+    input: 'simple/manual-custom.js',
+    options: {
+      manualInjectName: filename => filename.indexOf('bar') > -1 ? 'useBar' : 'useFoo'
+    }
   }
 ])
 
