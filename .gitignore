@@ -1,4 +1,5 @@
 /**/dist/
+!/dist
 /.idea/
 /coverage/
 /node_modules/
