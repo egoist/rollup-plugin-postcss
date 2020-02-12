@@ -3,7 +3,6 @@ import { createFilter } from 'rollup-pluginutils'
 import Concat from 'concat-with-sourcemaps'
 import Loaders from './loaders'
 import normalizePath from './utils/normalize-path';
-
 /**
  * The options that could be `boolean` or `object`
  * We convert it to an object when it's truthy
@@ -105,24 +104,26 @@ export default (options = {}) => {
       if (extracted.size === 0) return
 
       // TODO: support `[hash]`
-      const dir = opts.dir || path.dirname(opts.file)
-      const file =
-        opts.file ||
-        path.join(
-          opts.dir,
-          Object.keys(bundle).find(fileName => bundle[fileName].isEntry)
-        )
-      const getExtracted = () => {
-        const fileName =
-          typeof postcssLoaderOptions.extract === 'string' ?
-            path.relative(dir, postcssLoaderOptions.extract) :
-            `${path.basename(file, path.extname(file))}.css`
+      const getExtracted = (entry) => {
+        const dir = opts.dir || path.dirname(opts.file)
+        const { cwd, rootDir } = options.filepath;
+        const entryFilename = path.relative(cwd + '/' + rootDir, entry.facadeModuleId)
+        const fileName = `${path.dirname(entryFilename)}/${entry.name}.acss`
+
         const concat = new Concat(true, fileName, '\n')
-        const entries = Array.from(extracted.values())
-        const { modules } = bundle[normalizePath(path.relative(dir, file))]
+        // const entries = Array.from(extracted.values())
+        // const { modules } = bundle[normalizePath(path.relative(dir, file))]
+        const modules = entry.modules
+        const entries = [];
 
         if (modules) {
           const fileList = Object.keys(modules)
+          fileList.forEach(id => {
+            const m = extracted.get(id);
+            if (m) {
+              entries.push(m)
+            }
+          });
           entries.sort(
             (a, b) => fileList.indexOf(a.id) - fileList.indexOf(b.id)
           )
@@ -154,49 +155,53 @@ export default (options = {}) => {
         }
       }
 
-      if (options.onExtract) {
-        const shouldExtract = await options.onExtract(getExtracted)
-        if (shouldExtract === false) {
-          return
+      const handleEntry = async (entry) => {
+
+        let { code, codeFileName, map, mapFileName } = getExtracted(entry);
+        // Perform cssnano on the extracted file
+        if (postcssLoaderOptions.minimize) {
+          const cssOpts = postcssLoaderOptions.minimize
+          cssOpts.from = codeFileName
+          if (sourceMap === 'inline') {
+            cssOpts.map = { inline: true }
+          } else if (sourceMap === true && map) {
+            cssOpts.map = { prev: map }
+            cssOpts.to = codeFileName
+          }
+
+          const result = await require('cssnano').process(code, cssOpts)
+          code = result.css
+
+          if (sourceMap === true && result.map && result.map.toString) {
+            map = result.map.toString()
+          }
         }
-      }
 
-      let { code, codeFileName, map, mapFileName } = getExtracted()
-      // Perform cssnano on the extracted file
-      if (postcssLoaderOptions.minimize) {
-        const cssOpts = postcssLoaderOptions.minimize
-        cssOpts.from = codeFileName
-        if (sourceMap === 'inline') {
-          cssOpts.map = { inline: true }
-        } else if (sourceMap === true && map) {
-          cssOpts.map = { prev: map }
-          cssOpts.to = codeFileName
-        }
-
-        const result = await require('cssnano').process(code, cssOpts)
-        code = result.css
-
-        if (sourceMap === true && result.map && result.map.toString) {
-          map = result.map.toString()
-        }
-      }
-
-      const codeFile = {
-        fileName: codeFileName,
-        isAsset: true,
-        type: 'asset',
-        source: code
-      }
-      bundle[codeFile.fileName] = codeFile
-      if (map) {
-        const mapFile = {
-          fileName: mapFileName,
+        const codeFile = {
+          fileName: codeFileName,
           isAsset: true,
           type: 'asset',
-          source: map
+          source: code
         }
-        bundle[mapFile.fileName] = mapFile
+        bundle[codeFile.fileName] = codeFile
+        if (map) {
+          const mapFile = {
+            fileName: mapFileName,
+            isAsset: true,
+            type: 'asset',
+            source: map
+          }
+          bundle[mapFile.fileName] = mapFile
+        }
       }
+
+      const pp = Object.keys(bundle)
+        .filter(key => bundle[key].isEntry)
+        .map(key => {
+          return handleEntry(bundle[key]);
+        });
+
+      await Promise.all(pp);
     }
   }
 }
