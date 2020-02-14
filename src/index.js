@@ -101,6 +101,15 @@ export default (options = {}) => {
       }
     },
 
+    augmentChunkHash() {
+      if (extracted.size === 0) return
+      const extractedValue = Array.from(extracted).reduce((obj, [key, value]) => ({
+        ...obj,
+        [key]: value
+      }), {})
+      return JSON.stringify(extractedValue)
+    },
+
     async generateBundle(opts, bundle) {
       if (
         extracted.size === 0 ||
