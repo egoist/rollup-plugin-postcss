@@ -28,11 +28,12 @@ export default {
     return new Promise((resolve, reject) => {
       const sass = loadSassOrThrow()
       const render = pify(sass.render.bind(sass))
+      const data = this.options.data || ''
       return workQueue.add(() =>
         render({
           ...this.options,
           file: this.id,
-          data: code,
+          data: data + code,
           indentedSyntax: /\.sass$/.test(this.id),
           sourceMap: this.sourceMap,
           importer: [
