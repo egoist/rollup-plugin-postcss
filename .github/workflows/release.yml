@@ -6,6 +6,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Cache NPM dependencies
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-npm-cache-${{ matrix.os }}
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache-${{ matrix.os }}
+      - name: Install Dependencies
+        run: |
+          npm install -g yarn
+          yarn --frozen-lockfile --non-interactive
       - uses: actions/checkout@v2
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v2
