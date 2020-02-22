@@ -631,12 +631,14 @@ var foo = \\"style_foo\\";
 var $new$ = \\"style_new\\";
 var css = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\";
 var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"$new$\\":\\"style_new\\"};
+const stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\";
 styleInject(css);
 
 var style$1 = /*#__PURE__*/Object.freeze({
   foo: foo,
   $new$: $new$,
-  default: style
+  default: style,
+  stylesheet: stylesheet
 });
 
 console.log(style$1);
@@ -677,12 +679,14 @@ var foohacked = \\"style_foo\\";
 var newhacked = \\"style_new\\";
 var css = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\";
 var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"foohacked\\":\\"style_foo\\",\\"newhacked\\":\\"style_new\\"};
+const stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\";
 styleInject(css);
 
 var style$1 = /*#__PURE__*/Object.freeze({
   foohacked: foohacked,
   newhacked: newhacked,
-  default: style
+  default: style,
+  stylesheet: stylesheet
 });
 
 console.log(style$1);

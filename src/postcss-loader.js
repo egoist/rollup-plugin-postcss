@@ -186,7 +186,7 @@ export default {
     } else {
       output += `var css = ${JSON.stringify(res.css)};\nexport default ${
         supportModules ? JSON.stringify(modulesExported[this.id]) : 'css'
-      };`
+      };\nexport const stylesheet=${JSON.stringify(res.css)};`
     }
     if (!shouldExtract && shouldInject) {
       output += `\nimport styleInject from '${styleInjectPath}';\nstyleInject(css${
