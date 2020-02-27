@@ -6,6 +6,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js LTS
+        uses: actions/setup-node@v1
+        with:
+          # alias support: https://github.com/actions/setup-node/issues/26
+          node-version: '12'
       - name: Cache NPM dependencies
         uses: actions/cache@v1
         with:
