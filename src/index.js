@@ -102,7 +102,10 @@ export default (options = {}) => {
     },
 
     async generateBundle(opts, bundle) {
-      if (extracted.size === 0) return
+      if (
+        extracted.size === 0 ||
+        !(opts.dir || opts.file)
+      ) return
 
       // TODO: support `[hash]`
       const dir = opts.dir || path.dirname(opts.file)
