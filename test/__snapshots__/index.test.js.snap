@@ -636,10 +636,11 @@ const stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\
 styleInject(css);
 
 var style$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
   foo: foo,
   _new: _new,
   _default: _default,
-  default: style,
+  'default': style,
   stylesheet: stylesheet
 });
 
@@ -686,10 +687,11 @@ const stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\
 styleInject(css);
 
 var style$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
   foohacked: foohacked,
   newhacked: newhacked,
   defaulthacked: defaulthacked,
-  default: style,
+  'default': style,
   stylesheet: stylesheet
 });
 
