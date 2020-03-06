@@ -628,16 +628,18 @@ function styleInject(css, ref) {
 }
 
 var foo = \\"style_foo\\";
-var $new$ = \\"style_new\\";
-var css = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\";
-var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"$new$\\":\\"style_new\\"};
-const stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\";
+var _new = \\"style_new\\";
+var _default = \\"style_default\\";
+var css = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
+var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"default\\":\\"style_default\\",\\"_new\\":\\"style_new\\",\\"_default\\":\\"style_default\\"};
+const stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
 styleInject(css);
 
 var style$1 = /*#__PURE__*/Object.freeze({
   __proto__: null,
   foo: foo,
-  $new$: $new$,
+  _new: _new,
+  _default: _default,
   'default': style,
   stylesheet: stylesheet
 });
@@ -678,15 +680,17 @@ function styleInject(css, ref) {
 
 var foohacked = \\"style_foo\\";
 var newhacked = \\"style_new\\";
-var css = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\";
-var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"foohacked\\":\\"style_foo\\",\\"newhacked\\":\\"style_new\\"};
-const stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\";
+var defaulthacked = \\"style_default\\";
+var css = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
+var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"default\\":\\"style_default\\",\\"foohacked\\":\\"style_foo\\",\\"newhacked\\":\\"style_new\\",\\"defaulthacked\\":\\"style_default\\"};
+const stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
 styleInject(css);
 
 var style$1 = /*#__PURE__*/Object.freeze({
   __proto__: null,
   foohacked: foohacked,
   newhacked: newhacked,
+  defaulthacked: defaulthacked,
   'default': style,
   stylesheet: stylesheet
 });
@@ -699,6 +703,41 @@ exports[`onExtract 1`] = `
 "'use strict';
 
 console.log(undefined, undefined);
+"
+`;
+
+exports[`sass data-prepend: js code 1`] = `
+"'use strict';
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css = \\".special {\\\\n  color: pink; }\\\\n\\";
+styleInject(css);
 "
 `;
 
