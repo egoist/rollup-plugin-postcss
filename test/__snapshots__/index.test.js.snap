@@ -628,15 +628,17 @@ function styleInject(css, ref) {
 }
 
 var foo = \\"style_foo\\";
-var $new$ = \\"style_new\\";
-var css = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\";
-var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"$new$\\":\\"style_new\\"};
-const stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\";
+var _new = \\"style_new\\";
+var _default = \\"style_default\\";
+var css = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
+var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"default\\":\\"style_default\\",\\"_new\\":\\"style_new\\",\\"_default\\":\\"style_default\\"};
+const stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
 styleInject(css);
 
 var style$1 = /*#__PURE__*/Object.freeze({
   foo: foo,
-  $new$: $new$,
+  _new: _new,
+  _default: _default,
   default: style,
   stylesheet: stylesheet
 });
@@ -677,14 +679,16 @@ function styleInject(css, ref) {
 
 var foohacked = \\"style_foo\\";
 var newhacked = \\"style_new\\";
-var css = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\";
-var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"foohacked\\":\\"style_foo\\",\\"newhacked\\":\\"style_new\\"};
-const stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\";
+var defaulthacked = \\"style_default\\";
+var css = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
+var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"default\\":\\"style_default\\",\\"foohacked\\":\\"style_foo\\",\\"newhacked\\":\\"style_new\\",\\"defaulthacked\\":\\"style_default\\"};
+const stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
 styleInject(css);
 
 var style$1 = /*#__PURE__*/Object.freeze({
   foohacked: foohacked,
   newhacked: newhacked,
+  defaulthacked: defaulthacked,
   default: style,
   stylesheet: stylesheet
 });
