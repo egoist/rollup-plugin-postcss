@@ -2,7 +2,7 @@ import path from 'path'
 import importCwd from 'import-cwd'
 import postcss from 'postcss'
 import findPostcssConfig from 'postcss-load-config'
-import reserved from 'reserved-words'
+import { identifier } from 'safe-identifier'
 import humanlizePath from './utils/humanlize-path'
 import normalizePath from './utils/normalize-path'
 
@@ -40,10 +40,7 @@ function escapeClassNameDashes(str) {
 
 function ensureClassName(name) {
   name = escapeClassNameDashes(name)
-  if (reserved.check(name)) {
-    name = `$${name}$`
-  }
-  return name
+  return identifier(name, false)
 }
 
 function ensurePostCSSOption(option) {
