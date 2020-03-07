@@ -182,16 +182,22 @@ export default {
         map: outputMap
       }
     } else {
-      output += `var css = ${JSON.stringify(res.css)};\nexport default ${
-        supportModules ? JSON.stringify(modulesExported[this.id]) : 'css'
-      };\nexport const stylesheet=${JSON.stringify(res.css)};`
+      const module = supportModules
+        ? JSON.stringify(modulesExported[this.id])
+        : 'css'
+      output +=
+        `var css = ${JSON.stringify(res.css)};` + '\n' +
+        `export default ${module};` + '\n' +
+        `export const stylesheet=${JSON.stringify(res.css)};`
     }
     if (!shouldExtract && shouldInject) {
-      output += `\nimport styleInject from '${styleInjectPath}';\nstyleInject(css${
-        Object.keys(options.inject).length > 0 ?
-          `,${JSON.stringify(options.inject)}` :
-          ''
-      });`
+      output += '\n' +
+        `import styleInject from '${styleInjectPath}';` + '\n' +
+        `styleInject(css${
+          Object.keys(options.inject).length > 0 ?
+            `,${JSON.stringify(options.inject)}` :
+            ''
+        });`
     }
 
     return {
