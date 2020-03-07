@@ -49,7 +49,7 @@ export default (options = {}) => {
   let use = ['sass', 'stylus', 'less']
   if (Array.isArray(options.use)) {
     use = options.use
-  } else if (options.use != null && typeof options.use === 'object') {
+  } else if (options.use !== null && typeof options.use === 'object') {
     use = [
       ['sass', options.use.sass || {}],
       ['stylus', options.use.stylus || {}],
