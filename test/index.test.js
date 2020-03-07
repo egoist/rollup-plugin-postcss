@@ -327,6 +327,15 @@ snapshotMany('sass', [
     }
   },
   {
+    title: 'data-prepend',
+    input: 'sass-data-prepend/index.js',
+    options: {
+      use: {
+        sass: { data: '@import \'prepend\';' }
+      }
+    }
+  },
+  {
     title: 'import',
     input: 'sass-import/index.js'
   }
