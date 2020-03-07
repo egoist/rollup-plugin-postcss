@@ -206,17 +206,17 @@ export default (options = {}) => {
 
       const codeFile = {
         fileName: codeFileName,
-        isAsset: true,
+        type: 'asset',
         source: code
       }
-      bundle[codeFile.fileName] = codeFile
+      this.emitFile(codeFile)
       if (map) {
         const mapFile = {
           fileName: mapFileName,
-          isAsset: true,
+          type: 'asset',
           source: map
         }
-        bundle[mapFile.fileName] = mapFile
+        this.emitFile(mapFile)
       }
     }
   }
