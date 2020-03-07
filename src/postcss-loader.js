@@ -182,9 +182,9 @@ export default {
         map: outputMap
       }
     } else {
-      const module = supportModules
-        ? JSON.stringify(modulesExported[this.id])
-        : 'css'
+      const module = supportModules ?
+        JSON.stringify(modulesExported[this.id]) :
+        'css'
       output +=
         `var css = ${JSON.stringify(res.css)};` + '\n' +
         `export default ${module};` + '\n' +
