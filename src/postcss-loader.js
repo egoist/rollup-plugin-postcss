@@ -186,13 +186,13 @@ export default {
         JSON.stringify(modulesExported[this.id]) :
         'css'
       output +=
-        `var css = ${JSON.stringify(res.css)};` + '\n' +
-        `export default ${module};` + '\n' +
+        `var css = ${JSON.stringify(res.css)};\n` +
+        `export default ${module};\n` +
         `export const stylesheet=${JSON.stringify(res.css)};`
     }
     if (!shouldExtract && shouldInject) {
       output += '\n' +
-        `import styleInject from '${styleInjectPath}';` + '\n' +
+        `import styleInject from '${styleInjectPath}';\n` +
         `styleInject(css${
           Object.keys(options.inject).length > 0 ?
             `,${JSON.stringify(options.inject)}` :
