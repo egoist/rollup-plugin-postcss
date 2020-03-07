@@ -1,58 +1,58 @@
-## [Version 2.0.3](https://github.com/:egoist/rollup-plugin-postcss/releases/tag/v2.0.3) (2019-1-31)
+## [Version 2.0.3](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v2.0.3) (2019-1-31)
 
 ### Bug fixes
 
-- update engines field: [`2bfbcc3`](https://github.com/:egoist/rollup-plugin-postcss/commit/2bfbcc3)
+- update engines field: [`2bfbcc3`](https://github.com/egoist/rollup-plugin-postcss/commit/2bfbcc3)
 
-[...full changes](https://github.com/:egoist/rollup-plugin-postcss/compare/v2.0.2...v2.0.3)
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v2.0.2...v2.0.3)
 
-## [Version 2.0.2](https://github.com/:egoist/rollup-plugin-postcss/releases/tag/v2.0.2) (2019-1-31)
-
-### Bug fixes
-
-- support node 6: [`c7734ed`](https://github.com/:egoist/rollup-plugin-postcss/commit/c7734ed)
-
-[...full changes](https://github.com/:egoist/rollup-plugin-postcss/compare/v2.0.1...v2.0.2)
-
-## [Version 2.0.1](https://github.com/:egoist/rollup-plugin-postcss/releases/tag/v2.0.1) (2019-1-26)
+## [Version 2.0.2](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v2.0.2) (2019-1-31)
 
 ### Bug fixes
 
-- don't panic when code-splitting: [`63c1a8d`](https://github.com/:egoist/rollup-plugin-postcss/commit/63c1a8d)
+- support node 6: [`c7734ed`](https://github.com/egoist/rollup-plugin-postcss/commit/c7734ed)
 
-[...full changes](https://github.com/:egoist/rollup-plugin-postcss/compare/v2.0.0...v2.0.1)
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v2.0.1...v2.0.2)
 
-## [Version 2.0.0](https://github.com/:egoist/rollup-plugin-postcss/releases/tag/v2.0.0) (2019-1-23)
+## [Version 2.0.1](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v2.0.1) (2019-1-26)
+
+### Bug fixes
+
+- don't panic when code-splitting: [`63c1a8d`](https://github.com/egoist/rollup-plugin-postcss/commit/63c1a8d)
+
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v2.0.0...v2.0.1)
+
+## [Version 2.0.0](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v2.0.0) (2019-1-23)
 
 ### Breaking changes
 
-- Use `generateBundle` instead of `onwrite`: [`59fb0e9`](https://github.com/:egoist/rollup-plugin-postcss/commit/59fb0e9) ([#148](https://github.com/:egoist/rollup-plugin-postcss/issues/148))
+- Use `generateBundle` instead of `onwrite`: [`59fb0e9`](https://github.com/egoist/rollup-plugin-postcss/commit/59fb0e9) ([#148](https://github.com/egoist/rollup-plugin-postcss/issues/148))
 
 ### New features
 
-- Allow custom `modules.getJSON` function: [`5faa7a4`](https://github.com/:egoist/rollup-plugin-postcss/commit/5faa7a4) ([#132](https://github.com/:egoist/rollup-plugin-postcss/issues/132))
-- update postcss-modules to support camelCase option: [`b201582`](https://github.com/:egoist/rollup-plugin-postcss/commit/b201582) ([#117](https://github.com/:egoist/rollup-plugin-postcss/issues/117))
-- Allow boolean plugins support: [`57dac24`](https://github.com/:egoist/rollup-plugin-postcss/commit/57dac24) ([#142](https://github.com/:egoist/rollup-plugin-postcss/issues/142))
-- perform minimize after extract is finished: [`20aeab4`](https://github.com/:egoist/rollup-plugin-postcss/commit/20aeab4) ([#153](https://github.com/:egoist/rollup-plugin-postcss/issues/153))
-- watch imported css files: [`5596ca9`](https://github.com/:egoist/rollup-plugin-postcss/commit/5596ca9)
-- update postcss dependencies: [`09c0137`](https://github.com/:egoist/rollup-plugin-postcss/commit/09c0137)
-- support dart-sass: [`2ad5ae1`](https://github.com/:egoist/rollup-plugin-postcss/commit/2ad5ae1)
+- Allow custom `modules.getJSON` function: [`5faa7a4`](https://github.com/egoist/rollup-plugin-postcss/commit/5faa7a4) ([#132](https://github.com/egoist/rollup-plugin-postcss/issues/132))
+- update postcss-modules to support camelCase option: [`b201582`](https://github.com/egoist/rollup-plugin-postcss/commit/b201582) ([#117](https://github.com/egoist/rollup-plugin-postcss/issues/117))
+- Allow boolean plugins support: [`57dac24`](https://github.com/egoist/rollup-plugin-postcss/commit/57dac24) ([#142](https://github.com/egoist/rollup-plugin-postcss/issues/142))
+- perform minimize after extract is finished: [`20aeab4`](https://github.com/egoist/rollup-plugin-postcss/commit/20aeab4) ([#153](https://github.com/egoist/rollup-plugin-postcss/issues/153))
+- watch imported css files: [`5596ca9`](https://github.com/egoist/rollup-plugin-postcss/commit/5596ca9)
+- update postcss dependencies: [`09c0137`](https://github.com/egoist/rollup-plugin-postcss/commit/09c0137)
+- support dart-sass: [`2ad5ae1`](https://github.com/egoist/rollup-plugin-postcss/commit/2ad5ae1)
 
 ### Bug fixes
 
-- fixes #135 check map.source before pre-pending dirname: [`5168c12`](https://github.com/:egoist/rollup-plugin-postcss/commit/5168c12) ([#136](https://github.com/:egoist/rollup-plugin-postcss/issues/136))
-- update cssnano: [`b756821`](https://github.com/:egoist/rollup-plugin-postcss/commit/b756821) ([#133](https://github.com/:egoist/rollup-plugin-postcss/issues/133))
-- fix cssnano warnings: [`aaccc8f`](https://github.com/:egoist/rollup-plugin-postcss/commit/aaccc8f)
+- fixes #135 check map.source before pre-pending dirname: [`5168c12`](https://github.com/egoist/rollup-plugin-postcss/commit/5168c12) ([#136](https://github.com/egoist/rollup-plugin-postcss/issues/136))
+- update cssnano: [`b756821`](https://github.com/egoist/rollup-plugin-postcss/commit/b756821) ([#133](https://github.com/egoist/rollup-plugin-postcss/issues/133))
+- fix cssnano warnings: [`aaccc8f`](https://github.com/egoist/rollup-plugin-postcss/commit/aaccc8f)
 
-[...full changes](https://github.com/:egoist/rollup-plugin-postcss/compare/v1.6.3...v2.0.0)
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.6.3...v2.0.0)
 
-## [Version 1.6.3](https://github.com/:egoist/rollup-plugin-postcss/releases/tag/v1.6.3) (2018-11-21)
+## [Version 1.6.3](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.6.3) (2018-11-21)
 
 ### Bug fixes
 
-- fix compatibility with rollup-plugin-vue: [`cd405c3`](https://github.com/:egoist/rollup-plugin-postcss/commit/cd405c3)
+- fix compatibility with rollup-plugin-vue: [`cd405c3`](https://github.com/egoist/rollup-plugin-postcss/commit/cd405c3)
 
-[...full changes](https://github.com/:egoist/rollup-plugin-postcss/compare/v1.6.2...v1.6.3)
+[...full changes](https://github.com/egoist/rollup-plugin-postcss/compare/v1.6.2...v1.6.3)
 
 ## [Version 1.6.2](https://github.com/egoist/rollup-plugin-postcss/releases/tag/v1.6.2) (2018-5-28)
 
