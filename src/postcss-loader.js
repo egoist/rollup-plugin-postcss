@@ -102,8 +102,8 @@ export default {
       ...this.options.postcss,
       ...config.options,
       // Followings are never modified by user config config
-      from: this.id,
-      to: this.id,
+      from: options.postcss.from || this.id,
+      to: options.postcss.to || this.id,
       map: this.sourceMap ?
         shouldExtract ?
           { inline: false, annotation: false } :

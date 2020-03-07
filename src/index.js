@@ -41,7 +41,9 @@ export default (options = {}) => {
       plugins: postcssPlugins,
       syntax: options.syntax,
       stringifier: options.stringifier,
-      exec: options.exec
+      exec: options.exec,
+      from: options.from,
+      to: options.to
     }
   }
   const use = options.use || ['sass', 'stylus', 'less']
