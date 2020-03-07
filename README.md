@@ -244,6 +244,13 @@ module.exports = context => {
 }
 ```
 
+### to
+
+Type: `string`
+
+Destination CSS filename hint that could be used by PostCSS plugins, for example, 
+to properly resolve path, rebase and copy assets.
+
 ### use
 
 Type: `name[]` `[name, options][]`<br>
