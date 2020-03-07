@@ -253,7 +253,8 @@ to properly resolve path, rebase and copy assets.
 
 ### use
 
-Type: `name[]` `[name, options][]`<br>
+Type: `name[]` `[name, options][]` `{ sass: options, stylus: options, less: options }`
+
 Default: `['sass', 'stylus', 'less']`
 
 Use a loader, currently built-in loaders are:
@@ -263,6 +264,9 @@ Use a loader, currently built-in loaders are:
 - `less` (Support `.less`)
 
 They are executed from right to left.
+
+If you pass the `object`, then its property `sass`, `stylus` and `less` will
+be pass in the corresponding loader.
 
 ### loaders
 

@@ -46,7 +46,16 @@ export default (options = {}) => {
       exec: options.exec
     }
   }
-  const use = options.use || ['sass', 'stylus', 'less']
+  let use = ['sass', 'stylus', 'less']
+  if (Array.isArray(options.use)) {
+    use = options.use
+  } else if (options.use !== null && typeof options.use === 'object') {
+    use = [
+      ['sass', options.use.sass || {}],
+      ['stylus', options.use.stylus || {}],
+      ['less', options.use.less || {}]
+    ]
+  }
   use.unshift(['postcss', postcssLoaderOptions])
 
   const loaders = new Loaders({
