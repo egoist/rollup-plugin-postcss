@@ -368,6 +368,20 @@ console.log(css, css$1);
 "
 `;
 
+exports[`keepRequire 1`] = `
+"'use strict';
+
+var style = require('./style.css');
+
+console.log(style);
+"
+`;
+
+exports[`keepRequire 2`] = `
+"export default \\".foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.default {\\\\n  color: green;\\\\n}\\\\n\\";
+"
+`;
+
 exports[`minimize extract: css code 1`] = `".bar,body{color:red}body{background:red}#sidebar{width:30%;background-color:#faa}#header{color:#6c94be}.pcss{color:red}"`;
 
 exports[`minimize extract: js code 1`] = `

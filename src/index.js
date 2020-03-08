@@ -1,8 +1,10 @@
 import path from 'path'
+import { readFileSync } from 'fs'
 import { createFilter } from 'rollup-pluginutils'
 import Concat from 'concat-with-sourcemaps'
 import Loaders from './loaders'
 import normalizePath from './utils/normalize-path'
+import postcssLoader from './postcss-loader'
 
 /**
  * The options that could be `boolean` or `object`
@@ -68,6 +70,36 @@ export default (options = {}) => {
 
   return {
     name: 'postcss',
+
+    async resolveId(source, importer) {
+      if (postcssLoaderOptions.extract &&
+        postcssLoaderOptions.extract.keepExternal &&
+        postcssLoader.test(source)
+      ) {
+        if (typeof options.onExtract === 'function' &&
+          options.onExtract(source) === true
+        ) {
+          return null;
+        }
+        const { id } = await this.resolve(source, importer, { skipSelf: true })
+        const code = readFileSync(id, { encoding: 'utf8' })
+        const res = await loaders.process({ code, map: undefined }, {
+          id,
+          sourceMap,
+          dependencies: new Set(),
+          warn: this.warn.bind(this),
+          plugin: this
+        })
+        extracted.set(id, {
+          ...res.extracted,
+          code: res.code
+        })
+        return {
+          id: source,
+          external: true
+        }
+      }
+    },
 
     async transform(code, id) {
       if (!filter(id) || !loaders.isSupported(id)) {

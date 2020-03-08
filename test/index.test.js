@@ -356,6 +356,20 @@ test('onExtract', async () => {
   expect(await res.hasCssFile()).toBe(false)
 })
 
+test('keepRequire', async () => {
+  const res = await write({
+    input: 'named-exports/index.js',
+    outDir: 'keepRequire',
+    options: {
+      extract: {
+        keepExternal: true
+      }
+    }
+  })
+  expect(await res.jsCode()).toMatchSnapshot()
+  expect(await res.cssCode()).toMatchSnapshot()
+})
+
 test('augmentChunkHash', async () => {
   const outDir = fixture('dist', 'augmentChunkHash')
   const cssFiles = ['simple/foo.css', 'simple/foo.css', 'simple/bar.css']

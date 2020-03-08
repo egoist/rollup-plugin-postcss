@@ -65,8 +65,9 @@ export default {
       ...(options.postcss.plugins || []),
       ...(config.plugins || [])
     ]
-    const shouldExtract = options.extract
+    const shouldExtract = typeof options.extract !== 'object' ? options.extract : false
     const shouldInject = options.inject
+    const keepExternal = typeof options.extract === 'object' ? options.extract.keepExternal : false
 
     const modulesExported = {}
     const autoModules = options.autoModules !== false && isModuleFile(this.id)
@@ -150,7 +151,7 @@ export default {
     let output = ''
     let extracted
 
-    if (options.namedExports) {
+    if (options.namedExports || keepExternal) {
       const json = modulesExported[this.id]
       const getClassName =
         typeof options.namedExports === 'function' ?
@@ -174,8 +175,12 @@ export default {
       }
     }
 
-    if (shouldExtract) {
-      output += `export default ${JSON.stringify(modulesExported[this.id])};`
+    if (shouldExtract || keepExternal) {
+      if (!keepExternal) {
+        output += `export default ${JSON.stringify(modulesExported[this.id])};\n`
+      } else {
+        output += `export default ${JSON.stringify(res.css)};\n`
+      }
       extracted = {
         id: this.id,
         code: res.css,
@@ -190,7 +195,7 @@ export default {
         `export default ${module};\n` +
         `export const stylesheet=${JSON.stringify(res.css)};`
     }
-    if (!shouldExtract && shouldInject) {
+    if (!shouldExtract && shouldInject && !keepExternal) {
       output += '\n' +
         `import styleInject from '${styleInjectPath}';\n` +
         `styleInject(css${
