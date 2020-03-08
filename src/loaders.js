@@ -9,6 +9,7 @@ const matchFile = (filepath, condition) => {
   if (typeof condition === 'function') {
     return condition(filepath)
   }
+
   return condition && condition.test(filepath)
 }
 
@@ -18,9 +19,11 @@ export default class Loaders {
       if (typeof rule === 'string') {
         return [rule]
       }
+
       if (Array.isArray(rule)) {
         return rule
       }
+
       throw new TypeError('The rule in `use` option must be string or Array!')
     })
     this.loaders = []
@@ -42,6 +45,7 @@ export default class Loaders {
     if (existing) {
       this.removeLoader(loader.name)
     }
+
     this.loaders.push(loader)
     return this
   }
@@ -75,12 +79,10 @@ export default class Loaders {
         .reverse()
         .map(([name, options]) => {
           const loader = this.getLoader(name)
-          const loaderContext = Object.assign(
-            {
-              options: options || {}
-            },
-            context
-          )
+          const loaderContext = {
+            options: options || {},
+            ...context
+          }
 
           return v => {
             if (
@@ -89,6 +91,7 @@ export default class Loaders {
             ) {
               return loader.process.call(loaderContext, v)
             }
+
             // Otherwise directly return input value
             return v
           }

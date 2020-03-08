@@ -12,9 +12,10 @@ const styleInjectPath = require
 
 function loadConfig(id, { ctx: configOptions, path: configPath }) {
   const handleError = err => {
-    if (err.message.indexOf('No PostCSS Config found') === -1) {
+    if (!err.message.includes('No PostCSS Config found')) {
       throw err
     }
+
     // Return empty options for PostCSS
     return {}
   }
@@ -60,7 +61,7 @@ export default {
       await loadConfig(this.id, this.options.config) :
       {}
 
-    const options = this.options
+    const { options } = this
     const plugins = [
       ...(options.postcss.plugins || []),
       ...(config.plugins || [])
@@ -106,9 +107,9 @@ export default {
       // Followings are never modified by user config config
       from: this.id,
       map: this.sourceMap ?
-        shouldExtract ?
+        (shouldExtract ?
           { inline: false, annotation: false } :
-          { inline: true, annotation: false } :
+          { inline: true, annotation: false }) :
         false
     }
     delete postcssOpts.plugins
@@ -167,9 +168,11 @@ export default {
             `Exported "${name}" as "${newName}" in ${humanlizePath(this.id)}`
           )
         }
+
         if (!json[newName]) {
           json[newName] = json[name]
         }
+
         output += `export var ${newName} = ${JSON.stringify(json[name])};\n`
       }
     }
@@ -190,6 +193,7 @@ export default {
         `export default ${module};\n` +
         `export const stylesheet=${JSON.stringify(res.css)};`
     }
+
     if (!shouldExtract && shouldInject) {
       output += '\n' +
         `import styleInject from '${styleInjectPath}';\n` +

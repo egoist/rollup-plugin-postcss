@@ -7,7 +7,7 @@ export default {
   async process({ code }) {
     const stylus = loadModule('stylus')
     if (!stylus) {
-      throw new Error(`You need to install "stylus" packages in order to process Stylus files`)
+      throw new Error('You need to install "stylus" packages in order to process Stylus files')
     }
 
     const style = stylus(code, {

@@ -1,3 +1,4 @@
+/* eslint-disable promise/prefer-await-to-then */
 import path from 'path'
 import pify from 'pify'
 import resolve from 'resolve'
@@ -62,10 +63,10 @@ export default {
               // Give precedence to importing a partial
               resolvePromise(partialUrl, options)
                 .then(finishImport)
-                .catch(err => {
+                .catch(error => {
                   if (
-                    err.code === 'MODULE_NOT_FOUND' ||
-                    err.code === 'ENOENT'
+                    error.code === 'MODULE_NOT_FOUND' ||
+                    error.code === 'ENOENT'
                   ) {
                     resolvePromise(moduleUrl, options)
                       .then(finishImport)
@@ -81,6 +82,7 @@ export default {
             for (const file of res.stats.includedFiles) {
               this.dependencies.add(file)
             }
+
             resolve({
               code: res.css.toString(),
               map: res.map && res.map.toString()
@@ -103,8 +105,8 @@ function loadSassOrThrow() {
 
   // Throwing exception if module can't be loaded
   throw new Error(
-    `You need to install one of the following packages: ` +
+    'You need to install one of the following packages: ' +
     sassModuleIds.map(moduleId => `"${moduleId}"`).join(', ') + ' ' +
-    `in order to process SASS files`
+    'in order to process SASS files'
   )
 }

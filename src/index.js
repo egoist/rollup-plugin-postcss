@@ -20,7 +20,7 @@ export default (options = {}) => {
   const postcssPlugins = Array.isArray(options.plugins) ?
     options.plugins.filter(Boolean) :
     options.plugins
-  const sourceMap = options.sourceMap
+  const { sourceMap } = options
   const postcssLoaderOptions = {
     /** Inject CSS as `<style>` to `<head>` */
     inject: inferOption(options.inject, {}),
@@ -56,6 +56,7 @@ export default (options = {}) => {
       ['less', options.use.less || {}]
     ]
   }
+
   use.unshift(['postcss', postcssLoaderOptions])
 
   const loaders = new Loaders({
@@ -114,7 +115,7 @@ export default (options = {}) => {
 
     augmentChunkHash() {
       if (extracted.size === 0) return
-      const extractedValue = Array.from(extracted).reduce((obj, [key, value]) => ({
+      const extractedValue = [...extracted].reduce((obj, [key, value]) => ({
         ...obj,
         [key]: value
       }), {})
@@ -141,7 +142,7 @@ export default (options = {}) => {
             normalizePath(path.relative(dir, postcssLoaderOptions.extract)) :
             `${path.basename(file, path.extname(file))}.css`
         const concat = new Concat(true, fileName, '\n')
-        const entries = Array.from(extracted.values())
+        const entries = [...extracted.values()]
         const { modules } = bundle[normalizePath(path.relative(dir, file))]
 
         if (modules) {
@@ -150,14 +151,17 @@ export default (options = {}) => {
             (a, b) => fileList.indexOf(a.id) - fileList.indexOf(b.id)
           )
         }
+
         for (const res of entries) {
           const relative = normalizePath(path.relative(dir, res.id))
           const map = res.map || null
           if (map) {
             map.file = fileName
           }
+
           concat.add(relative, res.code, map)
         }
+
         let code = concat.content
 
         if (sourceMap === 'inline') {

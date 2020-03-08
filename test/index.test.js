@@ -63,12 +63,13 @@ function snapshot({
         outDir,
         options
       })
-    } catch (err) {
-      const frame = err.codeFrame || err.snippet
+    } catch (error) {
+      const frame = error.codeFrame || error.snippet
       if (frame) {
-        throw new Error(frame + err.message)
+        throw new Error(frame + error.message)
       }
-      throw err
+
+      throw error
     }
 
     expect(await res.jsCode()).toMatchSnapshot('js code')
@@ -361,19 +362,21 @@ test('augmentChunkHash', async () => {
   const cssFiles = ['simple/foo.css', 'simple/foo.css', 'simple/bar.css']
 
   const outputFiles = []
-  /* eslint-disable no-await-in-loop */
   for (const file of cssFiles) {
+    /* eslint-disable-next-line no-await-in-loop */
     const newBundle = await rollup({
       input: fixture(file),
       plugins: [postcss({ extract: true })]
     })
     const entryFileName = file.split('.')[0]
+    /* eslint-disable-next-line no-await-in-loop */
     const { output } = await newBundle.write({
       dir: outDir,
       entryFileNames: `${entryFileName}.[hash].css`
     })
     outputFiles.push(output[0])
   }
+
   const [fooOne, fooTwo, barOne] = outputFiles
 
   const fooHash = fooOne.fileName.split('.')[1]
