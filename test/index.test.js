@@ -290,7 +290,7 @@ snapshotMany('inject', [
     title: 'function',
     input: 'simple/index.js',
     options: {
-      inject: () => 'console.log(css)'
+      inject: variableName => `console.log(${variableName})`
     }
   },
   {

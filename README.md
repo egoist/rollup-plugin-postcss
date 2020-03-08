@@ -101,14 +101,15 @@ PostCSS Plugins.
 
 ### inject
 
-Type: `boolean` `object` `function(file): string`<br>
+Type: `boolean` `object` `function(cssVariableName, fileId): string`
+
 Default: `true`
 
 Inject CSS into `<head>`, it's always `false` when `extract: true`.
 
 You can also use it as options for [`style-inject`](https://github.com/egoist/style-inject#options).
 
-It can also be a `function`, returning a `string` with `css` populated with output string.
+It can also be a `function` , returning a `string` which is js code.
 
 ### extract
 

@@ -174,6 +174,7 @@ export default {
       }
     }
 
+    const cssVariableName = identifier('css', true)
     if (shouldExtract) {
       output += `export default ${JSON.stringify(modulesExported[this.id])};`
       extracted = {
@@ -184,19 +185,19 @@ export default {
     } else {
       const module = supportModules ?
         JSON.stringify(modulesExported[this.id]) :
-        'css'
+        cssVariableName
       output +=
-        `var css = ${JSON.stringify(res.css)};\n` +
+        `var ${cssVariableName} = ${JSON.stringify(res.css)};\n` +
         `export default ${module};\n` +
         `export const stylesheet=${JSON.stringify(res.css)};`
     }
     if (!shouldExtract && shouldInject) {
       if (typeof options.inject === 'function') {
-        output += options.inject(this.id)
+        output += options.inject(cssVariableName, this.id)
       } else {
         output += '\n' +
           `import styleInject from '${styleInjectPath}';\n` +
-          `styleInject(css${
+          `styleInject(${cssVariableName}${
             Object.keys(options.inject).length > 0 ?
               `,${JSON.stringify(options.inject)}` :
               ''
