@@ -7,7 +7,7 @@
     "dist"
   ],
   "scripts": {
-    "test": "jest",
+    "test": "npm run lint && jest",
     "test:cov": "npm run lint && jest --coverage",
     "build": "bili",
     "lint": "xo",
@@ -27,7 +27,7 @@
     "url": "https://github.com/egoist/rollup-plugin-postcss/issues"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=6"
   },
   "homepage": "https://github.com/egoist/rollup-plugin-postcss#readme",
   "devDependencies": {
@@ -42,7 +42,7 @@
     "jest": "^23.6.0",
     "less": "^3.11.1",
     "node-sass": "^4.13.1",
-    "rollup": "^2.0.2",
+    "rollup": "^1.32.1",
     "stylus": "^0.54.7",
     "sugarss": "^2.0.0",
     "xo": "^0.27.2"
@@ -69,24 +69,25 @@
       "jest"
     ],
     "rules": {
-      "import/prefer-default-export": 0,
-      "import/no-unassigned-import": [
-        "error",
-        {
-          "allow": [
-            "test/**/*"
-          ]
-        }
-      ]
+      "import/prefer-default-export": 0
     }
   },
   "jest": {
     "testEnvironment": "node"
   },
-  "release": {
-    "branches": [
-      "master",
-      "next"
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "6"
+          }
+        }
+      ]
     ]
+  },
+  "release": {
+    "branches": ["master", "next"]
   }
 }
