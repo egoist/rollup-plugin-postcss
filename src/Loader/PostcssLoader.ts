@@ -6,7 +6,7 @@ import { SourceDescription } from 'rollup'
 import { identifier } from 'safe-identifier'
 
 import { Loader, LoaderContext } from '../type'
-import { humanlizePath, normalizePath } from '../util'
+import { extracted, humanlizePath, normalizePath } from '../util'
 
 const styleInjectPath = require
   .resolve('style-inject/dist/style-inject.es')
@@ -59,7 +59,7 @@ export class PostcssLoader implements Loader {
   always = true
   name = 'postcss'
 
-  async process ({ code, map }: SourceDescription, context: LoaderContext) {
+  async process ({ code, map }: SourceDescription, context: LoaderContext): Promise<SourceDescription> {
     const config: { [key: string]: any } = context.options.config
       ? await loadConfig(context.id, context.options.config)
       : {}
@@ -158,7 +158,6 @@ export class PostcssLoader implements Loader {
     }
 
     let output = ''
-    let extracted
 
     if (options.namedExports) {
       const json = modulesExported[context.id]
@@ -187,11 +186,11 @@ export class PostcssLoader implements Loader {
     const cssVariableName = identifier('css', true)
     if (shouldExtract) {
       output += `export default ${JSON.stringify(modulesExported[context.id])};`
-      extracted = {
+      extracted.set(context.id, {
         id: context.id,
         code: res.css,
         map: outputMap
-      }
+      })
     } else {
       const module = supportModules
         ? JSON.stringify(modulesExported[context.id])
@@ -217,8 +216,7 @@ export class PostcssLoader implements Loader {
 
     return {
       code: output,
-      map: outputMap,
-      extracted
+      map: outputMap
     }
   }
 
