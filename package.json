@@ -1,0 +1,110 @@
+{
+  "name": "rollup-plugin-postcss",
+  "version": "2.0.3",
+  "description": "Seamless integration between Rollup and PostCSS",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "npm run lint && jest",
+    "test:cov": "npm run lint && jest --coverage",
+    "build": "bili",
+    "lint": "yarn lint:eslint",
+    "lint:fix": "yarn lint:eslint --fix",
+    "lint:eslint": "eslint --ext .jsx,.js,.ts,.tsx src",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/egoist/rollup-plugin-postcss.git"
+  },
+  "keywords": [
+    "postcss",
+    "rollup"
+  ],
+  "author": "EGOIST <0x142857@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/egoist/rollup-plugin-postcss/issues"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "homepage": "https://github.com/egoist/rollup-plugin-postcss#readme",
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@types/fs-extra": "^8.1.0",
+    "@types/jest": "^25.1.4",
+    "@types/less": "^3.0.1",
+    "@types/node": "^13.9.0",
+    "@types/node-sass": "^4.11.0",
+    "@types/p-queue": "^3.2.1",
+    "@types/pify": "^3.0.2",
+    "@types/postcss-load-config": "^2.0.1",
+    "@types/resolve": "^1.14.0",
+    "@types/sass": "^1.16.0",
+    "@types/stylus": "^0.48.32",
+    "@typescript-eslint/eslint-plugin": "^2.22.0",
+    "@typescript-eslint/parser": "^2.22.0",
+    "autoprefixer": "^7.2.4",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
+    "bili": "^4.2.4",
+    "eslint": "^6.8.0",
+    "eslint-config-rem": "^4.0.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-simple-import-sort": "^5.0.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "fs-extra": "^8.1.0",
+    "jest": "^25.1.0",
+    "less": "^2.7.3",
+    "node-sass": "^4.13.1",
+    "rollup": "^2.0.2",
+    "stylus": "^0.54.7",
+    "sugarss": "^1.0.1",
+    "ts-jest": "^25.2.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "concat-with-sourcemaps": "^1.1.0",
+    "cssnano": "^4.1.8",
+    "import-cwd": "^3.0.0",
+    "p-queue": "^6.3.0",
+    "pify": "^3.0.0",
+    "postcss": "^7.0.14",
+    "postcss-load-config": "^2.1.0",
+    "postcss-modules": "^1.4.1",
+    "promise.series": "^0.2.0",
+    "resolve": "^1.15.1",
+    "rollup-pluginutils": "^2.8.2",
+    "safe-identifier": "^0.3.1",
+    "style-inject": "^0.3.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "10"
+          }
+        }
+      ]
+    ]
+  },
+  "release": {
+    "branches": [
+      "master",
+      "next"
+    ]
+  }
+}
