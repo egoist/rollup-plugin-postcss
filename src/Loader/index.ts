@@ -9,6 +9,13 @@ import sassLoader from './LoaderPlugins/sassLoader'
 import stylusLoader from './LoaderPlugins/stylusLoader'
 import { PostcssLoader } from './PostcssLoader'
 
+const matchFile = (filepath: string, condition: Function | RegExp) => {
+  if (typeof condition === 'function') {
+    return condition(filepath)
+  }
+  return condition && condition.test(filepath)
+}
+
 export class Loaders {
   use: [string, object][] = []
   loaders: Loader[] = []
@@ -62,11 +69,10 @@ export class Loaders {
             ...context,
             options: options
           }
-
           return (source: SourceDescription) => {
             if (
               loader.always ||
-              loader.test
+              matchFile(name, loader.test)
             ) {
               return loader.process(source, loaderContext)
             }
@@ -79,7 +85,9 @@ export class Loaders {
   }
 
   isSupport (id: string): boolean {
-    return this.loaders.some(loader => loader.test(id))
+    return this.loaders.some(loader => {
+      return matchFile(id, loader.test)
+    })
   }
 }
 

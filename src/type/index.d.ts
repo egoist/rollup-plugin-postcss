@@ -16,5 +16,5 @@ export interface Loader {
 
   process (source: SourceDescription, context: LoaderContext): SourceDescription | Promise<SourceDescription>
 
-  test (str: string): boolean
+  test: (str: string) => boolean | RegExp
 }
