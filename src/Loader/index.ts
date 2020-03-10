@@ -47,9 +47,13 @@ export class Loaders {
       loaders.forEach(loader => this.registerPlugin(loader))
     } else {
       const loader = loaders
-      const exist = this.loaders.find(_loader => _loader.name === loader.name)
-      if (exist) {
-        return
+      const exist = this.loaders.findIndex(_loader => _loader.name === loader.name)
+      if (exist === -1) {
+        this.loaders = [
+          ...this.loaders.slice(0, exist),
+          loader,
+          ...this.loaders.slice(exist + 1, this.loaders.length)
+        ]
       }
       this.loaders.push(loader)
     }
