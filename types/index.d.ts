@@ -1,28 +1,44 @@
 import { Plugin } from 'rollup'
+import { CreateFilter } from 'rollup-pluginutils'
 
-type FunctionType = (...args: any[]) => void;
+type FunctionType<T = any, U = any> = (...args: T[]) => U;
 
-type PostCssPluginOptions = {
-  extensions?: string[];
-  plugins?: any[];
-  inject?: boolean | any;
-  extract?: boolean | string;
-  modules?: boolean | any;
-  autoModules?: boolean;
-  namedExports?: boolean | FunctionType;
-  minimize?: boolean | any;
-  sourceMap?: boolean | 'inline';
-  parser?: string | FunctionType;
-  stringifier?: string | FunctionType;
-  syntax?: string | FunctionType;
-  exec?: boolean;
+type onExtract = (asset: {
+  code: any
+  map: any
+  codeFileName: string
+  mapFileName: string
+}) => boolean
+
+export type PostCSSPluginConf = {
+  inject?: boolean | { [key: string]: any } | ((cssVariableName: string, id: string) => string)
+  extract?: boolean | string
+  onExtract?: onExtract
+  modules?: boolean | { [key: string]: any }
+  extensions?: string[]
+  plugins?: any[]
+  autoModules?: boolean
+  namedExports?: boolean | ((id: string) => boolean)
+  minimize?: boolean | any
+  parser?: string | FunctionType
+  stringifier?: string | FunctionType
+  syntax?: string | FunctionType
+  exec?: boolean
   config?: boolean | {
-    path: string;
-    ctx: any;
+    path: string
+    ctx: any
   };
-  name?: any[] | any[][];
-  loaders?: any[];
-  onImport?: (id: any) => void;
+  to?: string
+  name?: any[] | any[][]
+  loaders?: any[]
+  onImport?: (id: string) => void
+  use?: string[] | { [key in 'sass' | 'stylus' | 'less']: any }
+  /**
+   * @default: false
+   **/
+  sourceMap?: boolean | 'inline'
+  include?: Parameters<CreateFilter>[0]
+  exclude?: Parameters<CreateFilter>[1]
 }
 
-export default function postcss (options: PostCssPluginOptions): Plugin;
+export default function (options: PostCSSPluginConf): Plugin
