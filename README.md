@@ -50,7 +50,9 @@ It will also automatically use local PostCSS config files.
 
 ```js
 postcss({
-  extract: true
+  extract: true,
+  // Or with custom file name
+  extract: 'dist/my-custom-file-name.css'
 })
 ```
 
