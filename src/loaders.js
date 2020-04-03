@@ -29,7 +29,7 @@ export default class Loaders {
     const customPostcssLoader = {
       ...postcssLoader,
       test: filepath => extensions.some(ext => path.extname(filepath) === ext)
-    } 
+    }
     this.registerLoader(customPostcssLoader)
     this.registerLoader(sassLoader)
     this.registerLoader(stylusLoader)
