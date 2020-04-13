@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-postcss",
-  "version": "2.4.1",
+  "version": "2.5.1",
   "description": "Seamless integration between Rollup and PostCSS",
   "main": "dist/index.js",
   "files": [
@@ -27,40 +27,41 @@
     "url": "https://github.com/egoist/rollup-plugin-postcss/issues"
   },
   "engines": {
-    "node": ">=6"
+    "node": ">=10"
   },
   "types": "./types/index.d.ts",
   "homepage": "https://github.com/egoist/rollup-plugin-postcss#readme",
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "autoprefixer": "^7.2.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "autoprefixer": "^9.7.6",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^23.6.0",
-    "bili": "^4.2.4",
+    "babel-jest": "^25.3.0",
+    "bili": "^4.9.0",
     "eslint-config-rem": "^4.0.0",
-    "fs-extra": "^7.0.1",
-    "jest": "^23.6.0",
-    "less": "^2.7.3",
+    "fs-extra": "^9.0.0",
+    "jest": "^25.3.0",
+    "less": "^3.11.1",
     "node-sass": "^4.13.1",
-    "rollup": "^1.32.0",
-    "stylus": "^0.54.5",
-    "sugarss": "^1.0.1",
-    "xo": "^0.18.2"
+    "rollup": "^1.32.1",
+    "stylus": "^0.54.7",
+    "sugarss": "^2.0.0",
+    "xo": "^0.29.1"
   },
   "dependencies": {
-    "chalk": "^2.4.2",
-    "concat-with-sourcemaps": "^1.0.5",
-    "cssnano": "^4.1.8",
-    "import-cwd": "^2.1.0",
-    "p-queue": "^2.4.2",
-    "pify": "^3.0.0",
-    "postcss": "^7.0.14",
-    "postcss-load-config": "^2.0.0",
-    "postcss-modules": "^1.4.1",
+    "chalk": "^4.0.0",
+    "concat-with-sourcemaps": "^1.1.0",
+    "cssnano": "^4.1.10",
+    "import-cwd": "^3.0.0",
+    "p-queue": "^6.3.0",
+    "pify": "^5.0.0",
+    "postcss": "^7.0.27",
+    "postcss-load-config": "^2.1.0",
+    "postcss-modules": "^1.5.0",
     "promise.series": "^0.2.0",
-    "resolve": "^1.5.0",
-    "rollup-pluginutils": "^2.0.1",
-    "safe-identifier": "^0.3.1",
+    "resolve": "^1.15.1",
+    "rollup-pluginutils": "^2.8.2",
+    "safe-identifier": "^0.4.1",
     "style-inject": "^0.3.0"
   },
   "xo": {
@@ -69,7 +70,12 @@
       "jest"
     ],
     "rules": {
-      "import/prefer-default-export": 0
+      "import/prefer-default-export": 0,
+      "import/extensions": 0,
+      "import/no-unassigned-import": 0,
+      "@typescript-eslint/semi": 0,
+      "eslint-comments/disable-enable-pair": 0,
+      "promise/prefer-await-to-then": 0
     }
   },
   "jest": {
@@ -88,6 +94,9 @@
     ]
   },
   "release": {
-    "branches": ["master", "next"]
+    "branches": [
+      "master",
+      "next"
+    ]
   }
 }
