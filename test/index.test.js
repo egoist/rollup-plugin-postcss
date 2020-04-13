@@ -88,7 +88,7 @@ function snapshot({
         expect(await result.cssMap()).toMatchSnapshot('css map')
       }
     }
-  })
+  }, 10000)
 }
 
 function snapshotMany(title, tests) {
