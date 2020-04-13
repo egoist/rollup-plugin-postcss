@@ -65,7 +65,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = \\"body {\\\\n  display: -webkit-box;\\\\n  display: -ms-flexbox;\\\\n  display: flex;\\\\n}\\\\n\\";
+var css_248z = \\"body {\\\\n  display: flex;\\\\n}\\\\n\\";
 styleInject(css_248z);
 "
 `;
