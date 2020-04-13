@@ -6,7 +6,6 @@ export function loadModule(moduleId) {
     return require(moduleId)
   } catch (error) {
     // Ignore error
-    console.error(error)
   }
 
   // Then, trying to load it relative to CWD
