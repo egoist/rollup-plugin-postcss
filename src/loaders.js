@@ -26,9 +26,11 @@ export default class Loaders {
     this.loaders = []
 
     const extensions = options.extensions || ['.css', '.sss', '.pcss']
-    postcssLoader.test = filepath =>
-      extensions.some(ext => path.extname(filepath) === ext)
-    this.registerLoader(postcssLoader)
+    const customPostcssLoader = {
+      ...postcssLoader,
+      test: filepath => extensions.some(ext => path.extname(filepath) === ext)
+    }
+    this.registerLoader(customPostcssLoader)
     this.registerLoader(sassLoader)
     this.registerLoader(stylusLoader)
     this.registerLoader(lessLoader)
