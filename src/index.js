@@ -20,7 +20,7 @@ export default (options = {}) => {
   const postcssPlugins = Array.isArray(options.plugins) ?
     options.plugins.filter(Boolean) :
     options.plugins
-  const sourceMap = options.sourceMap
+  const { sourceMap } = options
   const postcssLoaderOptions = {
     /** Inject CSS as `<style>` to `<head>` */
     inject: typeof options.inject === 'function' ? options.inject : inferOption(options.inject, {}),
@@ -56,6 +56,7 @@ export default (options = {}) => {
       ['less', options.use.less || {}]
     ]
   }
+
   use.unshift(['postcss', postcssLoaderOptions])
 
   const loaders = new Loaders({
@@ -86,7 +87,7 @@ export default (options = {}) => {
         plugin: this
       }
 
-      const res = await loaders.process(
+      const result = await loaders.process(
         {
           code,
           map: undefined
@@ -99,40 +100,40 @@ export default (options = {}) => {
       }
 
       if (postcssLoaderOptions.extract) {
-        extracted.set(id, res.extracted)
+        extracted.set(id, result.extracted)
         return {
-          code: res.code,
+          code: result.code,
           map: { mappings: '' }
         }
       }
 
       return {
-        code: res.code,
-        map: res.map || { mappings: '' }
+        code: result.code,
+        map: result.map || { mappings: '' }
       }
     },
 
     augmentChunkHash() {
       if (extracted.size === 0) return
-      const extractedValue = Array.from(extracted).reduce((obj, [key, value]) => ({
-        ...obj,
+      const extractedValue = [...extracted].reduce((object, [key, value]) => ({
+        ...object,
         [key]: value
       }), {})
       return JSON.stringify(extractedValue)
     },
 
-    async generateBundle(opts, bundle) {
+    async generateBundle(options_, bundle) {
       if (
         extracted.size === 0 ||
-        !(opts.dir || opts.file)
+        !(options_.dir || options_.file)
       ) return
 
       // TODO: support `[hash]`
-      const dir = opts.dir || path.dirname(opts.file)
+      const dir = options_.dir || path.dirname(options_.file)
       const file =
-        opts.file ||
+        options_.file ||
         path.join(
-          opts.dir,
+          options_.dir,
           Object.keys(bundle).find(fileName => bundle[fileName].isEntry)
         )
       const getExtracted = () => {
@@ -141,7 +142,7 @@ export default (options = {}) => {
             normalizePath(path.relative(dir, postcssLoaderOptions.extract)) :
             `${path.basename(file, path.extname(file))}.css`
         const concat = new Concat(true, fileName, '\n')
-        const entries = Array.from(extracted.values())
+        const entries = [...extracted.values()]
         const { modules } = bundle[normalizePath(path.relative(dir, file))]
 
         if (modules) {
@@ -150,14 +151,17 @@ export default (options = {}) => {
             (a, b) => fileList.indexOf(a.id) - fileList.indexOf(b.id)
           )
         }
-        for (const res of entries) {
-          const relative = normalizePath(path.relative(dir, res.id))
-          const map = res.map || null
+
+        for (const result of entries) {
+          const relative = normalizePath(path.relative(dir, result.id))
+          const map = result.map || null
           if (map) {
             map.file = fileName
           }
-          concat.add(relative, res.code, map)
+
+          concat.add(relative, result.code, map)
         }
+
         let code = concat.content
 
         if (sourceMap === 'inline') {
@@ -187,16 +191,16 @@ export default (options = {}) => {
       let { code, codeFileName, map, mapFileName } = getExtracted()
       // Perform cssnano on the extracted file
       if (postcssLoaderOptions.minimize) {
-        const cssOpts = postcssLoaderOptions.minimize
-        cssOpts.from = codeFileName
+        const cssOptions = postcssLoaderOptions.minimize
+        cssOptions.from = codeFileName
         if (sourceMap === 'inline') {
-          cssOpts.map = { inline: true }
+          cssOptions.map = { inline: true }
         } else if (sourceMap === true && map) {
-          cssOpts.map = { prev: map }
-          cssOpts.to = codeFileName
+          cssOptions.map = { prev: map }
+          cssOptions.to = codeFileName
         }
 
-        const result = await require('cssnano').process(code, cssOpts)
+        const result = await require('cssnano').process(code, cssOptions)
         code = result.css
 
         if (sourceMap === true && result.map && result.map.toString) {

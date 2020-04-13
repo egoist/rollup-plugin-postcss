@@ -8,7 +8,7 @@ export default {
   async process({ code }) {
     const less = loadModule('less')
     if (!less) {
-      throw new Error(`You need to install "less" packages in order to process Less files`)
+      throw new Error('You need to install "less" packages in order to process Less files')
     }
 
     let { css, map, imports } = await pify(less.render.bind(less))(code, {

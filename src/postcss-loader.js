@@ -12,14 +12,15 @@ const styleInjectPath = require
 
 function loadConfig(id, { ctx: configOptions, path: configPath }) {
   const handleError = err => {
-    if (err.message.indexOf('No PostCSS Config found') === -1) {
+    if (!err.message.includes('No PostCSS Config found')) {
       throw err
     }
+
     // Return empty options for PostCSS
     return {}
   }
 
-  configPath = configPath ? path.resolve(configPath) : path.dirname(id)
+  configPath = configPath ? path.resultolve(configPath) : path.dirname(id)
   const ctx = {
     file: {
       extname: path.extname(id),
@@ -32,8 +33,8 @@ function loadConfig(id, { ctx: configOptions, path: configPath }) {
   return findPostcssConfig(ctx, configPath).catch(handleError)
 }
 
-function escapeClassNameDashes(str) {
-  return str.replace(/-+/g, match => {
+function escapeClassNameDashes(string) {
+  return string.replace(/-+/g, match => {
     return `$${match.replace(/-/g, '_')}$`
   })
 }
@@ -60,7 +61,7 @@ export default {
       await loadConfig(this.id, this.options.config) :
       {}
 
-    const options = this.options
+    const { options } = this
     const plugins = [
       ...(options.postcss.plugins || []),
       ...(config.plugins || [])
@@ -98,7 +99,7 @@ export default {
       plugins.push(require('cssnano')(options.minimize))
     }
 
-    const postcssOpts = {
+    const postcssOptions = {
       ...this.options.postcss,
       ...config.options,
       // Allow overriding `to` for some plugins that are relying on this value
@@ -106,19 +107,19 @@ export default {
       // Followings are never modified by user config config
       from: this.id,
       map: this.sourceMap ?
-        shouldExtract ?
+        (shouldExtract ?
           { inline: false, annotation: false } :
-          { inline: true, annotation: false } :
+          { inline: true, annotation: false }) :
         false
     }
-    delete postcssOpts.plugins
+    delete postcssOptions.plugins
 
-    postcssOpts.parser = ensurePostCSSOption(postcssOpts.parser)
-    postcssOpts.syntax = ensurePostCSSOption(postcssOpts.syntax)
-    postcssOpts.stringifier = ensurePostCSSOption(postcssOpts.stringifier)
+    postcssOptions.parser = ensurePostCSSOption(postcssOptions.parser)
+    postcssOptions.syntax = ensurePostCSSOption(postcssOptions.syntax)
+    postcssOptions.stringifier = ensurePostCSSOption(postcssOptions.stringifier)
 
-    if (map && postcssOpts.map) {
-      postcssOpts.map.prev = typeof map === 'string' ? JSON.parse(map) : map
+    if (map && postcssOptions.map) {
+      postcssOptions.map.prev = typeof map === 'string' ? JSON.parse(map) : map
     }
 
     if (plugins.length === 0) {
@@ -130,19 +131,19 @@ export default {
       plugins.push(noopPlugin())
     }
 
-    const res = await postcss(plugins).process(code, postcssOpts)
+    const result = await postcss(plugins).process(code, postcssOptions)
 
-    for (const msg of res.messages) {
-      if (msg.type === 'dependency') {
-        this.dependencies.add(msg.file)
+    for (const message of result.messages) {
+      if (message.type === 'dependency') {
+        this.dependencies.add(message.file)
       }
     }
 
-    for (const warning of res.warnings()) {
+    for (const warning of result.warnings()) {
       this.warn(warning)
     }
 
-    const outputMap = res.map && JSON.parse(res.map.toString())
+    const outputMap = result.map && JSON.parse(result.map.toString())
     if (outputMap && outputMap.sources) {
       outputMap.sources = outputMap.sources.map(v => normalizePath(v))
     }
@@ -167,9 +168,11 @@ export default {
             `Exported "${name}" as "${newName}" in ${humanlizePath(this.id)}`
           )
         }
+
         if (!json[newName]) {
           json[newName] = json[name]
         }
+
         output += `export var ${newName} = ${JSON.stringify(json[name])};\n`
       }
     }
@@ -179,7 +182,7 @@ export default {
       output += `export default ${JSON.stringify(modulesExported[this.id])};`
       extracted = {
         id: this.id,
-        code: res.css,
+        code: result.css,
         map: outputMap
       }
     } else {
@@ -187,10 +190,11 @@ export default {
         JSON.stringify(modulesExported[this.id]) :
         cssVariableName
       output +=
-        `var ${cssVariableName} = ${JSON.stringify(res.css)};\n` +
+        `var ${cssVariableName} = ${JSON.stringify(result.css)};\n` +
         `export default ${module};\n` +
-        `export const stylesheet=${JSON.stringify(res.css)};`
+        `export const stylesheet=${JSON.stringify(result.css)};`
     }
+
     if (!shouldExtract && shouldInject) {
       if (typeof options.inject === 'function') {
         output += options.inject(cssVariableName, this.id)
