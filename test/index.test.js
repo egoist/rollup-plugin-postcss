@@ -56,35 +56,36 @@ function snapshot({
   options = {}
 }) {
   test(title, async () => {
-    let res
+    let result
     try {
-      res = await write({
+      result = await write({
         input,
         outDir,
         options
       })
-    } catch (err) {
-      const frame = err.codeFrame || err.snippet
+    } catch (error) {
+      const frame = error.codeFrame || error.snippet
       if (frame) {
-        throw new Error(frame + err.message)
+        throw new Error(frame + error.message)
       }
-      throw err
+
+      throw error
     }
 
-    expect(await res.jsCode()).toMatchSnapshot('js code')
+    expect(await result.jsCode()).toMatchSnapshot('js code')
 
     if (options.extract) {
-      expect(await res.hasCssFile()).toBe(true)
-      expect(await res.cssCode()).toMatchSnapshot('css code')
+      expect(await result.hasCssFile()).toBe(true)
+      expect(await result.cssCode()).toMatchSnapshot('css code')
     }
 
     const sourceMap = options && options.sourceMap
     if (sourceMap === 'inline') {
-      expect(await res.hasCssMapFile()).toBe(false)
+      expect(await result.hasCssMapFile()).toBe(false)
     } else if (sourceMap === true) {
-      expect(await res.hasCssMapFile()).toBe(Boolean(options.extract))
+      expect(await result.hasCssMapFile()).toBe(Boolean(options.extract))
       if (options.extract) {
-        expect(await res.cssMap()).toMatchSnapshot('css map')
+        expect(await result.cssMap()).toMatchSnapshot('css map')
       }
     }
   })
@@ -349,7 +350,7 @@ snapshotMany('sass', [
 ])
 
 test('onExtract', async () => {
-  const res = await write({
+  const result = await write({
     input: 'simple/index.js',
     outDir: 'onExtract',
     options: {
@@ -359,8 +360,8 @@ test('onExtract', async () => {
       }
     }
   })
-  expect(await res.jsCode()).toMatchSnapshot()
-  expect(await res.hasCssFile()).toBe(false)
+  expect(await result.jsCode()).toMatchSnapshot()
+  expect(await result.hasCssFile()).toBe(false)
 })
 
 test('augmentChunkHash', async () => {
@@ -381,6 +382,7 @@ test('augmentChunkHash', async () => {
     })
     outputFiles.push(output[0])
   }
+
   const [fooOne, fooTwo, barOne] = outputFiles
 
   const fooHash = fooOne.fileName.split('.')[1]
