@@ -20,7 +20,7 @@ function loadConfig(id, { ctx: configOptions, path: configPath }) {
     return {}
   }
 
-  configPath = configPath ? path.resultolve(configPath) : path.dirname(id)
+  configPath = configPath ? path.resolve(configPath) : path.dirname(id)
   const ctx = {
     file: {
       extname: path.extname(id),
