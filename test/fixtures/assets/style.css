@@ -1,7 +1,15 @@
+html {
+  background: url('background.jpg');
+}
+
 body {
   background: url('background.jpg');
 }
 
 @font-face {
   src: url('font.woff2') format('woff2');
+}
+
+.any {
+  background: url(data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==);
 }
