@@ -140,6 +140,10 @@ export default {
     }
 
     for (const warning of result.warnings()) {
+      if (!warning.message) {
+        warning.message = warning.text
+      }
+
       this.warn(warning)
     }
 
