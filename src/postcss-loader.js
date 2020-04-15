@@ -101,30 +101,33 @@ export default {
     }
 
     const shouldListAssets = options.assets
-    const assets = {};
+    const assets = {}
     if (shouldListAssets) {
       plugins.unshift(
         postcss.plugin('postcss-extract-assets', () => {
-          return function(styles, result) {
-            styles.walkDecls(function(decl) {
+          return function (styles) {
+            styles.walkDecls(decl => {
               if (!decl.value) {
                 return
               }
-              const [, url]= decl.value.match(/url\([\'\"]?(.*?)[\'\"]?\)/) || [null, null];
+
+              const [, url] = decl.value.match(/url\(['"]?(.*?)['"]?\)/) || [null, null]
               if (!url) {
                 return
               }
 
               if (url in assets) {
-                return;
+                return
               }
-              let as = null;
-              if (decl.parent.name == 'font-face' && decl.prop == 'src') {
+
+              let as = null
+              if (decl.parent.name === 'font-face' && decl.prop === 'src') {
                 as = 'font'
-              } else if (decl.prop == 'background' || decl.prop == 'background-image') {
+              } else if (decl.prop === 'background' || decl.prop === 'background-image') {
                 as = 'image'
               }
-              assets[url] = as;
+
+              assets[url] = as
             })
           }
         })
