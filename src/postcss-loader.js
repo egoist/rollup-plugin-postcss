@@ -107,12 +107,8 @@ export default {
         postcss.plugin('postcss-extract-assets', () => {
           return function (styles) {
             styles.walkDecls(decl => {
-              if (!decl.value) {
-                return
-              }
-
-              const [, url] = decl.value.match(/url\(['"]?(.*?)['"]?\)/) || [null, null]
-              if (!url) {
+              const [, url] = (decl.value || '').match(/url\(['"]?(.*?)['"]?\)/) || [null, null]
+              if (!url || url.indexOf('data:') === 0 || url.indexOf('#') === 0) {
                 return
               }
 
