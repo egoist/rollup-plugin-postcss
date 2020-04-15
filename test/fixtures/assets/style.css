@@ -1,0 +1,7 @@
+body {
+  background: url('background.jpg');
+}
+
+@font-face {
+  src: url('font.woff2') format('woff2');
+}

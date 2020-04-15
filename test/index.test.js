@@ -413,3 +413,16 @@ test('augmentChunkHash', async () => {
   const barHash = barOne.fileName.split('.')[1]
   expect(barHash).not.toEqual(fooHash) // Verify that foo and bar does not hash to the same
 })
+
+test('listAssets', async () => {
+  const result = await write({
+    input: 'assets/index.js',
+    outDir: 'listAssets',
+    options: {
+      inject: false,
+      extract: false,
+      assets: true
+    }
+  })
+  expect(await result.jsCode()).toMatchSnapshot()
+})

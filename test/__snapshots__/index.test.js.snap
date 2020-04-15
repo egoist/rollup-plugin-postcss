@@ -431,6 +431,15 @@ console.log(css_248z, css_248z$1);
 "
 `;
 
+exports[`listAssets 1`] = `
+"'use strict';
+
+const assets={\\"background.jpg\\":\\"image\\",\\"font.woff2\\":\\"font\\"};
+
+console.log(assets);
+"
+`;
+
 exports[`minimize extract: css code 1`] = `".bar,body{color:red}body{background:red}#sidebar{width:30%;background-color:#faa}#header{color:#6c94be}.pcss{color:red}"`;
 
 exports[`minimize extract: js code 1`] = `
