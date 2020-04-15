@@ -100,6 +100,37 @@ export default {
       plugins.push(require('cssnano')(options.minimize))
     }
 
+    const shouldListAssets = options.assets
+    const assets = {};
+    if (shouldListAssets) {
+      plugins.unshift(
+        postcss.plugin('postcss-extract-assets', () => {
+          return function(styles, result) {
+            styles.walkDecls(function(decl) {
+              if (!decl.value) {
+                return
+              }
+              const [, url]= decl.value.match(/url\([\'\"]?(.*?)[\'\"]?\)/) || [null, null];
+              if (!url) {
+                return
+              }
+
+              if (url in assets) {
+                return;
+              }
+              let as = null;
+              if (decl.parent.name == 'font-face' && decl.prop == 'src') {
+                as = 'font'
+              } else if (decl.prop == 'background' || decl.prop == 'background-image') {
+                as = 'image'
+              }
+              assets[url] = as;
+            })
+          }
+        })
+      )
+    }
+
     const postcssOptions = {
       ...this.options.postcss,
       ...config.options,
@@ -212,6 +243,10 @@ export default {
               ''
           });`
       }
+    }
+
+    if (shouldListAssets) {
+      output += `export const assets=${JSON.stringify(assets)};`
     }
 
     return {
