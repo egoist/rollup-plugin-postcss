@@ -6,7 +6,7 @@ import { identifier } from 'safe-identifier'
 import humanlizePath from './utils/humanlize-path'
 import normalizePath from './utils/normalize-path'
 
-const imageTags = [
+const imageTags = new Set([
   'background',
   'background-image',
   'list-style',
@@ -17,8 +17,8 @@ const imageTags = [
   'border-image',
   'border-image-source',
   'mask',
-  'mask-image',
-];
+  'mask-image'
+])
 
 const styleInjectPath = require
   .resolve('style-inject/dist/style-inject.es')
@@ -125,8 +125,9 @@ export default {
               if (!matches) {
                 return
               }
+
               for (const match of matches) {
-                const url = match[1] || match[2] || match[3];
+                const url = match[1] || match[2] || match[3]
                 if (!url || url.indexOf('data:') === 0 || url.indexOf('#') === 0) {
                   continue
                 }
@@ -136,8 +137,8 @@ export default {
                 }
 
                 let as = null
-                if (imageTags.indexOf(decl.prop) !== -1
-                  || (decl.parent && decl.parent.name === 'counter-style' && decl.prop === 'symbols')
+                if (imageTags.has(decl.prop) ||
+                  (decl.parent && decl.parent.name === 'counter-style' && decl.prop === 'symbols')
                 ) {
                   as = 'image'
                 } else if (decl.parent && decl.parent.name === 'font-face' && decl.prop === 'src') {
