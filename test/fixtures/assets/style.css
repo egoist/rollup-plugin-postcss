@@ -1,15 +1,27 @@
 html {
+  /* Simple test */
   background: url('background.jpg');
 }
 
 body {
+  /* Duplicate test */
   background: url('background.jpg');
 }
 
 @font-face {
+  /* Font-face test */
   src: url('font.woff2') format('woff2');
 }
 
-.any {
+.ignore-data-uri {
   background: url(data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==);
+}
+
+.ignore-decl-without-url {
+  background: red;
+}
+
+@counter-style list {
+  /* Multiple urls test */
+  symbols: url(odd.svg) url("even.svg");
 }

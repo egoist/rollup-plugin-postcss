@@ -434,7 +434,7 @@ console.log(css_248z, css_248z$1);
 exports[`listAssets 1`] = `
 "'use strict';
 
-const assets={\\"background.jpg\\":\\"image\\",\\"font.woff2\\":\\"font\\"};
+const assets={\\"background.jpg\\":\\"image\\",\\"font.woff2\\":\\"font\\",\\"odd.svg\\":\\"image\\",\\"even.svg\\":\\"image\\"};
 
 console.log(assets);
 "

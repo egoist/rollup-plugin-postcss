@@ -6,6 +6,20 @@ import { identifier } from 'safe-identifier'
 import humanlizePath from './utils/humanlize-path'
 import normalizePath from './utils/normalize-path'
 
+const imageTags = [
+  'background',
+  'background-image',
+  'list-style',
+  'list-style-image',
+  'content',
+  'cursor',
+  'border',
+  'border-image',
+  'border-image-source',
+  'mask',
+  'mask-image',
+];
+
 const styleInjectPath = require
   .resolve('style-inject/dist/style-inject.es')
   .replace(/[\\/]+/g, '/')
@@ -107,23 +121,31 @@ export default {
         postcss.plugin('postcss-extract-assets', () => {
           return function (styles) {
             styles.walkDecls(decl => {
-              const [, url] = (decl.value || '').match(/url\((?:'(.*?)'|"(.*?)"|(?!['"])(.*?)(?!['"])\))/) || [null, null]
-              if (!url || url.indexOf('data:') === 0 || url.indexOf('#') === 0) {
+              const matches = (decl.value || '').matchAll(/url\((?:'(.*?)'|"(.*?)"|(?!['"])(.*?)(?!['"])\))/g)
+              if (!matches) {
                 return
               }
+              for (const match of matches) {
+                const url = match[1] || match[2] || match[3];
+                if (!url || url.indexOf('data:') === 0 || url.indexOf('#') === 0) {
+                  continue
+                }
 
-              if (url in assets) {
-                return
+                if (url in assets) {
+                  continue
+                }
+
+                let as = null
+                if (imageTags.indexOf(decl.prop) !== -1
+                  || (decl.parent && decl.parent.name === 'counter-style' && decl.prop === 'symbols')
+                ) {
+                  as = 'image'
+                } else if (decl.parent && decl.parent.name === 'font-face' && decl.prop === 'src') {
+                  as = 'font'
+                }
+
+                assets[url] = as
               }
-
-              let as = null
-              if (decl.parent.name === 'font-face' && decl.prop === 'src') {
-                as = 'font'
-              } else if (decl.prop === 'background' || decl.prop === 'background-image') {
-                as = 'image'
-              }
-
-              assets[url] = as
             })
           }
         })
