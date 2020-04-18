@@ -4,6 +4,10 @@ import { rollup } from 'rollup'
 import postcss from '../src'
 
 process.env.ROLLUP_POSTCSS_TEST = true
+/**
+ * solve jest timeout on Windows OS
+ */
+const JEST_TIMEOUT = process.platform === 'win32' ? 20000 : 5000
 
 function fixture(...args) {
   return path.join(__dirname, 'fixtures', ...args)
@@ -88,7 +92,7 @@ function snapshot({
         expect(await result.cssMap()).toMatchSnapshot('css map')
       }
     }
-  }, 10000)
+  }, JEST_TIMEOUT)
 }
 
 function snapshotMany(title, tests) {
