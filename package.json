@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-postcss",
-  "version": "2.6.4",
+  "version": "3.0.0",
   "description": "Seamless integration between Rollup and PostCSS",
   "main": "dist/index.js",
   "files": [
@@ -43,7 +43,7 @@
     "jest": "^25.3.0",
     "less": "^3.11.1",
     "node-sass": "^4.13.1",
-    "rollup": "^1.32.1",
+    "rollup": "^2.6.1",
     "stylus": "^0.54.7",
     "sugarss": "^2.0.0",
     "xo": "^0.29.1"
@@ -59,7 +59,7 @@
     "postcss-load-config": "^2.1.0",
     "postcss-modules": "^2.0.0",
     "promise.series": "^0.2.0",
-    "resolve": "^1.16.0",
+    "resolve": "^1.16.1",
     "rollup-pluginutils": "^2.8.2",
     "safe-identifier": "^0.4.1",
     "style-inject": "^0.3.0"
