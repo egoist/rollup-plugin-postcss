@@ -146,9 +146,9 @@ export default (options = {}) => {
         const { modules } = bundle[normalizePath(path.relative(dir, file))]
 
         if (modules) {
-          const fileList = Object.keys(modules)
+          const moduleIds = [...this.moduleIds]
           entries.sort(
-            (a, b) => fileList.indexOf(a.id) - fileList.indexOf(b.id)
+            (a, b) => moduleIds.indexOf(a.id) - moduleIds.indexOf(b.id)
           )
         }
 
