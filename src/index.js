@@ -214,13 +214,13 @@ export default (options = {}) => {
       }
 
       this.emitFile({
-        fileName: codeFileName,
+        fileName: path.resolve(dir, codeFileName),
         type: 'asset',
         source: code
       })
       if (map) {
         this.emitFile({
-          fileName: mapFileName,
+          fileName: path.resolve(dir, mapFileName),
           type: 'asset',
           source: map
         })
