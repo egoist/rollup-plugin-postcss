@@ -31,7 +31,15 @@ async function write({
     format: 'cjs',
     file: path.join(outDir, 'bundle.js')
   })
-  const cssCodePath = typeof options.extract === 'string' ? options.extract : path.join(outDir, 'bundle.css')
+  let cssCodePath = path.join(outDir, 'bundle.css')
+  if (typeof options.extract === 'string') {
+    if (path.isAbsolute(options.extract)) {
+      cssCodePath = options.extract
+    } else {
+      cssCodePath = path.join(outDir, options.extract)
+    }
+  }
+
   const cssMapPath = `${cssCodePath}.map`
   const jsCodePath = path.join(outDir, 'bundle.js')
   return {
@@ -260,6 +268,14 @@ snapshotMany('extract', [
     input: 'simple/index.js',
     options: {
       extract: fixture('dist/extract--custom-path/this/is/extracted.css'),
+      sourceMap: true
+    }
+  },
+  {
+    title: 'relative-path',
+    input: 'simple/index.js',
+    options: {
+      extract: 'this/is/extracted.css',
       sourceMap: true
     }
   },

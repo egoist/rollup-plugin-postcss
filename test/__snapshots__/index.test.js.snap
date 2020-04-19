@@ -195,6 +195,44 @@ console.log(undefined, undefined);
 "
 `;
 
+exports[`extract relative-path: css code 1`] = `
+"body {
+  color: red;
+}
+
+.bar {
+  color: red;
+}
+
+body {
+  color: #f00;
+  background: #f00;
+}
+/*# sourceMappingURL=test/fixtures/simple/style.css.map */
+#sidebar {
+  width: 30%;
+  background-color: #faa; }
+
+#header {
+  color: #6c94be;
+}
+
+.pcss {
+  color: red;
+}
+
+/*# sourceMappingURL=this/is/extracted.css.map */"
+`;
+
+exports[`extract relative-path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"foo.css\\",\\"bar.css\\",\\"test/fixtures/simple/style.styl\\",\\"style.styl\\",\\"style.sass\\",\\"test/fixtures/simple/style.less\\",\\"style.less\\",\\"style.pcss\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,UAAU;AACZ;;ACFA;EACE,UAAU;AACZ;;ACFA;EACE,WAAO;EACP,gBAAY;ACCd;AACA,yDAAyD;ACJzD;EACE,UAAU;EACV,sBAAsB,EAAE;;ACC1B;EACE,cAAA;ACFF;;ACFA;EACE,UAAU;AACZ\\",\\"file\\":\\"this/is/extracted.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",null,null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",null,null,\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\"]}"`;
+
+exports[`extract relative-path: js code 1`] = `
+"'use strict';
+
+console.log(undefined, undefined);
+"
+`;
+
 exports[`extract sourcemap-inline: css code 1`] = `
 "body {
   color: red;
