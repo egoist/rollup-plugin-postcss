@@ -137,10 +137,15 @@ export default (options = {}) => {
           Object.keys(bundle).find(fileName => bundle[fileName].isEntry)
         )
       const getExtracted = () => {
-        const fileName =
-          typeof postcssLoaderOptions.extract === 'string' ?
-            normalizePath(path.relative(dir, postcssLoaderOptions.extract)) :
-            `${path.basename(file, path.extname(file))}.css`
+        let fileName = `${path.basename(file, path.extname(file))}.css`
+        if (typeof postcssLoaderOptions.extract === 'string') {
+          if (path.isAbsolute(postcssLoaderOptions.extract)) {
+            fileName = normalizePath(path.relative(dir, postcssLoaderOptions.extract))
+          } else {
+            fileName = normalizePath(postcssLoaderOptions.extract)
+          }
+        }
+
         const concat = new Concat(true, fileName, '\n')
         const entries = [...extracted.values()]
         const { modules } = bundle[normalizePath(path.relative(dir, file))]
