@@ -17,7 +17,11 @@ yarn add rollup-plugin-postcss --dev
 
 ## Usage
 
-You are viewing the docs for `v2.0` which only support Rollup 1.0 or above.
+`v2.0` support rollup v1 or above, but it prints deprecated warning from rollup v2.
+
+**Breaking change**: `v3.0` only support rollup v2, and the extract path based on bundle root
+ the location of the generated file outside the bundle directory not allowed in rollup v2.
+
 ```js
 // rollup.config.js
 import postcss from 'rollup-plugin-postcss'
