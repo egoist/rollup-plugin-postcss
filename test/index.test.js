@@ -294,6 +294,14 @@ snapshotMany('extract', [
       sourceMap: 'inline',
       extract: true
     }
+  },
+  {
+    title: 'styles-order',
+    input: 'order/index.js',
+    options: {
+      extract: 'this/is/extracted.css',
+      sourceMap: true
+    }
   }
 ])
 
