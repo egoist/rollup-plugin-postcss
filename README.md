@@ -49,10 +49,19 @@ It will also automatically use local PostCSS config files.
 ### Extract CSS
 
 ```js
+// for v2
+postcss({
+  extract: true,
+  // Or with custom file name, it will generate file relative to bundle.js in v3
+  extract: 'dist/my-custom-file-name.css'
+})
+
+// for v3
+import path from 'path'
 postcss({
   extract: true,
   // Or with custom file name
-  extract: 'dist/my-custom-file-name.css'
+  extract: path.resolve('dist/my-custom-file-name.css')
 })
 ```
 
