@@ -10,6 +10,15 @@ process.env.ROLLUP_POSTCSS_TEST = true
 const JEST_TIMEOUT = process.platform === 'win32' ? 20000 : 5000
 
 function fixture(...args) {
+  if (args.length === 1 && typeof args[0] === 'object') {
+    const fixtureInput = {}
+    for (const [key, value] of Object.entries(args[0])) {
+      fixtureInput[key] = path.join(__dirname, 'fixtures', value)
+    }
+
+    return fixtureInput
+  }
+
   return path.join(__dirname, 'fixtures', ...args)
 }
 
@@ -20,6 +29,7 @@ async function write({
   outDir,
   options
 }) {
+  const isMultiEntry = typeof input === 'object'
   outDir = fixture('dist', outDir)
   const bundle = await rollup({
     input: fixture(input),
@@ -29,7 +39,11 @@ async function write({
   })
   await bundle.write({
     format: 'cjs',
-    file: path.join(outDir, 'bundle.js')
+    ...(
+      isMultiEntry ?
+        { dir: outDir } :
+        { file: path.join(outDir, 'bundle.js') }
+    )
   })
   let cssCodePath = path.join(outDir, 'bundle.css')
   if (typeof options.extract === 'string') {
@@ -42,21 +56,50 @@ async function write({
 
   const cssMapPath = `${cssCodePath}.map`
   const jsCodePath = path.join(outDir, 'bundle.js')
+  const entryNames = Object.keys(input)
+
   return {
-    jsCode() {
-      return fs.readFile(jsCodePath, 'utf8')
+    async jsCode() {
+      if (!isMultiEntry) {
+        return fs.readFile(jsCodePath, 'utf8')
+      }
+
+      return Promise.all(
+        entryNames.map(async entry => [
+          entry,
+          await fs.readFile(path.join(outDir, `${entry}.js`), 'utf8')
+        ])
+      )
     },
-    cssCode() {
-      return fs.readFile(cssCodePath, 'utf8')
+    async cssCode() {
+      if (!isMultiEntry) {
+        return fs.readFile(cssCodePath, 'utf8')
+      }
+
+      return Promise.all(
+        entryNames.map(async entry => [
+          entry,
+          await fs.readFile(path.join(outDir, `${entry}.css`), 'utf8')
+        ])
+      )
     },
     cssMap() {
       return fs.readFile(cssMapPath, 'utf8')
     },
-    hasCssFile() {
-      return fs.pathExists(cssCodePath)
+    async hasCssFile() {
+      if (!isMultiEntry) {
+        return fs.pathExists(cssCodePath)
+      }
+
+      const results = await Promise.all(
+        entryNames.map(entry => fs.pathExists(path.join(outDir, `${entry}.css`)))
+      )
+      return results.every(Boolean)
     },
     hasCssMapFile() {
-      return fs.pathExists(cssMapPath)
+      if (!isMultiEntry) {
+        return fs.pathExists(cssMapPath)
+      }
     }
   }
 }
@@ -69,6 +112,7 @@ function snapshot({
 }) {
   test(title, async () => {
     let result
+    const isMultiEntry = typeof input === 'object'
     try {
       result = await write({
         input,
@@ -84,11 +128,25 @@ function snapshot({
       throw error
     }
 
-    expect(await result.jsCode()).toMatchSnapshot('js code')
+    if (isMultiEntry) {
+      const files = await result.jsCode()
+      for (const [entry, file] of files) {
+        expect(file).toMatchSnapshot(`js code ${entry}`)
+      }
+    } else {
+      expect(await result.jsCode()).toMatchSnapshot('js code')
+    }
 
     if (options.extract) {
       expect(await result.hasCssFile()).toBe(true)
-      expect(await result.cssCode()).toMatchSnapshot('css code')
+      if (isMultiEntry) {
+        const files = await result.cssCode()
+        for (const [entry, file] of files) {
+          expect(file).toMatchSnapshot(`css code ${entry}`)
+        }
+      } else {
+        expect(await result.cssCode()).toMatchSnapshot('css code')
+      }
     }
 
     const sourceMap = options && options.sourceMap
@@ -366,6 +424,20 @@ snapshotMany('sass', [
   {
     title: 'import',
     input: 'sass-import/index.js'
+  }
+])
+
+snapshotMany('multi-entry', [
+  {
+    title: 'multi-entry',
+    input: {
+      entry1: 'multi-entry/entry1.js',
+      entry2: 'multi-entry/entry2.js'
+    },
+    options: {
+      extract: true,
+      multiEntry: true
+    }
   }
 ])
 
