@@ -15,7 +15,9 @@ export default {
     const style = stylus(code, {
       ...this.options,
       filename: this.id,
-      sourcemap: this.sourceMap && {}
+      sourcemap: this.sourceMap && {
+        comment: false
+      }
     })
 
     const css = await pify(style.render.bind(style))()
