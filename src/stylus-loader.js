@@ -1,3 +1,5 @@
+import path from 'path'
+import fs from 'fs'
 import pify from 'pify'
 import { loadModule } from './utils/load-module'
 
@@ -17,6 +19,16 @@ export default {
     })
 
     const css = await pify(style.render.bind(style))()
+
+    if (style?.sourcemap?.sources) {
+      const sourcesContent = await Promise.all(style.sourcemap.sources.map(async (file) => {
+        const absPath = path.resolve(file)
+        const source = await pify(fs.readFile)(absPath, 'utf8')
+        return source.toString()
+      }))
+      style.sourcemap.sourcesContent = sourcesContent
+    }
+   
     const deps = style.deps()
     for (const dep of deps) {
       this.dependencies.add(dep)
