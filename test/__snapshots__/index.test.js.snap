@@ -762,6 +762,47 @@ console.log(style$1);
 "
 `;
 
+exports[`multi-entry extract-modules: css code entry1 1`] = `
+".entry1_baz {
+    color: red;
+}
+.entry1-extra_foo {
+    color: red;
+}
+body {
+    color: blue;
+}"
+`;
+
+exports[`multi-entry extract-modules: css code entry2 1`] = `
+".entry2_entry2 {
+    color: hotpink;
+}
+body {
+    color: blue;
+}"
+`;
+
+exports[`multi-entry extract-modules: js code entry1 1`] = `
+"'use strict';
+
+var styles = {\\"baz\\":\\"entry1_baz\\"};
+
+var extraStyles = {\\"foo\\":\\"entry1-extra_foo\\"};
+
+console.log(styles, extraStyles);
+"
+`;
+
+exports[`multi-entry extract-modules: js code entry2 1`] = `
+"'use strict';
+
+var styles = {\\"entry2\\":\\"entry2_entry2\\"};
+
+console.log(styles);
+"
+`;
+
 exports[`onExtract 1`] = `
 "'use strict';
 
