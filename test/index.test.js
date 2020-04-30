@@ -352,7 +352,16 @@ snapshotMany('extract', [
       sourceMap: 'inline',
       extract: true
     }
-  }
+  },
+  {
+    title: 'extract-deep',
+    input: 'deep-imports/layered.js',
+    options: {
+      extract: 'site.css',
+      minimize: false,
+      sourceMap: true
+    }
+  },
 ])
 
 snapshotMany('inject', [
@@ -436,10 +445,9 @@ snapshotMany('multi-entry', [
     },
     options: {
       extract: true,
-      multiEntry: true,
       modules: true
     }
-  }
+  },
 ])
 
 test('onExtract', async () => {

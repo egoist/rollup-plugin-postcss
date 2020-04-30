@@ -195,6 +195,24 @@ console.log(undefined, undefined);
 "
 `;
 
+exports[`extract extract-deep: css code 1`] = `
+"
+/*# sourceMappingURL=site.css.map */"
+`;
+
+exports[`extract extract-deep: css map 1`] = `"{\\"version\\":3,\\"sources\\":[],\\"names\\":[],\\"mappings\\":\\"\\",\\"file\\":\\"site.css\\"}"`;
+
+exports[`extract extract-deep: js code 1`] = `
+"'use strict';
+
+console.log(undefined, undefined);
+
+var a = 'hello';
+
+console.log(a);
+"
+`;
+
 exports[`extract relative-path: css code 1`] = `
 "body {
   color: red;
