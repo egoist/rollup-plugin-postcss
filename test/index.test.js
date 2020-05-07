@@ -361,7 +361,7 @@ snapshotMany('extract', [
       minimize: false,
       sourceMap: true
     }
-  },
+  }
 ])
 
 snapshotMany('inject', [
@@ -447,7 +447,7 @@ snapshotMany('multi-entry', [
       extract: true,
       modules: true
     }
-  },
+  }
 ])
 
 test('onExtract', async () => {

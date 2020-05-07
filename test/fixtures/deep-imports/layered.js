@@ -1,3 +1,3 @@
-import a from './index'
+import a from '.'
 
 console.log(a)

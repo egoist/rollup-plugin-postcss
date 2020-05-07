@@ -5,7 +5,6 @@ import './style.sass'
 import './style.less'
 import './style.pcss'
 
-
 console.log(foo, bar)
 
-export default 'hello';
+export default 'hello'

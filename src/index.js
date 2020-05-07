@@ -146,7 +146,6 @@ export default (options = {}) => {
           dir = path.dirname(entryFileName)
           fileName = path.join(dir, baseName)
         } else {
-          // TODO: copy from the previous version, refactor
           dir = options_.dir || path.dirname(options_.file)
           const file =
             options_.file ||
@@ -174,13 +173,20 @@ export default (options = {}) => {
           concat = new Concat(true, fileName, '\n')
         }
 
-        const entries = []
-        const moduleIds = this.getModuleInfo(facadeModuleId).importedIds
-        moduleIds.forEach(id => {
-          if (extracted.has(id)) {
-            entries.push(extracted.get(id))
-          }
-        })
+        let entries = []
+        const moduleIds = isMultiEntry ?
+          this.getModuleInfo(facadeModuleId).importedIds :
+          [...this.moduleIds]
+
+        if (isMultiEntry) {
+          moduleIds.forEach(id => {
+            if (extracted.has(id)) {
+              entries.push(extracted.get(id))
+            }
+          })
+        } else {
+          entries = [...extracted.values()]
+        }
 
         entries.sort(
           (a, b) => moduleIds.indexOf(a.id) - moduleIds.indexOf(b.id)
