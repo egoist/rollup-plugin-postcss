@@ -1,10 +1,3 @@
-import foo from './foo.css'
-import bar from './bar.css'
-import './style.styl'
-import './style.sass'
-import './style.less'
-import './style.pcss'
+import { foo, bar } from './layered'
 
-console.log(foo, bar)
-
-export default 'hello'
+console.log({ foo, bar })

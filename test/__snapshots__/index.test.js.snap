@@ -196,20 +196,42 @@ console.log(undefined, undefined);
 `;
 
 exports[`extract extract-deep: css code 1`] = `
-"
+".foo {
+  color: red;
+}
+
+.bar {
+  color: red;
+}
+
+.styl {
+  color: #f00;
+  background: #f00;
+}
+/*# sourceMappingURL=test/fixtures/deep-imports/style.css.map */
+#sass {
+  width: 30%;
+  background-color: #faa; }
+
+#less {
+  color: #6c94be;
+}
+
+.pcss {
+  color: red;
+}
+
 /*# sourceMappingURL=site.css.map */"
 `;
 
-exports[`extract extract-deep: css map 1`] = `"{\\"version\\":3,\\"sources\\":[],\\"names\\":[],\\"mappings\\":\\"\\",\\"file\\":\\"site.css\\"}"`;
+exports[`extract extract-deep: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"foo.css\\",\\"bar.css\\",\\"test/fixtures/deep-imports/style.styl\\",\\"style.styl\\",\\"style.sass\\",\\"test/fixtures/deep-imports/style.less\\",\\"style.less\\",\\"style.pcss\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,UAAU;AACZ;;ACFA;EACE,UAAU;AACZ;;ACFA;EACE,WAAO;EACP,gBAAY;ACCd;AACA,+DAA+D;ACJ/D;EACE,UAAU;EACV,sBAAsB,EAAE;;ACC1B;EACE,cAAA;ACFF;;ACFA;EACE,UAAU;AACZ\\",\\"file\\":\\"site.css\\",\\"sourcesContent\\":[\\".foo {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",null,null,\\"#sass {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",null,null,\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\"]}"`;
 
 exports[`extract extract-deep: js code 1`] = `
 "'use strict';
 
 console.log(undefined, undefined);
 
-var a = 'hello';
-
-console.log(a);
+console.log({ foo: undefined, bar: undefined });
 "
 `;
 
@@ -813,6 +835,80 @@ console.log(styles, extraStyles);
 `;
 
 exports[`multi-entry extract-modules: js code entry2 1`] = `
+"'use strict';
+
+var styles = {\\"entry2\\":\\"entry2_entry2\\"};
+
+console.log(styles);
+"
+`;
+
+exports[`multi-entry extract-modules-deep: css code entry1 1`] = `
+".foo_foo {
+  color: red;
+}
+
+.bar_bar {
+  color: red;
+}
+
+.style_styl {
+  color: #f00;
+  background: #f00;
+}
+#style_sass {
+  width: 30%;
+  background-color: #faa; }
+
+#style_less {
+  color: #6c94be;
+}
+
+.style_pcss {
+  color: red;
+}
+
+.entry1_entry1 {
+    color: red;
+}
+.entry1-extra_entry1-extra {
+    color: red;
+}
+body {
+    color: blue;
+}
+/*# sourceMappingURL=entry1.css.map */"
+`;
+
+exports[`multi-entry extract-modules-deep: css code entry2 1`] = `
+".entry2_entry2 {
+    color: hotpink;
+}
+body {
+    color: blue;
+}
+/*# sourceMappingURL=entry2.css.map */"
+`;
+
+exports[`multi-entry extract-modules-deep: js code entry1 1`] = `
+"'use strict';
+
+var styles = {\\"entry1\\":\\"entry1_entry1\\"};
+
+var extraStyles = {\\"entry1-extra\\":\\"entry1-extra_entry1-extra\\"};
+
+var foo = {\\"foo\\":\\"foo_foo\\"};
+
+var bar = {\\"bar\\":\\"bar_bar\\"};
+
+console.log(foo, bar);
+
+console.log({ foo, bar });
+console.log(styles, extraStyles);
+"
+`;
+
+exports[`multi-entry extract-modules-deep: js code entry2 1`] = `
 "'use strict';
 
 var styles = {\\"entry2\\":\\"entry2_entry2\\"};

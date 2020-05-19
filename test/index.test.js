@@ -355,7 +355,7 @@ snapshotMany('extract', [
   },
   {
     title: 'extract-deep',
-    input: 'deep-imports/layered.js',
+    input: 'deep-imports/index.js',
     options: {
       extract: 'site.css',
       minimize: false,
@@ -446,6 +446,18 @@ snapshotMany('multi-entry', [
     options: {
       extract: true,
       modules: true
+    }
+  },
+  {
+    title: 'extract-modules-deep',
+    input: {
+      entry1: 'multi-entry-deep-imports/entry1.js',
+      entry2: 'multi-entry-deep-imports/entry2.js'
+    },
+    options: {
+      extract: true,
+      modules: true,
+      sourceMap: true
     }
   }
 ])

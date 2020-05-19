@@ -131,6 +131,27 @@ export default (options = {}) => {
       const entries = Object.values(bundle).filter(bundle => bundle.isEntry)
       const isMultiEntry = entries.length > 1
 
+      const modulesChecked = {}
+      const concatImports = (extracted, facadeModuleId) => {
+        if (modulesChecked[facadeModuleId]) {
+          // circular deps
+          return []
+        }
+
+        modulesChecked[facadeModuleId] = true
+        let _entries = []
+        const { importedIds } = this.getModuleInfo(facadeModuleId)
+
+        importedIds.forEach(id => {
+          if (extracted.has(id)) {
+            _entries.push(extracted.get(id))
+          }
+
+          _entries = [..._entries, ...concatImports(extracted, id)]
+        })
+        return _entries
+      }
+
       let concat
       // TODO: support `[hash]`
       const getExtracted = ({ fileName: entryFileName, facadeModuleId }) => {
@@ -179,11 +200,13 @@ export default (options = {}) => {
           [...this.moduleIds]
 
         if (isMultiEntry) {
-          moduleIds.forEach(id => {
-            if (extracted.has(id)) {
-              entries.push(extracted.get(id))
-            }
-          })
+          entries = concatImports(extracted, facadeModuleId)
+          // console.log(entries)
+          // moduleIds.forEach(id => {
+          //   if (extracted.has(id)) {
+          //     entries.push(extracted.get(id))
+          //   }
+          // })
         } else {
           entries = [...extracted.values()]
         }
