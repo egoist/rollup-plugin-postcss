@@ -196,7 +196,7 @@ export default {
       output +=
         `var ${cssVariableName} = ${JSON.stringify(result.css)};\n` +
         `export default ${module};\n` +
-        `export const stylesheet=${JSON.stringify(result.css)};`
+        `export var stylesheet=${JSON.stringify(result.css)};`
     }
 
     if (!shouldExtract && shouldInject) {
