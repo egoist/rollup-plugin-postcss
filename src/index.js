@@ -66,6 +66,7 @@ export default (options = {}) => {
   })
 
   const extracted = new Map()
+  const importerMap = Object.create(null)
 
   return {
     name: 'postcss',
@@ -122,6 +123,22 @@ export default (options = {}) => {
       return JSON.stringify(extractedValue)
     },
 
+    resolveId(importee, importer) {
+      if (filter(importee) || loaders.isSupported(importee)) {
+        importer || (importer = importee)
+        const set = importerMap[importer] || new Set()
+        set.add(path.resolve(path.dirname(importer), importee))
+
+        if (!importerMap[importer]) {
+          Object.assign(importerMap, {
+            [importer]: set
+          })
+        }
+      }
+
+      return null
+    },
+
     async generateBundle(options_, bundle) {
       if (
         extracted.size === 0 ||
@@ -130,101 +147,123 @@ export default (options = {}) => {
 
       // TODO: support `[hash]`
       const dir = options_.dir || path.dirname(options_.file)
-      const file =
-        options_.file ||
-        path.join(
-          options_.dir,
-          Object.keys(bundle).find(fileName => bundle[fileName].isEntry)
-        )
-      const getExtracted = () => {
-        let fileName = `${path.basename(file, path.extname(file))}.css`
-        if (typeof postcssLoaderOptions.extract === 'string') {
-          if (path.isAbsolute(postcssLoaderOptions.extract)) {
-            fileName = normalizePath(path.relative(dir, postcssLoaderOptions.extract))
-          } else {
-            fileName = normalizePath(postcssLoaderOptions.extract)
-          }
-        }
-
-        const concat = new Concat(true, fileName, '\n')
-        const entries = [...extracted.values()]
-        const { modules } = bundle[normalizePath(path.relative(dir, file))]
-
-        if (modules) {
-          const moduleIds = [...this.moduleIds]
-          entries.sort(
-            (a, b) => moduleIds.indexOf(a.id) - moduleIds.indexOf(b.id)
-          )
-        }
-
-        for (const result of entries) {
-          const relative = normalizePath(path.relative(dir, result.id))
-          const map = result.map || null
-          if (map) {
-            map.file = fileName
+      const selectEntry = id => Object.keys(bundle).find(chunkId => {
+        if (
+          bundle[chunkId].facadeModuleId === id ||
+          Object.keys(bundle[chunkId].modules).includes(id)) {
+          if (bundle[chunkId].isEntry) {
+            return chunkId
           }
 
-          concat.add(relative, result.code, map)
+          return selectEntry(bundle[chunkId].facadeModuleId)
         }
 
-        let code = concat.content
-
-        if (sourceMap === 'inline') {
-          code += `\n/*# sourceMappingURL=data:application/json;base64,${Buffer.from(
-            concat.sourceMap,
-            'utf8'
-          ).toString('base64')}*/`
-        } else if (sourceMap === true) {
-          code += `\n/*# sourceMappingURL=${fileName}.map */`
-        }
-
-        return {
-          code,
-          map: sourceMap === true && concat.sourceMap,
-          codeFileName: fileName,
-          mapFileName: fileName + '.map'
-        }
-      }
-
-      if (options.onExtract) {
-        const shouldExtract = await options.onExtract(getExtracted)
-        if (shouldExtract === false) {
-          return
-        }
-      }
-
-      let { code, codeFileName, map, mapFileName } = getExtracted()
-      // Perform cssnano on the extracted file
-      if (postcssLoaderOptions.minimize) {
-        const cssOptions = postcssLoaderOptions.minimize
-        cssOptions.from = codeFileName
-        if (sourceMap === 'inline') {
-          cssOptions.map = { inline: true }
-        } else if (sourceMap === true && map) {
-          cssOptions.map = { prev: map }
-          cssOptions.to = codeFileName
-        }
-
-        const result = await require('cssnano').process(code, cssOptions)
-        code = result.css
-
-        if (sourceMap === true && result.map && result.map.toString) {
-          map = result.map.toString()
-        }
-      }
-
-      this.emitFile({
-        fileName: codeFileName,
-        type: 'asset',
-        source: code
+        return null
       })
-      if (map) {
-        this.emitFile({
-          fileName: mapFileName,
-          type: 'asset',
-          source: map
+
+      const getExtracted = () => {
+        const assets = Object.create(null)
+        // const entries = [...extracted.values()]
+
+        for (const importer of Object.keys(importerMap)) {
+          const entry = selectEntry(importer)
+
+          for (const id of importerMap[importer]) {
+            const result = extracted.get(id)
+            if (!result) {
+              continue
+            }
+
+            let fileName = path.join(path.dirname(entry), `${path.basename(entry, path.extname(entry))}.css`)
+
+            if (typeof postcssLoaderOptions.extract === 'string') {
+              if (path.isAbsolute(postcssLoaderOptions.extract)) {
+                fileName = normalizePath(path.relative(dir, postcssLoaderOptions.extract))
+              } else {
+                fileName = normalizePath(postcssLoaderOptions.extract)
+              }
+            }
+
+            const concat = assets[fileName] || new Concat(true, fileName, '\n')
+            if (!assets[fileName]) {
+              Object.assign(assets, { [fileName]: concat })
+            }
+
+            const relative = normalizePath(path.relative(dir, result.id))
+            const map = result.map || null
+            if (map) {
+              map.file = fileName
+            }
+
+            concat.add(relative, result.code, map)
+          }
+        }
+
+        return Object.keys(assets).map(asset => {
+          const concated = assets[asset]
+          let code = concated.content
+
+          if (sourceMap === 'inline') {
+            code += `\n/*# sourceMappingURL=data:application/json;base64,${Buffer.from(
+              concated.sourceMap,
+              'utf8'
+            ).toString('base64')}*/`
+          } else if (sourceMap === true) {
+            code += `\n/*# sourceMappingURL=${asset}.map */`
+          }
+
+          return {
+            code,
+            map: sourceMap === true && concated.sourceMap,
+            codeFileName: asset,
+            mapFileName: `${asset}.map`
+          }
         })
       }
+
+      const bundleAsset = async asset => {
+        if (options.onExtract) {
+          const shouldExtract = await options.onExtract(() => asset)
+          if (shouldExtract === false) {
+            return
+          }
+        }
+
+        let { code, codeFileName, map, mapFileName } = asset
+        // Perform cssnano on the extracted file
+        if (postcssLoaderOptions.minimize) {
+          const cssOptions = postcssLoaderOptions.minimize
+          cssOptions.from = codeFileName
+          if (sourceMap === 'inline') {
+            cssOptions.map = { inline: true }
+          } else if (sourceMap === true && map) {
+            cssOptions.map = { prev: map }
+            cssOptions.to = codeFileName
+          }
+
+          const result = await require('cssnano').process(code, cssOptions)
+          code = result.css
+
+          if (sourceMap === true && result.map && result.map.toString) {
+            map = result.map.toString()
+          }
+        }
+
+        this.emitFile({
+          fileName: codeFileName,
+          type: 'asset',
+          source: code
+        })
+        if (map) {
+          this.emitFile({
+            fileName: mapFileName,
+            type: 'asset',
+            source: map
+          })
+        }
+      }
+
+      await Promise.all(getExtracted().map(chunk => bundleAsset(chunk)))
     }
   }
 }

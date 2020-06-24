@@ -412,3 +412,22 @@ test('augmentChunkHash', async () => {
   const barHash = barOne.fileName.split('.')[1]
   expect(barHash).not.toEqual(fooHash) // Verify that foo and bar does not hash to the same
 })
+
+test('multiEntry', async () => {
+  const outDir = fixture('dist', 'multiEntry')
+  const entries = ['auto-modules', 'simple', 'sass']
+
+  const bundle = await rollup({
+    input: entries.reduce((acc, entry) =>
+      Object.assign(acc, { [entry]: fixture(entry + '/index.js') }), {}
+    ),
+    plugins: [postcss({ extract: true })]
+  })
+  await bundle.write({
+    dir: outDir
+  })
+  for (const entry of entries) {
+    const filePath = path.join(outDir, entry + '.css')
+    expect(await fs.pathExists(filePath)).toBe(true)
+  }
+})
