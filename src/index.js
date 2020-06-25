@@ -66,7 +66,6 @@ export default (options = {}) => {
   })
 
   const extracted = new Map()
-  const importerMap = Object.create(null)
 
   return {
     name: 'postcss',
@@ -123,22 +122,6 @@ export default (options = {}) => {
       return JSON.stringify(extractedValue)
     },
 
-    resolveId(importee, importer) {
-      if (filter(importee) || loaders.isSupported(importee)) {
-        importer || (importer = importee)
-        const set = importerMap[importer] || new Set()
-        set.add(path.resolve(path.dirname(importer), importee))
-
-        if (!importerMap[importer]) {
-          Object.assign(importerMap, {
-            [importer]: set
-          })
-        }
-      }
-
-      return null
-    },
-
     async generateBundle(options_, bundle) {
       if (
         extracted.size === 0 ||
@@ -147,60 +130,95 @@ export default (options = {}) => {
 
       // TODO: support `[hash]`
       const dir = options_.dir || path.dirname(options_.file)
-      const selectEntry = id => Object.keys(bundle).find(chunkId => {
-        if (
-          bundle[chunkId].facadeModuleId === id ||
-          Object.keys(bundle[chunkId].modules).includes(id)) {
-          if (bundle[chunkId].isEntry) {
-            return chunkId
-          }
 
-          return selectEntry(bundle[chunkId].facadeModuleId)
-        }
-
-        return null
+      const findEntry = id => Object.keys(bundle).find(chunkId => {
+        return bundle[chunkId].facadeModuleId === id
       })
 
       const getExtracted = () => {
-        const assets = Object.create(null)
-        // const entries = [...extracted.values()]
+        const files = new Map()
+        const concateEntry = (id, fileName) => {
+          const { importedIds } = this.getModuleInfo(id)
 
-        for (const importer of Object.keys(importerMap)) {
-          const entry = selectEntry(importer)
-
-          for (const id of importerMap[importer]) {
-            const result = extracted.get(id)
-            if (!result) {
-              continue
-            }
-
-            let fileName = path.join(path.dirname(entry), `${path.basename(entry, path.extname(entry))}.css`)
-
-            if (typeof postcssLoaderOptions.extract === 'string') {
-              if (path.isAbsolute(postcssLoaderOptions.extract)) {
-                fileName = normalizePath(path.relative(dir, postcssLoaderOptions.extract))
-              } else {
-                fileName = normalizePath(postcssLoaderOptions.extract)
+          for (const id of importedIds) {
+            if (extracted.has(id)) {
+              const concat = files.get(fileName) || new Concat(true, fileName, '\n')
+              const result = extracted.get(id)
+              const relative = normalizePath(path.relative(dir, result.id))
+              const map = result.map || null
+              if (map) {
+                map.file = fileName
               }
-            }
 
-            const concat = assets[fileName] || new Concat(true, fileName, '\n')
-            if (!assets[fileName]) {
-              Object.assign(assets, { [fileName]: concat })
-            }
+              concat.add(relative, result.code, map)
 
-            const relative = normalizePath(path.relative(dir, result.id))
-            const map = result.map || null
-            if (map) {
-              map.file = fileName
-            }
+              files.has(fileName) || files.set(fileName, concat)
+              if (!files.has(fileName)) {
+                files.set(fileName, concat)
+              }
+            } else {
+              if (this.getModuleInfo(id).isEntry) {
+                continue
+              }
 
-            concat.add(relative, result.code, map)
+              concateEntry(id, fileName)
+            }
           }
         }
 
-        return Object.keys(assets).map(asset => {
-          const concated = assets[asset]
+        const entries = [...this.moduleIds].filter(id => this.getModuleInfo(id).isEntry)
+
+        for (const entryId of entries) {
+          const entry = findEntry(entryId)
+          let fileName = path.join(path.dirname(entry), `${path.basename(entry, path.extname(entry))}.css`)
+
+          if (typeof postcssLoaderOptions.extract === 'string') {
+            if (path.isAbsolute(postcssLoaderOptions.extract)) {
+              fileName = normalizePath(path.relative(dir, postcssLoaderOptions.extract))
+            } else {
+              fileName = normalizePath(postcssLoaderOptions.extract)
+            }
+          }
+
+          concateEntry(entryId, fileName)
+        }
+
+        // for (const importer of Object.keys(importerMap)) {
+        //   const entry = selectEntry(importer)
+
+        //   for (const id of importerMap[importer]) {
+        //     const result = extracted.get(id)
+        //     if (!result) {
+        //       continue
+        //     }
+
+        //     let fileName = path.join(path.dirname(entry), `${path.basename(entry, path.extname(entry))}.css`)
+
+        //     if (typeof postcssLoaderOptions.extract === 'string') {
+        //       if (path.isAbsolute(postcssLoaderOptions.extract)) {
+        //         fileName = normalizePath(path.relative(dir, postcssLoaderOptions.extract))
+        //       } else {
+        //         fileName = normalizePath(postcssLoaderOptions.extract)
+        //       }
+        //     }
+
+        //     const concat = assets[fileName] || new Concat(true, fileName, '\n')
+        //     if (!assets[fileName]) {
+        //       Object.assign(assets, { [fileName]: concat })
+        //     }
+
+        //     const relative = normalizePath(path.relative(dir, result.id))
+        //     const map = result.map || null
+        //     if (map) {
+        //       map.file = fileName
+        //     }
+
+        //     concat.add(relative, result.code, map)
+        //   }
+        // }
+
+        return [...files.keys()].map(file => {
+          const concated = files.get(file)
           let code = concated.content
 
           if (sourceMap === 'inline') {
@@ -209,14 +227,14 @@ export default (options = {}) => {
               'utf8'
             ).toString('base64')}*/`
           } else if (sourceMap === true) {
-            code += `\n/*# sourceMappingURL=${asset}.map */`
+            code += `\n/*# sourceMappingURL=${file}.map */`
           }
 
           return {
             code,
             map: sourceMap === true && concated.sourceMap,
-            codeFileName: asset,
-            mapFileName: `${asset}.map`
+            codeFileName: file,
+            mapFileName: `${file}.map`
           }
         })
       }
