@@ -415,7 +415,7 @@ test('augmentChunkHash', async () => {
 
 test('multiEntry', async () => {
   const outDir = fixture('dist', 'multiEntry')
-  const entries = ['auto-modules', 'simple', 'sass']
+  const entries = ['multi', 'simple', 'sass']
 
   const bundle = await rollup({
     input: entries.reduce((acc, entry) =>
