@@ -183,40 +183,6 @@ export default (options = {}) => {
           concateEntry(entryId, fileName)
         }
 
-        // for (const importer of Object.keys(importerMap)) {
-        //   const entry = selectEntry(importer)
-
-        //   for (const id of importerMap[importer]) {
-        //     const result = extracted.get(id)
-        //     if (!result) {
-        //       continue
-        //     }
-
-        //     let fileName = path.join(path.dirname(entry), `${path.basename(entry, path.extname(entry))}.css`)
-
-        //     if (typeof postcssLoaderOptions.extract === 'string') {
-        //       if (path.isAbsolute(postcssLoaderOptions.extract)) {
-        //         fileName = normalizePath(path.relative(dir, postcssLoaderOptions.extract))
-        //       } else {
-        //         fileName = normalizePath(postcssLoaderOptions.extract)
-        //       }
-        //     }
-
-        //     const concat = assets[fileName] || new Concat(true, fileName, '\n')
-        //     if (!assets[fileName]) {
-        //       Object.assign(assets, { [fileName]: concat })
-        //     }
-
-        //     const relative = normalizePath(path.relative(dir, result.id))
-        //     const map = result.map || null
-        //     if (map) {
-        //       map.file = fileName
-        //     }
-
-        //     concat.add(relative, result.code, map)
-        //   }
-        // }
-
         return [...files.keys()].map(file => {
           const concated = files.get(file)
           let code = concated.content
