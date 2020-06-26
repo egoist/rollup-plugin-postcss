@@ -27,6 +27,7 @@ export default (options = {}) => {
     /** Extract CSS */
     extract: typeof options.extract === 'undefined' ? false : options.extract,
     /** CSS modules */
+    onlyModules: options.modules === true,
     modules: inferOption(options.modules, false),
     namedExports: options.namedExports,
     /** Automatically CSS modules for .module.xxx files */

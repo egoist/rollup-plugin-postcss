@@ -198,6 +198,7 @@ snapshotMany('modules', [
     title: 'inject-object',
     input: 'css-modules/index.js',
     options: {
+      autoModules: false,
       modules: {
         getJSON() {
           //
