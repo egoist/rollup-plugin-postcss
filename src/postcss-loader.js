@@ -71,7 +71,7 @@ export default {
 
     const modulesExported = {}
     const autoModules = options.autoModules !== false && isModuleFile(this.id)
-    const supportModules = options.modules || autoModules
+    const supportModules = options.autoModules === true ? autoModules : options.modules || autoModules
     if (supportModules) {
       plugins.unshift(
         require('postcss-modules')({
