@@ -328,6 +328,38 @@ Type: `id => void`
 
 A function to be invoked when an import for CSS file is detected.
 
+### assets
+
+Type: `boolean`<br>
+Default: `false`
+
+Export an object with each asset and its type (`image`, `font`,...) based on `url()` found in imported CSS.
+The exported object interface is:
+
+```typescript
+interface ExportedAssets {
+    [path: string]: "image" | "font" | null
+}
+```
+
+For instance, if your CSS include a background image: 
+
+```css
+div {
+  background: url(/media/background.jpg);
+}
+```
+
+The following const will be exported:
+
+```typescript
+export const assets={
+  '/media/background.jpg': 'image'
+};
+```
+
+_Limitation:_ it will not work with `at-rules` (see [#261](https://github.com/egoist/rollup-plugin-postcss/pull/261))
+
 ## License
 
 MIT &copy; [EGOIST](https://github.com/egoist)
