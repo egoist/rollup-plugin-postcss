@@ -1,3 +1,3 @@
 module.exports = {
-  parser: 'sugarss'
+	parser: 'sugarss'
 }

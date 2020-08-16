@@ -560,11 +560,7 @@ var css_248z$2 = \\".c-module_c {\\\\n  color: red;\\\\n}\\\\n\\";
 var c = {\\"c\\":\\"c-module_c\\"};
 styleInject(css_248z$2);
 
-console.log(
-  a,
-  b,
-  c
-);
+console.log(a, b, c);
 "
 `;
 

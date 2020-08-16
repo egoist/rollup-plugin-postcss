@@ -67,6 +67,7 @@
   },
   "xo": {
     "extends": "rem",
+    "prettier": "true",
     "envs": [
       "jest"
     ],
