@@ -1,4 +1,5 @@
 import path from 'path'
+import semver from 'semver'
 import { createFilter } from 'rollup-pluginutils'
 import Concat from 'concat-with-sourcemaps'
 import Loaders from './loaders'
@@ -93,6 +94,14 @@ export default (options = {}) => {
 
   return {
     name: 'postcss',
+
+    options() {
+      if (semver.satisfies(this.meta.rollupVersion, '<2.21.0')) {
+        throw new Error(
+          `rollup-plugin-postcss requires at least Rollup Version 2.21.0. You're using version ${this.meta.rollupVersion}.`
+        )
+      }
+    },
 
     async transform(code, id) {
       if (!filter(id) || !loaders.isSupported(id)) {

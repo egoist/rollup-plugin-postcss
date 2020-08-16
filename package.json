@@ -44,7 +44,7 @@
     "jest": "^25.3.0",
     "less": "^3.11.1",
     "node-sass": "^4.13.1",
-    "rollup": "^2.6.1",
+    "rollup": "^2.21.0",
     "stylus": "^0.54.7",
     "sugarss": "^2.0.0",
     "xo": "^0.29.1"
@@ -63,6 +63,7 @@
     "resolve": "^1.16.1",
     "rollup-pluginutils": "^2.8.2",
     "safe-identifier": "^0.4.1",
+    "semver": "^7.3.2",
     "style-inject": "^0.3.0"
   },
   "xo": {
