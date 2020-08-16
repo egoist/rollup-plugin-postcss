@@ -69,7 +69,7 @@ export default {
     const shouldExtract = options.extract
     const shouldInject = options.inject
 
-    const modulesExported = {}
+    const modulesExported = new Map()
     const autoModules = options.autoModules !== false && options.onlyModules !== true
     const isAutoModule = autoModules && isModuleFile(this.id)
     const supportModules = autoModules ? isAutoModule : options.modules
@@ -83,7 +83,8 @@ export default {
             '[name]_[local]__[hash:base64:5]',
           ...options.modules,
           getJSON(filepath, json, outpath) {
-            modulesExported[filepath] = json
+            modulesExported.set(filepath, json)
+
             if (
               typeof options.modules === 'object' &&
               typeof options.modules.getJSON === 'function'
@@ -157,7 +158,7 @@ export default {
     let extracted
 
     if (options.namedExports) {
-      const json = modulesExported[this.id]
+      const json = modulesExported.get(this.id)
       const getClassName =
         typeof options.namedExports === 'function' ?
           options.namedExports :
@@ -184,20 +185,34 @@ export default {
 
     const cssVariableName = identifier('css', true)
     if (shouldExtract) {
-      output += `export default ${JSON.stringify(modulesExported[this.id])};`
+      // Only include the css export when css-modules is used. Regular css files shouldn't
+      // export any values to javascript.
+      if (supportModules && modulesExported.has(this.id)) {
+        output += `export default ${JSON.stringify(modulesExported.get(this.id))};`
+      } else {
+        output += 'export {};'
+      }
+
       extracted = {
         id: this.id,
         code: result.css,
         map: outputMap
       }
     } else {
-      const module = supportModules ?
-        JSON.stringify(modulesExported[this.id]) :
-        cssVariableName
-      output +=
-        `var ${cssVariableName} = ${JSON.stringify(result.css)};\n` +
-        `export default ${module};\n` +
-        `export var stylesheet=${JSON.stringify(result.css)};`
+      output += `var ${cssVariableName} = ${JSON.stringify(result.css)};\n`
+
+      // Only include the css export when css-modules is used. Regular css files shouldn't
+      // export any values to javascript.
+      if (supportModules) {
+        if (modulesExported.has(this.id)) {
+          output += `export default ${JSON.stringify(modulesExported.get(this.id))};`
+        } else {
+          output += 'export {};'
+        }
+      } else {
+        // the CSS content is the default export
+        output += `export default ${cssVariableName};`
+      }
     }
 
     if (!shouldExtract && shouldInject) {

@@ -16,29 +16,6 @@ function inferOption(option, defaultValue) {
   return option ? {} : defaultValue
 }
 
-/**
- * Recursivly get the correct import order from rollup
- * We only process a file once
- *
- * @param {string} id
- * @param {Function} getModuleInfo
- * @param {Set<string>} seen
- */
-function getRecursiveImportOrder(id, getModuleInfo, seen = new Set()) {
-  if (seen.has(id)) {
-    return []
-  }
-
-  seen.add(id)
-
-  const result = [id]
-  getModuleInfo(id).importedIds.forEach(importFile => {
-    result.push(...getRecursiveImportOrder(importFile, getModuleInfo, seen))
-  })
-
-  return result
-}
-
 export default (options = {}) => {
   const filter = createFilter(options.include, options.exclude)
   const postcssPlugins = Array.isArray(options.plugins) ?
@@ -136,13 +113,15 @@ export default (options = {}) => {
         extracted.set(id, result.extracted)
         return {
           code: result.code,
-          map: { mappings: '' }
+          map: { mappings: '' },
+          moduleSideEffects: 'no-treeshake'
         }
       }
 
       return {
         code: result.code,
-        map: result.map || { mappings: '' }
+        map: result.map || { mappings: '' },
+        moduleSideEffects: 'no-treeshake'
       }
     },
 
@@ -181,15 +160,19 @@ export default (options = {}) => {
 
         const concat = new Concat(true, fileName, '\n')
         const entries = [...extracted.values()]
-        const { modules, facadeModuleId } = bundle[
+        const { modules } = bundle[
           normalizePath(path.relative(dir, file))
         ]
 
         if (modules) {
-          const moduleIds = getRecursiveImportOrder(
-            facadeModuleId,
-            this.getModuleInfo
-          )
+          const moduleIds = []
+          Object.values(bundle).forEach(fileInfo => {
+            Object.keys(fileInfo.modules).forEach(module => {
+              if (loaders.isSupported(module)) {
+                moduleIds.push(module)
+              }
+            })
+          })
           entries.sort(
             (a, b) => moduleIds.indexOf(a.id) - moduleIds.indexOf(b.id)
           )

@@ -117,8 +117,6 @@ styleInject(css_248z$4);
 
 var css_248z$5 = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
 styleInject(css_248z$5);
-
-console.log(css_248z, css_248z$1);
 "
 `;
 
@@ -191,7 +189,6 @@ exports[`extract custom-path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\
 exports[`extract custom-path: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
 "
 `;
 
@@ -289,7 +286,6 @@ exports[`extract relative-path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[
 exports[`extract relative-path: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
 "
 `;
 
@@ -326,7 +322,6 @@ body {
 exports[`extract sourcemap-inline: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
 "
 `;
 
@@ -364,7 +359,6 @@ exports[`extract sourcemap-true: css map 1`] = `"{\\"version\\":3,\\"sources\\":
 exports[`extract sourcemap-true: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
 "
 `;
 
@@ -399,7 +393,6 @@ body {
 exports[`extract true: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
 "
 `;
 
@@ -410,7 +403,13 @@ var css_248z = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
 
 var css_248z$1 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
 
-console.log(css_248z, css_248z$1);
+var css_248z$2 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
+
+var css_248z$3 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
+
+var css_248z$4 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
+
+var css_248z$5 = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
 "
 `;
 
@@ -434,8 +433,6 @@ console.log(css_248z$4);
 
 var css_248z$5 = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
 console.log(css_248z$5);
-
-console.log(css_248z, css_248z$1);
 "
 `;
 
@@ -486,8 +483,6 @@ styleInject(css_248z$4,{\\"insertAt\\":\\"top\\"});
 
 var css_248z$5 = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
 styleInject(css_248z$5,{\\"insertAt\\":\\"top\\"});
-
-console.log(css_248z, css_248z$1);
 "
 `;
 
@@ -496,7 +491,6 @@ exports[`minimize extract: css code 1`] = `".bar,body{color:red}body{background:
 exports[`minimize extract: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
 "
 `;
 
@@ -508,7 +502,6 @@ exports[`minimize extract-sourcemap-inline: css code 1`] = `
 exports[`minimize extract-sourcemap-inline: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
 "
 `;
 
@@ -522,7 +515,6 @@ exports[`minimize extract-sourcemap-true: css map 1`] = `"{\\"version\\":3,\\"so
 exports[`minimize extract-sourcemap-true: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
 "
 `;
 
@@ -573,8 +565,6 @@ styleInject(css_248z$4);
 
 var css_248z$5 = \\".pcss{color:red}\\";
 styleInject(css_248z$5);
-
-console.log(css_248z, css_248z$1);
 "
 `;
 
@@ -755,7 +745,6 @@ var _new = \\"style_new\\";
 var _default = \\"style_default\\";
 var css_248z = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
 var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"default\\":\\"style_default\\",\\"_new\\":\\"style_new\\",\\"_default\\":\\"style_default\\"};
-var stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
 styleInject(css_248z);
 
 var style$1 = /*#__PURE__*/Object.freeze({
@@ -763,8 +752,7 @@ var style$1 = /*#__PURE__*/Object.freeze({
   foo: foo,
   _new: _new,
   _default: _default,
-  'default': style,
-  stylesheet: stylesheet
+  'default': style
 });
 
 console.log(style$1);
@@ -806,7 +794,6 @@ var newhacked = \\"style_new\\";
 var defaulthacked = \\"style_default\\";
 var css_248z = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
 var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"default\\":\\"style_default\\",\\"foohacked\\":\\"style_foo\\",\\"newhacked\\":\\"style_new\\",\\"defaulthacked\\":\\"style_default\\"};
-var stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
 styleInject(css_248z);
 
 var style$1 = /*#__PURE__*/Object.freeze({
@@ -814,8 +801,7 @@ var style$1 = /*#__PURE__*/Object.freeze({
   foohacked: foohacked,
   newhacked: newhacked,
   defaulthacked: defaulthacked,
-  'default': style,
-  stylesheet: stylesheet
+  'default': style
 });
 
 console.log(style$1);
@@ -825,7 +811,6 @@ console.log(style$1);
 exports[`onExtract 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
 "
 `;
 
@@ -1089,8 +1074,6 @@ styleInject(css_248z$4);
 
 var css_248z$5 = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnBjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoic3R5bGUucGNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wY3NzIHtcbiAgY29sb3I6IHJlZDtcbn1cbiJdfQ== */\\";
 styleInject(css_248z$5);
-
-console.log(css_248z, css_248z$1);
 "
 `;
 
@@ -1141,7 +1124,5 @@ styleInject(css_248z$4);
 
 var css_248z$5 = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnBjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoic3R5bGUucGNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wY3NzIHtcbiAgY29sb3I6IHJlZDtcbn1cbiJdfQ== */\\";
 styleInject(css_248z$5);
-
-console.log(css_248z, css_248z$1);
 "
 `;
