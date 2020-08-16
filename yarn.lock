@@ -8930,10 +8930,10 @@ rollup@^1.1.2:
     "@types/node" "*"
     acorn "^6.0.5"
 
-rollup@^2.6.1:
-  version "2.6.1"
-  resolved "https://registry.npm.taobao.org/rollup/download/rollup-2.6.1.tgz#8354e67caa7b8bf24c2488d9e2f64da2be62eebe"
-  integrity sha1-g1TmfKp7i/JMJIjZ4vZNor5i7r4=
+rollup@^2.21.0:
+  version "2.26.2"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.26.2.tgz#de32c2c28a0b5fb843d120e2b3a252a18e7740e9"
+  integrity sha512-dQOms6XRPGHS5Chq7JkkkGXeO72hzWuftB4Rba0rMIT5lThvcEXLTgjrp6+ehhUlsFraOfvcF0Q8dRoQ/X68WQ==
   optionalDependencies:
     fsevents "~2.1.2"
 
@@ -9071,6 +9071,11 @@ semver@^7.1.3, semver@^7.2.1:
   version "7.2.2"
   resolved "https://registry.npm.taobao.org/semver/download/semver-7.2.2.tgz?cache=0&sync_timestamp=1586534511518&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fsemver%2Fdownload%2Fsemver-7.2.2.tgz#d01432d74ed3010a20ffaf909d63a691520521cd"
   integrity sha1-0BQy107TAQog/6+QnWOmkVIFIc0=
+
+semver@^7.3.2:
+  version "7.3.2"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.2.tgz#604962b052b81ed0786aae84389ffba70ffd3938"
+  integrity sha512-OrOb32TeeambH6UrhtShmF7CRDqhL6/5XpPNp2DuRH6+9QLw/orhp72j87v8Qa1ScDkvrrBNpZcDejAirJmfXQ==
 
 semver@~5.3.0:
   version "5.3.0"

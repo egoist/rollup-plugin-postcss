@@ -1,4 +1,5 @@
 import path from 'path'
+import semver from 'semver'
 import { createFilter } from 'rollup-pluginutils'
 import Concat from 'concat-with-sourcemaps'
 import Loaders from './loaders'
@@ -71,6 +72,14 @@ export default (options = {}) => {
   return {
     name: 'postcss',
 
+    options() {
+      if (semver.satisfies(this.meta.rollupVersion, '<2.21.0')) {
+        throw new Error(
+          `rollup-plugin-postcss requires at least Rollup Version 2.21.0. You're using version ${this.meta.rollupVersion}.`
+        )
+      }
+    },
+
     async transform(code, id) {
       if (!filter(id) || !loaders.isSupported(id)) {
         return null
@@ -104,13 +113,15 @@ export default (options = {}) => {
         extracted.set(id, result.extracted)
         return {
           code: result.code,
-          map: { mappings: '' }
+          map: { mappings: '' },
+          moduleSideEffects: 'no-treeshake'
         }
       }
 
       return {
         code: result.code,
-        map: result.map || { mappings: '' }
+        map: result.map || { mappings: '' },
+        moduleSideEffects: 'no-treeshake'
       }
     },
 
@@ -149,10 +160,19 @@ export default (options = {}) => {
 
         const concat = new Concat(true, fileName, '\n')
         const entries = [...extracted.values()]
-        const { modules } = bundle[normalizePath(path.relative(dir, file))]
+        const { modules } = bundle[
+          normalizePath(path.relative(dir, file))
+        ]
 
         if (modules) {
-          const moduleIds = [...this.moduleIds]
+          const moduleIds = []
+          Object.values(bundle).forEach(fileInfo => {
+            Object.keys(fileInfo.modules).forEach(module => {
+              if (loaders.isSupported(module)) {
+                moduleIds.push(module)
+              }
+            })
+          })
           entries.sort(
             (a, b) => moduleIds.indexOf(a.id) - moduleIds.indexOf(b.id)
           )
