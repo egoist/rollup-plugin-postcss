@@ -200,7 +200,7 @@ exports[`extract nested: css code 1`] = `
   color: red;
 }
 
-.bar {
+.bar-module_bar {
   color: red;
 }
 
@@ -208,13 +208,20 @@ a {
   font-weight: bold;
 }
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiLCJiYXIuY3NzIiwibmVzdGVkLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLGlCQUFpQjtBQUNuQiIsImZpbGUiOiJidW5kbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XG4gIGNvbG9yOiByZWQ7XG59XG4iLCIuYmFyIHtcbiAgY29sb3I6IHJlZDtcbn1cbiIsImEge1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cbiJdfQ==*/"
+.component-module_box {
+  color: blue;
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiLCJiYXIubW9kdWxlLmNzcyIsIm5lc3RlZC5jc3MiLCJjb21wb25lbnQubW9kdWxlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLGlCQUFpQjtBQUNuQjs7QUNGQTtFQUNFLFdBQVc7QUFDYiIsImZpbGUiOiJidW5kbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XG4gIGNvbG9yOiByZWQ7XG59XG4iLCIuYmFyIHtcbiAgY29sb3I6IHJlZDtcbn1cbiIsImEge1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cbiIsIi5ib3gge1xuICBjb2xvcjogYmx1ZTtcbn0iXX0=*/"
 `;
 
 exports[`extract nested: js code 1`] = `
 "'use strict';
 
-console.log(undefined);
+var bar = {\\"bar\\":\\"bar-module_bar\\"};
+
+var component = {\\"box\\":\\"component-module_box\\"};
+
+console.log(bar, component);
 "
 `;
 
@@ -223,7 +230,7 @@ exports[`extract nested-delay-resolve: css code 1`] = `
   color: red;
 }
 
-.bar {
+.bar-module_bar {
   color: red;
 }
 
@@ -231,13 +238,20 @@ a {
   font-weight: bold;
 }
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhci5jc3MiLCJuZXN0ZWQuY3NzIiwiZm9vLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLGlCQUFpQjtBQUNuQjs7QUNGQTtFQUNFLFVBQVU7QUFDWiIsImZpbGUiOiJidW5kbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJhciB7XG4gIGNvbG9yOiByZWQ7XG59XG4iLCJhIHtcbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG59XG4iLCJib2R5IHtcbiAgY29sb3I6IHJlZDtcbn1cbiJdfQ==*/"
+.component-module_box {
+  color: blue;
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiLCJiYXIubW9kdWxlLmNzcyIsIm5lc3RlZC5jc3MiLCJjb21wb25lbnQubW9kdWxlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLGlCQUFpQjtBQUNuQjs7QUNGQTtFQUNFLFdBQVc7QUFDYiIsImZpbGUiOiJidW5kbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XG4gIGNvbG9yOiByZWQ7XG59XG4iLCIuYmFyIHtcbiAgY29sb3I6IHJlZDtcbn1cbiIsImEge1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cbiIsIi5ib3gge1xuICBjb2xvcjogYmx1ZTtcbn0iXX0=*/"
 `;
 
 exports[`extract nested-delay-resolve: js code 1`] = `
 "'use strict';
 
-console.log(undefined);
+var bar = {\\"bar\\":\\"bar-module_bar\\"};
+
+var component = {\\"box\\":\\"component-module_box\\"};
+
+console.log(bar, component);
 "
 `;
 

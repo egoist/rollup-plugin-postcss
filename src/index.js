@@ -15,11 +15,24 @@ function inferOption(option, defaultValue) {
   return option ? {} : defaultValue
 }
 
-function getRecursiveImportOrder(id, getModuleInfo) {
-  const result = []
+/**
+ * Recursivly get the correct import order from rollup
+ * We only process a file once
+ *
+ * @param {string} id
+ * @param {Function} getModuleInfo
+ * @param {Set<string>} seen
+ */
+function getRecursiveImportOrder(id, getModuleInfo, seen = new Set()) {
+  if (seen.has(id)) {
+    return []
+  }
+
+  seen.add(id)
+
+  const result = [id]
   getModuleInfo(id).importedIds.forEach(importFile => {
-    result.push(importFile)
-    result.push(...getRecursiveImportOrder(importFile, getModuleInfo))
+    result.push(...getRecursiveImportOrder(importFile, getModuleInfo, seen))
   })
 
   return result
