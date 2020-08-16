@@ -15,6 +15,16 @@ function inferOption(option, defaultValue) {
   return option ? {} : defaultValue
 }
 
+function getRecursiveImportOrder(id, getModuleInfo) {
+  const result = []
+  getModuleInfo(id).importedIds.forEach(importFile => {
+    result.push(importFile)
+    result.push(...getRecursiveImportOrder(importFile, getModuleInfo))
+  })
+
+  return result
+}
+
 export default (options = {}) => {
   const filter = createFilter(options.include, options.exclude)
   const postcssPlugins = Array.isArray(options.plugins) ?
@@ -149,10 +159,15 @@ export default (options = {}) => {
 
         const concat = new Concat(true, fileName, '\n')
         const entries = [...extracted.values()]
-        const { modules } = bundle[normalizePath(path.relative(dir, file))]
+        const { modules, facadeModuleId } = bundle[
+          normalizePath(path.relative(dir, file))
+        ]
 
         if (modules) {
-          const moduleIds = [...this.moduleIds]
+          const moduleIds = getRecursiveImportOrder(
+            facadeModuleId,
+            this.getModuleInfo
+          )
           entries.sort(
             (a, b) => moduleIds.indexOf(a.id) - moduleIds.indexOf(b.id)
           )
