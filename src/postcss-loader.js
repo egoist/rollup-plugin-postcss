@@ -70,8 +70,9 @@ export default {
     const shouldInject = options.inject
 
     const modulesExported = {}
-    const autoModules = options.autoModules !== false && isModuleFile(this.id)
-    const supportModules = options.modules || autoModules
+    const autoModules = options.autoModules !== false && options.onlyModules !== true
+    const isAutoModule = autoModules && isModuleFile(this.id)
+    const supportModules = autoModules ? isAutoModule : options.modules
     if (supportModules) {
       plugins.unshift(
         require('postcss-modules')({
@@ -196,7 +197,7 @@ export default {
       output +=
         `var ${cssVariableName} = ${JSON.stringify(result.css)};\n` +
         `export default ${module};\n` +
-        `export const stylesheet=${JSON.stringify(result.css)};`
+        `export var stylesheet=${JSON.stringify(result.css)};`
     }
 
     if (!shouldExtract && shouldInject) {

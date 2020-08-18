@@ -695,7 +695,7 @@ var _new = \\"style_new\\";
 var _default = \\"style_default\\";
 var css_248z = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
 var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"default\\":\\"style_default\\",\\"_new\\":\\"style_new\\",\\"_default\\":\\"style_default\\"};
-const stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
+var stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
 styleInject(css_248z);
 
 var style$1 = /*#__PURE__*/Object.freeze({
@@ -746,7 +746,7 @@ var newhacked = \\"style_new\\";
 var defaulthacked = \\"style_default\\";
 var css_248z = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
 var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"default\\":\\"style_default\\",\\"foohacked\\":\\"style_foo\\",\\"newhacked\\":\\"style_new\\",\\"defaulthacked\\":\\"style_default\\"};
-const stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
+var stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
 styleInject(css_248z);
 
 var style$1 = /*#__PURE__*/Object.freeze({
