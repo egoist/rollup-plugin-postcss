@@ -235,6 +235,16 @@ snapshotMany('modules', [
   {
     title: 'auto-modules',
     input: 'auto-modules/index.js'
+  },
+  {
+    title: 'exportGlobals',
+    input: 'css-modules-exportGlobals/index.js',
+    options: {
+      autoModules: false,
+      modules: {
+        exportGlobals: true
+      }
+    }
   }
 ])
 
