@@ -46,4 +46,4 @@ export type PostCSSPluginConf = {
 	exclude?: Parameters<CreateFilter>[1];
 };
 
-export default function (options: Readonly<PostCSSPluginConf>): Plugin
+export default function (options?: Readonly<PostCSSPluginConf>): Plugin
