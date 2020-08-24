@@ -20,12 +20,33 @@ async function write({
   outDir,
   options
 }) {
+  const { delayResolve, ...postCssOptions } = options
+
+  let first = true
+  // Delay the resolving of the first css file
+  const lateResolve = {
+    name: 'late-resolve',
+    async resolveId(importee) {
+      // when it's not a css file and not the first css file we return
+      if (!first || !importee.endsWith('.css')) {
+        return null
+      }
+
+      first = false
+
+      // delay resolving
+      return new Promise(resolve => {
+        setTimeout(() => resolve(null), 1000)
+      })
+    }
+  }
+
   outDir = fixture('dist', outDir)
   const bundle = await rollup({
     input: fixture(input),
-    plugins: [
-      postcss(options)
-    ]
+    plugins: [postcss(postCssOptions), delayResolve && lateResolve].filter(
+      Boolean
+    )
   })
   await bundle.write({
     format: 'cjs',
@@ -294,6 +315,23 @@ snapshotMany('extract', [
     options: {
       sourceMap: 'inline',
       extract: true
+    }
+  },
+  {
+    title: 'nested',
+    input: 'nested/index.js',
+    options: {
+      sourceMap: 'inline',
+      extract: true
+    }
+  },
+  {
+    title: 'nested-delay-resolve',
+    input: 'nested/index.js',
+    options: {
+      sourceMap: 'inline',
+      extract: true,
+      delayResolve: true
     }
   }
 ])
