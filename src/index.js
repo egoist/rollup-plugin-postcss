@@ -204,7 +204,7 @@ export default (options = {}) => {
             'utf8'
           ).toString('base64')}*/`
         } else if (sourceMap === true) {
-          code += `\n/*# sourceMappingURL=${fileName}.map */`
+          code += `\n/*# sourceMappingURL=${path.basename(fileName)}.map */`
         }
 
         return {
