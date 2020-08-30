@@ -195,6 +195,66 @@ console.log(undefined, undefined);
 "
 `;
 
+exports[`extract nested: css code 1`] = `
+"body {
+  color: red;
+}
+
+.bar-module_bar {
+  color: red;
+}
+
+a {
+  font-weight: bold;
+}
+
+.component-module_box {
+  color: blue;
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiLCJiYXIubW9kdWxlLmNzcyIsIm5lc3RlZC5jc3MiLCJjb21wb25lbnQubW9kdWxlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLGlCQUFpQjtBQUNuQjs7QUNGQTtFQUNFLFdBQVc7QUFDYiIsImZpbGUiOiJidW5kbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XG4gIGNvbG9yOiByZWQ7XG59XG4iLCIuYmFyIHtcbiAgY29sb3I6IHJlZDtcbn1cbiIsImEge1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cbiIsIi5ib3gge1xuICBjb2xvcjogYmx1ZTtcbn0iXX0=*/"
+`;
+
+exports[`extract nested: js code 1`] = `
+"'use strict';
+
+var bar = {\\"bar\\":\\"bar-module_bar\\"};
+
+var component = {\\"box\\":\\"component-module_box\\"};
+
+console.log(bar, component);
+"
+`;
+
+exports[`extract nested-delay-resolve: css code 1`] = `
+"body {
+  color: red;
+}
+
+.bar-module_bar {
+  color: red;
+}
+
+a {
+  font-weight: bold;
+}
+
+.component-module_box {
+  color: blue;
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiLCJiYXIubW9kdWxlLmNzcyIsIm5lc3RlZC5jc3MiLCJjb21wb25lbnQubW9kdWxlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLGlCQUFpQjtBQUNuQjs7QUNGQTtFQUNFLFdBQVc7QUFDYiIsImZpbGUiOiJidW5kbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XG4gIGNvbG9yOiByZWQ7XG59XG4iLCIuYmFyIHtcbiAgY29sb3I6IHJlZDtcbn1cbiIsImEge1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cbiIsIi5ib3gge1xuICBjb2xvcjogYmx1ZTtcbn0iXX0=*/"
+`;
+
+exports[`extract nested-delay-resolve: js code 1`] = `
+"'use strict';
+
+var bar = {\\"bar\\":\\"bar-module_bar\\"};
+
+var component = {\\"box\\":\\"component-module_box\\"};
+
+console.log(bar, component);
+"
+`;
+
 exports[`extract relative-path: css code 1`] = `
 "body {
   color: red;
