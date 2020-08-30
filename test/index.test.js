@@ -51,7 +51,8 @@ async function write({
   await bundle.write({
     format: 'cjs',
     dir: outDir,
-    entryFileNames: 'bundle.js'
+    entryFileNames: 'bundle.js',
+    chunkFileNames: '[name].js'
   })
   let cssCodePath = path.join(outDir, 'bundle.css')
   if (typeof options.extract === 'string') {

@@ -229,9 +229,17 @@ var bar = {\\"bar\\":\\"bar-module_bar\\"};
 
 var component = {\\"box\\":\\"component-module_box\\"};
 
+function test() {
+  // eslint-disable-next-line node/no-unsupported-features/es-syntax
+  return new Promise(function (resolve) { resolve(require('./nested-dynamic.js')); }).then(() => {
+    return 'nested-dynamic'
+  })
+}
+
 (async () => {
   // eslint-disable-next-line node/no-unsupported-features/es-syntax
-  const dynamicModule = await new Promise(function (resolve) { resolve(require('./dynamic-23a2f1cd.js')); });
+  const dynamicModule = await new Promise(function (resolve) { resolve(require('./dynamic.js')); });
+  test();
   console.log(bar, component, dynamicModule);
 })();
 "
@@ -271,9 +279,17 @@ var bar = {\\"bar\\":\\"bar-module_bar\\"};
 
 var component = {\\"box\\":\\"component-module_box\\"};
 
+function test() {
+  // eslint-disable-next-line node/no-unsupported-features/es-syntax
+  return new Promise(function (resolve) { resolve(require('./nested-dynamic.js')); }).then(() => {
+    return 'nested-dynamic'
+  })
+}
+
 (async () => {
   // eslint-disable-next-line node/no-unsupported-features/es-syntax
-  const dynamicModule = await new Promise(function (resolve) { resolve(require('./dynamic-4354553e.js')); });
+  const dynamicModule = await new Promise(function (resolve) { resolve(require('./dynamic.js')); });
+  test();
   console.log(bar, component, dynamicModule);
 })();
 "
