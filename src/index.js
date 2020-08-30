@@ -31,7 +31,13 @@ function getRecursiveImportOrder(id, getModuleInfo, seen = new Set()) {
   seen.add(id)
 
   const result = [id]
-  getModuleInfo(id).importedIds.forEach(importFile => {
+  const moduleInfo = getModuleInfo(id)
+
+  moduleInfo.importedIds.forEach(importFile => {
+    result.push(...getRecursiveImportOrder(importFile, getModuleInfo, seen))
+  })
+
+  moduleInfo.dynamicallyImportedIds.forEach(importFile => {
     result.push(...getRecursiveImportOrder(importFile, getModuleInfo, seen))
   })
 

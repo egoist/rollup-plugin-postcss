@@ -211,7 +211,15 @@ a {
 .component-module_box {
   color: blue;
 }
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiLCJiYXIubW9kdWxlLmNzcyIsIm5lc3RlZC5jc3MiLCJjb21wb25lbnQubW9kdWxlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLGlCQUFpQjtBQUNuQjs7QUNGQTtFQUNFLFdBQVc7QUFDYiIsImZpbGUiOiJidW5kbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XG4gIGNvbG9yOiByZWQ7XG59XG4iLCIuYmFyIHtcbiAgY29sb3I6IHJlZDtcbn1cbiIsImEge1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cbiIsIi5ib3gge1xuICBjb2xvcjogYmx1ZTtcbn0iXX0=*/"
+.dynamicNested {
+  color: tomato;
+}
+
+.dynamic-module_dynamic {
+  color: tomato;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiLCJiYXIubW9kdWxlLmNzcyIsIm5lc3RlZC5jc3MiLCJjb21wb25lbnQubW9kdWxlLmNzcyIsIm5lc3RlZC1keW5hbWljIG1vZHVsZS5jc3MiLCJkeW5hbWljLm1vZHVsZS5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1o7O0FDRkE7RUFDRSxVQUFVO0FBQ1o7O0FDRkE7RUFDRSxpQkFBaUI7QUFDbkI7O0FDRkE7RUFDRSxXQUFXO0FBQ2I7QUNGQTtFQUNFLGFBQWE7QUFDZjs7QUNGQTtFQUNFLGFBQWE7QUFDZiIsImZpbGUiOiJidW5kbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XG4gIGNvbG9yOiByZWQ7XG59XG4iLCIuYmFyIHtcbiAgY29sb3I6IHJlZDtcbn1cbiIsImEge1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cbiIsIi5ib3gge1xuICBjb2xvcjogYmx1ZTtcbn0iLCIuZHluYW1pY05lc3RlZCB7XG4gIGNvbG9yOiB0b21hdG87XG59XG4iLCIuZHluYW1pYyB7XG4gIGNvbG9yOiB0b21hdG87XG59XG4iXX0=*/"
 `;
 
 exports[`extract nested: js code 1`] = `
@@ -221,7 +229,11 @@ var bar = {\\"bar\\":\\"bar-module_bar\\"};
 
 var component = {\\"box\\":\\"component-module_box\\"};
 
-console.log(bar, component);
+(async () => {
+  // eslint-disable-next-line node/no-unsupported-features/es-syntax
+  const dynamicModule = await new Promise(function (resolve) { resolve(require('./dynamic-23a2f1cd.js')); });
+  console.log(bar, component, dynamicModule);
+})();
 "
 `;
 
@@ -241,7 +253,15 @@ a {
 .component-module_box {
   color: blue;
 }
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiLCJiYXIubW9kdWxlLmNzcyIsIm5lc3RlZC5jc3MiLCJjb21wb25lbnQubW9kdWxlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLGlCQUFpQjtBQUNuQjs7QUNGQTtFQUNFLFdBQVc7QUFDYiIsImZpbGUiOiJidW5kbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XG4gIGNvbG9yOiByZWQ7XG59XG4iLCIuYmFyIHtcbiAgY29sb3I6IHJlZDtcbn1cbiIsImEge1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cbiIsIi5ib3gge1xuICBjb2xvcjogYmx1ZTtcbn0iXX0=*/"
+.dynamicNested {
+  color: tomato;
+}
+
+.dynamic-module_dynamic {
+  color: tomato;
+}
+
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiLCJiYXIubW9kdWxlLmNzcyIsIm5lc3RlZC5jc3MiLCJjb21wb25lbnQubW9kdWxlLmNzcyIsIm5lc3RlZC1keW5hbWljIG1vZHVsZS5jc3MiLCJkeW5hbWljLm1vZHVsZS5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1o7O0FDRkE7RUFDRSxVQUFVO0FBQ1o7O0FDRkE7RUFDRSxpQkFBaUI7QUFDbkI7O0FDRkE7RUFDRSxXQUFXO0FBQ2I7QUNGQTtFQUNFLGFBQWE7QUFDZjs7QUNGQTtFQUNFLGFBQWE7QUFDZiIsImZpbGUiOiJidW5kbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XG4gIGNvbG9yOiByZWQ7XG59XG4iLCIuYmFyIHtcbiAgY29sb3I6IHJlZDtcbn1cbiIsImEge1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cbiIsIi5ib3gge1xuICBjb2xvcjogYmx1ZTtcbn0iLCIuZHluYW1pY05lc3RlZCB7XG4gIGNvbG9yOiB0b21hdG87XG59XG4iLCIuZHluYW1pYyB7XG4gIGNvbG9yOiB0b21hdG87XG59XG4iXX0=*/"
 `;
 
 exports[`extract nested-delay-resolve: js code 1`] = `
@@ -251,7 +271,11 @@ var bar = {\\"bar\\":\\"bar-module_bar\\"};
 
 var component = {\\"box\\":\\"component-module_box\\"};
 
-console.log(bar, component);
+(async () => {
+  // eslint-disable-next-line node/no-unsupported-features/es-syntax
+  const dynamicModule = await new Promise(function (resolve) { resolve(require('./dynamic-4354553e.js')); });
+  console.log(bar, component, dynamicModule);
+})();
 "
 `;
 
