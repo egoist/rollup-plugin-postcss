@@ -183,7 +183,7 @@ body {
   color: red;
 }
 
-/*# sourceMappingURL=this/is/extracted.css.map */"
+/*# sourceMappingURL=extracted.css.map */"
 `;
 
 exports[`extract custom-path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"foo.css\\",\\"bar.css\\",\\"test/fixtures/simple/style.styl\\",\\"style.styl\\",\\"style.sass\\",\\"test/fixtures/simple/style.less\\",\\"style.less\\",\\"style.pcss\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,UAAU;AACZ;;ACFA;EACE,UAAU;AACZ;;ACFA;EACE,WAAO;EACP,gBAAY;ACCd;AACA,yDAAyD;ACJzD;EACE,UAAU;EACV,sBAAsB,EAAE;;ACC1B;EACE,cAAA;ACFF;;ACFA;EACE,UAAU;AACZ\\",\\"file\\":\\"this/is/extracted.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",null,null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",null,null,\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\"]}"`;
@@ -192,6 +192,66 @@ exports[`extract custom-path: js code 1`] = `
 "'use strict';
 
 console.log(undefined, undefined);
+"
+`;
+
+exports[`extract nested: css code 1`] = `
+"body {
+  color: red;
+}
+
+.bar-module_bar {
+  color: red;
+}
+
+a {
+  font-weight: bold;
+}
+
+.component-module_box {
+  color: blue;
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiLCJiYXIubW9kdWxlLmNzcyIsIm5lc3RlZC5jc3MiLCJjb21wb25lbnQubW9kdWxlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLGlCQUFpQjtBQUNuQjs7QUNGQTtFQUNFLFdBQVc7QUFDYiIsImZpbGUiOiJidW5kbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XG4gIGNvbG9yOiByZWQ7XG59XG4iLCIuYmFyIHtcbiAgY29sb3I6IHJlZDtcbn1cbiIsImEge1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cbiIsIi5ib3gge1xuICBjb2xvcjogYmx1ZTtcbn0iXX0=*/"
+`;
+
+exports[`extract nested: js code 1`] = `
+"'use strict';
+
+var bar = {\\"bar\\":\\"bar-module_bar\\"};
+
+var component = {\\"box\\":\\"component-module_box\\"};
+
+console.log(bar, component);
+"
+`;
+
+exports[`extract nested-delay-resolve: css code 1`] = `
+"body {
+  color: red;
+}
+
+.bar-module_bar {
+  color: red;
+}
+
+a {
+  font-weight: bold;
+}
+
+.component-module_box {
+  color: blue;
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiLCJiYXIubW9kdWxlLmNzcyIsIm5lc3RlZC5jc3MiLCJjb21wb25lbnQubW9kdWxlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLGlCQUFpQjtBQUNuQjs7QUNGQTtFQUNFLFdBQVc7QUFDYiIsImZpbGUiOiJidW5kbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XG4gIGNvbG9yOiByZWQ7XG59XG4iLCIuYmFyIHtcbiAgY29sb3I6IHJlZDtcbn1cbiIsImEge1xuICBmb250LXdlaWdodDogYm9sZDtcbn1cbiIsIi5ib3gge1xuICBjb2xvcjogYmx1ZTtcbn0iXX0=*/"
+`;
+
+exports[`extract nested-delay-resolve: js code 1`] = `
+"'use strict';
+
+var bar = {\\"bar\\":\\"bar-module_bar\\"};
+
+var component = {\\"box\\":\\"component-module_box\\"};
+
+console.log(bar, component);
 "
 `;
 
@@ -221,7 +281,7 @@ body {
   color: red;
 }
 
-/*# sourceMappingURL=this/is/extracted.css.map */"
+/*# sourceMappingURL=extracted.css.map */"
 `;
 
 exports[`extract relative-path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"foo.css\\",\\"bar.css\\",\\"test/fixtures/simple/style.styl\\",\\"style.styl\\",\\"style.sass\\",\\"test/fixtures/simple/style.less\\",\\"style.less\\",\\"style.pcss\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,UAAU;AACZ;;ACFA;EACE,UAAU;AACZ;;ACFA;EACE,WAAO;EACP,gBAAY;ACCd;AACA,yDAAyD;ACJzD;EACE,UAAU;EACV,sBAAsB,EAAE;;ACC1B;EACE,cAAA;ACFF;;ACFA;EACE,UAAU;AACZ\\",\\"file\\":\\"this/is/extracted.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",null,null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",null,null,\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\"]}"`;
