@@ -15,6 +15,29 @@ function inferOption(option, defaultValue) {
   return option ? {} : defaultValue
 }
 
+/**
+ * Recursivly get the correct import order from rollup
+ * We only process a file once
+ *
+ * @param {string} id
+ * @param {Function} getModuleInfo
+ * @param {Set<string>} seen
+ */
+function getRecursiveImportOrder(id, getModuleInfo, seen = new Set()) {
+  if (seen.has(id)) {
+    return []
+  }
+
+  seen.add(id)
+
+  const result = [id]
+  getModuleInfo(id).importedIds.forEach(importFile => {
+    result.push(...getRecursiveImportOrder(importFile, getModuleInfo, seen))
+  })
+
+  return result
+}
+
 export default (options = {}) => {
   const filter = createFilter(options.include, options.exclude)
   const postcssPlugins = Array.isArray(options.plugins) ?
@@ -149,10 +172,15 @@ export default (options = {}) => {
 
         const concat = new Concat(true, fileName, '\n')
         const entries = [...extracted.values()]
-        const { modules } = bundle[normalizePath(path.relative(dir, file))]
+        const { modules, facadeModuleId } = bundle[
+          normalizePath(path.relative(dir, file))
+        ]
 
         if (modules) {
-          const moduleIds = [...this.moduleIds]
+          const moduleIds = getRecursiveImportOrder(
+            facadeModuleId,
+            this.getModuleInfo
+          )
           entries.sort(
             (a, b) => moduleIds.indexOf(a.id) - moduleIds.indexOf(b.id)
           )
@@ -176,7 +204,7 @@ export default (options = {}) => {
             'utf8'
           ).toString('base64')}*/`
         } else if (sourceMap === true) {
-          code += `\n/*# sourceMappingURL=${fileName}.map */`
+          code += `\n/*# sourceMappingURL=${path.basename(fileName)}.map */`
         }
 
         return {
