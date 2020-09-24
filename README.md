@@ -159,7 +159,7 @@ file as the same source files may have been imported by modules that ended up in
 strategy is required to assure this.
 
 ```javascript
-function extract({dir}, bundle, extracted) {
+function extract(_, bundle, extracted) {
   return Object.values(bundle)
     .filter( ({facadeModuleId}) => facadeModuleId )
     .map(chunk => {
