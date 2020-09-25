@@ -56,7 +56,7 @@
     "import-cwd": "^3.0.0",
     "p-queue": "^6.3.0",
     "pify": "^5.0.0",
-    "postcss": "^7.0.27",
+    "postcss": "8",
     "postcss-load-config": "^2.1.0",
     "postcss-modules": "^2.0.0",
     "promise.series": "^0.2.0",
@@ -64,6 +64,9 @@
     "rollup-pluginutils": "^2.8.2",
     "safe-identifier": "^0.4.1",
     "style-inject": "^0.3.0"
+  },
+  "peerDependencies": {
+    "postcss": "^8.0.0"
   },
   "xo": {
     "extends": "rem",
