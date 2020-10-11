@@ -16,7 +16,7 @@ function inferOption(option, defaultValue) {
 }
 
 /**
- * Recursivly get the correct import order from rollup
+ * Recursively get the correct import order from rollup
  * We only process a file once
  *
  * @param {string} id
