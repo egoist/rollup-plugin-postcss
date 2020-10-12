@@ -28,13 +28,16 @@ export default {
     return new Promise((resolve, reject) => {
       const sass = loadSassOrThrow()
       const render = pify(sass.render.bind(sass))
-      const data = this.options.data || ''
+      const indented = /\.sass$/.test(this.id)
+      const data = (this.options.data && this.options.data.scss && this.options.data.sass) ?
+        (indented ? this.options.data.sass : this.options.data.scss) :
+        (this.options.data || '')
       return workQueue.add(() =>
         render({
           ...this.options,
           file: this.id,
           data: data + code,
-          indentedSyntax: /\.sass$/.test(this.id),
+          indentedSyntax: indented,
           sourceMap: this.sourceMap,
           importer: [
             (url, importer, done) => {

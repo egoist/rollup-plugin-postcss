@@ -403,6 +403,27 @@ snapshotMany('sass', [
     }
   },
   {
+    title: 'data-prepend-mixed',
+    input: 'sass-data-prepend/mixed.js',
+    options: {
+      use: [
+        [
+          'sass',
+          { data: { sass: '@import \'prepend\'\n', scss: '@import \'prepend\';' } }
+        ]
+      ]
+    }
+  },
+  {
+    title: 'data-prepend-mixed',
+    input: 'sass-data-prepend/mixed.js',
+    options: {
+      use: {
+        sass: { data: { sass: '@import \'prepend\'\n', scss: '@import \'prepend\';' } }
+      }
+    }
+  },
+  {
     title: 'import',
     input: 'sass-import/index.js'
   }
