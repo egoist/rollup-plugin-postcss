@@ -128,12 +128,53 @@ It can also be a `function` , returning a `string` which is js code.
 
 ### extract
 
-Type: `boolean` `string`<br>
+Type: `boolean` `string` `function(options, bundle, extracted): [ExtractParams]`,  <br>
 Default: `false`
 
 Extract CSS to the same location where JS file is generated but with `.css` extension.
 
-You can also set it to an absolute path.
+You can also set it to an absolute path by passing a string.
+
+#### Extraction into multiple CSS files
+
+By passing in a function, you can split the generated CSS into multiple files, customizing their
+content and location. The function is passed the following arguments:
+
+* `options:` [`OutputOptions`](https://rollupjs.org/guide/en/#outputoptions)
+* `bundle:` [`{ [fileName: string]: AssetInfo | ChunkInfo }`](https://rollupjs.org/guide/en/#generatebundle)
+* `extracted: Map<string,CssContent>` - the extracted CSS fragments to be distributed between output files
+
+The function is expected to return an array of `ExtractParams` descriptor objects with the following required
+properties:
+
+* `fileName: string` - output CSS file name
+* `chunk: ChunkInfo` - one of the chunks in `bundle`; **must** have the `facadeModuleId` property defined. It is
+used to determine the order in which the extracted CSS fragments will be written
+* `entries: CssContent` - filtered array of the extracted CSS fragments; they **must** be contained in the Rollup
+dependency tree rooted at `chunk.facadeModuleId`
+
+The following example creates a separate CSS file for every suitable chunk in the build (assuming the chunks themselves
+are saved with `.mjs` extension). Note that it does not guarantee that every fragment will be in one and only one output
+file as the same source files may have been imported by modules that ended up in different chunks; a more sophisticated
+strategy is required to assure this.
+
+```javascript
+function extract(_, bundle, extracted) {
+  return Object.values(bundle)
+    .filter( ({facadeModuleId}) => facadeModuleId )
+    .map(chunk => {
+      const {fileName, modules} = chunk;
+      return {
+        chunk,
+        fileName: path.basename(fileName, '.mjs') + '.css',
+        entries: 
+          [...extracted.entries()]
+            .filter( ([id]) => id in modules )
+            .map( ([, value]) => value )
+      }
+    });
+}
+```
 
 ### modules
 
