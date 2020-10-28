@@ -234,7 +234,7 @@ export default (options = {}) => {
           cssOptions.to = codeFileName
         }
 
-        const result = await require('cssnano').process(code, cssOptions)
+        const result = await require('cssnano').process(code, undefined, cssOptions)
         code = result.css
 
         if (sourceMap === true && result.map && result.map.toString) {
