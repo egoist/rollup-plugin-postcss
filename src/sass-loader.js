@@ -26,7 +26,7 @@ const tryToResolve = (urls, options) => urls.reduce((promise, url) => {
     if (
       error &&
       error.code !== 'MODULE_NOT_FOUND' &&
-      error.code === 'ENOENT'
+      error.code !== 'ENOENT'
     ) {
       return Promise.reject(error)
     }
