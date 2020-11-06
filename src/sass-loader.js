@@ -21,6 +21,20 @@ const resolvePromise = pify(resolve)
 // List of supported SASS modules in the order of preference
 const sassModuleIds = ['node-sass', 'sass']
 
+const tryToResolve = (urls, options) => urls.reduce((promise, url) => {
+  return promise.catch(error => {
+    if (
+      error &&
+      error.code !== 'MODULE_NOT_FOUND' &&
+      error.code === 'ENOENT'
+    ) {
+      return Promise.reject(error)
+    }
+
+    return resolvePromise(url, options)
+  })
+}, Promise.reject())
+
 export default {
   name: 'sass',
   test: /\.(sass|scss)$/,
@@ -59,21 +73,11 @@ export default {
                 done({ file: url })
               }
 
-              // Give precedence to importing a partial
-              resolvePromise(partialUrl, options)
-                .then(finishImport)
-                .catch(error => {
-                  if (
-                    error.code === 'MODULE_NOT_FOUND' ||
-                    error.code === 'ENOENT'
-                  ) {
-                    resolvePromise(moduleUrl, options)
-                      .then(finishImport)
-                      .catch(next)
-                  } else {
-                    next()
-                  }
-                })
+              tryToResolve(
+                // https://github.com/webpack-contrib/sass-loader/blob/master/src/utils.js#L351
+                [partialUrl, moduleUrl, `${moduleUrl}/_index`, `${moduleUrl}/index`],
+                options
+              ).then(finishImport).catch(next)
             }
           ].concat(this.options.importer || [])
         })
