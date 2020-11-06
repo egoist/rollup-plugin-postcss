@@ -964,7 +964,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = \\".a {\\\\n  color: pink; }\\\\n\\\\n.b {\\\\n  color: red; }\\\\n\\\\n.c {\\\\n  color: black; }\\\\n\\\\n.foo {\\\\n  color: magenta; }\\\\n\\";
+var css_248z = \\".a {\\\\n  color: pink; }\\\\n\\\\n.b {\\\\n  color: red; }\\\\n\\\\n.c {\\\\n  color: black; }\\\\n\\\\nbody {\\\\n  outline: 3px solid yellow; }\\\\n\\\\n.foo {\\\\n  color: magenta; }\\\\n\\";
 styleInject(css_248z);
 "
 `;
