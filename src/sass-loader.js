@@ -74,7 +74,6 @@ export default {
               }
 
               tryToResolve(
-                // https://github.com/webpack-contrib/sass-loader/blob/master/src/utils.js#L351
                 [partialUrl, moduleUrl, `${moduleUrl}/_index`, `${moduleUrl}/index`],
                 options
               ).then(finishImport).catch(next)
