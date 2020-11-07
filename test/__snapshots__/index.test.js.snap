@@ -191,7 +191,11 @@ exports[`extract custom-path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\
 exports[`extract custom-path: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+var foo = undefined;
+
+var bar = undefined;
+
+console.log(foo, bar);
 "
 `;
 
@@ -289,7 +293,11 @@ exports[`extract relative-path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[
 exports[`extract relative-path: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+var foo = undefined;
+
+var bar = undefined;
+
+console.log(foo, bar);
 "
 `;
 
@@ -326,7 +334,11 @@ body {
 exports[`extract sourcemap-inline: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+var foo = undefined;
+
+var bar = undefined;
+
+console.log(foo, bar);
 "
 `;
 
@@ -364,7 +376,11 @@ exports[`extract sourcemap-true: css map 1`] = `"{\\"version\\":3,\\"sources\\":
 exports[`extract sourcemap-true: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+var foo = undefined;
+
+var bar = undefined;
+
+console.log(foo, bar);
 "
 `;
 
@@ -399,7 +415,11 @@ body {
 exports[`extract true: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+var foo = undefined;
+
+var bar = undefined;
+
+console.log(foo, bar);
 "
 `;
 
@@ -496,19 +516,27 @@ exports[`minimize extract: css code 1`] = `".bar,body{color:red}body{background:
 exports[`minimize extract: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+var foo = undefined;
+
+var bar = undefined;
+
+console.log(foo, bar);
 "
 `;
 
 exports[`minimize extract-sourcemap-inline: css code 1`] = `
 ".bar,body{color:red}body{background:red}#sidebar{width:30%;background-color:#faa}#header{color:#6c94be}.pcss{color:red}
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJ1bmRsZS5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUUEsVUFIRSxTQU1GLENBSEEsS0FFRSxjQUNGLENBRUEsU0FDRSxTQUFVLENBQ1YscUJBQXdCLENBRzFCLFFBQ0UsYUFDRixDQUVBLE1BQ0UsU0FDRiIsImZpbGUiOiJidW5kbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XG4gIGNvbG9yOiByZWQ7XG59XG5cbi5iYXIge1xuICBjb2xvcjogcmVkO1xufVxuXG5ib2R5IHtcbiAgY29sb3I6ICNmMDA7XG4gIGJhY2tncm91bmQ6ICNmMDA7XG59XG4vKiMgc291cmNlTWFwcGluZ1VSTD10ZXN0L2ZpeHR1cmVzL3NpbXBsZS9zdHlsZS5jc3MubWFwICovXG4jc2lkZWJhciB7XG4gIHdpZHRoOiAzMCU7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmYWE7IH1cblxuLyojIHNvdXJjZU1hcHBpbmdVUkw9Li4vLi4vLi4vaW5saW5lICovXG4jaGVhZGVyIHtcbiAgY29sb3I6ICM2Yzk0YmU7XG59XG5cbi5wY3NzIHtcbiAgY29sb3I6IHJlZDtcbn1cblxuLyojIHNvdXJjZU1hcHBpbmdVUkw9ZGF0YTphcHBsaWNhdGlvbi9qc29uO2Jhc2U2NCxleUoyWlhKemFXOXVJam96TENKemIzVnlZMlZ6SWpwYkltWnZieTVqYzNNaUxDSmlZWEl1WTNOeklpd2lkR1Z6ZEM5bWFYaDBkWEpsY3k5emFXMXdiR1V2YzNSNWJHVXVjM1I1YkNJc0luTjBlV3hsTG5OMGVXd2lMQ0owWlhOMEwyWnBlSFIxY21WekwzTnBiWEJzWlM5emRIbHNaUzV6WVhOeklpd2ljM1I1YkdVdWMyRnpjeUlzSW5SbGMzUXZabWw0ZEhWeVpYTXZjMmx0Y0d4bEwzTjBlV3hsTG14bGMzTWlMQ0p6ZEhsc1pTNXNaWE56SWl3aWMzUjViR1V1Y0dOemN5SmRMQ0p1WVcxbGN5STZXMTBzSW0xaGNIQnBibWR6SWpvaVFVRkJRVHRGUVVORkxGVkJRVlU3UVVGRFdqczdRVU5HUVR0RlFVTkZMRlZCUVZVN1FVRkRXanM3UVVOR1FUdEZRVU5GTEZkQlFVODdSVUZEVUN4blFrRkJXVHRCUTBOa08wRkJRMEVzZVVSQlFYbEVPMEZEU25wRU8wVkJRMFVzVlVGQlZUdEZRVU5XTEhOQ1FVRnpRaXhGUVVGQk96dEJRMFY0UWl4elEwRkJjME03UVVORWRFTTdSVUZEUlN4alFVRkJPMEZEUmtZN08wRkRSa0U3UlVGRFJTeFZRVUZWTzBGQlExb2lMQ0ptYVd4bElqb2lZblZ1Wkd4bExtTnpjeUlzSW5OdmRYSmpaWE5EYjI1MFpXNTBJanBiSW1KdlpIa2dlMXh1SUNCamIyeHZjam9nY21Wa08xeHVmVnh1SWl3aUxtSmhjaUI3WEc0Z0lHTnZiRzl5T2lCeVpXUTdYRzU5WEc0aUxHNTFiR3dzYm5Wc2JDeHVkV3hzTEc1MWJHd3NiblZzYkN4dWRXeHNMQ0l1Y0dOemN5QjdYRzRnSUdOdmJHOXlPaUJ5WldRN1hHNTlYRzRpWFgwPSovIl19 */"
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnN0eWwiLCJiYXIuY3NzIiwic3R5bGUuc3R5bCIsInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnNhc3MiLCJ0ZXN0L2ZpeHR1cmVzL3NpbXBsZS9zdHlsZS5sZXNzIiwic3R5bGUubGVzcyIsInN0eWxlLnBjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsVUNDRSxTQ0VGLENGSEEsS0FFRSxjRUNGLENDSEEsU0FDRSxTQUFVLENBQ1YscUJBQXNCLENDQ3hCLFFBQ0UsYUNGRixDQ0ZBLE1BQ0UsU0FDRiIsImZpbGUiOiJidW5kbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOltudWxsLCIuYmFyIHtcbiAgY29sb3I6IHJlZDtcbn1cbiIsbnVsbCxudWxsLG51bGwsbnVsbCwiLnBjc3Mge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */"
 `;
 
 exports[`minimize extract-sourcemap-inline: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+var foo = undefined;
+
+var bar = undefined;
+
+console.log(foo, bar);
 "
 `;
 
@@ -522,7 +550,11 @@ exports[`minimize extract-sourcemap-true: css map 1`] = `"{\\"version\\":3,\\"so
 exports[`minimize extract-sourcemap-true: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+var foo = undefined;
+
+var bar = undefined;
+
+console.log(foo, bar);
 "
 `;
 
@@ -825,7 +857,11 @@ console.log(style$1);
 exports[`onExtract 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+var foo = undefined;
+
+var bar = undefined;
+
+console.log(foo, bar);
 "
 `;
 
