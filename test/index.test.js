@@ -54,11 +54,7 @@ async function write({
   })
   let cssCodePath = path.join(outDir, 'bundle.css')
   if (typeof options.extract === 'string') {
-    if (path.isAbsolute(options.extract)) {
-      cssCodePath = options.extract
-    } else {
-      cssCodePath = path.join(outDir, options.extract)
-    }
+    cssCodePath = path.isAbsolute(options.extract) ? options.extract : path.join(outDir, options.extract)
   }
 
   const cssMapPath = `${cssCodePath}.map`
@@ -167,6 +163,13 @@ snapshotMany('basic', [
       plugins: [
         require('autoprefixer')()
       ]
+    }
+  },
+  {
+    title: 'on-import',
+    input: 'simple/index.js',
+    options: {
+      onImport: () => { }
     }
   }
 ])
