@@ -52,10 +52,12 @@ function isModuleFile(file) {
   return /\.module\.[a-z]{2,6}$/.test(file)
 }
 
+/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   name: 'postcss',
   alwaysProcess: true,
   // `test` option is dynamically set in ./loaders
+  // eslint-disable-next-line complexity
   async process({ code, map }) {
     const config = this.options.config ?
       await loadConfig(this.id, this.options.config) :
@@ -126,9 +128,14 @@ export default {
     if (plugins.length === 0) {
       // Prevent from postcss warning:
       // You did not set any plugins, parser, or stringifier. Right now, PostCSS does nothing. Pick plugins for your case on https://www.postcss.parts/ and use them in postcss.config.js
-      const noopPlugin = postcss.plugin('postcss-noop-plugin', () => () => {
-        /* noop */
-      })
+      const noopPlugin = () => {
+        return {
+          postcssPlugin: 'postcss-noop-plugin',
+          Once() {
+          }
+        }
+      }
+
       plugins.push(noopPlugin())
     }
 
@@ -201,17 +208,12 @@ export default {
     }
 
     if (!shouldExtract && shouldInject) {
-      if (typeof options.inject === 'function') {
-        output += options.inject(cssVariableName, this.id)
-      } else {
-        output += '\n' +
-          `import styleInject from '${styleInjectPath}';\n` +
-          `styleInject(${cssVariableName}${
-            Object.keys(options.inject).length > 0 ?
-              `,${JSON.stringify(options.inject)}` :
-              ''
-          });`
-      }
+      output += typeof options.inject === 'function' ? options.inject(cssVariableName, this.id) : '\n' +
+        `import styleInject from '${styleInjectPath}';\n` +
+        `styleInject(${cssVariableName}${Object.keys(options.inject).length > 0 ?
+          `,${JSON.stringify(options.inject)}` :
+          ''
+        });`
     }
 
     return {

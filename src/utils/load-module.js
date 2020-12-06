@@ -4,7 +4,7 @@ export function loadModule(moduleId) {
   // Trying to load module normally (relative to plugin directory)
   try {
     return require(moduleId)
-  } catch (_) {
+  } catch {
     // Ignore error
   }
 
