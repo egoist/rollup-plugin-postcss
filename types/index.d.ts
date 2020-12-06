@@ -13,11 +13,11 @@ type onExtract = (asset: Readonly<{
 export type PostCSSPluginConf = {
 	inject?:
 	| boolean
-	| { [key: string]: any }
+	| Record<string, any>
 	| ((cssVariableName: string, id: string) => string);
 	extract?: boolean | string;
 	onExtract?: onExtract;
-	modules?: boolean | { [key: string]: any };
+	modules?: boolean | Record<string, any>;
 	extensions?: string[];
 	plugins?: any[];
 	autoModules?: boolean;
