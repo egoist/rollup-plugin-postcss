@@ -164,6 +164,13 @@ snapshotMany('basic', [
         require('autoprefixer')()
       ]
     }
+  },
+  {
+    title: 'on-import',
+    input: 'simple/index.js',
+    options: {
+      onImport: () => { }
+    }
   }
 ])
 
