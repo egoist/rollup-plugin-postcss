@@ -1,6 +1,7 @@
 import pify from 'pify'
 import { loadModule } from './utils/load-module'
 
+/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   name: 'stylus',
   test: /\.(styl|stylus)$/,

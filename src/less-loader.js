@@ -2,6 +2,7 @@ import pify from 'pify'
 import humanlizePath from './utils/humanlize-path'
 import { loadModule } from './utils/load-module'
 
+/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   name: 'less',
   test: /\.less$/,
