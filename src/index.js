@@ -38,6 +38,7 @@ function getRecursiveImportOrder(id, getModuleInfo, seen = new Set()) {
   return result
 }
 
+/* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default (options = {}) => {
   const filter = createFilter(options.include, options.exclude)
   const postcssPlugins = Array.isArray(options.plugins) ?
@@ -139,6 +140,7 @@ export default (options = {}) => {
 
     augmentChunkHash() {
       if (extracted.size === 0) return
+      // eslint-disable-next-line unicorn/no-reduce
       const extractedValue = [...extracted].reduce((object, [key, value]) => ({
         ...object,
         [key]: value
@@ -152,6 +154,7 @@ export default (options = {}) => {
         !(options_.dir || options_.file)
       ) return
 
+      // eslint-disable-next-line no-warning-comments
       // TODO: support `[hash]`
       const dir = options_.dir || path.dirname(options_.file)
       const file =
@@ -163,11 +166,7 @@ export default (options = {}) => {
       const getExtracted = () => {
         let fileName = `${path.basename(file, path.extname(file))}.css`
         if (typeof postcssLoaderOptions.extract === 'string') {
-          if (path.isAbsolute(postcssLoaderOptions.extract)) {
-            fileName = normalizePath(path.relative(dir, postcssLoaderOptions.extract))
-          } else {
-            fileName = normalizePath(postcssLoaderOptions.extract)
-          }
+          fileName = path.isAbsolute(postcssLoaderOptions.extract) ? normalizePath(path.relative(dir, postcssLoaderOptions.extract)) : normalizePath(postcssLoaderOptions.extract)
         }
 
         const concat = new Concat(true, fileName, '\n')

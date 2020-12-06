@@ -21,6 +21,7 @@ const resolvePromise = pify(resolve)
 // List of supported SASS modules in the order of preference
 const sassModuleIds = ['node-sass', 'sass']
 
+/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   name: 'sass',
   test: /\.(sass|scss)$/,
@@ -29,7 +30,7 @@ export default {
       const sass = loadSassOrThrow()
       const render = pify(sass.render.bind(sass))
       const data = this.options.data || ''
-      return workQueue.add(() =>
+      workQueue.add(() =>
         render({
           ...this.options,
           file: this.id,
