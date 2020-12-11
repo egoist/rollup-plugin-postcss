@@ -37,6 +37,11 @@ export default {
           data: data + code,
           indentedSyntax: /\.sass$/.test(this.id),
           sourceMap: this.sourceMap,
+          // `outfile` doesn't actually create an outfile – just to create map object
+          outFile: this.sourceMap && path.basename(this.id),
+          sourceMapContents: true,
+          sourceMapEmbed: false,
+          omitSourceMapUrl: true,
           importer: [
             (url, importer, done) => {
               if (!moduleRe.test(url)) return done({ file: url })

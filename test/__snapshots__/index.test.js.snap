@@ -222,7 +222,7 @@ body {
   color: #f00;
   background: #f00;
 }
-/*# sourceMappingURL=test/fixtures/simple/style.css.map */
+
 #sidebar {
   width: 30%;
   background-color: #faa; }
@@ -238,7 +238,7 @@ body {
 /*# sourceMappingURL=extracted.css.map */"
 `;
 
-exports[`extract custom-path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"foo.css\\",\\"bar.css\\",\\"test/fixtures/simple/style.styl\\",\\"style.styl\\",\\"style.sass\\",\\"test/fixtures/simple/style.less\\",\\"style.less\\",\\"style.pcss\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,UAAU;AACZ;;ACFA;EACE,UAAU;AACZ;;ACFA;EACE,WAAO;EACP,gBAAY;ACCd;AACA,yDAAyD;ACJzD;EACE,UAAU;EACV,sBAAsB,EAAE;;ACC1B;EACE,cAAA;ACFF;;ACFA;EACE,UAAU;AACZ\\",\\"file\\":\\"this/is/extracted.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",null,null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",null,null,\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\"]}"`;
+exports[`extract custom-path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"foo.css\\",\\"bar.css\\",\\"test/fixtures/simple/style.styl\\",\\"style.styl\\",\\"test/fixtures/simple/style.sass\\",\\"test/fixtures/simple/style.less\\",\\"style.less\\",\\"style.pcss\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,UAAU;AACZ;;ACFA;EACE,UAAU;AACZ;;ACFA;EACE,WAAO;EACP,gBAAY;ACCd;;ACHA;EACE,UAAU;EACV,sBAAsB,EAAA;;ACCxB;EACE,cAAA;ACFF;;ACFA;EACE,UAAU;AACZ\\",\\"file\\":\\"this/is/extracted.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",\\"body\\\\n  color: red\\\\n  background: @color\\\\n\\",\\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\",\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",\\"@nice-blue: #5B83AD;\\\\n@light-blue: @nice-blue + #111;\\\\n\\\\n#header {\\\\n  color: @light-blue;\\\\n}\\\\n\\",\\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\",\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\"]}"`;
 
 exports[`extract custom-path: js code 1`] = `
 "'use strict';
@@ -324,7 +324,7 @@ body {
   color: #f00;
   background: #f00;
 }
-/*# sourceMappingURL=test/fixtures/simple/style.css.map */
+
 #sidebar {
   width: 30%;
   background-color: #faa; }
@@ -340,7 +340,7 @@ body {
 /*# sourceMappingURL=extracted.css.map */"
 `;
 
-exports[`extract relative-path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"foo.css\\",\\"bar.css\\",\\"test/fixtures/simple/style.styl\\",\\"style.styl\\",\\"style.sass\\",\\"test/fixtures/simple/style.less\\",\\"style.less\\",\\"style.pcss\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,UAAU;AACZ;;ACFA;EACE,UAAU;AACZ;;ACFA;EACE,WAAO;EACP,gBAAY;ACCd;AACA,yDAAyD;ACJzD;EACE,UAAU;EACV,sBAAsB,EAAE;;ACC1B;EACE,cAAA;ACFF;;ACFA;EACE,UAAU;AACZ\\",\\"file\\":\\"this/is/extracted.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",null,null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",null,null,\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\"]}"`;
+exports[`extract relative-path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"foo.css\\",\\"bar.css\\",\\"test/fixtures/simple/style.styl\\",\\"style.styl\\",\\"test/fixtures/simple/style.sass\\",\\"test/fixtures/simple/style.less\\",\\"style.less\\",\\"style.pcss\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,UAAU;AACZ;;ACFA;EACE,UAAU;AACZ;;ACFA;EACE,WAAO;EACP,gBAAY;ACCd;;ACHA;EACE,UAAU;EACV,sBAAsB,EAAA;;ACCxB;EACE,cAAA;ACFF;;ACFA;EACE,UAAU;AACZ\\",\\"file\\":\\"this/is/extracted.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",\\"body\\\\n  color: red\\\\n  background: @color\\\\n\\",\\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\",\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",\\"@nice-blue: #5B83AD;\\\\n@light-blue: @nice-blue + #111;\\\\n\\\\n#header {\\\\n  color: @light-blue;\\\\n}\\\\n\\",\\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\",\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\"]}"`;
 
 exports[`extract relative-path: js code 1`] = `
 "'use strict';
@@ -366,12 +366,11 @@ body {
   color: #f00;
   background: #f00;
 }
-/*# sourceMappingURL=test/fixtures/simple/style.css.map */
+
 #sidebar {
   width: 30%;
   background-color: #faa; }
 
-/*# sourceMappingURL=../../../inline */
 #header {
   color: #6c94be;
 }
@@ -380,7 +379,7 @@ body {
   color: red;
 }
 
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiLCJiYXIuY3NzIiwidGVzdC9maXh0dXJlcy9zaW1wbGUvc3R5bGUuc3R5bCIsInN0eWxlLnN0eWwiLCJ0ZXN0L2ZpeHR1cmVzL3NpbXBsZS9zdHlsZS5zYXNzIiwic3R5bGUuc2FzcyIsInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLmxlc3MiLCJzdHlsZS5sZXNzIiwic3R5bGUucGNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLFVBQVU7QUFDWjs7QUNGQTtFQUNFLFdBQU87RUFDUCxnQkFBWTtBQ0NkO0FBQ0EseURBQXlEO0FDSnpEO0VBQ0UsVUFBVTtFQUNWLHNCQUFzQixFQUFBOztBQ0V4QixzQ0FBc0M7QUNEdEM7RUFDRSxjQUFBO0FDRkY7O0FDRkE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiYnVuZGxlLmNzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHkge1xuICBjb2xvcjogcmVkO1xufVxuIiwiLmJhciB7XG4gIGNvbG9yOiByZWQ7XG59XG4iLG51bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLCIucGNzcyB7XG4gIGNvbG9yOiByZWQ7XG59XG4iXX0=*/"
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiLCJiYXIuY3NzIiwidGVzdC9maXh0dXJlcy9zaW1wbGUvc3R5bGUuc3R5bCIsInN0eWxlLnN0eWwiLCJ0ZXN0L2ZpeHR1cmVzL3NpbXBsZS9zdHlsZS5zYXNzIiwidGVzdC9maXh0dXJlcy9zaW1wbGUvc3R5bGUubGVzcyIsInN0eWxlLmxlc3MiLCJzdHlsZS5wY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsVUFBVTtBQUNaOztBQ0ZBO0VBQ0UsVUFBVTtBQUNaOztBQ0ZBO0VBQ0UsV0FBTztFQUNQLGdCQUFZO0FDQ2Q7O0FDSEE7RUFDRSxVQUFVO0VBQ1Ysc0JBQXNCLEVBQUE7O0FDQ3hCO0VBQ0UsY0FBQTtBQ0ZGOztBQ0ZBO0VBQ0UsVUFBVTtBQUNaIiwiZmlsZSI6ImJ1bmRsZS5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJib2R5IHtcbiAgY29sb3I6IHJlZDtcbn1cbiIsIi5iYXIge1xuICBjb2xvcjogcmVkO1xufVxuIiwiYm9keVxuICBjb2xvcjogcmVkXG4gIGJhY2tncm91bmQ6IEBjb2xvclxuIiwiYm9keSB7XG4gIGNvbG9yOiAjZjAwO1xuICBiYWNrZ3JvdW5kOiAjZjAwO1xufVxuIiwiI3NpZGViYXIge1xuICB3aWR0aDogMzAlO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmFhOyB9XG4iLCJAbmljZS1ibHVlOiAjNUI4M0FEO1xuQGxpZ2h0LWJsdWU6IEBuaWNlLWJsdWUgKyAjMTExO1xuXG4jaGVhZGVyIHtcbiAgY29sb3I6IEBsaWdodC1ibHVlO1xufVxuIiwiI2hlYWRlciB7XG4gIGNvbG9yOiAjNmM5NGJlO1xufVxuIiwiLnBjc3Mge1xuICBjb2xvcjogcmVkO1xufVxuIl19*/"
 `;
 
 exports[`extract sourcemap-inline: js code 1`] = `
@@ -407,7 +406,7 @@ body {
   color: #f00;
   background: #f00;
 }
-/*# sourceMappingURL=test/fixtures/simple/style.css.map */
+
 #sidebar {
   width: 30%;
   background-color: #faa; }
@@ -423,7 +422,7 @@ body {
 /*# sourceMappingURL=bundle.css.map */"
 `;
 
-exports[`extract sourcemap-true: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"foo.css\\",\\"bar.css\\",\\"test/fixtures/simple/style.styl\\",\\"style.styl\\",\\"style.sass\\",\\"test/fixtures/simple/style.less\\",\\"style.less\\",\\"style.pcss\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,UAAU;AACZ;;ACFA;EACE,UAAU;AACZ;;ACFA;EACE,WAAO;EACP,gBAAY;ACCd;AACA,yDAAyD;ACJzD;EACE,UAAU;EACV,sBAAsB,EAAE;;ACC1B;EACE,cAAA;ACFF;;ACFA;EACE,UAAU;AACZ\\",\\"file\\":\\"bundle.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",null,null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",null,null,\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\"]}"`;
+exports[`extract sourcemap-true: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"foo.css\\",\\"bar.css\\",\\"test/fixtures/simple/style.styl\\",\\"style.styl\\",\\"test/fixtures/simple/style.sass\\",\\"test/fixtures/simple/style.less\\",\\"style.less\\",\\"style.pcss\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,UAAU;AACZ;;ACFA;EACE,UAAU;AACZ;;ACFA;EACE,WAAO;EACP,gBAAY;ACCd;;ACHA;EACE,UAAU;EACV,sBAAsB,EAAA;;ACCxB;EACE,cAAA;ACFF;;ACFA;EACE,UAAU;AACZ\\",\\"file\\":\\"bundle.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",\\"body\\\\n  color: red\\\\n  background: @color\\\\n\\",\\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\",\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",\\"@nice-blue: #5B83AD;\\\\n@light-blue: @nice-blue + #111;\\\\n\\\\n#header {\\\\n  color: @light-blue;\\\\n}\\\\n\\",\\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\",\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\"]}"`;
 
 exports[`extract sourcemap-true: js code 1`] = `
 "'use strict';
@@ -578,7 +577,7 @@ console.log(foo, bar);
 
 exports[`minimize extract-sourcemap-inline: css code 1`] = `
 ".bar,body{color:red}body{background:red}#sidebar{width:30%;background-color:#faa}#header{color:#6c94be}.pcss{color:red}
-/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJ1bmRsZS5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBUUEsVUFIRSxTQU1GLENBSEEsS0FFRSxjQUNGLENBRUEsU0FDRSxTQUFVLENBQ1YscUJBQXdCLENBRzFCLFFBQ0UsYUFDRixDQUVBLE1BQ0UsU0FDRiIsImZpbGUiOiJidW5kbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keSB7XG4gIGNvbG9yOiByZWQ7XG59XG5cbi5iYXIge1xuICBjb2xvcjogcmVkO1xufVxuXG5ib2R5IHtcbiAgY29sb3I6ICNmMDA7XG4gIGJhY2tncm91bmQ6ICNmMDA7XG59XG4vKiMgc291cmNlTWFwcGluZ1VSTD10ZXN0L2ZpeHR1cmVzL3NpbXBsZS9zdHlsZS5jc3MubWFwICovXG4jc2lkZWJhciB7XG4gIHdpZHRoOiAzMCU7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmYWE7IH1cblxuLyojIHNvdXJjZU1hcHBpbmdVUkw9Li4vLi4vLi4vaW5saW5lICovXG4jaGVhZGVyIHtcbiAgY29sb3I6ICM2Yzk0YmU7XG59XG5cbi5wY3NzIHtcbiAgY29sb3I6IHJlZDtcbn1cblxuLyojIHNvdXJjZU1hcHBpbmdVUkw9ZGF0YTphcHBsaWNhdGlvbi9qc29uO2Jhc2U2NCxleUoyWlhKemFXOXVJam96TENKemIzVnlZMlZ6SWpwYkltWnZieTVqYzNNaUxDSmlZWEl1WTNOeklpd2lkR1Z6ZEM5bWFYaDBkWEpsY3k5emFXMXdiR1V2YzNSNWJHVXVjM1I1YkNJc0luTjBlV3hsTG5OMGVXd2lMQ0owWlhOMEwyWnBlSFIxY21WekwzTnBiWEJzWlM5emRIbHNaUzV6WVhOeklpd2ljM1I1YkdVdWMyRnpjeUlzSW5SbGMzUXZabWw0ZEhWeVpYTXZjMmx0Y0d4bEwzTjBlV3hsTG14bGMzTWlMQ0p6ZEhsc1pTNXNaWE56SWl3aWMzUjViR1V1Y0dOemN5SmRMQ0p1WVcxbGN5STZXMTBzSW0xaGNIQnBibWR6SWpvaVFVRkJRVHRGUVVORkxGVkJRVlU3UVVGRFdqczdRVU5HUVR0RlFVTkZMRlZCUVZVN1FVRkRXanM3UVVOR1FUdEZRVU5GTEZkQlFVODdSVUZEVUN4blFrRkJXVHRCUTBOa08wRkJRMEVzZVVSQlFYbEVPMEZEU25wRU8wVkJRMFVzVlVGQlZUdEZRVU5XTEhOQ1FVRnpRaXhGUVVGQk96dEJRMFY0UWl4elEwRkJjME03UVVORWRFTTdSVUZEUlN4alFVRkJPMEZEUmtZN08wRkRSa0U3UlVGRFJTeFZRVUZWTzBGQlExb2lMQ0ptYVd4bElqb2lZblZ1Wkd4bExtTnpjeUlzSW5OdmRYSmpaWE5EYjI1MFpXNTBJanBiSW1KdlpIa2dlMXh1SUNCamIyeHZjam9nY21Wa08xeHVmVnh1SWl3aUxtSmhjaUI3WEc0Z0lHTnZiRzl5T2lCeVpXUTdYRzU5WEc0aUxHNTFiR3dzYm5Wc2JDeHVkV3hzTEc1MWJHd3NiblZzYkN4dWRXeHNMQ0l1Y0dOemN5QjdYRzRnSUdOdmJHOXlPaUJ5WldRN1hHNTlYRzRpWFgwPSovIl19 */"
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnN0eWwiLCJiYXIuY3NzIiwic3R5bGUuc3R5bCIsInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnNhc3MiLCJ0ZXN0L2ZpeHR1cmVzL3NpbXBsZS9zdHlsZS5sZXNzIiwic3R5bGUubGVzcyIsInN0eWxlLnBjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsVUNDRSxTQ0VGLENGSEEsS0FFRSxjRUNGLENDSEEsU0FDRSxTQUFVLENBQ1YscUJBQXNCLENDQ3hCLFFBQ0UsYUNGRixDQ0ZBLE1BQ0UsU0FDRiIsImZpbGUiOiJidW5kbGUuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiYm9keVxuICBjb2xvcjogcmVkXG4gIGJhY2tncm91bmQ6IEBjb2xvclxuIiwiLmJhciB7XG4gIGNvbG9yOiByZWQ7XG59XG4iLCJib2R5IHtcbiAgY29sb3I6ICNmMDA7XG4gIGJhY2tncm91bmQ6ICNmMDA7XG59XG4iLCIjc2lkZWJhciB7XG4gIHdpZHRoOiAzMCU7XG4gIGJhY2tncm91bmQtY29sb3I6ICNmYWE7IH1cbiIsIkBuaWNlLWJsdWU6ICM1QjgzQUQ7XG5AbGlnaHQtYmx1ZTogQG5pY2UtYmx1ZSArICMxMTE7XG5cbiNoZWFkZXIge1xuICBjb2xvcjogQGxpZ2h0LWJsdWU7XG59XG4iLCIjaGVhZGVyIHtcbiAgY29sb3I6ICM2Yzk0YmU7XG59XG4iLCIucGNzcyB7XG4gIGNvbG9yOiByZWQ7XG59XG4iXX0= */"
 `;
 
 exports[`minimize extract-sourcemap-inline: js code 1`] = `
@@ -597,7 +596,7 @@ exports[`minimize extract-sourcemap-true: css code 1`] = `
 /*# sourceMappingURL=bundle.css.map */"
 `;
 
-exports[`minimize extract-sourcemap-true: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"test/fixtures/simple/style.styl\\",\\"bar.css\\",\\"style.styl\\",\\"style.sass\\",\\"test/fixtures/simple/style.less\\",\\"style.less\\",\\"style.pcss\\"],\\"names\\":[],\\"mappings\\":\\"AAAA,UCCE,SCEF,CFHA,KAEE,cECF,CCHA,SACE,SAAU,CACV,qBAAwB,CCC1B,QACE,aCFF,CCFA,MACE,SACF\\",\\"file\\":\\"bundle.css\\",\\"sourcesContent\\":[null,\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",null,null,\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\"]}"`;
+exports[`minimize extract-sourcemap-true: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"test/fixtures/simple/style.styl\\",\\"bar.css\\",\\"style.styl\\",\\"test/fixtures/simple/style.sass\\",\\"test/fixtures/simple/style.less\\",\\"style.less\\",\\"style.pcss\\"],\\"names\\":[],\\"mappings\\":\\"AAAA,UCCE,SCEF,CFHA,KAEE,cECF,CCHA,SACE,SAAU,CACV,qBAAsB,CCCxB,QACE,aCFF,CCFA,MACE,SACF\\",\\"file\\":\\"bundle.css\\",\\"sourcesContent\\":[\\"body\\\\n  color: red\\\\n  background: @color\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",\\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\",\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",\\"@nice-blue: #5B83AD;\\\\n@light-blue: @nice-blue + #111;\\\\n\\\\n#header {\\\\n  color: @light-blue;\\\\n}\\\\n\\",\\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\",\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\"]}"`;
 
 exports[`minimize extract-sourcemap-true: js code 1`] = `
 "'use strict';
@@ -1125,7 +1124,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5zYXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsVUFBVTtFQUNWLHNCQUFzQixFQUFFIiwiZmlsZSI6ImZvby5zYXNzIiwic291cmNlc0NvbnRlbnQiOlsiI3NpZGViYXIge1xuICB3aWR0aDogMzAlO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmFhOyB9XG4iXX0= */\\";
+var css_248z = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2Fzcy9mb28uc2FzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFVBQVU7RUFDVixzQkFBc0IsRUFBQSIsImZpbGUiOiJmb28uc2FzcyIsInNvdXJjZXNDb250ZW50IjpbIiNzaWRlYmFyIHtcbiAgd2lkdGg6IDMwJTtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZhYTsgfVxuIl19 */\\";
 styleInject(css_248z);
 "
 `;
@@ -1166,13 +1165,13 @@ styleInject(css_248z);
 var css_248z$1 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhci5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiYmFyLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iYXIge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
 styleInject(css_248z$1);
 
-var css_248z$2 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n/*# sourceMappingURL=test/fixtures/simple/style.css.map */\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnN0eWwiLCJzdHlsZS5zdHlsIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBTztFQUNQLGdCQUFZO0FDQ2Q7QUFDQSx5REFBeUQiLCJmaWxlIjoic3R5bGUuc3R5bCJ9 */\\";
+var css_248z$2 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnN0eWwiLCJzdHlsZS5zdHlsIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBTztFQUNQLGdCQUFZO0FDQ2QiLCJmaWxlIjoic3R5bGUuc3R5bCIsInNvdXJjZXNDb250ZW50IjpbImJvZHlcbiAgY29sb3I6IHJlZFxuICBiYWNrZ3JvdW5kOiBAY29sb3JcbiIsImJvZHkge1xuICBjb2xvcjogI2YwMDtcbiAgYmFja2dyb3VuZDogI2YwMDtcbn1cbiJdfQ== */\\";
 styleInject(css_248z$2);
 
-var css_248z$3 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\\\n/*# sourceMappingURL=../../../inline */\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnNhc3MiLCJzdHlsZS5zYXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsVUFBVTtFQUNWLHNCQUFzQixFQUFBOztBQ0V4QixzQ0FBc0MiLCJmaWxlIjoic3R5bGUuc2FzcyJ9 */\\";
+var css_248z$3 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnNhc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0VBQ1Ysc0JBQXNCLEVBQUEiLCJmaWxlIjoic3R5bGUuc2FzcyIsInNvdXJjZXNDb250ZW50IjpbIiNzaWRlYmFyIHtcbiAgd2lkdGg6IDMwJTtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZhYTsgfVxuIl19 */\\";
 styleInject(css_248z$3);
 
-var css_248z$4 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLmxlc3MiLCJzdHlsZS5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUdBO0VBQ0UsY0FBQTtBQ0ZGIiwiZmlsZSI6InN0eWxlLmxlc3MifQ== */\\";
+var css_248z$4 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLmxlc3MiLCJzdHlsZS5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUdBO0VBQ0UsY0FBQTtBQ0ZGIiwiZmlsZSI6InN0eWxlLmxlc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAbmljZS1ibHVlOiAjNUI4M0FEO1xuQGxpZ2h0LWJsdWU6IEBuaWNlLWJsdWUgKyAjMTExO1xuXG4jaGVhZGVyIHtcbiAgY29sb3I6IEBsaWdodC1ibHVlO1xufVxuIiwiI2hlYWRlciB7XG4gIGNvbG9yOiAjNmM5NGJlO1xufVxuIl19 */\\";
 styleInject(css_248z$4);
 
 var css_248z$5 = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnBjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoic3R5bGUucGNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wY3NzIHtcbiAgY29sb3I6IHJlZDtcbn1cbiJdfQ== */\\";
@@ -1218,13 +1217,13 @@ styleInject(css_248z);
 var css_248z$1 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhci5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiYmFyLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iYXIge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
 styleInject(css_248z$1);
 
-var css_248z$2 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n/*# sourceMappingURL=test/fixtures/simple/style.css.map */\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnN0eWwiLCJzdHlsZS5zdHlsIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBTztFQUNQLGdCQUFZO0FDQ2Q7QUFDQSx5REFBeUQiLCJmaWxlIjoic3R5bGUuc3R5bCJ9 */\\";
+var css_248z$2 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnN0eWwiLCJzdHlsZS5zdHlsIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBTztFQUNQLGdCQUFZO0FDQ2QiLCJmaWxlIjoic3R5bGUuc3R5bCIsInNvdXJjZXNDb250ZW50IjpbImJvZHlcbiAgY29sb3I6IHJlZFxuICBiYWNrZ3JvdW5kOiBAY29sb3JcbiIsImJvZHkge1xuICBjb2xvcjogI2YwMDtcbiAgYmFja2dyb3VuZDogI2YwMDtcbn1cbiJdfQ== */\\";
 styleInject(css_248z$2);
 
-var css_248z$3 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnNhc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0VBQ1Ysc0JBQXNCLEVBQUUiLCJmaWxlIjoic3R5bGUuc2FzcyIsInNvdXJjZXNDb250ZW50IjpbIiNzaWRlYmFyIHtcbiAgd2lkdGg6IDMwJTtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZhYTsgfVxuIl19 */\\";
+var css_248z$3 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnNhc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0VBQ1Ysc0JBQXNCLEVBQUEiLCJmaWxlIjoic3R5bGUuc2FzcyIsInNvdXJjZXNDb250ZW50IjpbIiNzaWRlYmFyIHtcbiAgd2lkdGg6IDMwJTtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZhYTsgfVxuIl19 */\\";
 styleInject(css_248z$3);
 
-var css_248z$4 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLmxlc3MiLCJzdHlsZS5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUdBO0VBQ0UsY0FBQTtBQ0ZGIiwiZmlsZSI6InN0eWxlLmxlc3MifQ== */\\";
+var css_248z$4 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLmxlc3MiLCJzdHlsZS5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUdBO0VBQ0UsY0FBQTtBQ0ZGIiwiZmlsZSI6InN0eWxlLmxlc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAbmljZS1ibHVlOiAjNUI4M0FEO1xuQGxpZ2h0LWJsdWU6IEBuaWNlLWJsdWUgKyAjMTExO1xuXG4jaGVhZGVyIHtcbiAgY29sb3I6IEBsaWdodC1ibHVlO1xufVxuIiwiI2hlYWRlciB7XG4gIGNvbG9yOiAjNmM5NGJlO1xufVxuIl19 */\\";
 styleInject(css_248z$4);
 
 var css_248z$5 = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnBjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoic3R5bGUucGNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wY3NzIHtcbiAgY29sb3I6IHJlZDtcbn1cbiJdfQ== */\\";

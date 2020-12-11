@@ -14,7 +14,9 @@ export default {
 
     let { css, map, imports } = await pify(less.render.bind(less))(code, {
       ...this.options,
-      sourceMap: this.sourceMap && {},
+      sourceMap: this.sourceMap && {
+        outputSourceFiles: true
+      },
       filename: this.id
     })
 
