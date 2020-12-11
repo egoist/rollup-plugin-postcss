@@ -6,6 +6,20 @@ import { identifier } from 'safe-identifier'
 import humanlizePath from './utils/humanlize-path'
 import normalizePath from './utils/normalize-path'
 
+const imageTags = new Set([
+  'background',
+  'background-image',
+  'list-style',
+  'list-style-image',
+  'content',
+  'cursor',
+  'border',
+  'border-image',
+  'border-image-source',
+  'mask',
+  'mask-image'
+])
+
 const styleInjectPath = require
   .resolve('style-inject/dist/style-inject.es')
   .replace(/[\\/]+/g, '/')
@@ -100,6 +114,45 @@ export default {
     // If shouldExtract, minimize is done after all CSS are extracted to a file
     if (!shouldExtract && options.minimize) {
       plugins.push(require('cssnano')(options.minimize))
+    }
+
+    const shouldListAssets = options.assets
+    const assets = {}
+    if (shouldListAssets) {
+      plugins.unshift(
+        postcss.plugin('postcss-extract-assets', () => {
+          return function (styles) {
+            styles.walkDecls(decl => {
+              const matches = (decl.value || '').matchAll(/url\((?:'(.*?)'|"(.*?)"|(?!['"])(.*?)(?!['"])\))/g)
+              if (!matches) {
+                return
+              }
+
+              for (const match of matches) {
+                const url = match[1] || match[2] || match[3]
+                if (!url || url.indexOf('data:') === 0 || url.indexOf('#') === 0) {
+                  continue
+                }
+
+                if (url in assets) {
+                  continue
+                }
+
+                let as = null
+                if (imageTags.has(decl.prop) ||
+                  (decl.parent && decl.parent.name === 'counter-style' && decl.prop === 'symbols')
+                ) {
+                  as = 'image'
+                } else if (decl.parent && decl.parent.name === 'font-face' && decl.prop === 'src') {
+                  as = 'font'
+                }
+
+                assets[url] = as
+              }
+            })
+          }
+        })
+      )
     }
 
     const postcssOptions = {
@@ -214,6 +267,10 @@ export default {
           `,${JSON.stringify(options.inject)}` :
           ''
         });`
+    }
+
+    if (shouldListAssets) {
+      output += `export const assets=${JSON.stringify(assets)};`
     }
 
     return {

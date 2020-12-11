@@ -44,6 +44,7 @@ export type PostCSSPluginConf = {
 	sourceMap?: boolean | 'inline';
 	include?: Parameters<CreateFilter>[0];
 	exclude?: Parameters<CreateFilter>[1];
+	assets?: boolean;
 };
 
 export default function (options?: Readonly<PostCSSPluginConf>): Plugin
