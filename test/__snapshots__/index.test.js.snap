@@ -1,5 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`basic on-import: js code 1`] = `
+"'use strict';
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css_248z = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(css_248z);
+
+var css_248z$1 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(css_248z$1);
+
+var css_248z$2 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
+styleInject(css_248z$2);
+
+var css_248z$3 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
+styleInject(css_248z$3);
+
+var css_248z$4 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
+styleInject(css_248z$4);
+
+var css_248z$5 = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(css_248z$5);
+
+console.log(css_248z, css_248z$1);
+"
+`;
+
 exports[`basic postcss-config: js code 1`] = `
 "'use strict';
 
@@ -191,7 +243,11 @@ exports[`extract custom-path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\
 exports[`extract custom-path: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+var foo = undefined;
+
+var bar = undefined;
+
+console.log(foo, bar);
 "
 `;
 
@@ -289,7 +345,11 @@ exports[`extract relative-path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[
 exports[`extract relative-path: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+var foo = undefined;
+
+var bar = undefined;
+
+console.log(foo, bar);
 "
 `;
 
@@ -326,7 +386,11 @@ body {
 exports[`extract sourcemap-inline: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+var foo = undefined;
+
+var bar = undefined;
+
+console.log(foo, bar);
 "
 `;
 
@@ -364,7 +428,11 @@ exports[`extract sourcemap-true: css map 1`] = `"{\\"version\\":3,\\"sources\\":
 exports[`extract sourcemap-true: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+var foo = undefined;
+
+var bar = undefined;
+
+console.log(foo, bar);
 "
 `;
 
@@ -399,7 +467,11 @@ body {
 exports[`extract true: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+var foo = undefined;
+
+var bar = undefined;
+
+console.log(foo, bar);
 "
 `;
 
@@ -496,7 +568,11 @@ exports[`minimize extract: css code 1`] = `".bar,body{color:red}body{background:
 exports[`minimize extract: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+var foo = undefined;
+
+var bar = undefined;
+
+console.log(foo, bar);
 "
 `;
 
@@ -508,7 +584,11 @@ exports[`minimize extract-sourcemap-inline: css code 1`] = `
 exports[`minimize extract-sourcemap-inline: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+var foo = undefined;
+
+var bar = undefined;
+
+console.log(foo, bar);
 "
 `;
 
@@ -522,7 +602,11 @@ exports[`minimize extract-sourcemap-true: css map 1`] = `"{\\"version\\":3,\\"so
 exports[`minimize extract-sourcemap-true: js code 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+var foo = undefined;
+
+var bar = undefined;
+
+console.log(foo, bar);
 "
 `;
 
@@ -825,7 +909,11 @@ console.log(style$1);
 exports[`onExtract 1`] = `
 "'use strict';
 
-console.log(undefined, undefined);
+var foo = undefined;
+
+var bar = undefined;
+
+console.log(foo, bar);
 "
 `;
 

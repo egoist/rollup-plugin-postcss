@@ -12,7 +12,7 @@ Seamless integration between [Rollup](https://github.com/rollup/rollup) and [Pos
 ## Install
 
 ```bash
-yarn add rollup-plugin-postcss --dev
+yarn add postcss rollup-plugin-postcss --dev
 ```
 
 ## Usage
@@ -241,7 +241,7 @@ Type: `object`
 
 [`ctx`](https://github.com/michael-ciniawsky/postcss-load-config#context) argument for PostCSS config file.
 
-Note: Every keys you pass to `config.ctx` will be available under `options` inside
+Note: Every key you pass to `config.ctx` will be available under `options` inside
 the postcss config.
 
 ```js
