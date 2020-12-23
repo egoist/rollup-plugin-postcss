@@ -21,19 +21,25 @@ const resolvePromise = pify(resolve)
 // List of supported SASS modules in the order of preference
 const sassModuleIds = ['node-sass', 'sass']
 
-const tryToResolve = (urls, options) => urls.reduce((promise, url) => {
-  return promise.catch(error => {
-    if (
-      error &&
-      error.code !== 'MODULE_NOT_FOUND' &&
-      error.code !== 'ENOENT'
-    ) {
-      return Promise.reject(error)
-    }
+const tryToResolve = (urls, options) => {
+  let promise = Promise.reject()
 
-    return resolvePromise(url, options)
+  urls.forEach(url => {
+    promise = promise.catch(error => {
+      if (
+        error &&
+        error.code !== 'MODULE_NOT_FOUND' &&
+        error.code !== 'ENOENT'
+      ) {
+        return Promise.reject(error)
+      }
+
+      return resolvePromise(url, options)
+    })
   })
-}, Promise.reject())
+
+  return promise
+}
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
