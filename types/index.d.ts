@@ -22,7 +22,6 @@ export type PostCSSPluginConf = {
 	plugins?: any[];
 	autoModules?: boolean;
 	namedExports?: boolean | ((id: string) => string);
-	minimize?: boolean | any;
 	parser?: string | FunctionType;
 	stringifier?: string | FunctionType;
 	syntax?: string | FunctionType;

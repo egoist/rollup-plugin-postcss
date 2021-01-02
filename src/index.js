@@ -56,8 +56,6 @@ export default (options = {}) => {
     namedExports: options.namedExports,
     /** Automatically CSS modules for .module.xxx files */
     autoModules: options.autoModules,
-    /** Options for cssnano */
-    minimize: inferOption(options.minimize, false),
     /** Postcss config file */
     config: inferOption(options.config, {}),
     /** PostCSS target filename hint, for plugins that are relying on it */
@@ -221,25 +219,8 @@ export default (options = {}) => {
         }
       }
 
-      let { code, codeFileName, map, mapFileName } = getExtracted()
+      const { code, codeFileName, map, mapFileName } = getExtracted()
       // Perform cssnano on the extracted file
-      if (postcssLoaderOptions.minimize) {
-        const cssOptions = postcssLoaderOptions.minimize
-        cssOptions.from = codeFileName
-        if (sourceMap === 'inline') {
-          cssOptions.map = { inline: true }
-        } else if (sourceMap === true && map) {
-          cssOptions.map = { prev: map }
-          cssOptions.to = codeFileName
-        }
-
-        const result = await require('cssnano').process(code, cssOptions)
-        code = result.css
-
-        if (sourceMap === true && result.map && result.map.toString) {
-          map = result.map.toString()
-        }
-      }
 
       this.emitFile({
         fileName: codeFileName,

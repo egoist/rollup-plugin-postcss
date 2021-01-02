@@ -185,13 +185,6 @@ console.log(style['class--name'] === class$__$name) // true
 console.log(style['switch'] === $switch$) // true
 ```
 
-### minimize
-
-Type: `boolean` `object`<br>
-Default: `false`
-
-Minimize CSS, `boolean` or options for `cssnano`.
-
 ### sourceMap
 
 Type: `boolean` `"inline"`
