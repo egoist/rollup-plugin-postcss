@@ -149,7 +149,7 @@ Default: `true`
 
 Automatically enable CSS modules for `.module.css` `.module.sss` `.module.scss` `.module.sass` `.module.styl` `.module.stylus` `.module.less` files.
 
-**Warning: when set to `true`, custom rules defined in `modules` option will only be applied to files with `.module.*` extension. If set to `false`, your custom `modules` rules will be applied to every CSS file regardless of its extension (e.g. files with `.module.*` extension *and* others like `.sass` or `.scss`).**
+**Warning: when set to `true`, custom options for `postcss-modules` defined in the `modules` option will only be applied to files with `.module.*` extension. If set to `false`, your `postcss-modules` options in `modules` will be applied to every CSS file regardless of its extension (e.g. files with `.module.*` extension *and* others like `.sass` or `.scss`).**
 
 ### namedExports
 
