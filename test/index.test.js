@@ -408,6 +408,20 @@ snapshotMany('sass', [
   {
     title: 'import',
     input: 'sass-import/index.js'
+  },
+  {
+    title: 'custom-runtime-path',
+    input: 'sass/index.js',
+    options: {
+      use: [['sass', { runtime: require.resolve('sass') }]]
+    }
+  },
+  {
+    title: 'custom-runtime-module',
+    input: 'sass/index.js',
+    options: {
+      use: [['sass', { runtime: require('sass') }]]
+    }
   }
 ])
 

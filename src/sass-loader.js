@@ -27,7 +27,7 @@ export default {
   test: /\.(sass|scss)$/,
   process({ code }) {
     return new Promise((resolve, reject) => {
-      const sass = loadSassOrThrow()
+      const sass = loadSassOrThrow(this.options.runtime)
       const render = pify(sass.render.bind(sass))
       const data = this.options.data || ''
       workQueue.add(() =>
@@ -94,7 +94,16 @@ export default {
   }
 }
 
-function loadSassOrThrow() {
+function loadSassOrThrow(runtime) {
+  // When user forces a runtime we load it.
+  if (runtime) {
+    if (typeof runtime === 'string') {
+      return require(runtime)
+    }
+
+    return runtime
+  }
+
   // Loading one of the supported modules
   for (const moduleId of sassModuleIds) {
     const module = loadModule(moduleId)
