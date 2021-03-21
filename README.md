@@ -108,6 +108,12 @@ Default: `['.css', '.sss', '.pcss']`
 
 This plugin will process files ending with these extensions and the extensions supported by [custom loaders](#loaders).
 
+### runtime
+
+Type: `string` `object`
+
+Force Sass runtime by setting the Sass runtime or by setting its path. For example `require.resolve('sass')` or `require('sass')`. We prefer setting path over the runtime directly.
+
 ### plugins
 
 Type: `Array`
