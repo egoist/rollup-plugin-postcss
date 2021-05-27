@@ -34,7 +34,7 @@ jobs:
           target-branch: 'main'
           default: patch
           major-wording: 'MAJOR,cut-major,perf'
-          minor-wording: 'add,Adds,new,icon,feat,refactor'
+          minor-wording: 'add,new,icon,feat,refactor'
           patch-wording:
             'patch,fixes,log,console,bug,ci,fix,chore,doc,docs,style,test,build,revert' # Providing patch-wording will override commits
             # defaulting to a patch bump.
