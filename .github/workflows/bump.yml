@@ -1,0 +1,52 @@
+name: 'Bump Version'
+
+on:
+  # Trigger on demand
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  bump-version:
+    name: 'Bump Version on main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'Checkout source code'
+        uses: 'actions/checkout@v2'
+        with:
+          ref: ${{ github.ref }}
+
+      - name: 'cat package.json'
+        run: cat ./package.json
+
+      - name: 'Setup Node.js'
+        uses: 'actions/setup-node@v1'
+        with:
+          node-version: 14
+
+      - name: 'Automated Version Bump'
+        id: version-bump
+        uses: 'phips28/gh-action-bump-version@master'
+        with:
+          target-branch: 'main'
+          default: patch
+          major-wording: 'MAJOR,cut-major,perf'
+          minor-wording: 'add,Adds,new,icon,feat,refactor'
+          patch-wording:
+            'patch,fixes,log,console,bug,ci,fix,chore,doc,docs,style,test,build,revert' # Providing patch-wording will override commits
+            # defaulting to a patch bump.
+          commit-message: 'CI: bumps version to {{version}} [skip ci]'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version-bump.outputs.newTag }}
+          release_name: ${{ steps.version-bump.outputs.newTag }}
+          draft: false
+          prerelease: false

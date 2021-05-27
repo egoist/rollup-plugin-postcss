@@ -1,5 +1,5 @@
 {
-  "name": "rollup-plugin-postcss",
+  "name": "@cleartax/rollup-plugin-postcss",
   "version": "3.0.0",
   "description": "Seamless integration between Rollup and PostCSS",
   "main": "dist/index.js",
@@ -16,22 +16,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/egoist/rollup-plugin-postcss.git"
+    "url": "git+https://github.com/ClearTax/rollup-plugin-postcss.git"
   },
   "keywords": [
     "postcss",
     "rollup"
   ],
-  "author": "EGOIST <0x142857@gmail.com>",
+  "author": "Cleartax",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/egoist/rollup-plugin-postcss/issues"
+    "url": "https://github.com/ClearTax/rollup-plugin-postcss/issues"
   },
   "engines": {
     "node": ">=10"
   },
   "types": "./types/index.d.ts",
-  "homepage": "https://github.com/egoist/rollup-plugin-postcss#readme",
+  "homepage": "https://github.com/ClearTax/rollup-plugin-postcss#readme",
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/preset-env": "^7.12.7",
@@ -91,7 +91,7 @@
         "@babel/preset-env",
         {
           "targets": {
-            "node": "6"
+            "node": "14"
           }
         }
       ]
@@ -99,6 +99,7 @@
   },
   "release": {
     "branches": [
+      "main",
       "master",
       "next"
     ]

@@ -1,0 +1,49 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
+
+name: Publish Package
+
+concurrency:
+  group: 'cleartax-rollup-postcss-publish'
+  cancel-in-progress: true
+
+on:
+  workflow_run:
+    workflows: ['Bump Version']
+    branches: [main]
+    types:
+      - completed
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          registry-url: https://npm.pkg.github.com/
+
+      - name: Create NPMRC
+        run: |
+          echo "@cleartax:registry=https://npm.pkg.github.com" >> ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN }}" >> ~/.npmrc
+          echo 'registry "https://registry.yarnpkg.com"' >> ~/.yarnrc
+
+      - name: Install all dependencies
+        run: yarn --frozen-lockfile --silent
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.PACKAGES_TOKEN}}
+
+      - run: yarn build
+
+      - run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
