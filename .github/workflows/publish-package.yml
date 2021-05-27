@@ -10,7 +10,7 @@ concurrency:
 on:
   workflow_run:
     workflows: ['Bump Version']
-    branches: [main]
+    branches: [main, master]
     types:
       - completed
 
