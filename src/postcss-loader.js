@@ -4,7 +4,6 @@ import postcss from 'postcss'
 import findPostcssConfig from 'postcss-load-config'
 import { identifier } from 'safe-identifier'
 import humanlizePath from './utils/humanlize-path'
-import normalizePath from './utils/normalize-path'
 
 const styleInjectPath = require
   .resolve('style-inject/dist/style-inject.es')
@@ -156,9 +155,6 @@ export default {
     }
 
     const outputMap = result.map && JSON.parse(result.map.toString())
-    if (outputMap && outputMap.sources) {
-      outputMap.sources = outputMap.sources.map(v => normalizePath(v))
-    }
 
     let output = ''
     let extracted
