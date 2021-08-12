@@ -224,7 +224,7 @@ export default (options = {}) => {
       let { code, codeFileName, map, mapFileName } = getExtracted()
       // Perform cssnano on the extracted file
       if (postcssLoaderOptions.minimize) {
-        const cssOptions = postcssLoaderOptions.minimize
+        const cssOptions = {}
         cssOptions.from = codeFileName
         if (sourceMap === 'inline') {
           cssOptions.map = { inline: true }
@@ -233,7 +233,7 @@ export default (options = {}) => {
           cssOptions.to = codeFileName
         }
 
-        const result = await require('cssnano').process(code, cssOptions)
+        const result = await require('cssnano')(postcssLoaderOptions.minimize).process(code, cssOptions)
         code = result.css
 
         if (sourceMap === true && result.map && result.map.toString) {
