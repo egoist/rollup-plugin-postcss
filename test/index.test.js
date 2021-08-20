@@ -454,3 +454,18 @@ test('augmentChunkHash', async () => {
   const barHash = barOne.fileName.split('.')[1]
   expect(barHash).not.toEqual(fooHash) // Verify that foo and bar does not hash to the same
 })
+
+test('backslashEntryFilename', async () => {
+  const outDir = fixture('dist', 'backslashEntryFilename')
+  const file = 'simple/foo.css'
+  const newBundle = await rollup({
+    input: fixture(file),
+    plugins: [postcss({ extract: true })]
+  })
+  const { output } = await newBundle.write({
+    dir: outDir,
+    entryFileNames: 'test\\foo.[hash].css'
+  })
+  const hash = output[0].fileName.split('.')[1]
+  expect(hash).toBeTruthy() // Verify that [hash] part of `foo.[hash].css` is truthy
+})
