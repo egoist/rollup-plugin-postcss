@@ -122,7 +122,7 @@ Default: `true`
 
 Inject CSS into `<head>`, it's always `false` when `extract: true`.
 
-You can also use it as options for [`style-inject`](https://github.com/egoist/style-inject#options).
+You can also use it as options for [`style-implant`](https://github.com/ivoilic/style-implant#options).
 
 It can also be a `function` , returning a `string` which is js code.
 

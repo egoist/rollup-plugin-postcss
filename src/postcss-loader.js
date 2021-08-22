@@ -6,8 +6,8 @@ import { identifier } from 'safe-identifier'
 import humanlizePath from './utils/humanlize-path'
 import normalizePath from './utils/normalize-path'
 
-const styleInjectPath = require
-  .resolve('style-inject/dist/style-inject.es')
+const styleImplantPath = require
+  .resolve('style-implant/dist/es/style-implant')
   .replace(/[\\/]+/g, '/')
 
 function loadConfig(id, { ctx: configOptions, path: configPath }) {
@@ -209,8 +209,8 @@ export default {
 
     if (!shouldExtract && shouldInject) {
       output += typeof options.inject === 'function' ? options.inject(cssVariableName, this.id) : '\n' +
-        `import styleInject from '${styleInjectPath}';\n` +
-        `styleInject(${cssVariableName}${Object.keys(options.inject).length > 0 ?
+        `import styleImplant from '${styleImplantPath}';\n` +
+        `styleImplant(${cssVariableName}${Object.keys(options.inject).length > 0 ?
           `,${JSON.stringify(options.inject)}` :
           ''
         });`
