@@ -1233,3 +1233,86 @@ styleInject(css_248z);
 console.log(css_248z$5, css_248z$4);
 "
 `;
+
+exports[`styleInject module-import: js code 1`] = `
+"'use strict';
+
+var styleInject = require('style-inject');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var styleInject__default = /*#__PURE__*/_interopDefaultLegacy(styleInject);
+
+var css_248z$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject__default['default'](css_248z$5);
+
+var css_248z$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject__default['default'](css_248z$4);
+
+var css_248z$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
+styleInject__default['default'](css_248z$3);
+
+var css_248z$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
+styleInject__default['default'](css_248z$2);
+
+var css_248z$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
+styleInject__default['default'](css_248z$1);
+
+var css_248z = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject__default['default'](css_248z);
+
+console.log(css_248z$5, css_248z$4);
+"
+`;
+
+exports[`styleInject relative-import: js code 1`] = `
+"'use strict';
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css_248z$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(css_248z$5);
+
+var css_248z$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(css_248z$4);
+
+var css_248z$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
+styleInject(css_248z$3);
+
+var css_248z$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
+styleInject(css_248z$2);
+
+var css_248z$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
+styleInject(css_248z$1);
+
+var css_248z = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(css_248z);
+
+console.log(css_248z$5, css_248z$4);
+"
+`;

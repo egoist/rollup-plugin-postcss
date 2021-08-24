@@ -56,6 +56,8 @@ export default (options = {}) => {
     namedExports: options.namedExports,
     /** Automatically CSS modules for .module.xxx files */
     autoModules: options.autoModules,
+    /** Relative style-inject import path */
+    styleInjectRelativePath: inferOption(options.styleInjectRelativePath, true),
     /** Options for cssnano */
     minimize: inferOption(options.minimize, false),
     /** Postcss config file */

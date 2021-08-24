@@ -328,6 +328,24 @@ Type: `id => void`
 
 A function to be invoked when an import for CSS file is detected.
 
+### styleInjectRelativePath
+
+Type: `boolean`<br/>
+Default: true
+
+The built file will contain a relative path to the style-inject module:
+```js
+import styleInject from '../node_modules/style-inject/dist/style-inject.es.js';`
+```
+This is fine if your project is the final consumer of this library.
+
+If you are creating an ESM library to be used by other projects, then you will want to specify a module path
+```js
+styleInjectRelativePath: false
+
+import styleInject from 'style-inject';
+```
+
 ## License
 
 MIT &copy; [EGOIST](https://github.com/egoist)

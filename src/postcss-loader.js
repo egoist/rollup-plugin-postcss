@@ -6,9 +6,10 @@ import { identifier } from 'safe-identifier'
 import humanlizePath from './utils/humanlize-path'
 import normalizePath from './utils/normalize-path'
 
-const styleInjectPath = require
+const styleInjectRelativePath = require
   .resolve('style-inject/dist/style-inject.es')
   .replace(/[\\/]+/g, '/')
+const styleInjectModuleName = 'style-inject'
 
 function loadConfig(id, { ctx: configOptions, path: configPath }) {
   const handleError = err => {
@@ -70,6 +71,7 @@ export default {
     ]
     const shouldExtract = options.extract
     const shouldInject = options.inject
+    const styleInject = options.styleInjectRelativePath ? styleInjectRelativePath : styleInjectModuleName
 
     const modulesExported = {}
     const autoModules = options.autoModules !== false && options.onlyModules !== true
@@ -209,7 +211,7 @@ export default {
 
     if (!shouldExtract && shouldInject) {
       output += typeof options.inject === 'function' ? options.inject(cssVariableName, this.id) : '\n' +
-        `import styleInject from '${styleInjectPath}';\n` +
+        `import styleInject from '${styleInject}';\n` +
         `styleInject(${cssVariableName}${Object.keys(options.inject).length > 0 ?
           `,${JSON.stringify(options.inject)}` :
           ''
