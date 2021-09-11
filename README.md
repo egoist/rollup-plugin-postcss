@@ -91,11 +91,15 @@ That's it, you can now import `.styl` `.scss` `.sass` `.less` files in your libr
 
 #### imports
 
-__For Sass/Scss Only.__
+__For Sass/Scss/Less Only.__
 
 Similar to how webpack's [sass-loader](https://github.com/webpack-contrib/sass-loader#imports) works, you can prepend the path with `~` to tell this plugin to resolve in `node_modules`:
 
 ```sass
+@import "~bootstrap/dist/css/bootstrap";
+```
+
+```less
 @import "~bootstrap/dist/css/bootstrap";
 ```
 

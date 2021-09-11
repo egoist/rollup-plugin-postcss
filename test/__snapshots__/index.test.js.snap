@@ -563,6 +563,41 @@ console.log(css_248z$5, css_248z$4);
 "
 `;
 
+exports[`less import: js code 1`] = `
+"'use strict';
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css_248z = \\".a {\\\\n  color: pink;\\\\n}\\\\n.b {\\\\n  color: red;\\\\n}\\\\n.c {\\\\n  color: black;\\\\n}\\\\n.foo {\\\\n  color: magenta;\\\\n}\\\\n\\";
+styleInject(css_248z);
+"
+`;
+
 exports[`minimize extract: css code 1`] = `".bar,body{color:red}body{background:red}#sidebar{background-color:#faa;width:30%}#header{color:#6c94be}.pcss{color:red}"`;
 
 exports[`minimize extract: js code 1`] = `

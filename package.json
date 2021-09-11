@@ -8,7 +8,7 @@
     "types/index.d.ts"
   ],
   "scripts": {
-    "test": "npm run lint && jest",
+    "test": "jest",
     "test:cov": "npm run lint && jest --coverage",
     "build": "bili",
     "lint": "xo",
@@ -55,6 +55,7 @@
     "concat-with-sourcemaps": "^1.1.0",
     "cssnano": "^5.0.1",
     "import-cwd": "^3.0.0",
+    "less-plugin-npm-import": "^2.1.0",
     "p-queue": "^6.6.2",
     "pify": "^5.0.0",
     "postcss-load-config": "^3.0.0",

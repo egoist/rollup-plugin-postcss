@@ -411,6 +411,13 @@ snapshotMany('sass', [
   }
 ])
 
+snapshotMany('less', [
+  {
+    title: 'import',
+    input: 'less-import/index.js'
+  }
+])
+
 test('onExtract', async () => {
   const result = await write({
     input: 'simple/index.js',

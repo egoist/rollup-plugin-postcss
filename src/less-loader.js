@@ -1,4 +1,5 @@
 import pify from 'pify'
+import LessNpmImport from 'less-plugin-npm-import'
 import humanlizePath from './utils/humanlize-path'
 import { loadModule } from './utils/load-module'
 
@@ -15,7 +16,8 @@ export default {
     let { css, map, imports } = await pify(less.render.bind(less))(code, {
       ...this.options,
       sourceMap: this.sourceMap && {},
-      filename: this.id
+      filename: this.id,
+      plugins: [new LessNpmImport({ prefix: '~' })]
     })
 
     for (const dep of imports) {
