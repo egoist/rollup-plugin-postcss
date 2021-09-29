@@ -19,7 +19,7 @@ const getUrlOfPartial = url => {
 const resolvePromise = pify(resolve)
 
 // List of supported SASS modules in the order of preference
-const sassModuleIds = ['node-sass', 'sass']
+const sassModuleIds = ['sass', 'node-sass']
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
