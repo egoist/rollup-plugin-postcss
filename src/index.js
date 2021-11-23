@@ -24,18 +24,30 @@ function inferOption(option, defaultValue) {
  * @param {Set<string>} seen
  */
 function getRecursiveImportOrder(id, getModuleInfo, seen = new Set()) {
-  if (seen.has(id)) {
-    return []
+  function getImports(id, seen) {
+    const result = { syncImports: [], asyncImports: [] }
+    if (seen.has(id)) {
+      return result
+    }
+
+    seen.add(id)
+    result.syncImports.push(id)
+    getModuleInfo(id).importedIds.forEach(importFile => {
+      const { syncImports, asyncImports } = getImports(importFile, seen)
+      result.syncImports.push(...syncImports)
+      result.asyncImports.push(...asyncImports)
+    })
+    getModuleInfo(id).dynamicallyImportedIds.forEach(importFile => {
+      result.asyncImports.push(...getRecursiveImportOrder(importFile, getModuleInfo, seen))
+    })
+    return result
   }
 
-  seen.add(id)
+  const { syncImports, asyncImports } = getImports(id, seen)
 
-  const result = [id]
-  getModuleInfo(id).importedIds.forEach(importFile => {
-    result.push(...getRecursiveImportOrder(importFile, getModuleInfo, seen))
-  })
-
-  return result
+  // If we have both sync and async imports, we assume async import is always imported later than
+  // sync import
+  return [...syncImports, ...asyncImports]
 }
 
 /* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
