@@ -63,7 +63,7 @@
     "resolve": "^1.19.0",
     "rollup-pluginutils": "^2.8.2",
     "safe-identifier": "^0.4.2",
-    "style-inject": "^0.3.0"
+    "style-implant": "^0.3.x"
   },
   "peerDependencies": {
     "postcss": "8.x"
