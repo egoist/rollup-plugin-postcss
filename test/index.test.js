@@ -277,6 +277,16 @@ snapshotMany('sourcemap', [
     options: {
       sourceMap: 'inline'
     }
+  },
+  {
+    title: 'sourcemap-embedSources',
+    input: 'simple/index.js',
+    options: {
+      sourceMap: 'inline',
+      embedSources: {
+        rootPath: '/some/random/path'
+      }
+    }
   }
 ])
 

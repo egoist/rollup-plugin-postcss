@@ -1,4 +1,5 @@
 import path from 'path'
+import fs from 'fs'
 import { createFilter } from 'rollup-pluginutils'
 import Concat from 'concat-with-sourcemaps'
 import Loaders from './loaders'
@@ -190,6 +191,21 @@ export default (options = {}) => {
           const map = result.map || null
           if (map) {
             map.file = fileName
+
+            if (options.embedSources) {
+              map.sourcesContent = map.sources.map((source, idx) => {
+                const trimmedSource = source.replace(/^file\:\/\//, '')
+
+                const file = res.id.substring(
+                  res.id.length - trimmedSource.length
+                ) == trimmedSource ? res.id : trimmedSource
+
+                map.sources[idx] = path.relative(
+                  options.embedSources.rootPath || '.', file)
+
+                return fs.readFileSync(file, 'utf8')
+              });
+            }
           }
 
           concat.add(relative, result.code, map)
