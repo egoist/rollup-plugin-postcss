@@ -6,9 +6,7 @@ import { identifier } from 'safe-identifier'
 import humanlizePath from './utils/humanlize-path'
 import normalizePath from './utils/normalize-path'
 
-const styleInjectPath = require
-  .resolve('style-inject/dist/style-inject.es')
-  .replace(/[\\/]+/g, '/')
+const styleInjectPath = 'style-inject'
 
 function loadConfig(id, { ctx: configOptions, path: configPath }) {
   const handleError = err => {
