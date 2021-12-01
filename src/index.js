@@ -190,6 +190,7 @@ export default (options = {}) => {
           const map = result.map || null
           if (map) {
             map.file = fileName
+            if (opts.sourcemapExcludeSources) map.sourcesContent = [null]
           }
 
           concat.add(relative, result.code, map)
