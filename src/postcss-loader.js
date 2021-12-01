@@ -144,6 +144,8 @@ export default {
     for (const message of result.messages) {
       if (message.type === 'dependency') {
         this.dependencies.add(message.file)
+      } else if (message.type === 'dir-dependency') {
+        this.dependencies.add(message.dir)
       }
     }
 
