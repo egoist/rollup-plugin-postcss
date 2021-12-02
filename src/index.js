@@ -171,9 +171,10 @@ export default (options = {}) => {
 
         const concat = new Concat(true, fileName, '\n')
         const entries = [...extracted.values()]
+        const relativePath = path.relative(dir, file)
         const { modules, facadeModuleId } = bundle[
-          normalizePath(path.relative(dir, file))
-        ]
+          normalizePath(relativePath)
+        ] || bundle[relativePath]
 
         if (modules) {
           const moduleIds = getRecursiveImportOrder(
