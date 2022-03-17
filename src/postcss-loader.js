@@ -193,7 +193,7 @@ export default {
     if (shouldExtract) {
       output += `export default ${JSON.stringify(modulesExported[this.id])};`;
       extracted = {
-        id: _this.id,
+        id: this.id,
         code: result.css,
         map: outputMap
       };
