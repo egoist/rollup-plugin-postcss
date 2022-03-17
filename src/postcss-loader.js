@@ -191,25 +191,25 @@ export default {
 
     const cssVariableName = identifier('css', true)
     if (shouldExtract) {
-      output += `export default ${JSON.stringify(modulesExported[_this.id])};`;
+      output += `export default ${JSON.stringify(modulesExported[this.id])};`;
       extracted = {
         id: _this.id,
         code: result.css,
         map: outputMap
       };
     } else {
-      const module = supportModules ? JSON.stringify(modulesExported[_this.id]) : cssVariableName;
-      output += 
-        `var ${cssVariableName} = ${JSON.stringify(result.css)};\n` + 
-        `var styleMapping = ${module};\n` + 
+      const module = supportModules ? JSON.stringify(modulesExported[this.id]) : cssVariableName;
+      output +=
+        `var ${cssVariableName} = ${JSON.stringify(result.css)};\n` +
+        `var styleMapping = ${module};\n` +
         `export var stylesheet=${JSON.stringify(result.css)};`;
     }
 
     if (!shouldExtract && shouldInject) {
-      output += typeof options.inject === 'function' ? options.inject(cssVariableName, _this.id) : '\n' + 
-        `import styleInject from '${styleInjectPath}';\n` + 
-        `export default /*#__PURE__*/(function() {\n  styleInject(${cssVariableName}${Object.keys(options.inject).length > 0 ? 
-          `,${JSON.stringify(options.inject)}` : 
+      output += typeof options.inject === 'function' ? options.inject(cssVariableName, this.id) : '\n' +
+        `import styleInject from '${styleInjectPath}';\n` +
+        `export default /*#__PURE__*/(function() {\n  styleInject(${cssVariableName}${Object.keys(options.inject).length > 0 ?
+          `,${JSON.stringify(options.inject)}` :
           ''
         });\n  return styleMapping;\n})();`;
     }
