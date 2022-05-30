@@ -12,6 +12,12 @@ Seamless integration between [Rollup](https://github.com/rollup/rollup) and [Pos
 ## Install
 
 ```bash
+npm install postcss rollup-plugin-postcss --dev
+```
+
+or
+
+```bash
 yarn add postcss rollup-plugin-postcss --dev
 ```
 
