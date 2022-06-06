@@ -20,7 +20,7 @@ export type PostCSSPluginConf = {
 	modules?: boolean | Record<string, any>;
 	extensions?: string[];
 	plugins?: any[];
-	autoModules?: boolean;
+	autoModules?: boolean | RegExp | ((file: string) => boolean);
 	namedExports?: boolean | ((id: string) => string);
 	minimize?: boolean | any;
 	parser?: string | FunctionType;

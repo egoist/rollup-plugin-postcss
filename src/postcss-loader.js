@@ -52,6 +52,26 @@ function isModuleFile(file) {
   return /\.module\.[a-z]{2,6}$/.test(file)
 }
 
+function isAutoModule(autoModules, file) {
+  if (autoModules === false) {
+    return false
+  }
+
+  if (autoModules === true || autoModules === undefined) {
+    return isModuleFile(file)
+  }
+
+  if (typeof autoModules === 'function') {
+    return autoModules(file)
+  }
+
+  if (autoModules instanceof RegExp) {
+    return autoModules.test(file)
+  }
+
+  return false
+}
+
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   name: 'postcss',
@@ -72,9 +92,8 @@ export default {
     const shouldInject = options.inject
 
     const modulesExported = {}
-    const autoModules = options.autoModules !== false && options.onlyModules !== true
-    const isAutoModule = autoModules && isModuleFile(this.id)
-    const supportModules = autoModules ? isAutoModule : options.modules
+    const onlyModules = options.onlyModules !== true
+    const supportModules = onlyModules ? isAutoModule(options.autoModules, this.id) : options.modules
     if (supportModules) {
       plugins.unshift(
         require('postcss-modules')({
