@@ -259,6 +259,19 @@ snapshotMany('modules', [
   {
     title: 'auto-modules',
     input: 'auto-modules/index.js'
+  },
+  {
+    title: 'custom-auto-modules',
+    input: 'custom-auto-modules/index.js',
+    options: {
+      autoModules: filename => {
+        if (/\.test\.[cs|le]s+/.test(filename)) {
+          return true
+        }
+
+        return false
+      }
+    }
   }
 ])
 

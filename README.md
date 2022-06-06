@@ -144,10 +144,50 @@ Enable CSS modules or set options for `postcss-modules`.
 
 ### autoModules
 
-Type: `boolean`<br>
+Type: `boolean` `function` `RegExp`<br>
 Default: `true`
 
-Automatically enable CSS modules for `.module.css` `.module.sss` `.module.scss` `.module.sass` `.module.styl` `.module.stylus` `.module.less` files.
+Allows auto enable CSS modules based on filename.
+
+Possible values: 
+
+* `true` - enable CSS modules for `.module.css` `.module.sss` `.module.scss` `.module.sass` `.module.styl` `.module.stylus` `.module.less` files.
+* `false` - disables CSS Modules.
+* `RegExp` - enable CSS modules for all files matching /RegExp/i.test(filename) regexp.
+* `function` - enable CSS Modules for files based on the filename satisfying your filter function check.
+
+#### `boolean`
+
+Possible values: 
+
+* `true` - enable CSS modules for `.module.css` `.module.sss` `.module.scss` `.module.sass` `.module.styl` `.module.stylus` `.module.less` files.
+* `false` - disables CSS Modules.
+
+```js
+postcss({
+  autoModules: true,
+})
+```
+
+#### `RegExp`
+
+Enable CSS modules for all files matching /RegExp/i.test(filename) regexp.
+
+```js
+postcss({
+  autoModules: /\.custom-module\.\w+$/i,
+})
+```
+
+#### `function`
+
+Enable CSS modules for files based on the filename satisfying your filter function check.
+
+```js
+postcss({
+  autoModules: (file) => file.endsWith(".custom-module.css"),
+})
+```
 
 ### namedExports
 
