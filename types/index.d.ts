@@ -37,7 +37,7 @@ export type PostCSSPluginConf = {
 	name?: any[] | any[][];
 	loaders?: any[];
 	onImport?: (id: string) => void;
-	use?: string[] | { [key in 'sass' | 'stylus' | 'less']: any };
+	use?: string[] | Partial<{ [key in 'sass' | 'stylus' | 'less']: any }>;
 	/**
    * @default: false
    **/
