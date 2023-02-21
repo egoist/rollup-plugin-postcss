@@ -101,6 +101,20 @@ Similar to how webpack's [sass-loader](https://github.com/webpack-contrib/sass-l
 
 ## Options
 
+### include
+
+Type: `String | RegExp | Array[...String|RegExp]`
+
+A valid [picomatch](https://github.com/micromatch/picomatch#globbing-features) pattern, or array of patterns, 
+which specifies the files in the build the plugin should operate on. By default all files are targeted.
+
+### exclude
+
+Type: `String | RegExp | Array[...String|RegExp]`
+
+A valid [picomatch](https://github.com/micromatch/picomatch#globbing-features) pattern, or array of patterns, 
+which specifies the files in the build the plugin should ignore. By default no files are ignored.
+
 ### extensions
 
 Type: `string[]`<br>
