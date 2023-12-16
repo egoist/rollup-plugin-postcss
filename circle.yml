@@ -27,4 +27,4 @@ jobs:
           command: bash <(curl -s https://codecov.io/bash)
       - run:
           name: release
-          command: npx semantic-release
+          command: npx semantic-release@15.13.30
