@@ -1,10 +1,9 @@
-
 version: 2
 jobs:
   build:
     working_directory: ~/repo
     docker:
-      - image: circleci/node:lts
+      - image: circleci/node:14
     branches:
       ignore:
         - gh-pages # list of branches to ignore
