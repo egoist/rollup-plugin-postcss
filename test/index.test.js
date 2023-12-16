@@ -15,11 +15,7 @@ function fixture(...args) {
 
 beforeAll(() => fs.remove(fixture('dist')))
 
-async function write({
-  input,
-  outDir,
-  options
-}) {
+async function write({ input, outDir, options }) {
   const { delayResolve, ...postCssOptions } = options
 
   let first = true
@@ -54,7 +50,9 @@ async function write({
   })
   let cssCodePath = path.join(outDir, 'bundle.css')
   if (typeof options.extract === 'string') {
-    cssCodePath = path.isAbsolute(options.extract) ? options.extract : path.join(outDir, options.extract)
+    cssCodePath = path.isAbsolute(options.extract) ?
+      options.extract :
+      path.join(outDir, options.extract)
   }
 
   const cssMapPath = `${cssCodePath}.map`
@@ -78,46 +76,45 @@ async function write({
   }
 }
 
-function snapshot({
-  title,
-  input,
-  outDir,
-  options = {}
-}) {
-  test(title, async () => {
-    let result
-    try {
-      result = await write({
-        input,
-        outDir,
-        options
-      })
-    } catch (error) {
-      const frame = error.codeFrame || error.snippet
-      if (frame) {
-        throw new Error(frame + error.message)
+function snapshot({ title, input, outDir, options = {} }) {
+  test(
+    title,
+    async () => {
+      let result
+      try {
+        result = await write({
+          input,
+          outDir,
+          options
+        })
+      } catch (error) {
+        const frame = error.codeFrame || error.snippet
+        if (frame) {
+          throw new Error(frame + error.message)
+        }
+
+        throw error
       }
 
-      throw error
-    }
+      expect(await result.jsCode()).toMatchSnapshot('js code')
 
-    expect(await result.jsCode()).toMatchSnapshot('js code')
-
-    if (options.extract) {
-      expect(await result.hasCssFile()).toBe(true)
-      expect(await result.cssCode()).toMatchSnapshot('css code')
-    }
-
-    const sourceMap = options && options.sourceMap
-    if (sourceMap === 'inline') {
-      expect(await result.hasCssMapFile()).toBe(false)
-    } else if (sourceMap === true) {
-      expect(await result.hasCssMapFile()).toBe(Boolean(options.extract))
       if (options.extract) {
-        expect(await result.cssMap()).toMatchSnapshot('css map')
+        expect(await result.hasCssFile()).toBe(true)
+        expect(await result.cssCode()).toMatchSnapshot('css code')
       }
-    }
-  }, JEST_TIMEOUT)
+
+      const sourceMap = options && options.sourceMap
+      if (sourceMap === 'inline') {
+        expect(await result.hasCssMapFile()).toBe(false)
+      } else if (sourceMap === true) {
+        expect(await result.hasCssMapFile()).toBe(Boolean(options.extract))
+        if (options.extract) {
+          expect(await result.cssMap()).toMatchSnapshot('css map')
+        }
+      }
+    },
+    JEST_TIMEOUT
+  )
 }
 
 function snapshotMany(title, tests) {
@@ -160,16 +157,14 @@ snapshotMany('basic', [
     title: 'postcss-options',
     input: 'postcss-options/index.js',
     options: {
-      plugins: [
-        require('autoprefixer')()
-      ]
+      plugins: [require('autoprefixer')()]
     }
   },
   {
     title: 'on-import',
     input: 'simple/index.js',
     options: {
-      onImport: () => { }
+      onImport: () => {}
     }
   }
 ])
@@ -388,12 +383,7 @@ snapshotMany('sass', [
     title: 'data-prepend',
     input: 'sass-data-prepend/index.js',
     options: {
-      use: [
-        [
-          'sass',
-          { data: '@import \'prepend\';' }
-        ]
-      ]
+      use: [['sass', { data: '@import \'prepend\';' }]]
     }
   },
   {

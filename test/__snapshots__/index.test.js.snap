@@ -30,25 +30,25 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
-styleInject(css_248z$5);
+var stylesheet$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(stylesheet$5);
 
-var css_248z$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
-styleInject(css_248z$4);
+var stylesheet$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(stylesheet$4);
 
-var css_248z$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
-styleInject(css_248z$3);
+var stylesheet$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
+styleInject(stylesheet$3);
 
-var css_248z$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
-styleInject(css_248z$2);
+var stylesheet$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
+styleInject(stylesheet$2);
 
-var css_248z$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
-styleInject(css_248z$1);
+var stylesheet$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
+styleInject(stylesheet$1);
 
-var css_248z = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
-styleInject(css_248z);
+var stylesheet = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(stylesheet);
 
-console.log(css_248z$5, css_248z$4);
+console.log(stylesheet$5, stylesheet$4);
 "
 `;
 
@@ -82,8 +82,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = \\"a {\\\\n  color: blue\\\\n}\\\\n\\\\n.multiline,\\\\n.selector {\\\\n  box-shadow: 1px 0 9px rgba(0, 0, 0, .4),\\\\n              1px 0 3px rgba(0, 0, 0, .6)\\\\n}\\\\n\\";
-styleInject(css_248z);
+var stylesheet = \\"a {\\\\n  color: blue\\\\n}\\\\n\\\\n.multiline,\\\\n.selector {\\\\n  box-shadow: 1px 0 9px rgba(0, 0, 0, .4),\\\\n              1px 0 3px rgba(0, 0, 0, .6)\\\\n}\\\\n\\";
+styleInject(stylesheet);
 "
 `;
 
@@ -117,8 +117,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = \\"body {\\\\n  display: flex;\\\\n}\\\\n\\";
-styleInject(css_248z);
+var stylesheet = \\"body {\\\\n  display: flex;\\\\n}\\\\n\\";
+styleInject(stylesheet);
 "
 `;
 
@@ -152,25 +152,25 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
-styleInject(css_248z$5);
+var stylesheet$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(stylesheet$5);
 
-var css_248z$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
-styleInject(css_248z$4);
+var stylesheet$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(stylesheet$4);
 
-var css_248z$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
-styleInject(css_248z$3);
+var stylesheet$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
+styleInject(stylesheet$3);
 
-var css_248z$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
-styleInject(css_248z$2);
+var stylesheet$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
+styleInject(stylesheet$2);
 
-var css_248z$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
-styleInject(css_248z$1);
+var stylesheet$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
+styleInject(stylesheet$1);
 
-var css_248z = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
-styleInject(css_248z);
+var stylesheet = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(stylesheet);
 
-console.log(css_248z$5, css_248z$4);
+console.log(stylesheet$5, stylesheet$4);
 "
 `;
 
@@ -204,8 +204,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
-styleInject(css_248z);
+var stylesheet = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(stylesheet);
 "
 `;
 
@@ -478,36 +478,36 @@ console.log(foo, bar);
 exports[`inject false: js code 1`] = `
 "'use strict';
 
-var css_248z$1 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+var stylesheet$1 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
 
-var css_248z = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
+var stylesheet = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
 
-console.log(css_248z$1, css_248z);
+console.log(stylesheet$1, stylesheet);
 "
 `;
 
 exports[`inject function: js code 1`] = `
 "'use strict';
 
-var css_248z$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
-console.log(css_248z$5);
+var stylesheet$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+console.log(stylesheet$5);
 
-var css_248z$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
-console.log(css_248z$4);
+var stylesheet$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
+console.log(stylesheet$4);
 
-var css_248z$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
-console.log(css_248z$3);
+var stylesheet$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
+console.log(stylesheet$3);
 
-var css_248z$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
-console.log(css_248z$2);
+var stylesheet$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
+console.log(stylesheet$2);
 
-var css_248z$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
-console.log(css_248z$1);
+var stylesheet$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
+console.log(stylesheet$1);
 
-var css_248z = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
-console.log(css_248z);
+var stylesheet = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
+console.log(stylesheet);
 
-console.log(css_248z$5, css_248z$4);
+console.log(stylesheet$5, stylesheet$4);
 "
 `;
 
@@ -541,25 +541,25 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
-styleInject(css_248z$5,{\\"insertAt\\":\\"top\\"});
+var stylesheet$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(stylesheet$5,{\\"insertAt\\":\\"top\\"});
 
-var css_248z$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
-styleInject(css_248z$4,{\\"insertAt\\":\\"top\\"});
+var stylesheet$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(stylesheet$4,{\\"insertAt\\":\\"top\\"});
 
-var css_248z$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
-styleInject(css_248z$3,{\\"insertAt\\":\\"top\\"});
+var stylesheet$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
+styleInject(stylesheet$3,{\\"insertAt\\":\\"top\\"});
 
-var css_248z$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
-styleInject(css_248z$2,{\\"insertAt\\":\\"top\\"});
+var stylesheet$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
+styleInject(stylesheet$2,{\\"insertAt\\":\\"top\\"});
 
-var css_248z$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
-styleInject(css_248z$1,{\\"insertAt\\":\\"top\\"});
+var stylesheet$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
+styleInject(stylesheet$1,{\\"insertAt\\":\\"top\\"});
 
-var css_248z = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
-styleInject(css_248z,{\\"insertAt\\":\\"top\\"});
+var stylesheet = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(stylesheet,{\\"insertAt\\":\\"top\\"});
 
-console.log(css_248z$5, css_248z$4);
+console.log(stylesheet$5, stylesheet$4);
 "
 `;
 
@@ -640,25 +640,25 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$5 = \\"body{color:red}\\";
-styleInject(css_248z$5);
+var stylesheet$5 = \\"body{color:red}\\";
+styleInject(stylesheet$5);
 
-var css_248z$4 = \\".bar{color:red}\\";
-styleInject(css_248z$4);
+var stylesheet$4 = \\".bar{color:red}\\";
+styleInject(stylesheet$4);
 
-var css_248z$3 = \\"body{background:red;color:red}\\";
-styleInject(css_248z$3);
+var stylesheet$3 = \\"body{background:red;color:red}\\";
+styleInject(stylesheet$3);
 
-var css_248z$2 = \\"#sidebar{background-color:#faa;width:30%}\\";
-styleInject(css_248z$2);
+var stylesheet$2 = \\"#sidebar{background-color:#faa;width:30%}\\";
+styleInject(stylesheet$2);
 
-var css_248z$1 = \\"#header{color:#6c94be}\\";
-styleInject(css_248z$1);
+var stylesheet$1 = \\"#header{color:#6c94be}\\";
+styleInject(stylesheet$1);
 
-var css_248z = \\".pcss{color:red}\\";
-styleInject(css_248z);
+var stylesheet = \\".pcss{color:red}\\";
+styleInject(stylesheet);
 
-console.log(css_248z$5, css_248z$4);
+console.log(stylesheet$5, stylesheet$4);
 "
 `;
 
@@ -692,17 +692,17 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$2 = \\".a-module_foo {\\\\n  color: red;\\\\n}\\\\n\\";
 var a = {\\"foo\\":\\"a-module_foo\\"};
-styleInject(css_248z$2);
+var stylesheet$2 = \\".a-module_foo {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(stylesheet$2);
 
-var css_248z$1 = \\".b-module_b {\\\\n  color: red; }\\\\n\\";
 var b = {\\"b\\":\\"b-module_b\\"};
-styleInject(css_248z$1);
+var stylesheet$1 = \\".b-module_b {\\\\n  color: red; }\\\\n\\";
+styleInject(stylesheet$1);
 
-var css_248z = \\".c-module_c {\\\\n  color: red;\\\\n}\\\\n\\";
 var c = {\\"c\\":\\"c-module_c\\"};
-styleInject(css_248z);
+var stylesheet = \\".c-module_c {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(stylesheet);
 
 console.log(
   a,
@@ -758,9 +758,9 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\";
 var style = {\\"foo\\":\\"style_foo\\"};
-styleInject(css_248z);
+var stylesheet = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(stylesheet);
 
 console.log(style.foo);
 "
@@ -796,9 +796,9 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\";
 var style = {\\"foo\\":\\"style_foo\\"};
-styleInject(css_248z);
+var stylesheet = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\";
+styleInject(stylesheet);
 
 console.log(style.foo);
 "
@@ -837,10 +837,9 @@ function styleInject(css, ref) {
 var foo = \\"style_foo\\";
 var _new = \\"style_new\\";
 var _default = \\"style_default\\";
-var css_248z = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
 var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"default\\":\\"style_default\\",\\"_new\\":\\"style_new\\",\\"_default\\":\\"style_default\\"};
-var stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
-styleInject(css_248z);
+var stylesheet = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
+styleInject(stylesheet);
 
 var style$1 = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -888,10 +887,9 @@ function styleInject(css, ref) {
 var foohacked = \\"style_foo\\";
 var newhacked = \\"style_new\\";
 var defaulthacked = \\"style_default\\";
-var css_248z = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
 var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"default\\":\\"style_default\\",\\"foohacked\\":\\"style_foo\\",\\"newhacked\\":\\"style_new\\",\\"defaulthacked\\":\\"style_default\\"};
-var stylesheet=\\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
-styleInject(css_248z);
+var stylesheet = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
+styleInject(stylesheet);
 
 var style$1 = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -947,8 +945,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = \\".special {\\\\n  color: pink; }\\\\n\\";
-styleInject(css_248z);
+var stylesheet = \\".special {\\\\n  color: pink; }\\\\n\\";
+styleInject(stylesheet);
 "
 `;
 
@@ -982,8 +980,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = \\".special {\\\\n  color: pink; }\\\\n\\";
-styleInject(css_248z);
+var stylesheet = \\".special {\\\\n  color: pink; }\\\\n\\";
+styleInject(stylesheet);
 "
 `;
 
@@ -1017,8 +1015,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
-styleInject(css_248z);
+var stylesheet = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
+styleInject(stylesheet);
 "
 `;
 
@@ -1052,8 +1050,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = \\".a {\\\\n  color: pink; }\\\\n\\\\n.b {\\\\n  color: red; }\\\\n\\\\n.c {\\\\n  color: black; }\\\\n\\\\n.foo {\\\\n  color: magenta; }\\\\n\\";
-styleInject(css_248z);
+var stylesheet = \\".a {\\\\n  color: pink; }\\\\n\\\\n.b {\\\\n  color: red; }\\\\n\\\\n.c {\\\\n  color: black; }\\\\n\\\\n.foo {\\\\n  color: magenta; }\\\\n\\";
+styleInject(stylesheet);
 "
 `;
 
@@ -1087,9 +1085,9 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = \\".style_foo {\\\\n  color: red; }\\\\n\\";
 var style = {\\"foo\\":\\"style_foo\\"};
-styleInject(css_248z);
+var stylesheet = \\".style_foo {\\\\n  color: red; }\\\\n\\";
+styleInject(stylesheet);
 
 console.log(style);
 "
@@ -1125,8 +1123,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5zYXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsVUFBVTtFQUNWLHNCQUFzQixFQUFFIiwiZmlsZSI6ImZvby5zYXNzIiwic291cmNlc0NvbnRlbnQiOlsiI3NpZGViYXIge1xuICB3aWR0aDogMzAlO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmFhOyB9XG4iXX0= */\\";
-styleInject(css_248z);
+var stylesheet = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5zYXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsVUFBVTtFQUNWLHNCQUFzQixFQUFFIiwiZmlsZSI6ImZvby5zYXNzIiwic291cmNlc0NvbnRlbnQiOlsiI3NpZGViYXIge1xuICB3aWR0aDogMzAlO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmFhOyB9XG4iXX0= */\\";
+styleInject(stylesheet);
 "
 `;
 
@@ -1160,25 +1158,25 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiZm9vLmNzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHkge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
-styleInject(css_248z$5);
+var stylesheet$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiZm9vLmNzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHkge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
+styleInject(stylesheet$5);
 
-var css_248z$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhci5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiYmFyLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iYXIge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
-styleInject(css_248z$4);
+var stylesheet$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhci5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiYmFyLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iYXIge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
+styleInject(stylesheet$4);
 
-var css_248z$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n/*# sourceMappingURL=test/fixtures/simple/style.css.map */\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnN0eWwiLCJzdHlsZS5zdHlsIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBTztFQUNQLGdCQUFZO0FDQ2Q7QUFDQSx5REFBeUQiLCJmaWxlIjoic3R5bGUuc3R5bCJ9 */\\";
-styleInject(css_248z$3);
+var stylesheet$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n/*# sourceMappingURL=test/fixtures/simple/style.css.map */\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnN0eWwiLCJzdHlsZS5zdHlsIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBTztFQUNQLGdCQUFZO0FDQ2Q7QUFDQSx5REFBeUQiLCJmaWxlIjoic3R5bGUuc3R5bCJ9 */\\";
+styleInject(stylesheet$3);
 
-var css_248z$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\\\n/*# sourceMappingURL=../../../inline */\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnNhc3MiLCJzdHlsZS5zYXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsVUFBVTtFQUNWLHNCQUFzQixFQUFBOztBQ0V4QixzQ0FBc0MiLCJmaWxlIjoic3R5bGUuc2FzcyJ9 */\\";
-styleInject(css_248z$2);
+var stylesheet$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\\\n/*# sourceMappingURL=../../../inline */\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnNhc3MiLCJzdHlsZS5zYXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsVUFBVTtFQUNWLHNCQUFzQixFQUFBOztBQ0V4QixzQ0FBc0MiLCJmaWxlIjoic3R5bGUuc2FzcyJ9 */\\";
+styleInject(stylesheet$2);
 
-var css_248z$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLmxlc3MiLCJzdHlsZS5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUdBO0VBQ0UsY0FBQTtBQ0ZGIiwiZmlsZSI6InN0eWxlLmxlc3MifQ== */\\";
-styleInject(css_248z$1);
+var stylesheet$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLmxlc3MiLCJzdHlsZS5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUdBO0VBQ0UsY0FBQTtBQ0ZGIiwiZmlsZSI6InN0eWxlLmxlc3MifQ== */\\";
+styleInject(stylesheet$1);
 
-var css_248z = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnBjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoic3R5bGUucGNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wY3NzIHtcbiAgY29sb3I6IHJlZDtcbn1cbiJdfQ== */\\";
-styleInject(css_248z);
+var stylesheet = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnBjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoic3R5bGUucGNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wY3NzIHtcbiAgY29sb3I6IHJlZDtcbn1cbiJdfQ== */\\";
+styleInject(stylesheet);
 
-console.log(css_248z$5, css_248z$4);
+console.log(stylesheet$5, stylesheet$4);
 "
 `;
 
@@ -1212,24 +1210,24 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiZm9vLmNzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHkge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
-styleInject(css_248z$5);
+var stylesheet$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiZm9vLmNzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHkge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
+styleInject(stylesheet$5);
 
-var css_248z$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhci5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiYmFyLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iYXIge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
-styleInject(css_248z$4);
+var stylesheet$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhci5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiYmFyLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iYXIge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
+styleInject(stylesheet$4);
 
-var css_248z$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n/*# sourceMappingURL=test/fixtures/simple/style.css.map */\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnN0eWwiLCJzdHlsZS5zdHlsIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBTztFQUNQLGdCQUFZO0FDQ2Q7QUFDQSx5REFBeUQiLCJmaWxlIjoic3R5bGUuc3R5bCJ9 */\\";
-styleInject(css_248z$3);
+var stylesheet$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n/*# sourceMappingURL=test/fixtures/simple/style.css.map */\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnN0eWwiLCJzdHlsZS5zdHlsIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBTztFQUNQLGdCQUFZO0FDQ2Q7QUFDQSx5REFBeUQiLCJmaWxlIjoic3R5bGUuc3R5bCJ9 */\\";
+styleInject(stylesheet$3);
 
-var css_248z$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnNhc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0VBQ1Ysc0JBQXNCLEVBQUUiLCJmaWxlIjoic3R5bGUuc2FzcyIsInNvdXJjZXNDb250ZW50IjpbIiNzaWRlYmFyIHtcbiAgd2lkdGg6IDMwJTtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZhYTsgfVxuIl19 */\\";
-styleInject(css_248z$2);
+var stylesheet$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnNhc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0VBQ1Ysc0JBQXNCLEVBQUUiLCJmaWxlIjoic3R5bGUuc2FzcyIsInNvdXJjZXNDb250ZW50IjpbIiNzaWRlYmFyIHtcbiAgd2lkdGg6IDMwJTtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZhYTsgfVxuIl19 */\\";
+styleInject(stylesheet$2);
 
-var css_248z$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLmxlc3MiLCJzdHlsZS5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUdBO0VBQ0UsY0FBQTtBQ0ZGIiwiZmlsZSI6InN0eWxlLmxlc3MifQ== */\\";
-styleInject(css_248z$1);
+var stylesheet$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLmxlc3MiLCJzdHlsZS5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUdBO0VBQ0UsY0FBQTtBQ0ZGIiwiZmlsZSI6InN0eWxlLmxlc3MifQ== */\\";
+styleInject(stylesheet$1);
 
-var css_248z = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnBjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoic3R5bGUucGNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wY3NzIHtcbiAgY29sb3I6IHJlZDtcbn1cbiJdfQ== */\\";
-styleInject(css_248z);
+var stylesheet = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnBjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoic3R5bGUucGNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wY3NzIHtcbiAgY29sb3I6IHJlZDtcbn1cbiJdfQ== */\\";
+styleInject(stylesheet);
 
-console.log(css_248z$5, css_248z$4);
+console.log(stylesheet$5, stylesheet$4);
 "
 `;

@@ -6,6 +6,8 @@ import { identifier } from 'safe-identifier'
 import humanlizePath from './utils/humanlize-path'
 import normalizePath from './utils/normalize-path'
 
+const CSS_STYLESHEET_VARIABLE_NAME = 'stylesheet'
+
 const styleInjectPath = require
   .resolve('style-inject/dist/style-inject.es')
   .replace(/[\\/]+/g, '/')
@@ -72,7 +74,8 @@ export default {
     const shouldInject = options.inject
 
     const modulesExported = {}
-    const autoModules = options.autoModules !== false && options.onlyModules !== true
+    const autoModules =
+      options.autoModules !== false && options.onlyModules !== true
     const isAutoModule = autoModules && isModuleFile(this.id)
     const supportModules = autoModules ? isAutoModule : options.modules
     if (supportModules) {
@@ -131,8 +134,7 @@ export default {
       const noopPlugin = () => {
         return {
           postcssPlugin: 'postcss-noop-plugin',
-          Once() {
-          }
+          Once() {}
         }
       }
 
@@ -189,7 +191,6 @@ export default {
       }
     }
 
-    const cssVariableName = identifier('css', true)
     if (shouldExtract) {
       output += `export default ${JSON.stringify(modulesExported[this.id])};`
       extracted = {
@@ -200,20 +201,25 @@ export default {
     } else {
       const module = supportModules ?
         JSON.stringify(modulesExported[this.id]) :
-        cssVariableName
-      output +=
-        `var ${cssVariableName} = ${JSON.stringify(result.css)};\n` +
-        `export default ${module};\n` +
-        `export var stylesheet=${JSON.stringify(result.css)};`
+        CSS_STYLESHEET_VARIABLE_NAME
+      output += `export default ${module};\n`
     }
 
+    output += `export var ${CSS_STYLESHEET_VARIABLE_NAME} = ${JSON.stringify(
+      result.css
+    )};\n`
+
     if (!shouldExtract && shouldInject) {
-      output += typeof options.inject === 'function' ? options.inject(cssVariableName, this.id) : '\n' +
-        `import styleInject from '${styleInjectPath}';\n` +
-        `styleInject(${cssVariableName}${Object.keys(options.inject).length > 0 ?
-          `,${JSON.stringify(options.inject)}` :
-          ''
-        });`
+      output +=
+        typeof options.inject === 'function' ?
+          options.inject(CSS_STYLESHEET_VARIABLE_NAME, this.id) :
+          '\n' +
+            `import styleInject from '${styleInjectPath}';\n` +
+            `styleInject(${CSS_STYLESHEET_VARIABLE_NAME}${
+              Object.keys(options.inject).length > 0 ?
+                `,${JSON.stringify(options.inject)}` :
+                ''
+            });`
     }
 
     return {

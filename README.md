@@ -1,7 +1,7 @@
 # rollup-plugin-postcss
 
 [![NPM version](https://img.shields.io/npm/v/rollup-plugin-postcss.svg?style=flat)](https://npmjs.com/package/rollup-plugin-postcss) [![NPM downloads](https://img.shields.io/npm/dm/rollup-plugin-postcss.svg?style=flat)](https://npmjs.com/package/rollup-plugin-postcss) [![Build Status](https://img.shields.io/circleci/project/egoist/rollup-plugin-postcss/master.svg?style=flat)](https://circleci.com/gh/egoist/rollup-plugin-postcss) [![codecov](https://codecov.io/gh/egoist/rollup-plugin-postcss/branch/master/graph/badge.svg)](https://codecov.io/gh/egoist/rollup-plugin-postcss)
- [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/egoist/donate)
+[![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/egoist/donate)
 
 <img align="right" width="95" height="95"
      title="Philosopher’s stone, logo of PostCSS"
@@ -20,7 +20,7 @@ yarn add postcss rollup-plugin-postcss --dev
 `v2.0` support rollup v1 or above, but it prints deprecated warning from rollup v2.
 
 **Breaking change**: `v3.0` only support rollup v2, and the extract path based on bundle root
- the location of the generated file outside the bundle directory not allowed in rollup v2.
+the location of the generated file outside the bundle directory not allowed in rollup v2.
 
 ```js
 // rollup.config.js
@@ -41,11 +41,18 @@ Then you can use CSS files:
 import './style.css'
 ```
 
-Note that the generated CSS will be injected to `<head>` by default, and the CSS string is also available as default export unless `extract: true`:
+Note that the generated CSS will be injected to `<head>` by default., and the CSS string is also available as default export unless `extract: true` or `modules` is enabled:
 
 ```js
 // Inject to `<head>` and also available as `style`
 import style from './style.css'
+```
+
+In all cases the styles can be accessed directly as a named export. So if css modules are enabled, then:
+
+```js
+// Default export is classnames, named `stylesheet` is the CSS string
+import classNames, { stylesheet } from './style.css'
 ```
 
 It will also automatically use local PostCSS config files.
@@ -91,7 +98,7 @@ That's it, you can now import `.styl` `.scss` `.sass` `.less` files in your libr
 
 #### imports
 
-__For Sass/Scss Only.__
+**For Sass/Scss Only.**
 
 Similar to how webpack's [sass-loader](https://github.com/webpack-contrib/sass-loader#imports) works, you can prepend the path with `~` to tell this plugin to resolve in `node_modules`:
 
@@ -266,7 +273,7 @@ module.exports = context => {
 
 Type: `string`
 
-Destination CSS filename hint that could be used by PostCSS plugins, for example, 
+Destination CSS filename hint that could be used by PostCSS plugins, for example,
 to properly resolve path, rebase and copy assets.
 
 ### use
