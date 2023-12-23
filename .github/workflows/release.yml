@@ -23,7 +23,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
       - name: Install Dependencies
-        run: pnpm install --frozen-lockfile --non-interactive
+        run: pnpm install --frozen-lockfile
       - name: Semantic Release
         run: npx semantic-release
         env:
