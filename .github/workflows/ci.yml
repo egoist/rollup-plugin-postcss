@@ -16,16 +16,18 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - uses: pnpm/action-setup@v2
       - name: Cache NPM dependencies
         uses: actions/cache@v3
+        name: Setup pnpm cache
         with:
-          path: node_modules
-          key: ${{ runner.OS }}-npm-cache-${{ matrix.os }}
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.OS }}-npm-cache-${{ matrix.os }}
+            ${{ runner.os }}-pnpm-store-
       - name: Install Dependencies
         run: 
-          pnpm --frozen-lockfile --non-interactive
+          pnpm install --frozen-lockfile --non-interactive
       - name: Test
         run: pnpm test
       - name: Lint
