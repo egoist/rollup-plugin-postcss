@@ -17,6 +17,10 @@ jobs:
         with:
           node-version: '20'
       - uses: pnpm/action-setup@v2
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
       - name: Cache NPM dependencies
         uses: actions/cache@v3
         with:
