@@ -103,9 +103,9 @@
     "branches": [
       "master",
       "next"
-    ],
-    "publishConfig": {
-      "access": "public"
-    }
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
