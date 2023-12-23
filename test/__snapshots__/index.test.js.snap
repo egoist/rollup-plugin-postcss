@@ -31,23 +31,23 @@ function styleInject(css, ref) {
 }
 
 var foo = stylesheet$5;
-var stylesheet$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+var stylesheet$5 = "body {\\n  color: red;\\n}\\n";
 styleInject(stylesheet$5);
 
 var bar = stylesheet$4;
-var stylesheet$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
+var stylesheet$4 = ".bar {\\n  color: red;\\n}\\n";
 styleInject(stylesheet$4);
 
-var stylesheet$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
+var stylesheet$3 = "body {\\n  color: #f00;\\n  background: #f00;\\n}\\n";
 styleInject(stylesheet$3);
 
-var stylesheet$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
+var stylesheet$2 = "#sidebar {\\n  width: 30%;\\n  background-color: #faa; }\\n";
 styleInject(stylesheet$2);
 
-var stylesheet$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
+var stylesheet$1 = "#header {\\n  color: #6c94be;\\n}\\n";
 styleInject(stylesheet$1);
 
-var stylesheet = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
+var stylesheet = ".pcss {\\n  color: red;\\n}\\n";
 styleInject(stylesheet);
 
 console.log(foo, bar);
@@ -84,7 +84,7 @@ function styleInject(css, ref) {
   }
 }
 
-var stylesheet = \\"a {\\\\n  color: blue\\\\n}\\\\n\\\\n.multiline,\\\\n.selector {\\\\n  box-shadow: 1px 0 9px rgba(0, 0, 0, .4),\\\\n              1px 0 3px rgba(0, 0, 0, .6)\\\\n}\\\\n\\";
+var stylesheet = "a {\\n  color: blue\\n}\\n\\n.multiline,\\n.selector {\\n  box-shadow: 1px 0 9px rgba(0, 0, 0, .4),\\n              1px 0 3px rgba(0, 0, 0, .6)\\n}\\n";
 styleInject(stylesheet);
 "
 `;
@@ -119,7 +119,7 @@ function styleInject(css, ref) {
   }
 }
 
-var stylesheet = \\"body {\\\\n  display: flex;\\\\n}\\\\n\\";
+var stylesheet = "body {\\n  display: flex;\\n}\\n";
 styleInject(stylesheet);
 "
 `;
@@ -155,23 +155,23 @@ function styleInject(css, ref) {
 }
 
 var foo = stylesheet$5;
-var stylesheet$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+var stylesheet$5 = "body {\\n  color: red;\\n}\\n";
 styleInject(stylesheet$5);
 
 var bar = stylesheet$4;
-var stylesheet$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
+var stylesheet$4 = ".bar {\\n  color: red;\\n}\\n";
 styleInject(stylesheet$4);
 
-var stylesheet$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
+var stylesheet$3 = "body {\\n  color: #f00;\\n  background: #f00;\\n}\\n";
 styleInject(stylesheet$3);
 
-var stylesheet$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
+var stylesheet$2 = "#sidebar {\\n  width: 30%;\\n  background-color: #faa; }\\n";
 styleInject(stylesheet$2);
 
-var stylesheet$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
+var stylesheet$1 = "#header {\\n  color: #6c94be;\\n}\\n";
 styleInject(stylesheet$1);
 
-var stylesheet = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
+var stylesheet = ".pcss {\\n  color: red;\\n}\\n";
 styleInject(stylesheet);
 
 console.log(foo, bar);
@@ -208,7 +208,7 @@ function styleInject(css, ref) {
   }
 }
 
-var stylesheet = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+var stylesheet = "body {\\n  color: red;\\n}\\n";
 styleInject(stylesheet);
 "
 `;
@@ -242,7 +242,7 @@ body {
 /*# sourceMappingURL=extracted.css.map */"
 `;
 
-exports[`extract custom-path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"foo.css\\",\\"bar.css\\",\\"test/fixtures/simple/style.styl\\",\\"style.styl\\",\\"style.sass\\",\\"test/fixtures/simple/style.less\\",\\"style.less\\",\\"style.pcss\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,UAAU;AACZ;;ACFA;EACE,UAAU;AACZ;;ACFA;EACE,WAAO;EACP,gBAAY;ACCd;AACA,yDAAyD;ACJzD;EACE,UAAU;EACV,sBAAsB,EAAE;;ACC1B;EACE,cAAA;ACFF;;ACFA;EACE,UAAU;AACZ\\",\\"file\\":\\"this/is/extracted.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",null,null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",null,null,\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\"]}"`;
+exports[`extract custom-path: css map 1`] = `"{"version":3,"sources":["foo.css","bar.css","test/fixtures/simple/style.styl","style.styl","style.sass","test/fixtures/simple/style.less","style.less","style.pcss"],"names":[],"mappings":"AAAA;EACE,UAAU;AACZ;;ACFA;EACE,UAAU;AACZ;;ACFA;EACE,WAAO;EACP,gBAAY;ACCd;AACA,yDAAyD;ACJzD;EACE,UAAU;EACV,sBAAsB,EAAE;;ACC1B;EACE,cAAA;ACFF;;ACFA;EACE,UAAU;AACZ","file":"this/is/extracted.css","sourcesContent":["body {\\n  color: red;\\n}\\n",".bar {\\n  color: red;\\n}\\n",null,null,"#sidebar {\\n  width: 30%;\\n  background-color: #faa; }\\n",null,null,".pcss {\\n  color: red;\\n}\\n"]}"`;
 
 exports[`extract custom-path: js code 1`] = `
 "'use strict';
@@ -277,9 +277,9 @@ a {
 exports[`extract nested: js code 1`] = `
 "'use strict';
 
-var bar = {\\"bar\\":\\"bar-module_bar\\"};
+var bar = {"bar":"bar-module_bar"};
 
-var component = {\\"box\\":\\"component-module_box\\"};
+var component = {"box":"component-module_box"};
 
 console.log(bar, component);
 "
@@ -307,9 +307,9 @@ a {
 exports[`extract nested-delay-resolve: js code 1`] = `
 "'use strict';
 
-var bar = {\\"bar\\":\\"bar-module_bar\\"};
+var bar = {"bar":"bar-module_bar"};
 
-var component = {\\"box\\":\\"component-module_box\\"};
+var component = {"box":"component-module_box"};
 
 console.log(bar, component);
 "
@@ -344,7 +344,7 @@ body {
 /*# sourceMappingURL=extracted.css.map */"
 `;
 
-exports[`extract relative-path: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"foo.css\\",\\"bar.css\\",\\"test/fixtures/simple/style.styl\\",\\"style.styl\\",\\"style.sass\\",\\"test/fixtures/simple/style.less\\",\\"style.less\\",\\"style.pcss\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,UAAU;AACZ;;ACFA;EACE,UAAU;AACZ;;ACFA;EACE,WAAO;EACP,gBAAY;ACCd;AACA,yDAAyD;ACJzD;EACE,UAAU;EACV,sBAAsB,EAAE;;ACC1B;EACE,cAAA;ACFF;;ACFA;EACE,UAAU;AACZ\\",\\"file\\":\\"this/is/extracted.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",null,null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",null,null,\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\"]}"`;
+exports[`extract relative-path: css map 1`] = `"{"version":3,"sources":["foo.css","bar.css","test/fixtures/simple/style.styl","style.styl","style.sass","test/fixtures/simple/style.less","style.less","style.pcss"],"names":[],"mappings":"AAAA;EACE,UAAU;AACZ;;ACFA;EACE,UAAU;AACZ;;ACFA;EACE,WAAO;EACP,gBAAY;ACCd;AACA,yDAAyD;ACJzD;EACE,UAAU;EACV,sBAAsB,EAAE;;ACC1B;EACE,cAAA;ACFF;;ACFA;EACE,UAAU;AACZ","file":"this/is/extracted.css","sourcesContent":["body {\\n  color: red;\\n}\\n",".bar {\\n  color: red;\\n}\\n",null,null,"#sidebar {\\n  width: 30%;\\n  background-color: #faa; }\\n",null,null,".pcss {\\n  color: red;\\n}\\n"]}"`;
 
 exports[`extract relative-path: js code 1`] = `
 "'use strict';
@@ -427,7 +427,7 @@ body {
 /*# sourceMappingURL=bundle.css.map */"
 `;
 
-exports[`extract sourcemap-true: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"foo.css\\",\\"bar.css\\",\\"test/fixtures/simple/style.styl\\",\\"style.styl\\",\\"style.sass\\",\\"test/fixtures/simple/style.less\\",\\"style.less\\",\\"style.pcss\\"],\\"names\\":[],\\"mappings\\":\\"AAAA;EACE,UAAU;AACZ;;ACFA;EACE,UAAU;AACZ;;ACFA;EACE,WAAO;EACP,gBAAY;ACCd;AACA,yDAAyD;ACJzD;EACE,UAAU;EACV,sBAAsB,EAAE;;ACC1B;EACE,cAAA;ACFF;;ACFA;EACE,UAAU;AACZ\\",\\"file\\":\\"bundle.css\\",\\"sourcesContent\\":[\\"body {\\\\n  color: red;\\\\n}\\\\n\\",\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",null,null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",null,null,\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\"]}"`;
+exports[`extract sourcemap-true: css map 1`] = `"{"version":3,"sources":["foo.css","bar.css","test/fixtures/simple/style.styl","style.styl","style.sass","test/fixtures/simple/style.less","style.less","style.pcss"],"names":[],"mappings":"AAAA;EACE,UAAU;AACZ;;ACFA;EACE,UAAU;AACZ;;ACFA;EACE,WAAO;EACP,gBAAY;ACCd;AACA,yDAAyD;ACJzD;EACE,UAAU;EACV,sBAAsB,EAAE;;ACC1B;EACE,cAAA;ACFF;;ACFA;EACE,UAAU;AACZ","file":"bundle.css","sourcesContent":["body {\\n  color: red;\\n}\\n",".bar {\\n  color: red;\\n}\\n",null,null,"#sidebar {\\n  width: 30%;\\n  background-color: #faa; }\\n",null,null,".pcss {\\n  color: red;\\n}\\n"]}"`;
 
 exports[`extract sourcemap-true: js code 1`] = `
 "'use strict';
@@ -483,10 +483,10 @@ exports[`inject false: js code 1`] = `
 "'use strict';
 
 var foo = stylesheet$1;
-var stylesheet$1 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+var stylesheet$1 = "body {\\n  color: red;\\n}\\n";
 
 var bar = stylesheet;
-var stylesheet = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
+var stylesheet = ".bar {\\n  color: red;\\n}\\n";
 
 console.log(foo, bar);
 "
@@ -496,23 +496,23 @@ exports[`inject function: js code 1`] = `
 "'use strict';
 
 var foo = stylesheet$5;
-var stylesheet$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
+var stylesheet$5 = "body {\\n  color: red;\\n}\\n";
 console.log(stylesheet$5);
 
 var bar = stylesheet$4;
-var stylesheet$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
+var stylesheet$4 = ".bar {\\n  color: red;\\n}\\n";
 console.log(stylesheet$4);
 
-var stylesheet$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
+var stylesheet$3 = "body {\\n  color: #f00;\\n  background: #f00;\\n}\\n";
 console.log(stylesheet$3);
 
-var stylesheet$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
+var stylesheet$2 = "#sidebar {\\n  width: 30%;\\n  background-color: #faa; }\\n";
 console.log(stylesheet$2);
 
-var stylesheet$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
+var stylesheet$1 = "#header {\\n  color: #6c94be;\\n}\\n";
 console.log(stylesheet$1);
 
-var stylesheet = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
+var stylesheet = ".pcss {\\n  color: red;\\n}\\n";
 console.log(stylesheet);
 
 console.log(foo, bar);
@@ -550,24 +550,24 @@ function styleInject(css, ref) {
 }
 
 var foo = stylesheet$5;
-var stylesheet$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
-styleInject(stylesheet$5,{\\"insertAt\\":\\"top\\"});
+var stylesheet$5 = "body {\\n  color: red;\\n}\\n";
+styleInject(stylesheet$5,{"insertAt":"top"});
 
 var bar = stylesheet$4;
-var stylesheet$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
-styleInject(stylesheet$4,{\\"insertAt\\":\\"top\\"});
+var stylesheet$4 = ".bar {\\n  color: red;\\n}\\n";
+styleInject(stylesheet$4,{"insertAt":"top"});
 
-var stylesheet$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n\\";
-styleInject(stylesheet$3,{\\"insertAt\\":\\"top\\"});
+var stylesheet$3 = "body {\\n  color: #f00;\\n  background: #f00;\\n}\\n";
+styleInject(stylesheet$3,{"insertAt":"top"});
 
-var stylesheet$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
-styleInject(stylesheet$2,{\\"insertAt\\":\\"top\\"});
+var stylesheet$2 = "#sidebar {\\n  width: 30%;\\n  background-color: #faa; }\\n";
+styleInject(stylesheet$2,{"insertAt":"top"});
 
-var stylesheet$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\";
-styleInject(stylesheet$1,{\\"insertAt\\":\\"top\\"});
+var stylesheet$1 = "#header {\\n  color: #6c94be;\\n}\\n";
+styleInject(stylesheet$1,{"insertAt":"top"});
 
-var stylesheet = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
-styleInject(stylesheet,{\\"insertAt\\":\\"top\\"});
+var stylesheet = ".pcss {\\n  color: red;\\n}\\n";
+styleInject(stylesheet,{"insertAt":"top"});
 
 console.log(foo, bar);
 "
@@ -607,7 +607,7 @@ exports[`minimize extract-sourcemap-true: css code 1`] = `
 /*# sourceMappingURL=bundle.css.map */"
 `;
 
-exports[`minimize extract-sourcemap-true: css map 1`] = `"{\\"version\\":3,\\"sources\\":[\\"test/fixtures/simple/style.styl\\",\\"bar.css\\",\\"style.styl\\",\\"style.sass\\",\\"test/fixtures/simple/style.less\\",\\"style.less\\",\\"style.pcss\\"],\\"names\\":[],\\"mappings\\":\\"AAAA,UCCE,SCEF,CFHA,KAEE,cECF,CCHA,SAEE,qBAAsB,CADtB,SACwB,CCC1B,QACE,aCFF,CCFA,MACE,SACF\\",\\"file\\":\\"bundle.css\\",\\"sourcesContent\\":[null,\\".bar {\\\\n  color: red;\\\\n}\\\\n\\",null,\\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\",null,null,\\".pcss {\\\\n  color: red;\\\\n}\\\\n\\"]}"`;
+exports[`minimize extract-sourcemap-true: css map 1`] = `"{"version":3,"sources":["test/fixtures/simple/style.styl","bar.css","style.styl","style.sass","test/fixtures/simple/style.less","style.less","style.pcss"],"names":[],"mappings":"AAAA,UCCE,SCEF,CFHA,KAEE,cECF,CCHA,SAEE,qBAAsB,CADtB,SACwB,CCC1B,QACE,aCFF,CCFA,MACE,SACF","file":"bundle.css","sourcesContent":[null,".bar {\\n  color: red;\\n}\\n",null,"#sidebar {\\n  width: 30%;\\n  background-color: #faa; }\\n",null,null,".pcss {\\n  color: red;\\n}\\n"]}"`;
 
 exports[`minimize extract-sourcemap-true: js code 1`] = `
 "'use strict';
@@ -651,23 +651,23 @@ function styleInject(css, ref) {
 }
 
 var foo = stylesheet$5;
-var stylesheet$5 = \\"body{color:red}\\";
+var stylesheet$5 = "body{color:red}";
 styleInject(stylesheet$5);
 
 var bar = stylesheet$4;
-var stylesheet$4 = \\".bar{color:red}\\";
+var stylesheet$4 = ".bar{color:red}";
 styleInject(stylesheet$4);
 
-var stylesheet$3 = \\"body{background:red;color:red}\\";
+var stylesheet$3 = "body{background:red;color:red}";
 styleInject(stylesheet$3);
 
-var stylesheet$2 = \\"#sidebar{background-color:#faa;width:30%}\\";
+var stylesheet$2 = "#sidebar{background-color:#faa;width:30%}";
 styleInject(stylesheet$2);
 
-var stylesheet$1 = \\"#header{color:#6c94be}\\";
+var stylesheet$1 = "#header{color:#6c94be}";
 styleInject(stylesheet$1);
 
-var stylesheet = \\".pcss{color:red}\\";
+var stylesheet = ".pcss{color:red}";
 styleInject(stylesheet);
 
 console.log(foo, bar);
@@ -704,16 +704,16 @@ function styleInject(css, ref) {
   }
 }
 
-var a = {\\"foo\\":\\"a-module_foo\\"};
-var stylesheet$2 = \\".a-module_foo {\\\\n  color: red;\\\\n}\\\\n\\";
+var a = {"foo":"a-module_foo"};
+var stylesheet$2 = ".a-module_foo {\\n  color: red;\\n}\\n";
 styleInject(stylesheet$2);
 
-var b = {\\"b\\":\\"b-module_b\\"};
-var stylesheet$1 = \\".b-module_b {\\\\n  color: red; }\\\\n\\";
+var b = {"b":"b-module_b"};
+var stylesheet$1 = ".b-module_b {\\n  color: red; }\\n";
 styleInject(stylesheet$1);
 
-var c = {\\"c\\":\\"c-module_c\\"};
-var stylesheet = \\".c-module_c {\\\\n  color: red;\\\\n}\\\\n\\";
+var c = {"c":"c-module_c"};
+var stylesheet = ".c-module_c {\\n  color: red;\\n}\\n";
 styleInject(stylesheet);
 
 console.log(
@@ -734,7 +734,7 @@ exports[`modules extract: css code 1`] = `
 exports[`modules extract: js code 1`] = `
 "'use strict';
 
-var style = {\\"foo\\":\\"style_foo\\"};
+var style = {"foo":"style_foo"};
 
 console.log(style.foo);
 "
@@ -770,8 +770,8 @@ function styleInject(css, ref) {
   }
 }
 
-var style = {\\"foo\\":\\"style_foo\\"};
-var stylesheet = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\";
+var style = {"foo":"style_foo"};
+var stylesheet = ".style_foo {\\n  color: red;\\n}\\n";
 styleInject(stylesheet);
 
 console.log(style.foo);
@@ -808,8 +808,8 @@ function styleInject(css, ref) {
   }
 }
 
-var style = {\\"foo\\":\\"style_foo\\"};
-var stylesheet = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\";
+var style = {"foo":"style_foo"};
+var stylesheet = ".style_foo {\\n  color: red;\\n}\\n";
 styleInject(stylesheet);
 
 console.log(style.foo);
@@ -846,19 +846,19 @@ function styleInject(css, ref) {
   }
 }
 
-var foo = \\"style_foo\\";
-var _new = \\"style_new\\";
-var _default = \\"style_default\\";
-var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"default\\":\\"style_default\\",\\"_new\\":\\"style_new\\",\\"_default\\":\\"style_default\\"};
-var stylesheet = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
+var foo = "style_foo";
+var _new = "style_new";
+var _default = "style_default";
+var style = {"foo":"style_foo","new":"style_new","default":"style_default","_new":"style_new","_default":"style_default"};
+var stylesheet = ".style_foo {\\n  color: red;\\n}\\n\\n.style_new {\\n  color: blue;\\n}\\n\\n.style_default {\\n  color: green;\\n}\\n";
 styleInject(stylesheet);
 
 var style$1 = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  foo: foo,
-  _new: _new,
   _default: _default,
-  'default': style,
+  _new: _new,
+  default: style,
+  foo: foo,
   stylesheet: stylesheet
 });
 
@@ -896,19 +896,19 @@ function styleInject(css, ref) {
   }
 }
 
-var foohacked = \\"style_foo\\";
-var newhacked = \\"style_new\\";
-var defaulthacked = \\"style_default\\";
-var style = {\\"foo\\":\\"style_foo\\",\\"new\\":\\"style_new\\",\\"default\\":\\"style_default\\",\\"foohacked\\":\\"style_foo\\",\\"newhacked\\":\\"style_new\\",\\"defaulthacked\\":\\"style_default\\"};
-var stylesheet = \\".style_foo {\\\\n  color: red;\\\\n}\\\\n\\\\n.style_new {\\\\n  color: blue;\\\\n}\\\\n\\\\n.style_default {\\\\n  color: green;\\\\n}\\\\n\\";
+var foohacked = "style_foo";
+var newhacked = "style_new";
+var defaulthacked = "style_default";
+var style = {"foo":"style_foo","new":"style_new","default":"style_default","foohacked":"style_foo","newhacked":"style_new","defaulthacked":"style_default"};
+var stylesheet = ".style_foo {\\n  color: red;\\n}\\n\\n.style_new {\\n  color: blue;\\n}\\n\\n.style_default {\\n  color: green;\\n}\\n";
 styleInject(stylesheet);
 
 var style$1 = /*#__PURE__*/Object.freeze({
   __proto__: null,
+  default: style,
+  defaulthacked: defaulthacked,
   foohacked: foohacked,
   newhacked: newhacked,
-  defaulthacked: defaulthacked,
-  'default': style,
   stylesheet: stylesheet
 });
 
@@ -957,7 +957,7 @@ function styleInject(css, ref) {
   }
 }
 
-var stylesheet = \\".special {\\\\n  color: pink; }\\\\n\\";
+var stylesheet = ".special {\\n  color: pink; }\\n";
 styleInject(stylesheet);
 "
 `;
@@ -992,7 +992,7 @@ function styleInject(css, ref) {
   }
 }
 
-var stylesheet = \\".special {\\\\n  color: pink; }\\\\n\\";
+var stylesheet = ".special {\\n  color: pink; }\\n";
 styleInject(stylesheet);
 "
 `;
@@ -1027,7 +1027,7 @@ function styleInject(css, ref) {
   }
 }
 
-var stylesheet = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\";
+var stylesheet = "#sidebar {\\n  width: 30%;\\n  background-color: #faa; }\\n";
 styleInject(stylesheet);
 "
 `;
@@ -1062,7 +1062,7 @@ function styleInject(css, ref) {
   }
 }
 
-var stylesheet = \\".a {\\\\n  color: pink; }\\\\n\\\\n.b {\\\\n  color: red; }\\\\n\\\\n.c {\\\\n  color: black; }\\\\n\\\\n.foo {\\\\n  color: magenta; }\\\\n\\";
+var stylesheet = ".a {\\n  color: pink; }\\n\\n.b {\\n  color: red; }\\n\\n.c {\\n  color: black; }\\n\\n.foo {\\n  color: magenta; }\\n";
 styleInject(stylesheet);
 "
 `;
@@ -1097,8 +1097,8 @@ function styleInject(css, ref) {
   }
 }
 
-var style = {\\"foo\\":\\"style_foo\\"};
-var stylesheet = \\".style_foo {\\\\n  color: red; }\\\\n\\";
+var style = {"foo":"style_foo"};
+var stylesheet = ".style_foo {\\n  color: red; }\\n";
 styleInject(stylesheet);
 
 console.log(style);
@@ -1135,7 +1135,7 @@ function styleInject(css, ref) {
   }
 }
 
-var stylesheet = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5zYXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsVUFBVTtFQUNWLHNCQUFzQixFQUFFIiwiZmlsZSI6ImZvby5zYXNzIiwic291cmNlc0NvbnRlbnQiOlsiI3NpZGViYXIge1xuICB3aWR0aDogMzAlO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmFhOyB9XG4iXX0= */\\";
+var stylesheet = "#sidebar {\\n  width: 30%;\\n  background-color: #faa; }\\n\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5zYXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsVUFBVTtFQUNWLHNCQUFzQixFQUFFIiwiZmlsZSI6ImZvby5zYXNzIiwic291cmNlc0NvbnRlbnQiOlsiI3NpZGViYXIge1xuICB3aWR0aDogMzAlO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmFhOyB9XG4iXX0= */";
 styleInject(stylesheet);
 "
 `;
@@ -1171,23 +1171,23 @@ function styleInject(css, ref) {
 }
 
 var foo = stylesheet$5;
-var stylesheet$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiZm9vLmNzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHkge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
+var stylesheet$5 = "body {\\n  color: red;\\n}\\n\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiZm9vLmNzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHkge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */";
 styleInject(stylesheet$5);
 
 var bar = stylesheet$4;
-var stylesheet$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhci5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiYmFyLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iYXIge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
+var stylesheet$4 = ".bar {\\n  color: red;\\n}\\n\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhci5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiYmFyLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iYXIge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */";
 styleInject(stylesheet$4);
 
-var stylesheet$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n/*# sourceMappingURL=test/fixtures/simple/style.css.map */\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnN0eWwiLCJzdHlsZS5zdHlsIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBTztFQUNQLGdCQUFZO0FDQ2Q7QUFDQSx5REFBeUQiLCJmaWxlIjoic3R5bGUuc3R5bCJ9 */\\";
+var stylesheet$3 = "body {\\n  color: #f00;\\n  background: #f00;\\n}\\n/*# sourceMappingURL=test/fixtures/simple/style.css.map */\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnN0eWwiLCJzdHlsZS5zdHlsIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBTztFQUNQLGdCQUFZO0FDQ2Q7QUFDQSx5REFBeUQiLCJmaWxlIjoic3R5bGUuc3R5bCJ9 */";
 styleInject(stylesheet$3);
 
-var stylesheet$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\\\n/*# sourceMappingURL=../../../inline */\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnNhc3MiLCJzdHlsZS5zYXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsVUFBVTtFQUNWLHNCQUFzQixFQUFBOztBQ0V4QixzQ0FBc0MiLCJmaWxlIjoic3R5bGUuc2FzcyJ9 */\\";
+var stylesheet$2 = "#sidebar {\\n  width: 30%;\\n  background-color: #faa; }\\n\\n/*# sourceMappingURL=../../../inline */\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnNhc3MiLCJzdHlsZS5zYXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsVUFBVTtFQUNWLHNCQUFzQixFQUFBOztBQ0V4QixzQ0FBc0MiLCJmaWxlIjoic3R5bGUuc2FzcyJ9 */";
 styleInject(stylesheet$2);
 
-var stylesheet$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLmxlc3MiLCJzdHlsZS5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUdBO0VBQ0UsY0FBQTtBQ0ZGIiwiZmlsZSI6InN0eWxlLmxlc3MifQ== */\\";
+var stylesheet$1 = "#header {\\n  color: #6c94be;\\n}\\n\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLmxlc3MiLCJzdHlsZS5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUdBO0VBQ0UsY0FBQTtBQ0ZGIiwiZmlsZSI6InN0eWxlLmxlc3MifQ== */";
 styleInject(stylesheet$1);
 
-var stylesheet = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnBjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoic3R5bGUucGNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wY3NzIHtcbiAgY29sb3I6IHJlZDtcbn1cbiJdfQ== */\\";
+var stylesheet = ".pcss {\\n  color: red;\\n}\\n\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnBjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoic3R5bGUucGNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wY3NzIHtcbiAgY29sb3I6IHJlZDtcbn1cbiJdfQ== */";
 styleInject(stylesheet);
 
 console.log(foo, bar);
@@ -1225,23 +1225,23 @@ function styleInject(css, ref) {
 }
 
 var foo = stylesheet$5;
-var stylesheet$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiZm9vLmNzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHkge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
+var stylesheet$5 = "body {\\n  color: red;\\n}\\n\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiZm9vLmNzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHkge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */";
 styleInject(stylesheet$5);
 
 var bar = stylesheet$4;
-var stylesheet$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhci5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiYmFyLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iYXIge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
+var stylesheet$4 = ".bar {\\n  color: red;\\n}\\n\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhci5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiYmFyLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iYXIge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */";
 styleInject(stylesheet$4);
 
-var stylesheet$3 = \\"body {\\\\n  color: #f00;\\\\n  background: #f00;\\\\n}\\\\n/*# sourceMappingURL=test/fixtures/simple/style.css.map */\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnN0eWwiLCJzdHlsZS5zdHlsIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBTztFQUNQLGdCQUFZO0FDQ2Q7QUFDQSx5REFBeUQiLCJmaWxlIjoic3R5bGUuc3R5bCJ9 */\\";
+var stylesheet$3 = "body {\\n  color: #f00;\\n  background: #f00;\\n}\\n/*# sourceMappingURL=test/fixtures/simple/style.css.map */\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLnN0eWwiLCJzdHlsZS5zdHlsIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBTztFQUNQLGdCQUFZO0FDQ2Q7QUFDQSx5REFBeUQiLCJmaWxlIjoic3R5bGUuc3R5bCJ9 */";
 styleInject(stylesheet$3);
 
-var stylesheet$2 = \\"#sidebar {\\\\n  width: 30%;\\\\n  background-color: #faa; }\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnNhc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0VBQ1Ysc0JBQXNCLEVBQUUiLCJmaWxlIjoic3R5bGUuc2FzcyIsInNvdXJjZXNDb250ZW50IjpbIiNzaWRlYmFyIHtcbiAgd2lkdGg6IDMwJTtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZhYTsgfVxuIl19 */\\";
+var stylesheet$2 = "#sidebar {\\n  width: 30%;\\n  background-color: #faa; }\\n\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnNhc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0VBQ1Ysc0JBQXNCLEVBQUUiLCJmaWxlIjoic3R5bGUuc2FzcyIsInNvdXJjZXNDb250ZW50IjpbIiNzaWRlYmFyIHtcbiAgd2lkdGg6IDMwJTtcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZhYTsgfVxuIl19 */";
 styleInject(stylesheet$2);
 
-var stylesheet$1 = \\"#header {\\\\n  color: #6c94be;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLmxlc3MiLCJzdHlsZS5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUdBO0VBQ0UsY0FBQTtBQ0ZGIiwiZmlsZSI6InN0eWxlLmxlc3MifQ== */\\";
+var stylesheet$1 = "#header {\\n  color: #6c94be;\\n}\\n\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRlc3QvZml4dHVyZXMvc2ltcGxlL3N0eWxlLmxlc3MiLCJzdHlsZS5sZXNzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUdBO0VBQ0UsY0FBQTtBQ0ZGIiwiZmlsZSI6InN0eWxlLmxlc3MifQ== */";
 styleInject(stylesheet$1);
 
-var stylesheet = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnBjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoic3R5bGUucGNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wY3NzIHtcbiAgY29sb3I6IHJlZDtcbn1cbiJdfQ== */\\";
+var stylesheet = ".pcss {\\n  color: red;\\n}\\n\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnBjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoic3R5bGUucGNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wY3NzIHtcbiAgY29sb3I6IHJlZDtcbn1cbiJdfQ== */";
 styleInject(stylesheet);
 
 console.log(foo, bar);

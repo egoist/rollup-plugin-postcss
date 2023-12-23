@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs-extra'
-import { rollup } from 'rollup'
 import postcss from '../src'
+import { rollup } from 'rollup'
 
 process.env.ROLLUP_POSTCSS_TEST = true
 /**
