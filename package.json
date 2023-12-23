@@ -16,22 +16,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/egoist/rollup-plugin-postcss.git"
+    "url": "git+https://github.com/dougalg/rollup-plugin-postcss.git"
   },
   "keywords": [
     "postcss",
     "rollup"
   ],
   "author": "EGOIST <0x142857@gmail.com>",
+  "contributors": ["Dougal Graham <dougalg@gmail.com>"],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/egoist/rollup-plugin-postcss/issues"
+    "url": "https://github.com/dougalg/rollup-plugin-postcss/issues"
   },
   "engines": {
     "node": ">=10"
   },
   "types": "./types/index.d.ts",
-  "homepage": "https://github.com/egoist/rollup-plugin-postcss#readme",
+  "homepage": "https://github.com/dougalg/rollup-plugin-postcss#readme",
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/preset-env": "^7.12.7",
