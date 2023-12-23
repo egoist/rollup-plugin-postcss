@@ -1,5 +1,5 @@
 {
-  "name": "rollup-plugin-postcss",
+  "name": "@dougalg/rollup-plugin-postcss",
   "version": "3.0.0",
   "description": "Seamless integration between Rollup and PostCSS",
   "main": "dist/index.js",
