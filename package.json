@@ -3,16 +3,17 @@
   "version": "4.0.0",
   "description": "Seamless integration between Rollup and PostCSS",
   "main": "dist/index.js",
+  "packageManager": "pnpm@8.12.1",
   "files": [
     "dist",
     "types/index.d.ts"
   ],
   "scripts": {
-    "test": "npm run lint && jest",
-    "test:cov": "npm run lint && jest --coverage",
+    "test": "pnpm run lint && jest",
+    "test:cov": "pnpm run lint && jest --coverage",
     "build": "bili",
     "lint": "xo",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "pnpm run build"
   },
   "repository": {
     "type": "git",
@@ -44,7 +45,7 @@
     "fs-extra": "^9.0.1",
     "jest": "^26.6.3",
     "less": "^3.12.2",
-    "node-sass": "^5.0.0",
+    "node-sass": "^9.0.0",
     "postcss": "^8.2.7",
     "rollup": "^2.34.2",
     "stylus": "^0.54.8",

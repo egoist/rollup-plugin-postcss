@@ -30,9 +30,11 @@ function styleInject(css, ref) {
   }
 }
 
+var foo = stylesheet$5;
 var stylesheet$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
 styleInject(stylesheet$5);
 
+var bar = stylesheet$4;
 var stylesheet$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
 styleInject(stylesheet$4);
 
@@ -48,7 +50,7 @@ styleInject(stylesheet$1);
 var stylesheet = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
 styleInject(stylesheet);
 
-console.log(stylesheet$5, stylesheet$4);
+console.log(foo, bar);
 "
 `;
 
@@ -152,9 +154,11 @@ function styleInject(css, ref) {
   }
 }
 
+var foo = stylesheet$5;
 var stylesheet$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
 styleInject(stylesheet$5);
 
+var bar = stylesheet$4;
 var stylesheet$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
 styleInject(stylesheet$4);
 
@@ -170,7 +174,7 @@ styleInject(stylesheet$1);
 var stylesheet = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
 styleInject(stylesheet);
 
-console.log(stylesheet$5, stylesheet$4);
+console.log(foo, bar);
 "
 `;
 
@@ -478,20 +482,24 @@ console.log(foo, bar);
 exports[`inject false: js code 1`] = `
 "'use strict';
 
+var foo = stylesheet$1;
 var stylesheet$1 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
 
+var bar = stylesheet;
 var stylesheet = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
 
-console.log(stylesheet$1, stylesheet);
+console.log(foo, bar);
 "
 `;
 
 exports[`inject function: js code 1`] = `
 "'use strict';
 
+var foo = stylesheet$5;
 var stylesheet$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
 console.log(stylesheet$5);
 
+var bar = stylesheet$4;
 var stylesheet$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
 console.log(stylesheet$4);
 
@@ -507,7 +515,7 @@ console.log(stylesheet$1);
 var stylesheet = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
 console.log(stylesheet);
 
-console.log(stylesheet$5, stylesheet$4);
+console.log(foo, bar);
 "
 `;
 
@@ -541,9 +549,11 @@ function styleInject(css, ref) {
   }
 }
 
+var foo = stylesheet$5;
 var stylesheet$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\";
 styleInject(stylesheet$5,{\\"insertAt\\":\\"top\\"});
 
+var bar = stylesheet$4;
 var stylesheet$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\";
 styleInject(stylesheet$4,{\\"insertAt\\":\\"top\\"});
 
@@ -559,7 +569,7 @@ styleInject(stylesheet$1,{\\"insertAt\\":\\"top\\"});
 var stylesheet = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\";
 styleInject(stylesheet,{\\"insertAt\\":\\"top\\"});
 
-console.log(stylesheet$5, stylesheet$4);
+console.log(foo, bar);
 "
 `;
 
@@ -640,9 +650,11 @@ function styleInject(css, ref) {
   }
 }
 
+var foo = stylesheet$5;
 var stylesheet$5 = \\"body{color:red}\\";
 styleInject(stylesheet$5);
 
+var bar = stylesheet$4;
 var stylesheet$4 = \\".bar{color:red}\\";
 styleInject(stylesheet$4);
 
@@ -658,7 +670,7 @@ styleInject(stylesheet$1);
 var stylesheet = \\".pcss{color:red}\\";
 styleInject(stylesheet);
 
-console.log(stylesheet$5, stylesheet$4);
+console.log(foo, bar);
 "
 `;
 
@@ -1158,9 +1170,11 @@ function styleInject(css, ref) {
   }
 }
 
+var foo = stylesheet$5;
 var stylesheet$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiZm9vLmNzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHkge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
 styleInject(stylesheet$5);
 
+var bar = stylesheet$4;
 var stylesheet$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhci5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiYmFyLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iYXIge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
 styleInject(stylesheet$4);
 
@@ -1176,7 +1190,7 @@ styleInject(stylesheet$1);
 var stylesheet = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnBjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoic3R5bGUucGNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wY3NzIHtcbiAgY29sb3I6IHJlZDtcbn1cbiJdfQ== */\\";
 styleInject(stylesheet);
 
-console.log(stylesheet$5, stylesheet$4);
+console.log(foo, bar);
 "
 `;
 
@@ -1210,9 +1224,11 @@ function styleInject(css, ref) {
   }
 }
 
+var foo = stylesheet$5;
 var stylesheet$5 = \\"body {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvby5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiZm9vLmNzcyIsInNvdXJjZXNDb250ZW50IjpbImJvZHkge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
 styleInject(stylesheet$5);
 
+var bar = stylesheet$4;
 var stylesheet$4 = \\".bar {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImJhci5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoiYmFyLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5iYXIge1xuICBjb2xvcjogcmVkO1xufVxuIl19 */\\";
 styleInject(stylesheet$4);
 
@@ -1228,6 +1244,6 @@ styleInject(stylesheet$1);
 var stylesheet = \\".pcss {\\\\n  color: red;\\\\n}\\\\n\\\\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInN0eWxlLnBjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxVQUFVO0FBQ1oiLCJmaWxlIjoic3R5bGUucGNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5wY3NzIHtcbiAgY29sb3I6IHJlZDtcbn1cbiJdfQ== */\\";
 styleInject(stylesheet);
 
-console.log(stylesheet$5, stylesheet$4);
+console.log(foo, bar);
 "
 `;

@@ -12,7 +12,7 @@ Seamless integration between [Rollup](https://github.com/rollup/rollup) and [Pos
 ## Install
 
 ```bash
-yarn add postcss rollup-plugin-postcss --dev
+pnpm add postcss rollup-plugin-postcss --dev
 ```
 
 ## Usage
@@ -90,9 +90,9 @@ postcss({
 
 Install corresponding dependency:
 
-- For `Sass` install `node-sass`: `yarn add node-sass --dev`
-- For `Stylus` Install `stylus`: `yarn add stylus --dev`
-- For `Less` Install `less`: `yarn add less --dev`
+- For `Sass` install `node-sass`: `pnpm add node-sass --dev`
+- For `Stylus` Install `stylus`: `pnpm add stylus --dev`
+- For `Less` Install `less`: `pnpm add less --dev`
 
 That's it, you can now import `.styl` `.scss` `.sass` `.less` files in your library.
 
