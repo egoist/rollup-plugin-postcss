@@ -13,12 +13,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js LTS
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           # alias support: https://github.com/actions/setup-node/issues/26
           node-version: '12'
       - name: Cache NPM dependencies
-        uses: actions/cache@v1
+        uses: actions/cache@v3
         with:
           path: node_modules
           key: ${{ runner.OS }}-npm-cache-${{ matrix.os }}
