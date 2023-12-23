@@ -19,7 +19,6 @@ jobs:
       - uses: pnpm/action-setup@v2
       - name: Cache NPM dependencies
         uses: actions/cache@v3
-        name: Setup pnpm cache
         with:
           path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
