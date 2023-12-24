@@ -56,7 +56,7 @@
   },
   "dependencies": {
     "concat-with-sourcemaps": "^1.1.0",
-    "cssnano": "^5.0.1",
+    "cssnano": "^6.0.2",
     "import-cwd": "^3.0.0",
     "p-queue": "^6.6.2",
     "pify": "^5.0.0",
