@@ -1,6 +1,6 @@
 import pify from 'pify'
-import humanlizePath from './utils/humanlize-path'
-import { loadModule } from './utils/load-module'
+import humanlizePath from './utils/humanlize-path.js'
+import { loadModule } from './utils/load-module.js'
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
@@ -15,7 +15,7 @@ export default {
     let { css, map, imports } = await pify(less.render.bind(less))(code, {
       ...this.options,
       sourceMap: this.sourceMap && {},
-      filename: this.id
+      filename: this.id,
     })
 
     for (const dep of imports) {
@@ -29,7 +29,7 @@ export default {
 
     return {
       code: css,
-      map
+      map,
     }
-  }
+  },
 }

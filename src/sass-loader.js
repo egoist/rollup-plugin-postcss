@@ -1,8 +1,8 @@
-import path from 'path'
+import path from 'node:path'
 import pify from 'pify'
 import resolve from 'resolve'
 import PQueue from 'p-queue'
-import { loadModule } from './utils/load-module'
+import { loadModule } from './utils/load-module.js'
 
 // This queue makes sure node-sass leaves one thread available for executing fs tasks
 // See: https://github.com/sass/node-sass/issues/857
@@ -46,12 +46,12 @@ export default {
 
               const options = {
                 basedir: path.dirname(importer),
-                extensions: ['.scss', '.sass', '.css']
+                extensions: ['.scss', '.sass', '.css'],
               }
               const finishImport = id => {
                 done({
                   // Do not add `.css` extension in order to inline the file
-                  file: id.endsWith('.css') ? id.replace(/\.css$/, '') : id
+                  file: id.endsWith('.css') ? id.replace(/\.css$/, '') : id,
                 })
               }
 
@@ -65,8 +65,8 @@ export default {
                 .then(finishImport)
                 .catch(error => {
                   if (
-                    error.code === 'MODULE_NOT_FOUND' ||
-                    error.code === 'ENOENT'
+                    error.code === 'MODULE_NOT_FOUND'
+                    || error.code === 'ENOENT'
                   ) {
                     resolvePromise(moduleUrl, options)
                       .then(finishImport)
@@ -75,8 +75,8 @@ export default {
                     next()
                   }
                 })
-            }
-          ].concat(this.options.importer || [])
+            },
+          ].concat(this.options.importer || []),
         })
           .then(result => {
             for (const file of result.stats.includedFiles) {
@@ -85,13 +85,13 @@ export default {
 
             resolve({
               code: result.css.toString(),
-              map: result.map && result.map.toString()
+              map: result.map && result.map.toString(),
             })
           })
-          .catch(reject)
+          .catch(reject),
       )
     })
-  }
+  },
 }
 
 function loadSassOrThrow() {
@@ -105,8 +105,8 @@ function loadSassOrThrow() {
 
   // Throwing exception if module can't be loaded
   throw new Error(
-    'You need to install one of the following packages: ' +
-    sassModuleIds.map(moduleId => `"${moduleId}"`).join(', ') + ' ' +
-    'in order to process SASS files'
+    'You need to install one of the following packages: '
+    + sassModuleIds.map(moduleId => `"${moduleId}"`).join(', ') + ' '
+    + 'in order to process SASS files',
   )
 }

@@ -1,5 +1,5 @@
 import pify from 'pify'
-import { loadModule } from './utils/load-module'
+import { loadModule } from './utils/load-module.js'
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
@@ -14,7 +14,7 @@ export default {
     const style = stylus(code, {
       ...this.options,
       filename: this.id,
-      sourcemap: this.sourceMap && {}
+      sourcemap: this.sourceMap && {},
     })
 
     const css = await pify(style.render.bind(style))()
@@ -25,7 +25,7 @@ export default {
 
     return {
       code: css,
-      map: style.sourcemap
+      map: style.sourcemap,
     }
-  }
+  },
 }

@@ -32,7 +32,7 @@
     "url": "https://github.com/dougalg/rollup-plugin-postcss/issues"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=12.5.0"
   },
   "types": "./types/index.d.ts",
   "homepage": "https://github.com/dougalg/rollup-plugin-postcss#readme",
@@ -52,7 +52,7 @@
     "rollup": "^4.0.0",
     "stylus": "^0.54.8",
     "sugarss": "^3.0.3",
-    "xo": "^0.35.0"
+    "xo": "^0.56.0"
   },
   "dependencies": {
     "concat-with-sourcemaps": "^1.1.0",
@@ -77,13 +77,26 @@
       "jest"
     ],
     "rules": {
+      "unicorn/prefer-spread": 0,
+      "@typescript-eslint/naming-convention": 0,
+      "n/prefer-global/process": 0,
+      "n/prefer-global/buffer": 0,
+      "unicorn/prefer-module": 0,
       "import/prefer-default-export": 0,
       "import/extensions": 0,
       "import/no-unassigned-import": 0,
       "@typescript-eslint/semi": 0,
       "eslint-comments/disable-enable-pair": 0,
       "promise/prefer-await-to-then": 0
-    }
+    },
+    "overrides": [
+      {
+        "files": ["**/*.ts"],
+        "rules": {
+          "object-curly-spacing": 0
+        }
+      }
+    ]
   },
   "jest": {
     "testEnvironment": "node",

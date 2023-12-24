@@ -1,5 +1,5 @@
-import { Plugin } from 'rollup'
-import { CreateFilter } from 'rollup-pluginutils'
+import type {Plugin} from 'rollup'
+import type {CreateFilter} from 'rollup-pluginutils'
 
 type FunctionType<T = any, U = any> = (...args: readonly T[]) => U;
 
@@ -37,10 +37,10 @@ export type PostCSSPluginConf = {
 	name?: any[] | any[][];
 	loaders?: any[];
 	onImport?: (id: string) => void;
-	use?: string[] | { [key in 'sass' | 'stylus' | 'less']: any };
+	use?: string[] | {[key in 'sass' | 'stylus' | 'less']: any};
 	/**
-   * @default: false
-   **/
+	* @default: false
+	**/
 	sourceMap?: boolean | 'inline';
 	include?: Parameters<CreateFilter>[0];
 	exclude?: Parameters<CreateFilter>[1];
