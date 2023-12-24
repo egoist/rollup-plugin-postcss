@@ -5,5 +5,5 @@ import c from './c.module.less'
 console.log(
   a,
   b,
-  c
+  c,
 )

@@ -1,8 +1,8 @@
-import path from 'path'
+import path from 'node:path'
 import { createFilter } from 'rollup-pluginutils'
 import Concat from 'concat-with-sourcemaps'
-import Loaders from './loaders'
-import normalizePath from './utils/normalize-path'
+import Loaders from './loaders.js'
+import normalizePath from './utils/normalize-path.js'
 
 /**
  * The options that could be `boolean` or `object`
@@ -31,9 +31,9 @@ function getRecursiveImportOrder(id, getModuleInfo, seen = new Set()) {
   seen.add(id)
 
   const result = [id]
-  getModuleInfo(id).importedIds.forEach(importFile => {
+  for (const importFile of getModuleInfo(id).importedIds) {
     result.push(...getRecursiveImportOrder(importFile, getModuleInfo, seen))
-  })
+  }
 
   return result
 }
@@ -41,15 +41,15 @@ function getRecursiveImportOrder(id, getModuleInfo, seen = new Set()) {
 /* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default (options = {}) => {
   const filter = createFilter(options.include, options.exclude)
-  const postcssPlugins = Array.isArray(options.plugins) ?
-    options.plugins.filter(Boolean) :
-    options.plugins
+  const postcssPlugins = Array.isArray(options.plugins)
+    ? options.plugins.filter(Boolean)
+    : options.plugins
   const { sourceMap } = options
   const postcssLoaderOptions = {
     /** Inject CSS as `<style>` to `<head>` */
     inject: typeof options.inject === 'function' ? options.inject : inferOption(options.inject, {}),
     /** Extract CSS */
-    extract: typeof options.extract === 'undefined' ? false : options.extract,
+    extract: options.extract === undefined ? false : options.extract,
     /** CSS modules */
     onlyModules: options.modules === true,
     modules: inferOption(options.modules, false),
@@ -68,8 +68,8 @@ export default (options = {}) => {
       plugins: postcssPlugins,
       syntax: options.syntax,
       stringifier: options.stringifier,
-      exec: options.exec
-    }
+      exec: options.exec,
+    },
   }
   let use = ['sass', 'stylus', 'less']
   if (Array.isArray(options.use)) {
@@ -78,7 +78,7 @@ export default (options = {}) => {
     use = [
       ['sass', options.use.sass || {}],
       ['stylus', options.use.stylus || {}],
-      ['less', options.use.less || {}]
+      ['less', options.use.less || {}],
     ]
   }
 
@@ -87,7 +87,7 @@ export default (options = {}) => {
   const loaders = new Loaders({
     use,
     loaders: options.loaders,
-    extensions: options.extensions
+    extensions: options.extensions,
   })
 
   const extracted = new Map()
@@ -109,15 +109,15 @@ export default (options = {}) => {
         sourceMap,
         dependencies: new Set(),
         warn: this.warn.bind(this),
-        plugin: this
+        plugin: this,
       }
 
       const result = await loaders.process(
         {
           code,
-          map: undefined
+          map: undefined,
         },
-        loaderContext
+        loaderContext,
       )
 
       for (const dep of loaderContext.dependencies) {
@@ -128,40 +128,37 @@ export default (options = {}) => {
         extracted.set(id, result.extracted)
         return {
           code: result.code,
-          map: { mappings: '' }
+          map: { mappings: '' },
         }
       }
 
       return {
         code: result.code,
-        map: result.map || { mappings: '' }
+        map: result.map || { mappings: '' },
       }
     },
 
     augmentChunkHash() {
       if (extracted.size === 0) return
-      // eslint-disable-next-line unicorn/no-reduce
-      const extractedValue = [...extracted].reduce((object, [key, value]) => ({
-        ...object,
-        [key]: value
-      }), {})
+
+      const extractedValue = Object.fromEntries([...extracted].map(([key, value]) => [key, value]))
       return JSON.stringify(extractedValue)
     },
 
     async generateBundle(options_, bundle) {
       if (
-        extracted.size === 0 ||
-        !(options_.dir || options_.file)
+        extracted.size === 0
+        || !(options_.dir || options_.file)
       ) return
 
       // eslint-disable-next-line no-warning-comments
       // TODO: support `[hash]`
       const dir = options_.dir || path.dirname(options_.file)
-      const file =
-        options_.file ||
-        path.join(
+      const file
+        = options_.file
+        || path.join(
           options_.dir,
-          Object.keys(bundle).find(fileName => bundle[fileName].isEntry)
+          Object.keys(bundle).find(fileName => bundle[fileName].isEntry),
         )
       const getExtracted = () => {
         let fileName = `${path.basename(file, path.extname(file))}.css`
@@ -178,10 +175,10 @@ export default (options = {}) => {
         if (modules) {
           const moduleIds = getRecursiveImportOrder(
             facadeModuleId,
-            this.getModuleInfo
+            this.getModuleInfo,
           )
           entries.sort(
-            (a, b) => moduleIds.indexOf(a.id) - moduleIds.indexOf(b.id)
+            (a, b) => moduleIds.indexOf(a.id) - moduleIds.indexOf(b.id),
           )
         }
 
@@ -200,7 +197,7 @@ export default (options = {}) => {
         if (sourceMap === 'inline') {
           code += `\n/*# sourceMappingURL=data:application/json;base64,${Buffer.from(
             concat.sourceMap,
-            'utf8'
+            'utf8',
           ).toString('base64')}*/`
         } else if (sourceMap === true) {
           code += `\n/*# sourceMappingURL=${path.basename(fileName)}.map */`
@@ -210,7 +207,7 @@ export default (options = {}) => {
           code,
           map: sourceMap === true && concat.sourceMap,
           codeFileName: fileName,
-          mapFileName: fileName + '.map'
+          mapFileName: fileName + '.map',
         }
       }
 
@@ -244,15 +241,15 @@ export default (options = {}) => {
       this.emitFile({
         fileName: codeFileName,
         type: 'asset',
-        source: code
+        source: code,
       })
       if (map) {
         this.emitFile({
           fileName: mapFileName,
           type: 'asset',
-          source: map
+          source: map,
         })
       }
-    }
+    },
   }
 }

@@ -1,9 +1,9 @@
-import path from 'path'
+import path from 'node:path'
 import series from 'promise.series'
-import postcssLoader from './postcss-loader'
-import sassLoader from './sass-loader'
-import stylusLoader from './stylus-loader'
-import lessLoader from './less-loader'
+import postcssLoader from './postcss-loader.js'
+import sassLoader from './sass-loader.js'
+import stylusLoader from './stylus-loader.js'
+import lessLoader from './less-loader.js'
 
 const matchFile = (filepath, condition) => {
   if (typeof condition === 'function') {
@@ -31,14 +31,14 @@ export default class Loaders {
     const extensions = options.extensions || ['.css', '.sss', '.pcss']
     const customPostcssLoader = {
       ...postcssLoader,
-      test: filepath => extensions.some(ext => path.extname(filepath) === ext)
+      test: filepath => extensions.includes(path.extname(filepath)),
     }
     this.registerLoader(customPostcssLoader)
     this.registerLoader(sassLoader)
     this.registerLoader(stylusLoader)
     this.registerLoader(lessLoader)
     if (options.loaders) {
-      options.loaders.forEach(loader => this.registerLoader(loader))
+      for (const loader of options.loaders) this.registerLoader(loader)
     }
   }
 
@@ -58,9 +58,7 @@ export default class Loaders {
   }
 
   isSupported(filepath) {
-    return this.loaders.some(loader => {
-      return matchFile(filepath, loader.test)
-    })
+    return this.loaders.some(loader => matchFile(filepath, loader.test))
   }
 
   /**
@@ -76,20 +74,19 @@ export default class Loaders {
    */
   process({ code, map }, context) {
     return series(
-      this.use
-        .slice()
+      [...this.use]
         .reverse()
         .map(([name, options]) => {
           const loader = this.getLoader(name)
           const loaderContext = {
             options: options || {},
-            ...context
+            ...context,
           }
 
           return v => {
             if (
-              loader.alwaysProcess ||
-              matchFile(loaderContext.id, loader.test)
+              loader.alwaysProcess
+              || matchFile(loaderContext.id, loader.test)
             ) {
               return loader.process.call(loaderContext, v)
             }
@@ -98,7 +95,7 @@ export default class Loaders {
             return v
           }
         }),
-      { code, map }
+      { code, map },
     )
   }
 

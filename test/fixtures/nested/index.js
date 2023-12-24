@@ -1,6 +1,6 @@
 import './foo.css'
 import bar from './bar.module.css'
-import './nested'
-import component from './component'
+import './nested.js'
+import component from './component.js'
 
 console.log(bar, component)

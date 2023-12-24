@@ -1,6 +1,6 @@
 name: CI
 
-on: [push, pull_request]
+on: [pull_request]
 
 jobs:
   build:
@@ -13,24 +13,27 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js LTS
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          # alias support: https://github.com/actions/setup-node/issues/26
-          node-version: '12'
-      - name: Cache NPM dependencies
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: ${{ runner.OS }}-npm-cache-${{ matrix.os }}
-          restore-keys: |
-            ${{ runner.OS }}-npm-cache-${{ matrix.os }}
-      - name: Install Dependencies
+          node-version: '20'
+      - uses: pnpm/action-setup@v2
+      - name: Get pnpm store directory
+        shell: bash
         run: |
-          npm install -g yarn
-          yarn --frozen-lockfile --non-interactive
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+      - name: Cache NPM dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+      - name: Install Dependencies
+        run: 
+          pnpm install --frozen-lockfile
       - name: Test
-        run: yarn test
+        run: pnpm test
       - name: Lint
-        run: yarn lint
+        run: pnpm lint
         env:
           CI: true

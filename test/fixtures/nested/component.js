@@ -1,3 +1,2 @@
-import component from './component.module.css'
 
-export default component
+export { default } from './component.module.css'

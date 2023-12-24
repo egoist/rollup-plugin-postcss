@@ -1,19 +1,21 @@
-import path from 'path'
+import path from 'node:path'
 import importCwd from 'import-cwd'
 import postcss from 'postcss'
 import findPostcssConfig from 'postcss-load-config'
 import { identifier } from 'safe-identifier'
-import humanlizePath from './utils/humanlize-path'
-import normalizePath from './utils/normalize-path'
+import humanlizePath from './utils/humanlize-path.js'
+import normalizePath from './utils/normalize-path.js'
+
+const CSS_STYLESHEET_VARIABLE_NAME = 'stylesheet'
 
 const styleInjectPath = require
   .resolve('style-inject/dist/style-inject.es')
-  .replace(/[\\/]+/g, '/')
+  .replaceAll(/[\\/]+/g, '/')
 
 function loadConfig(id, { ctx: configOptions, path: configPath }) {
-  const handleError = err => {
-    if (!err.message.includes('No PostCSS Config found')) {
-      throw err
+  const handleError = error => {
+    if (!error.message.includes('No PostCSS Config found')) {
+      throw error
     }
 
     // Return empty options for PostCSS
@@ -25,18 +27,16 @@ function loadConfig(id, { ctx: configOptions, path: configPath }) {
     file: {
       extname: path.extname(id),
       dirname: path.dirname(id),
-      basename: path.basename(id)
+      basename: path.basename(id),
     },
-    options: configOptions || {}
+    options: configOptions || {},
   }
 
   return findPostcssConfig(ctx, configPath).catch(handleError)
 }
 
 function escapeClassNameDashes(string) {
-  return string.replace(/-+/g, match => {
-    return `$${match.replace(/-/g, '_')}$`
-  })
+  return string.replaceAll(/-+/g, match => `$${match.replaceAll('-', '_')}$`)
 }
 
 function ensureClassName(name) {
@@ -59,20 +59,21 @@ export default {
   // `test` option is dynamically set in ./loaders
   // eslint-disable-next-line complexity
   async process({ code, map }) {
-    const config = this.options.config ?
-      await loadConfig(this.id, this.options.config) :
-      {}
+    const config = this.options.config
+      ? await loadConfig(this.id, this.options.config)
+      : {}
 
     const { options } = this
     const plugins = [
       ...(options.postcss.plugins || []),
-      ...(config.plugins || [])
+      ...(config.plugins || []),
     ]
     const shouldExtract = options.extract
     const shouldInject = options.inject
 
     const modulesExported = {}
-    const autoModules = options.autoModules !== false && options.onlyModules !== true
+    const autoModules
+      = options.autoModules !== false && options.onlyModules !== true
     const isAutoModule = autoModules && isModuleFile(this.id)
     const supportModules = autoModules ? isAutoModule : options.modules
     if (supportModules) {
@@ -80,20 +81,20 @@ export default {
         require('postcss-modules')({
           // In tests
           // Skip hash in names since css content on windows and linux would differ because of `new line` (\r?\n)
-          generateScopedName: process.env.ROLLUP_POSTCSS_TEST ?
-            '[name]_[local]' :
-            '[name]_[local]__[hash:base64:5]',
+          generateScopedName: process.env.ROLLUP_POSTCSS_TEST
+            ? '[name]_[local]'
+            : '[name]_[local]__[hash:base64:5]',
           ...options.modules,
           getJSON(filepath, json, outpath) {
             modulesExported[filepath] = json
             if (
-              typeof options.modules === 'object' &&
-              typeof options.modules.getJSON === 'function'
+              typeof options.modules === 'object'
+              && typeof options.modules.getJSON === 'function'
             ) {
               return options.modules.getJSON(filepath, json, outpath)
             }
-          }
-        })
+          },
+        }),
       )
     }
 
@@ -109,11 +110,11 @@ export default {
       to: options.to || this.id,
       // Followings are never modified by user config config
       from: this.id,
-      map: this.sourceMap ?
-        (shouldExtract ?
-          { inline: false, annotation: false } :
-          { inline: true, annotation: false }) :
-        false
+      map: this.sourceMap
+        ? (shouldExtract
+          ? { inline: false, annotation: false }
+          : { inline: true, annotation: false })
+        : false,
     }
     delete postcssOptions.plugins
 
@@ -128,13 +129,10 @@ export default {
     if (plugins.length === 0) {
       // Prevent from postcss warning:
       // You did not set any plugins, parser, or stringifier. Right now, PostCSS does nothing. Pick plugins for your case on https://www.postcss.parts/ and use them in postcss.config.js
-      const noopPlugin = () => {
-        return {
-          postcssPlugin: 'postcss-noop-plugin',
-          Once() {
-          }
-        }
-      }
+      const noopPlugin = () => ({
+        postcssPlugin: 'postcss-noop-plugin',
+        Once() {},
+      })
 
       plugins.push(noopPlugin())
     }
@@ -165,10 +163,10 @@ export default {
 
     if (options.namedExports) {
       const json = modulesExported[this.id]
-      const getClassName =
-        typeof options.namedExports === 'function' ?
-          options.namedExports :
-          ensureClassName
+      const getClassName
+        = typeof options.namedExports === 'function'
+          ? options.namedExports
+          : ensureClassName
       // eslint-disable-next-line guard-for-in
       for (const name in json) {
         const newName = getClassName(name)
@@ -177,7 +175,7 @@ export default {
         // Since a user like you can manually log that if you want
         if (name !== newName && typeof options.namedExports !== 'function') {
           this.warn(
-            `Exported "${name}" as "${newName}" in ${humanlizePath(this.id)}`
+            `Exported "${name}" as "${newName}" in ${humanlizePath(this.id)}`,
           )
         }
 
@@ -189,37 +187,41 @@ export default {
       }
     }
 
-    const cssVariableName = identifier('css', true)
     if (shouldExtract) {
       output += `export default ${JSON.stringify(modulesExported[this.id])};`
       extracted = {
         id: this.id,
         code: result.css,
-        map: outputMap
+        map: outputMap,
       }
     } else {
-      const module = supportModules ?
-        JSON.stringify(modulesExported[this.id]) :
-        cssVariableName
-      output +=
-        `var ${cssVariableName} = ${JSON.stringify(result.css)};\n` +
-        `export default ${module};\n` +
-        `export var stylesheet=${JSON.stringify(result.css)};`
+      const module = supportModules
+        ? JSON.stringify(modulesExported[this.id])
+        : CSS_STYLESHEET_VARIABLE_NAME
+      output += `export default ${module};\n`
     }
 
+    output += `export var ${CSS_STYLESHEET_VARIABLE_NAME} = ${JSON.stringify(
+      result.css,
+    )};\n`
+
     if (!shouldExtract && shouldInject) {
-      output += typeof options.inject === 'function' ? options.inject(cssVariableName, this.id) : '\n' +
-        `import styleInject from '${styleInjectPath}';\n` +
-        `styleInject(${cssVariableName}${Object.keys(options.inject).length > 0 ?
-          `,${JSON.stringify(options.inject)}` :
-          ''
-        });`
+      output
+        += typeof options.inject === 'function'
+          ? options.inject(CSS_STYLESHEET_VARIABLE_NAME, this.id)
+          : '\n'
+            + `import styleInject from '${styleInjectPath}';\n`
+            + `styleInject(${CSS_STYLESHEET_VARIABLE_NAME}${
+              Object.keys(options.inject).length > 0
+                ? `,${JSON.stringify(options.inject)}`
+                : ''
+            });`
     }
 
     return {
       code: output,
       map: outputMap,
-      extracted
+      extracted,
     }
-  }
+  },
 }

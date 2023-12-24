@@ -1,66 +1,69 @@
 {
-  "name": "rollup-plugin-postcss",
-  "version": "3.0.0",
+  "name": "@dougalg/rollup-plugin-postcss",
+  "version": "4.0.0",
   "description": "Seamless integration between Rollup and PostCSS",
   "main": "dist/index.js",
+  "packageManager": "pnpm@8.12.1",
   "files": [
     "dist",
     "types/index.d.ts"
   ],
   "scripts": {
-    "test": "npm run lint && jest",
-    "test:cov": "npm run lint && jest --coverage",
+    "test": "pnpm run lint && jest",
+    "test:cov": "pnpm run lint && jest --coverage",
     "build": "bili",
     "lint": "xo",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "pnpm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/egoist/rollup-plugin-postcss.git"
+    "url": "git+https://github.com/dougalg/rollup-plugin-postcss.git"
   },
   "keywords": [
     "postcss",
     "rollup"
   ],
   "author": "EGOIST <0x142857@gmail.com>",
+  "contributors": [
+    "Dougal Graham <dougalg@gmail.com>"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/egoist/rollup-plugin-postcss/issues"
+    "url": "https://github.com/dougalg/rollup-plugin-postcss/issues"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=12.5.0"
   },
   "types": "./types/index.d.ts",
-  "homepage": "https://github.com/egoist/rollup-plugin-postcss#readme",
+  "homepage": "https://github.com/dougalg/rollup-plugin-postcss#readme",
   "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "@babel/preset-env": "^7.12.7",
-    "autoprefixer": "^10.0.4",
+    "@babel/core": "^7.23.6",
+    "@babel/preset-env": "^7.23.6",
+    "autoprefixer": "^10.4.16",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^26.6.3",
+    "babel-jest": "^29.7.0",
     "bili": "^5.0.5",
     "eslint-config-rem": "^4.0.0",
     "fs-extra": "^9.0.1",
-    "jest": "^26.6.3",
+    "jest": "^29.7.0",
     "less": "^3.12.2",
-    "node-sass": "^5.0.0",
-    "postcss": "^8.2.7",
-    "rollup": "^2.34.2",
+    "node-sass": "^9.0.0",
+    "postcss": "^8.4.32",
+    "rollup": "^4.9.1",
     "stylus": "^0.54.8",
     "sugarss": "^3.0.3",
-    "xo": "^0.35.0"
+    "xo": "^0.56.0"
   },
   "dependencies": {
-    "chalk": "^4.1.0",
     "concat-with-sourcemaps": "^1.1.0",
-    "cssnano": "^5.0.1",
+    "cssnano": "^6.0.2",
     "import-cwd": "^3.0.0",
     "p-queue": "^6.6.2",
     "pify": "^5.0.0",
     "postcss-load-config": "^3.0.0",
     "postcss-modules": "^4.0.0",
     "promise.series": "^0.2.0",
-    "resolve": "^1.19.0",
+    "resolve": "^1.22.8",
     "rollup-pluginutils": "^2.8.2",
     "safe-identifier": "^0.4.2",
     "style-inject": "^0.3.0"
@@ -74,16 +77,32 @@
       "jest"
     ],
     "rules": {
+      "unicorn/prefer-spread": 0,
+      "@typescript-eslint/naming-convention": 0,
+      "n/prefer-global/process": 0,
+      "n/prefer-global/buffer": 0,
+      "unicorn/prefer-module": 0,
       "import/prefer-default-export": 0,
       "import/extensions": 0,
       "import/no-unassigned-import": 0,
       "@typescript-eslint/semi": 0,
       "eslint-comments/disable-enable-pair": 0,
       "promise/prefer-await-to-then": 0
-    }
+    },
+    "overrides": [
+      {
+        "files": ["**/*.ts"],
+        "rules": {
+          "object-curly-spacing": 0
+        }
+      }
+    ]
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(rollup)/)"
+    ]
   },
   "babel": {
     "presets": [
@@ -102,5 +121,8 @@
       "master",
       "next"
     ]
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
