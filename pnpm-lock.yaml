@@ -80,7 +80,7 @@ devDependencies:
     specifier: ^8.4.32
     version: 8.4.32
   rollup:
-    specifier: ^4.0.0
+    specifier: ^4.9.1
     version: 4.9.1
   stylus:
     specifier: ^0.54.8
