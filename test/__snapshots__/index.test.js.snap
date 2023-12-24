@@ -719,7 +719,7 @@ styleInject(stylesheet);
 console.log(
   a,
   b,
-  c
+  c,
 );
 "
 `;
