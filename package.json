@@ -24,7 +24,9 @@
     "rollup"
   ],
   "author": "EGOIST <0x142857@gmail.com>",
-  "contributors": ["Dougal Graham <dougalg@gmail.com>"],
+  "contributors": [
+    "Dougal Graham <dougalg@gmail.com>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/dougalg/rollup-plugin-postcss/issues"
@@ -53,7 +55,6 @@
     "xo": "^0.35.0"
   },
   "dependencies": {
-    "chalk": "^4.1.0",
     "concat-with-sourcemaps": "^1.1.0",
     "cssnano": "^5.0.1",
     "import-cwd": "^3.0.0",
@@ -86,7 +87,9 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "transformIgnorePatterns": ["/node_modules/(?!(rollup)/)"]
+    "transformIgnorePatterns": [
+      "/node_modules/(?!(rollup)/)"
+    ]
   },
   "babel": {
     "presets": [
