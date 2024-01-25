@@ -210,6 +210,23 @@ snapshotMany('minimize', [
   }
 ])
 
+snapshotMany('styleInject', [
+  {
+    title: 'relative-import',
+    input: 'simple/index.js',
+    options: {
+      styleInjectRelativePath: true
+    }
+  },
+  {
+    title: 'module-import',
+    input: 'simple/index.js',
+    options: {
+      styleInjectRelativePath: false
+    }
+  }
+])
+
 snapshotMany('modules', [
   {
     title: 'inject',
