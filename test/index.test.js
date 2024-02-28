@@ -141,6 +141,10 @@ snapshotMany('basic', [
     input: 'postcss-config/index.js'
   },
   {
+    title: 'postcss-config-mjs',
+    input: 'postcss-config-mjs/index.js'
+  },
+  {
     title: 'skip-loader',
     input: 'skip-loader/index.js',
     options: {

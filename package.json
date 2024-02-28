@@ -8,8 +8,9 @@
     "types/index.d.ts"
   ],
   "scripts": {
-    "test": "npm run lint && jest",
-    "test:cov": "npm run lint && jest --coverage",
+    "test": "npm run lint && npm run test:jest",
+    "test:cov": "npm run lint && npm run test:jest --coverage",
+    "test:jest": "NODE_OPTIONS=--experimental-vm-modules jest",
     "build": "bili",
     "lint": "xo",
     "prepublishOnly": "npm run build"
@@ -28,7 +29,7 @@
     "url": "https://github.com/egoist/rollup-plugin-postcss/issues"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=18"
   },
   "types": "./types/index.d.ts",
   "homepage": "https://github.com/egoist/rollup-plugin-postcss#readme",
@@ -37,13 +38,13 @@
     "@babel/preset-env": "^7.12.7",
     "autoprefixer": "^10.0.4",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^26.6.3",
+    "babel-jest": "^27.5.1",
     "bili": "^5.0.5",
     "eslint-config-rem": "^4.0.0",
     "fs-extra": "^9.0.1",
-    "jest": "^26.6.3",
+    "jest": "^27.5.1",
     "less": "^3.12.2",
-    "node-sass": "^5.0.0",
+    "node-sass": "^9.0.0",
     "postcss": "^8.2.7",
     "rollup": "^2.34.2",
     "stylus": "^0.54.8",
@@ -57,7 +58,7 @@
     "import-cwd": "^3.0.0",
     "p-queue": "^6.6.2",
     "pify": "^5.0.0",
-    "postcss-load-config": "^3.0.0",
+    "postcss-load-config": "^5.0.3",
     "postcss-modules": "^4.0.0",
     "promise.series": "^0.2.0",
     "resolve": "^1.19.0",
